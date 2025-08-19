@@ -212,6 +212,10 @@ public class Annuncio extends JFrame {
 						textAreaCategoria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
+					setVisible(false);
+					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio();
+					annuncioScambioFrame.setVisible(true);
+					annuncioScambioFrame.setLocationRelativeTo(null);
 				}
 			}
 		});
@@ -228,7 +232,12 @@ public class Annuncio extends JFrame {
 						textAreaCategoria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
+					setVisible(false);
+					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo();
+					annuncioRegaloFrame.setVisible(true);
+					annuncioRegaloFrame.setLocationRelativeTo(null);
 				}
+				
 			}
 		});
 		
@@ -244,6 +253,10 @@ public class Annuncio extends JFrame {
 						textAreaCategoria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
+					setVisible(false);
+					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita();
+					annuncioVenditaFrame.setVisible(true);
+					annuncioVenditaFrame.setLocationRelativeTo(null);
 				}
 			}
 		});
