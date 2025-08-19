@@ -129,15 +129,7 @@ public class Annuncio extends JFrame {
 		JScambio.setFont(new Font("Tahoma", Font.BOLD, 16));
 		JScambio.setBounds(36, 426, 122, 56);
 		contentPane.add(JScambio);
-		
-		JScambio.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(); 
-				annuncioScambioFrame.setVisible(true);
-			}
-		});
+	
 		
 		JButton JRegalo = new JButton("Regalo");
 		JRegalo.setForeground(new Color(255, 255, 255));
@@ -146,30 +138,12 @@ public class Annuncio extends JFrame {
 		JRegalo.setBounds(176, 426, 122, 56);
 		contentPane.add(JRegalo);
 		
-		JRegalo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(); 
-				annuncioRegaloFrame.setVisible(true);
-			}
-		});
-		
 		JButton JVendita = new JButton("Vendita");
 		JVendita.setForeground(new Color(255, 255, 255));
 		JVendita.setBackground(new Color(0, 52, 102));
 		JVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
 		JVendita.setBounds(322, 426, 122, 56);
 		contentPane.add(JVendita);
-		
-		JVendita.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false); 
-				AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(); 
-				annuncioVenditaFrame.setVisible(true);
-			}
-		}); 
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));

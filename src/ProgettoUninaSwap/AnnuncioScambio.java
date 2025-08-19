@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,21 +79,35 @@ public class AnnuncioScambio extends Annuncio {
 			}
 		}); 
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setForeground(new Color(255, 255, 255));
-		textArea.setBackground(new Color(0, 52, 102));
-		textArea.setBackground(new Color(0, 52, 102));
-		textArea.setBounds(324, 93, 168, 22);
-		contentPane.add(textArea);
+		JTextArea textAreaOggettoRichiesto = new JTextArea();
+		textAreaOggettoRichiesto.setForeground(new Color(255, 255, 255));
+		textAreaOggettoRichiesto.setBackground(new Color(0, 52, 102));
+		textAreaOggettoRichiesto.setBackground(new Color(0, 52, 102));
+		textAreaOggettoRichiesto.setBounds(324, 93, 168, 22);
+		contentPane.add(textAreaOggettoRichiesto);
 		
 		JLabel lblNewLabel_2 = new JLabel("Oggetto richiesto ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_2.setBounds(100, 92, 162, 22);
 		contentPane.add(lblNewLabel_2);
 		
-		JButton btnNewButton_1 = new JButton("Pubblica ");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnNewButton_1.setBounds(221, 163, 152, 40);
-		contentPane.add(btnNewButton_1);
+		JButton ButtonPubblica = new JButton("Pubblica ");
+		ButtonPubblica.setFont(new Font("Tahoma", Font.BOLD, 16));
+		ButtonPubblica.setBounds(221, 163, 152, 40);
+		contentPane.add(ButtonPubblica);
+		
+		ButtonPubblica.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textAreaOggettoRichiesto.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
+				} else {
+					setVisible(false);
+					JOptionPane.showMessageDialog(null, "Pubblicazione avvenuta con successo", "Annuncio pubblicato", JOptionPane.INFORMATION_MESSAGE);
+
+				}
+			}
+		});
+		
 	}
 }
