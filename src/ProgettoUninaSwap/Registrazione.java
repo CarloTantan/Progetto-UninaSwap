@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JPasswordField;
 
 public class Registrazione extends JFrame {
 
@@ -25,9 +26,9 @@ public class Registrazione extends JFrame {
 	private JTextField textFieldCognome;
 	private JTextField textFieldMatricola;
 	private JTextField textFieldEmail;
-	private JTextField textFieldPassword;
+	private JPasswordField PasswordConfermaPassword;
 	private JTextField textFieldTelefono;
-	private JTextField textField;
+	private JPasswordField textField;
 
 	/**
 	 * Launch the application.
@@ -112,11 +113,11 @@ public class Registrazione extends JFrame {
 		textFieldEmail.setBounds(423, 193, 96, 18);
 		Registrazione.add(textFieldEmail);
 		
-		textFieldPassword = new JTextField();
-		textFieldPassword.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-		textFieldPassword.setColumns(10);
-		textFieldPassword.setBounds(423, 225, 96, 18);
-		Registrazione.add(textFieldPassword);
+		PasswordConfermaPassword = new JPasswordField();
+		PasswordConfermaPassword.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		PasswordConfermaPassword.setColumns(10);
+		PasswordConfermaPassword.setBounds(423, 225, 96, 18);
+		Registrazione.add(PasswordConfermaPassword);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
@@ -134,7 +135,7 @@ public class Registrazione extends JFrame {
 		lblConfermaPassword.setBounds(276, 253, 137, 22);
 		Registrazione.add(lblConfermaPassword);
 		
-		textField = new JTextField();
+		textField = new JPasswordField();
 		textField.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
 		textField.setColumns(10);
 		textField.setBounds(423, 255, 96, 18);
@@ -155,7 +156,7 @@ public class Registrazione extends JFrame {
 			            textFieldCognome.getText().trim().isEmpty() ||
 			            textFieldMatricola.getText().trim().isEmpty() ||
 			            textFieldEmail.getText().trim().isEmpty() ||
-			            textFieldPassword.getText().trim().isEmpty() ||
+			            PasswordConfermaPassword.getText().trim().isEmpty() ||
 			            textFieldTelefono.getText().trim().isEmpty() ||
 			            textField.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);

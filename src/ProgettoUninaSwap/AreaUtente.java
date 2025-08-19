@@ -132,6 +132,10 @@ public class AreaUtente extends JFrame {
 		JButton btnUndo = new JButton("");
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Login LoginFrame = new Login();
+				LoginFrame.setVisible(true);
+				LoginFrame.setLocationRelativeTo(null);
 			}
 		});
 		btnUndo.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
