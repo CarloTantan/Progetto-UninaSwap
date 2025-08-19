@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
 
 public class AnnuncioScambio extends Annuncio {
 
@@ -55,10 +56,10 @@ public class AnnuncioScambio extends Annuncio {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
-		lblNewLabel_1.setBounds(0, 0, 39, 64);
-		panel.add(lblNewLabel_1);
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		btnNewButton.setBounds(0, 0, 41, 64);
+		panel.add(btnNewButton);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setBackground(new Color(0, 52, 102));
