@@ -54,14 +54,14 @@ public class AreaUtente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnVisualizzaAnnuncio = new JButton("Visualizza Annuncio");
-		btnVisualizzaAnnuncio.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
-		btnVisualizzaAnnuncio.setForeground(new Color(255, 255, 255));
-		btnVisualizzaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
-		btnVisualizzaAnnuncio.setBackground(new Color(0, 52, 104));
-		btnVisualizzaAnnuncio.setBounds(71, 344, 333, 84);
-		btnVisualizzaAnnuncio.setFocusPainted(false);
-		contentPane.add(btnVisualizzaAnnuncio);
+		JButton btnVisualizzaOfferteRicevute = new JButton("Visualizza Offerte Ricevute");
+		btnVisualizzaOfferteRicevute.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		btnVisualizzaOfferteRicevute.setForeground(new Color(255, 255, 255));
+		btnVisualizzaOfferteRicevute.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnVisualizzaOfferteRicevute.setBackground(new Color(0, 52, 104));
+		btnVisualizzaOfferteRicevute.setBounds(71, 275, 356, 84);
+		btnVisualizzaOfferteRicevute.setFocusPainted(false);
+		contentPane.add(btnVisualizzaOfferteRicevute);
 		
 		JButton btnVisualizzaStoricoOfferte = new JButton("Visualizza Storico Offerte");
 		
@@ -69,7 +69,7 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaStoricoOfferte.setForeground(Color.WHITE);
 		btnVisualizzaStoricoOfferte.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnVisualizzaStoricoOfferte.setBackground(new Color(0, 52, 104));
-		btnVisualizzaStoricoOfferte.setBounds(71, 226, 333, 84);
+		btnVisualizzaStoricoOfferte.setBounds(71, 163, 356, 84);
 		btnVisualizzaStoricoOfferte.setFocusPainted(false);
 		contentPane.add(btnVisualizzaStoricoOfferte);
 		
@@ -78,7 +78,7 @@ public class AreaUtente extends JFrame {
 		btnInserisciRecensione.setForeground(Color.WHITE);
 		btnInserisciRecensione.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnInserisciRecensione.setBackground(new Color(0, 52, 104));
-		btnInserisciRecensione.setBounds(509, 216, 285, 84);
+		btnInserisciRecensione.setBounds(509, 163, 303, 84);
 		btnInserisciRecensione.setFocusPainted(false);
 		contentPane.add(btnInserisciRecensione);
 		
@@ -87,7 +87,7 @@ public class AreaUtente extends JFrame {
 		btnCreaAnnuncio.setForeground(Color.WHITE);
 		btnCreaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnCreaAnnuncio.setBackground(new Color(0, 52, 104));
-		btnCreaAnnuncio.setBounds(509, 344, 285, 84);
+		btnCreaAnnuncio.setBounds(509, 275, 303, 84);
 		btnCreaAnnuncio.setFocusPainted(false);
 		contentPane.add(btnCreaAnnuncio);
 		
@@ -125,5 +125,23 @@ public class AreaUtente extends JFrame {
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
 		panel.add(btnNewButton);
+		
+		JButton btnVisualizzaRecensioni = new JButton("Visualizza Recensioni");
+		btnVisualizzaRecensioni.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		btnVisualizzaRecensioni.setForeground(Color.WHITE);
+		btnVisualizzaRecensioni.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnVisualizzaRecensioni.setFocusPainted(false);
+		btnVisualizzaRecensioni.setBackground(new Color(0, 52, 104));
+		btnVisualizzaRecensioni.setBounds(71, 388, 356, 84);
+		contentPane.add(btnVisualizzaRecensioni);
+		
+		JButton btnVisualizzaAnnuncio = new JButton("Visualizza Annuncio");
+		btnVisualizzaAnnuncio.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		btnVisualizzaAnnuncio.setForeground(Color.WHITE);
+		btnVisualizzaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnVisualizzaAnnuncio.setFocusPainted(false);
+		btnVisualizzaAnnuncio.setBackground(new Color(0, 52, 104));
+		btnVisualizzaAnnuncio.setBounds(509, 388, 303, 84);
+		contentPane.add(btnVisualizzaAnnuncio);
 	}
 }
