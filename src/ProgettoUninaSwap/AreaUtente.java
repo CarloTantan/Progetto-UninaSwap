@@ -129,13 +129,17 @@ public class AreaUtente extends JFrame {
 		lblNewLabel_3.setBackground(new Color(45, 134, 192));
 		lblNewLabel_3.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
-		btnNewButton.setBackground(new Color(45, 134, 192));
-		btnNewButton.setBounds(10, 10, 46, 77);
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		panel.add(btnNewButton);
+		JButton btnUndo = new JButton("");
+		btnUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnUndo.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
+		btnUndo.setBackground(new Color(45, 134, 192));
+		btnUndo.setBounds(10, 10, 46, 77);
+		btnUndo.setFocusPainted(false);
+		btnUndo.setBorderPainted(false);
+		panel.add(btnUndo);
 		
 		JButton btnVisualizzaRecensioni = new JButton("Visualizza Recensioni");
 		btnVisualizzaRecensioni.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
