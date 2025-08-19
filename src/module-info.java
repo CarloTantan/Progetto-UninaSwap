@@ -4,6 +4,6 @@
 /**
  * 
  */
-module ProgettoUninaSwap {
-	requires java.desktop;
+module ProgettoUninaSwap{
+requires java.desktop;
 }
