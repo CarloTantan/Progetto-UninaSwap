@@ -26,6 +26,7 @@ public class AnnuncioScambio extends Annuncio {
 				try {
 					AnnuncioScambio frame = new AnnuncioScambio();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

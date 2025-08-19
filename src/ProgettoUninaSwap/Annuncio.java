@@ -33,6 +33,7 @@ public class Annuncio extends JFrame {
 				try {
 					Annuncio frame = new Annuncio();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

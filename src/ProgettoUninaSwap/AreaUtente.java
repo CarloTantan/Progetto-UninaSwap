@@ -15,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AreaUtente extends JFrame {
 
@@ -31,6 +33,7 @@ public class AreaUtente extends JFrame {
 				try {
 					AreaUtente frame = new AreaUtente();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,6 +86,14 @@ public class AreaUtente extends JFrame {
 		contentPane.add(btnInserisciRecensione);
 		
 		btnCreaAnnuncio = new JButton("Crea Annuncio");
+		btnCreaAnnuncio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Annuncio AnnuncioFrame = new Annuncio();
+				AnnuncioFrame.setVisible(true);
+				AnnuncioFrame.setLocationRelativeTo(null);
+			}
+		});
 		btnCreaAnnuncio.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-aggiungi-48.png"));
 		btnCreaAnnuncio.setForeground(Color.WHITE);
 		btnCreaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
