@@ -54,31 +54,37 @@ public class Annuncio extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setForeground(new Color(255, 255, 255));
 		textArea.setBackground(new Color(0, 52, 102));
 		textArea.setBounds(251, 87, 179, 22);
 		contentPane.add(textArea);
 		
 		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setForeground(new Color(255, 255, 255));
 		textArea_1.setBackground(new Color(0, 52, 102));
 		textArea_1.setBounds(251, 119, 179, 56);
 		contentPane.add(textArea_1);
 		
 		JTextArea textArea_2 = new JTextArea();
+		textArea_2.setForeground(new Color(255, 255, 255));
 		textArea_2.setBackground(new Color(0, 52, 102));
 		textArea_2.setBounds(251, 196, 179, 22);
 		contentPane.add(textArea_2);
 		
 		JTextArea textArea_3 = new JTextArea();
+		textArea_3.setForeground(new Color(255, 255, 255));
 		textArea_3.setBackground(new Color(0, 52, 102));
 		textArea_3.setBounds(251, 251, 179, 22);
 		contentPane.add(textArea_3);
 		
 		JTextArea textArea_4 = new JTextArea();
+		textArea_4.setForeground(new Color(255, 255, 255));
 		textArea_4.setBackground(new Color(0, 52, 102));
 		textArea_4.setBounds(251, 306, 179, 22);
 		contentPane.add(textArea_4);
 		
 		JTextArea textArea_5 = new JTextArea();
+		textArea_5.setForeground(new Color(255, 255, 255));
 		textArea_5.setBackground(new Color(0, 52, 102));
 		textArea_5.setBounds(251, 355, 179, 22);
 		contentPane.add(textArea_5);
@@ -114,6 +120,7 @@ public class Annuncio extends JFrame {
 		contentPane.add(lblNewLabel_5);
 		
 		JButton btnNewButton = new JButton("Scambio");
+		btnNewButton.setToolTipText("");
 		btnNewButton.setBackground(new Color(0, 52, 102));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton.setBounds(36, 426, 122, 56);
