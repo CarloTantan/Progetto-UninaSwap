@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
-public class AnnuncioRegalo extends JFrame {
+public class AnnuncioRegalo extends Annuncio {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
