@@ -152,7 +152,7 @@ public class Annuncio extends JFrame {
 		panel.setLayout(null);
 		
 		JButton ButtonAnnulla = new JButton("");
-		ButtonAnnulla.setBounds(0, 0, 50, 58);
+		ButtonAnnulla.setBounds(0, 0, 46, 58);
 		panel.add(ButtonAnnulla);
 		ButtonAnnulla.setBackground(new Color(45, 134, 192));
 		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
