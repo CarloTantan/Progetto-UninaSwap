@@ -29,6 +29,7 @@ public class Homepage extends JFrame {
 				try {
 					Homepage frame = new Homepage();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
