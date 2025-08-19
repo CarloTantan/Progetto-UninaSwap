@@ -129,7 +129,7 @@ public class Annuncio extends JFrame {
 		btnVendita.setForeground(new Color(0, 0, 0));
 		btnVendita.setBackground(new Color(0, 52, 102));
 		btnVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnVendita.setBounds(308, 426, 122, 56);
+		btnVendita.setBounds(322, 426, 122, 56);
 		contentPane.add(btnVendita);
 		
 		JPanel panel = new JPanel();
