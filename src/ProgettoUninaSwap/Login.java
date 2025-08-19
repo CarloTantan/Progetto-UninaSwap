@@ -33,6 +33,7 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -124,6 +125,11 @@ public class Login extends JFrame {
 						textFieldPassword.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
+					setVisible(false);
+					AreaUtente AreaUtenteFrame = new AreaUtente();
+					AreaUtenteFrame.setVisible(true);
+					AreaUtenteFrame.setLocationRelativeTo(null);
+				
 				}
 			}
 		});

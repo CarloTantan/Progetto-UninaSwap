@@ -15,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AreaUtente extends JFrame {
 
@@ -31,6 +33,7 @@ public class AreaUtente extends JFrame {
 				try {
 					AreaUtente frame = new AreaUtente();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,6 +86,14 @@ public class AreaUtente extends JFrame {
 		contentPane.add(btnInserisciRecensione);
 		
 		btnCreaAnnuncio = new JButton("Crea Annuncio");
+		btnCreaAnnuncio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Annuncio AnnuncioFrame = new Annuncio();
+				AnnuncioFrame.setVisible(true);
+				AnnuncioFrame.setLocationRelativeTo(null);
+			}
+		});
 		btnCreaAnnuncio.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-aggiungi-48.png"));
 		btnCreaAnnuncio.setForeground(Color.WHITE);
 		btnCreaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
@@ -118,13 +129,17 @@ public class AreaUtente extends JFrame {
 		lblNewLabel_3.setBackground(new Color(45, 134, 192));
 		lblNewLabel_3.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
-		btnNewButton.setBackground(new Color(45, 134, 192));
-		btnNewButton.setBounds(10, 10, 46, 77);
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		panel.add(btnNewButton);
+		JButton btnUndo = new JButton("");
+		btnUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnUndo.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
+		btnUndo.setBackground(new Color(45, 134, 192));
+		btnUndo.setBounds(10, 10, 46, 77);
+		btnUndo.setFocusPainted(false);
+		btnUndo.setBorderPainted(false);
+		panel.add(btnUndo);
 		
 		JButton btnVisualizzaRecensioni = new JButton("Visualizza Recensioni");
 		btnVisualizzaRecensioni.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
