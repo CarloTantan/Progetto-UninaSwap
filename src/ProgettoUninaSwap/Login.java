@@ -58,8 +58,8 @@ public class Login extends JFrame {
 		
 		JLabel lblLogin = new JLabel("Log in");
 		lblLogin.setToolTipText("");
-		lblLogin.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
-		lblLogin.setBounds(370, 32, 57, 22);
+		lblLogin.setFont(new Font("Verdana Pro Black", Font.BOLD, 20));
+		lblLogin.setBounds(370, 32, 82, 26);
 		contentPane.add(lblLogin);
 		
 		JPanel panel = new JPanel();
@@ -91,30 +91,32 @@ public class Login extends JFrame {
 		});
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblPassword.setBounds(277, 120, 74, 22);
+		lblPassword.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblPassword.setBounds(277, 123, 150, 22);
 		contentPane.add(lblPassword);
 		
 		textFieldPassword = new JPasswordField();
 		textFieldPassword.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
 		textFieldPassword.setColumns(10);
-		textFieldPassword.setBounds(417, 122, 96, 18);
+		textFieldPassword.setBounds(380, 124, 112, 26);
 		contentPane.add(textFieldPassword);
 		
 		JLabel lblMatricola = new JLabel("Matricola");
-		lblMatricola.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblMatricola.setBounds(277, 88, 137, 22);
+		lblMatricola.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblMatricola.setBounds(277, 83, 137, 22);
 		contentPane.add(lblMatricola);
 		
 		textFieldMatricola = new JTextField();
 		textFieldMatricola.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
 		textFieldMatricola.setColumns(10);
-		textFieldMatricola.setBounds(417, 92, 96, 18);
+		textFieldMatricola.setBounds(380, 84, 112, 26);
 		contentPane.add(textFieldMatricola);
 		
 		JButton btnAccedi = new JButton("Accedi");
-		btnAccedi.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 14));
-		btnAccedi.setBounds(310, 170, 172, 35);
+		btnAccedi.setForeground(new Color(255, 255, 255));
+		btnAccedi.setBackground(new Color(0, 52, 101));
+		btnAccedi.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnAccedi.setBounds(330, 185, 162, 35);
 		btnAccedi.setFocusPainted(false);
 		btnAccedi.setBorderPainted(false);
 		contentPane.add(btnAccedi);

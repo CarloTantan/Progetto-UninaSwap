@@ -80,32 +80,35 @@ public class InserimentoRecensione extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\IMG-20250718-WA00372.jpg"));
 		
 		JLabel lblInserisciUnaRecensione = new JLabel("Lascia una recensione");
-		lblInserisciUnaRecensione.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
-		lblInserisciUnaRecensione.setBounds(188, 4, 212, 54);
+		lblInserisciUnaRecensione.setFont(new Font("Verdana Pro Black", Font.BOLD, 18));
+		lblInserisciUnaRecensione.setBounds(182, 10, 257, 54);
 		panel.add(lblInserisciUnaRecensione);
 		
 		JLabel lblPunteggio = new JLabel("Punteggio");
-		lblPunteggio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 14));
+		lblPunteggio.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		lblPunteggio.setBounds(107, 91, 111, 26);
 		contentPane.add(lblPunteggio);
 		
 		String[] punteggi= {"Seleziona punteggio", "1", "2", "3", "4", "5"};
 		JComboBox comboBoxPunteggi = new JComboBox<>(punteggi);
-		comboBoxPunteggi.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
+		comboBoxPunteggi.setForeground(new Color(0, 0, 0));
+		comboBoxPunteggi.setBackground(new Color(255, 255, 255));
+		comboBoxPunteggi.setFont(new Font("Verdana Pro Black", Font.BOLD, 14));
 		comboBoxPunteggi.setBounds(228, 92, 233, 26);
 		contentPane.add(comboBoxPunteggi);
 		
 		JLabel lblCommento = new JLabel("Commento");
-		lblCommento.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 14));
+		lblCommento.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		lblCommento.setBounds(107, 140, 111, 26);
 		contentPane.add(lblCommento);
 		
 		JTextArea textAreaCommento = new JTextArea();
+		textAreaCommento.setForeground(new Color(0, 0, 0));
 		textAreaCommento.setRows(8);
 		textAreaCommento.setColumns(90);
 		textAreaCommento.setWrapStyleWord(true);
 		textAreaCommento.setLineWrap(true);
-		textAreaCommento.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		textAreaCommento.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		textAreaCommento.setBounds(228, 145, 233, 151);
 		contentPane.add(textAreaCommento);
 		
@@ -116,8 +119,10 @@ public class InserimentoRecensione extends JFrame {
         contentPane.add(scrollPane);
         
         JButton btnInvia = new JButton("Invia");
+        btnInvia.setForeground(new Color(255, 255, 255));
+        btnInvia.setBackground(new Color(0, 52, 101));
         btnInvia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
-        btnInvia.setBounds(203, 286, 161, 50);
+        btnInvia.setBounds(255, 286, 161, 50);
         contentPane.add(btnInvia);
         
         btnInvia.addActionListener(new ActionListener() {
