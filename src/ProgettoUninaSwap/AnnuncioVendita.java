@@ -61,9 +61,13 @@ public class AnnuncioVendita extends Annuncio {
 		panel.add(lblNewLabel);
 		
 		JButton ButtonAnnulla = new JButton("");
+		ButtonAnnulla.setBackground(new Color(45, 134, 192));
 		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
-		ButtonAnnulla.setBounds(0, 0, 38, 55);
+		ButtonAnnulla.setBounds(0, 0, 51, 55);
 		panel.add(ButtonAnnulla);
+		ButtonAnnulla.setFocusPainted(false);
+		ButtonAnnulla.setBorderPainted(false);
+
 		
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override

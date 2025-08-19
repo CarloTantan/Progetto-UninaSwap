@@ -11,6 +11,8 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -53,41 +55,41 @@ public class Annuncio extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setForeground(new Color(255, 255, 255));
-		textArea.setBackground(new Color(0, 52, 102));
-		textArea.setBounds(251, 87, 179, 22);
-		contentPane.add(textArea);
+		JTextArea textfieldTitolo = new JTextArea();
+		textfieldTitolo.setForeground(new Color(255, 255, 255));
+		textfieldTitolo.setBackground(new Color(0, 52, 102));
+		textfieldTitolo.setBounds(251, 87, 179, 22);
+		contentPane.add(textfieldTitolo);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setForeground(new Color(255, 255, 255));
-		textArea_1.setBackground(new Color(0, 52, 102));
-		textArea_1.setBounds(251, 119, 179, 56);
-		contentPane.add(textArea_1);
+		JTextArea textAreaDescrizione = new JTextArea();
+		textAreaDescrizione.setForeground(new Color(255, 255, 255));
+		textAreaDescrizione.setBackground(new Color(0, 52, 102));
+		textAreaDescrizione.setBounds(251, 119, 179, 56);
+		contentPane.add(textAreaDescrizione);
 		
-		JTextArea textArea_2 = new JTextArea();
-		textArea_2.setForeground(new Color(255, 255, 255));
-		textArea_2.setBackground(new Color(0, 52, 102));
-		textArea_2.setBounds(251, 196, 179, 22);
-		contentPane.add(textArea_2);
+		JTextArea textAreaFasciaOraria = new JTextArea();
+		textAreaFasciaOraria.setForeground(new Color(255, 255, 255));
+		textAreaFasciaOraria.setBackground(new Color(0, 52, 102));
+		textAreaFasciaOraria.setBounds(251, 196, 179, 22);
+		contentPane.add(textAreaFasciaOraria);
 		
-		JTextArea textArea_3 = new JTextArea();
-		textArea_3.setForeground(new Color(255, 255, 255));
-		textArea_3.setBackground(new Color(0, 52, 102));
-		textArea_3.setBounds(251, 251, 179, 22);
-		contentPane.add(textArea_3);
+		JTextArea textAreaModConsegna = new JTextArea();
+		textAreaModConsegna.setForeground(new Color(255, 255, 255));
+		textAreaModConsegna.setBackground(new Color(0, 52, 102));
+		textAreaModConsegna.setBounds(251, 251, 179, 22);
+		contentPane.add(textAreaModConsegna);
 		
-		JTextArea textArea_4 = new JTextArea();
-		textArea_4.setForeground(new Color(255, 255, 255));
-		textArea_4.setBackground(new Color(0, 52, 102));
-		textArea_4.setBounds(251, 306, 179, 22);
-		contentPane.add(textArea_4);
+		JTextArea textAreaOggetto = new JTextArea();
+		textAreaOggetto.setForeground(new Color(255, 255, 255));
+		textAreaOggetto.setBackground(new Color(0, 52, 102));
+		textAreaOggetto.setBounds(251, 306, 179, 22);
+		contentPane.add(textAreaOggetto);
 		
-		JTextArea textArea_5 = new JTextArea();
-		textArea_5.setForeground(new Color(255, 255, 255));
-		textArea_5.setBackground(new Color(0, 52, 102));
-		textArea_5.setBounds(251, 355, 179, 22);
-		contentPane.add(textArea_5);
+		JTextArea textAreaCategoria = new JTextArea();
+		textAreaCategoria.setForeground(new Color(255, 255, 255));
+		textAreaCategoria.setBackground(new Color(0, 52, 102));
+		textAreaCategoria.setBounds(251, 355, 179, 22);
+		contentPane.add(textAreaCategoria);
 		
 		JLabel lblNewLabel = new JLabel("Titolo");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -177,8 +179,11 @@ public class Annuncio extends JFrame {
 		JButton ButtonAnnulla = new JButton("");
 		ButtonAnnulla.setBounds(0, 0, 50, 58);
 		panel.add(ButtonAnnulla);
-		ButtonAnnulla.setBackground(SystemColor.textHighlight);
+		ButtonAnnulla.setBackground(new Color(45, 134, 192));
 		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		ButtonAnnulla.setFocusPainted(false);
+		ButtonAnnulla.setBorderPainted(false);
+		
 		
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
@@ -193,5 +198,53 @@ public class Annuncio extends JFrame {
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_6.setBounds(196, 10, 83, 35);
 		panel.add(lblNewLabel_6);
+		
+		JScambio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textfieldTitolo.getText().trim().isEmpty() || 
+						textAreaDescrizione.getText().trim().isEmpty() || 
+						textAreaFasciaOraria.getText().trim().isEmpty() || 
+						textAreaModConsegna.getText().trim().isEmpty() || 
+						textAreaOggetto.getText().trim().isEmpty() || 
+						textAreaFasciaOraria.getText().trim().isEmpty() || 
+						textAreaCategoria.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
+				} else {
+				}
+			}
+		});
+		
+		JRegalo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textfieldTitolo.getText().trim().isEmpty() || 
+						textAreaDescrizione.getText().trim().isEmpty() || 
+						textAreaFasciaOraria.getText().trim().isEmpty() || 
+						textAreaModConsegna.getText().trim().isEmpty() || 
+						textAreaOggetto.getText().trim().isEmpty() || 
+						textAreaFasciaOraria.getText().trim().isEmpty() || 
+						textAreaCategoria.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
+				} else {
+				}
+			}
+		});
+		
+		JVendita.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textfieldTitolo.getText().trim().isEmpty() || 
+						textAreaDescrizione.getText().trim().isEmpty() || 
+						textAreaFasciaOraria.getText().trim().isEmpty() || 
+						textAreaModConsegna.getText().trim().isEmpty() || 
+						textAreaOggetto.getText().trim().isEmpty() || 
+						textAreaFasciaOraria.getText().trim().isEmpty() || 
+						textAreaCategoria.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
+				} else {
+				}
+			}
+		});
 	}
 }

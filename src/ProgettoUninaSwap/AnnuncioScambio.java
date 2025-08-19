@@ -54,15 +54,18 @@ public class AnnuncioScambio extends Annuncio {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Annuncio di scambio ");
-		lblNewLabel.setBounds(212, 21, 172, 20);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel.add(lblNewLabel);
-		
 		JButton ButtonAnnulla = new JButton("");
+		ButtonAnnulla.setBackground(new Color(45, 134, 192));
 		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
-		ButtonAnnulla.setBounds(0, 0, 41, 64);
+		ButtonAnnulla.setBounds(0, 0, 43, 64);
 		panel.add(ButtonAnnulla);
+		ButtonAnnulla.setFocusPainted(false);
+		ButtonAnnulla.setBorderPainted(false);
+		
+		JLabel lblNewLabel = new JLabel("Annuncio di scambio ");
+		lblNewLabel.setBounds(217, 23, 172, 20);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override

@@ -60,9 +60,12 @@ public class AnnuncioRegalo extends Annuncio {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		JButton ButtonAnnulla = new JButton("");
-		ButtonAnnulla.setBounds(0, 0, 40, 55);
-		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		ButtonAnnulla.setBackground(new Color(45, 134, 192));
+		ButtonAnnulla.setBounds(0, 0, 42, 55);
 		panel.add(ButtonAnnulla);
+		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		ButtonAnnulla.setFocusPainted(false);
+		ButtonAnnulla.setBorderPainted(false);
 		
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
