@@ -8,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
@@ -56,10 +59,19 @@ public class AnnuncioRegalo extends Annuncio {
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBounds(0, 0, 40, 55);
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
-		panel.add(btnNewButton);
+		JButton ButtonAnnulla = new JButton("");
+		ButtonAnnulla.setBounds(0, 0, 40, 55);
+		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		panel.add(ButtonAnnulla);
+		
+		ButtonAnnulla.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false); 
+				Annuncio annuncioFrame = new Annuncio(); 
+				annuncioFrame.setVisible(true);
+			}
+		}); 
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setBackground(new Color(0, 52, 102));

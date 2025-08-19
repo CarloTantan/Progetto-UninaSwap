@@ -119,25 +119,54 @@ public class Annuncio extends JFrame {
 		lblNewLabel_5.setBounds(73, 355, 236, 19);
 		contentPane.add(lblNewLabel_5);
 		
-		JButton btnNewButton = new JButton("Scambio");
-		btnNewButton.setToolTipText("");
-		btnNewButton.setBackground(new Color(0, 52, 102));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnNewButton.setBounds(36, 426, 122, 56);
-		contentPane.add(btnNewButton);
+		JButton JScambio = new JButton("Scambio");
+		JScambio.setForeground(new Color(255, 255, 255));
+		JScambio.setToolTipText("");
+		JScambio.setBackground(new Color(0, 52, 102));
+		JScambio.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JScambio.setBounds(36, 426, 122, 56);
+		contentPane.add(JScambio);
 		
-		JButton btnRegalo = new JButton("Regalo");
-		btnRegalo.setBackground(new Color(0, 52, 102));
-		btnRegalo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnRegalo.setBounds(176, 426, 122, 56);
-		contentPane.add(btnRegalo);
+		JScambio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(); 
+				annuncioScambioFrame.setVisible(true);
+			}
+		});
 		
-		JButton btnVendita = new JButton("Vendita");
-		btnVendita.setForeground(new Color(0, 0, 0));
-		btnVendita.setBackground(new Color(0, 52, 102));
-		btnVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnVendita.setBounds(322, 426, 122, 56);
-		contentPane.add(btnVendita);
+		JButton JRegalo = new JButton("Regalo");
+		JRegalo.setForeground(new Color(255, 255, 255));
+		JRegalo.setBackground(new Color(0, 52, 102));
+		JRegalo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JRegalo.setBounds(176, 426, 122, 56);
+		contentPane.add(JRegalo);
+		
+		JRegalo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(); 
+				annuncioRegaloFrame.setVisible(true);
+			}
+		});
+		
+		JButton JVendita = new JButton("Vendita");
+		JVendita.setForeground(new Color(255, 255, 255));
+		JVendita.setBackground(new Color(0, 52, 102));
+		JVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JVendita.setBounds(322, 426, 122, 56);
+		contentPane.add(JVendita);
+		
+		JVendita.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false); 
+				AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(); 
+				annuncioVenditaFrame.setVisible(true);
+			}
+		}); 
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
@@ -145,11 +174,20 @@ public class Annuncio extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setBounds(0, 0, 50, 58);
-		panel.add(btnNewButton_1);
-		btnNewButton_1.setBackground(SystemColor.textHighlight);
-		btnNewButton_1.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		JButton ButtonAnnulla = new JButton("");
+		ButtonAnnulla.setBounds(0, 0, 50, 58);
+		panel.add(ButtonAnnulla);
+		ButtonAnnulla.setBackground(SystemColor.textHighlight);
+		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		
+		ButtonAnnulla.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false); 
+				AreaUtente utenteFrame = new AreaUtente(); 
+				utenteFrame.setVisible(true);
+			}
+		}); 
 		
 		JLabel lblNewLabel_6 = new JLabel("Annuncio");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
