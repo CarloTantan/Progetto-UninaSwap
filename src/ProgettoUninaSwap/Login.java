@@ -16,12 +16,13 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldPassword;
+	private JPasswordField textFieldPassword;
 	private JTextField textFieldMatricola;
 
 	/**
@@ -90,10 +91,10 @@ public class Login extends JFrame {
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblPassword.setBounds(278, 90, 74, 22);
+		lblPassword.setBounds(277, 120, 74, 22);
 		contentPane.add(lblPassword);
 		
-		textFieldPassword = new JTextField();
+		textFieldPassword = new JPasswordField();
 		textFieldPassword.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
 		textFieldPassword.setColumns(10);
 		textFieldPassword.setBounds(417, 122, 96, 18);
@@ -101,7 +102,7 @@ public class Login extends JFrame {
 		
 		JLabel lblMatricola = new JLabel("Matricola");
 		lblMatricola.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblMatricola.setBounds(278, 120, 137, 22);
+		lblMatricola.setBounds(277, 88, 137, 22);
 		contentPane.add(lblMatricola);
 		
 		textFieldMatricola = new JTextField();
