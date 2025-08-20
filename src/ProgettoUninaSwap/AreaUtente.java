@@ -64,6 +64,7 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaOfferteRicevute.setBackground(new Color(0, 52, 104));
 		btnVisualizzaOfferteRicevute.setBounds(71, 275, 356, 84);
 		btnVisualizzaOfferteRicevute.setFocusPainted(false);
+		btnVisualizzaOfferteRicevute.setBorderPainted(false);
 		contentPane.add(btnVisualizzaOfferteRicevute);
 		
 		JButton btnVisualizzaStoricoOfferte = new JButton("Visualizza Storico Offerte");
@@ -74,15 +75,26 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaStoricoOfferte.setBackground(new Color(0, 52, 104));
 		btnVisualizzaStoricoOfferte.setBounds(71, 163, 356, 84);
 		btnVisualizzaStoricoOfferte.setFocusPainted(false);
+		btnVisualizzaStoricoOfferte.setBorderPainted(false);
 		contentPane.add(btnVisualizzaStoricoOfferte);
 		
 		JButton btnInserisciRecensione = new JButton("Inserisci Recensione");
+		btnInserisciRecensione.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				InserimentoRecensione InserimentoRecensioneFrame = new InserimentoRecensione();
+				InserimentoRecensioneFrame.setVisible(true);
+				InserimentoRecensioneFrame.setLocationRelativeTo(null);
+				
+			}
+		});
 		btnInserisciRecensione.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-aggiungi-48.png"));
 		btnInserisciRecensione.setForeground(Color.WHITE);
 		btnInserisciRecensione.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnInserisciRecensione.setBackground(new Color(0, 52, 104));
 		btnInserisciRecensione.setBounds(509, 163, 303, 84);
 		btnInserisciRecensione.setFocusPainted(false);
+		btnInserisciRecensione.setBorderPainted(false);
 		contentPane.add(btnInserisciRecensione);
 		
 		btnCreaAnnuncio = new JButton("Crea Annuncio");
@@ -100,6 +112,9 @@ public class AreaUtente extends JFrame {
 		btnCreaAnnuncio.setBackground(new Color(0, 52, 104));
 		btnCreaAnnuncio.setBounds(509, 275, 303, 84);
 		btnCreaAnnuncio.setFocusPainted(false);
+	
+		btnCreaAnnuncio.setBorderPainted(false);
+		
 		contentPane.add(btnCreaAnnuncio);
 		
 		JPanel panel = new JPanel();
@@ -149,18 +164,30 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaRecensioni.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
 		btnVisualizzaRecensioni.setForeground(Color.WHITE);
 		btnVisualizzaRecensioni.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
-		btnVisualizzaRecensioni.setFocusPainted(false);
 		btnVisualizzaRecensioni.setBackground(new Color(0, 52, 104));
 		btnVisualizzaRecensioni.setBounds(71, 388, 356, 84);
+		btnVisualizzaRecensioni.setFocusPainted(false);
+		btnVisualizzaRecensioni.setBorderPainted(false);
+		
 		contentPane.add(btnVisualizzaRecensioni);
 		
 		JButton btnVisualizzaAnnuncio = new JButton("Visualizza Annuncio");
+		btnVisualizzaAnnuncio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci();
+				ListaAnnunciFrame.setVisible(true);
+				ListaAnnunciFrame.setLocationRelativeTo(null);
+			}
+		});
 		btnVisualizzaAnnuncio.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
 		btnVisualizzaAnnuncio.setForeground(Color.WHITE);
 		btnVisualizzaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnVisualizzaAnnuncio.setFocusPainted(false);
 		btnVisualizzaAnnuncio.setBackground(new Color(0, 52, 104));
 		btnVisualizzaAnnuncio.setBounds(509, 388, 303, 84);
+		btnVisualizzaAnnuncio.setFocusPainted(false);
+		btnVisualizzaAnnuncio.setBorderPainted(false);
 		contentPane.add(btnVisualizzaAnnuncio);
 	}
 }

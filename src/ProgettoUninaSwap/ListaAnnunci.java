@@ -14,6 +14,8 @@ import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListaAnnunci extends JFrame {
 
@@ -68,6 +70,14 @@ public class ListaAnnunci extends JFrame {
 		panel.add(lblNewLabel);
 		
 		JButton btnUndo = new JButton("");
+		btnUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				AreaUtente AreaUtenteFrame = new AreaUtente();
+				AreaUtenteFrame.setVisible(true);
+				AreaUtenteFrame.setLocationRelativeTo(null);
+			}
+		});
 		btnUndo.setBackground(new Color(45, 134, 192));
 		btnUndo.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
 		btnUndo.setBounds(10, 10, 47, 78);
@@ -103,6 +113,8 @@ public class ListaAnnunci extends JFrame {
 		btnInviaOfferta.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		btnInviaOfferta.setBounds(100, 404, 209, 62);
 		btnInviaOfferta.setFocusPainted(false);
+		btnInviaOfferta.setBorderPainted(false);
+		
 		contentPane.add(btnInviaOfferta);
 		
 		JButton btnVisualizza = new JButton("Visualizza ");
@@ -111,6 +123,8 @@ public class ListaAnnunci extends JFrame {
 		btnVisualizza.setBackground(new Color(0, 52, 101));
 		btnVisualizza.setBounds(520, 404, 209, 62);
 		btnVisualizza.setFocusPainted(false);
+		btnVisualizza.setBorderPainted(false);
+		
 		contentPane.add(btnVisualizza);
 		
 	
