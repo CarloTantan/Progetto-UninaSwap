@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 public class InserimentoRecensione extends JFrame {
 
@@ -44,6 +45,7 @@ public class InserimentoRecensione extends JFrame {
 	 * Create the frame.
 	 */
 	public InserimentoRecensione() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scrivi la tua recensione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 410);
@@ -74,7 +76,7 @@ public class InserimentoRecensione extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(59, 0, 113, 58);
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));

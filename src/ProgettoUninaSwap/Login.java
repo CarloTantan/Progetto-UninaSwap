@@ -17,6 +17,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.awt.Toolkit;
 
 public class Login extends JFrame {
 
@@ -46,6 +47,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 410);
@@ -68,7 +70,7 @@ public class Login extends JFrame {
 		panel.setBounds(0, 0, 234, 373);
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
 		lblNewLabel_1.setBounds(10, 52, 214, 218);
 		panel.add(lblNewLabel_1);

@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+import java.awt.Toolkit;
 
 public class Registrazione extends JFrame {
 
@@ -50,6 +51,7 @@ public class Registrazione extends JFrame {
 	 * Create the frame.
 	 */
 	public Registrazione() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Registrazione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Registrazione");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 670, 440);
@@ -180,7 +182,7 @@ public class Registrazione extends JFrame {
 		panel.setBounds(0, 0, 234, 403);
 		Registrazione.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
 		lblNewLabel.setBounds(10, 52, 214, 218);
 		panel.add(lblNewLabel);
