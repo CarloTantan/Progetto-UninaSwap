@@ -181,13 +181,13 @@ public class Registrazione extends JFrame {
 		Registrazione.add(panel);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\IMG-20250718-WA00372.jpg"));
+		lblNewLabel.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
 		lblNewLabel.setBounds(10, 52, 214, 218);
 		panel.add(lblNewLabel);
 		
 		JButton btnIndietro = new JButton("");
 		btnIndietro.setBackground(new Color(46, 132, 191));
-		btnIndietro.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		btnIndietro.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnIndietro.setBounds(10, 10, 39, 32);
 		btnIndietro.setFocusPainted(false);
 		btnIndietro.setBorderPainted(false);
