@@ -76,6 +76,15 @@ public class AreaUtente extends JFrame {
 		contentPane.add(btnVisualizzaOfferteRicevute);
 		
 		JButton btnVisualizzaStoricoOfferte = new JButton("Visualizza Storico Offerte");
+		btnVisualizzaStoricoOfferte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				StoricoOfferte StoricoOfferteFrame = new StoricoOfferte();
+				StoricoOfferteFrame.setVisible(true);
+				StoricoOfferteFrame.setLocationRelativeTo(null);	
+				
+			}
+		});
 		
 		btnVisualizzaStoricoOfferte.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaStoricoOfferte.setForeground(Color.WHITE);
