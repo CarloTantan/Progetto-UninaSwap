@@ -88,7 +88,7 @@ public class OfferteRicevute extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnAccetta = new JButton("Accetta");
-		btnAccetta.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnAccetta.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
 		btnAccetta.setBackground(new Color(0, 52, 101));
 		btnAccetta.setForeground(new Color(255, 255, 255));
 		btnAccetta.setBounds(136, 245, 153, 44);
@@ -98,11 +98,11 @@ public class OfferteRicevute extends JFrame {
 		
 		JButton btnRifiuta = new JButton("Rifiuta");
 		btnRifiuta.setForeground(Color.WHITE);
-		btnRifiuta.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnRifiuta.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
 		btnRifiuta.setBackground(new Color(0, 52, 101));
 		btnRifiuta.setBounds(443, 245, 153, 44);
 		btnRifiuta.setFocusPainted(false);
-		btnRifiuta.setBorderPainted(false);
+		btnRifiuta.setBorderPainted(false); 
 		contentPane.add(btnRifiuta);
 	}
 }
