@@ -223,9 +223,7 @@ public class Annuncio extends JFrame {
 						textAreaDescrizione.getText().trim().isEmpty() || 
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
-						
-						LabelImg.getText().trim().isEmpty() ||
-						
+						LabelImg.getIcon()==null ||
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaCategoria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
@@ -245,9 +243,7 @@ public class Annuncio extends JFrame {
 						textAreaDescrizione.getText().trim().isEmpty() || 
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
-						
-						LabelImg.getText().trim().isEmpty() ||
-						
+						LabelImg.getIcon()==null ||						
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaCategoria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
@@ -268,9 +264,7 @@ public class Annuncio extends JFrame {
 						textAreaDescrizione.getText().trim().isEmpty() || 
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
-						
-						LabelImg.getText().trim().isEmpty() ||
-
+						LabelImg.getIcon()==null ||
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaCategoria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
