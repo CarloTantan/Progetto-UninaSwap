@@ -26,9 +26,9 @@ public class Registrazione extends JFrame {
 	private JTextField textFieldCognome;
 	private JTextField textFieldMatricola;
 	private JTextField textFieldEmail;
-	private JPasswordField PasswordConfermaPassword;
+	private JPasswordField PasswordPassword;
 	private JTextField textFieldTelefono;
-	private JPasswordField textField;
+	private JPasswordField PasswordConfermaPassword;
 
 	/**
 	 * Launch the application.
@@ -52,7 +52,7 @@ public class Registrazione extends JFrame {
 	public Registrazione() {
 		setTitle("Registrazione");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 580, 410);
+		setBounds(100, 100, 670, 440);
 		Registrazione = new JPanel();
 		Registrazione.setBackground(Color.WHITE);
 		Registrazione.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,90 +60,92 @@ public class Registrazione extends JFrame {
 		Registrazione.setLayout(null);
 		
 		JLabel lblRegistra = new JLabel("Registrazione Nuovo Utente");
-		lblRegistra.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
-		lblRegistra.setBounds(276, 20, 266, 22);
+		lblRegistra.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblRegistra.setBounds(295, 10, 280, 35);
 		Registrazione.add(lblRegistra);
 		
 		JLabel lblNome = new JLabel("Nome");
-		lblNome.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblNome.setBounds(276, 62, 57, 22);
+		lblNome.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblNome.setBounds(272, 64, 57, 22);
 		Registrazione.add(lblNome);
 		
 		textFieldNome = new JTextField();
-		textFieldNome.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-		textFieldNome.setBounds(423, 64, 96, 18);
+		textFieldNome.setFont(new Font("Dialog", Font.BOLD, 16));
+		textFieldNome.setBounds(444, 64, 139, 22);
 		Registrazione.add(textFieldNome);
 		textFieldNome.setColumns(10);
 		
 		JLabel lblCognome = new JLabel("Cognome");
-		lblCognome.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblCognome.setBounds(276, 94, 74, 22);
+		lblCognome.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblCognome.setBounds(272, 96, 74, 22);
 		Registrazione.add(lblCognome);
 		
 		textFieldCognome = new JTextField();
-		textFieldCognome.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		textFieldCognome.setFont(new Font("Dialog", Font.BOLD, 16));
 		textFieldCognome.setColumns(10);
-		textFieldCognome.setBounds(423, 96, 96, 18);
+		textFieldCognome.setBounds(444, 96, 139, 22);
 		Registrazione.add(textFieldCognome);
 		
 		JLabel lblEmail = new JLabel("E-mail");
-		lblEmail.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblEmail.setBounds(276, 191, 74, 22);
+		lblEmail.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblEmail.setBounds(272, 193, 74, 22);
 		Registrazione.add(lblEmail);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblPassword.setBounds(276, 223, 74, 22);
+		lblPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblPassword.setBounds(272, 225, 74, 22);
 		Registrazione.add(lblPassword);
 		
 		JLabel lblMatricola = new JLabel("Matricola");
-		lblMatricola.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblMatricola.setBounds(276, 126, 74, 22);
+		lblMatricola.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblMatricola.setBounds(272, 128, 74, 22);
 		Registrazione.add(lblMatricola);
 		
 		textFieldMatricola = new JTextField();
-		textFieldMatricola.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		textFieldMatricola.setFont(new Font("Dialog", Font.BOLD, 16));
 		textFieldMatricola.setColumns(10);
-		textFieldMatricola.setBounds(423, 128, 96, 18);
+		textFieldMatricola.setBounds(444, 128, 139, 22);
 		Registrazione.add(textFieldMatricola);
 		
 		textFieldEmail = new JTextField();
-		textFieldEmail.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		textFieldEmail.setFont(new Font("Dialog", Font.BOLD, 16));
 		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(423, 193, 96, 18);
+		textFieldEmail.setBounds(444, 193, 139, 22);
 		Registrazione.add(textFieldEmail);
 		
-		PasswordConfermaPassword = new JPasswordField();
-		PasswordConfermaPassword.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-		PasswordConfermaPassword.setColumns(10);
-		PasswordConfermaPassword.setBounds(423, 225, 96, 18);
-		Registrazione.add(PasswordConfermaPassword);
+		PasswordPassword = new JPasswordField();
+		PasswordPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+		PasswordPassword.setColumns(10);
+		PasswordPassword.setBounds(444, 225, 139, 22);
+		Registrazione.add(PasswordPassword);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblTelefono.setBounds(276, 159, 74, 22);
+		lblTelefono.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblTelefono.setBounds(272, 160, 74, 22);
 		Registrazione.add(lblTelefono);
 		
 		textFieldTelefono = new JTextField();
-		textFieldTelefono.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		textFieldTelefono.setFont(new Font("Dialog", Font.BOLD, 16));
 		textFieldTelefono.setColumns(10);
-		textFieldTelefono.setBounds(423, 161, 96, 18);
+		textFieldTelefono.setBounds(444, 160, 139, 22);
 		Registrazione.add(textFieldTelefono);
 		
 		JLabel lblConfermaPassword = new JLabel("Conferma Password");
-		lblConfermaPassword.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		lblConfermaPassword.setBounds(276, 253, 137, 22);
+		lblConfermaPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblConfermaPassword.setBounds(272, 259, 162, 22);
 		Registrazione.add(lblConfermaPassword);
 		
-		textField = new JPasswordField();
-		textField.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-		textField.setColumns(10);
-		textField.setBounds(423, 255, 96, 18);
-		Registrazione.add(textField);
+		PasswordConfermaPassword = new JPasswordField();
+		PasswordConfermaPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+		PasswordConfermaPassword.setColumns(10);
+		PasswordConfermaPassword.setBounds(444, 259, 139, 22);
+		Registrazione.add(PasswordConfermaPassword);
 		
 		JButton btnRegistrati = new JButton("Registrati");
+		btnRegistrati.setForeground(Color.WHITE);
+		btnRegistrati.setBackground(new Color(46, 132, 191));
 		btnRegistrati.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 14));
-		btnRegistrati.setBounds(308, 296, 172, 35);
+		btnRegistrati.setBounds(349, 313, 172, 35);
 		btnRegistrati.setFocusPainted(false);
 		btnRegistrati.setBorderPainted(false);
 		Registrazione.add(btnRegistrati);
@@ -156,23 +158,26 @@ public class Registrazione extends JFrame {
 			            textFieldCognome.getText().trim().isEmpty() ||
 			            textFieldMatricola.getText().trim().isEmpty() ||
 			            textFieldEmail.getText().trim().isEmpty() ||
-			            PasswordConfermaPassword.getText().trim().isEmpty() ||
+			            PasswordPassword.getText().trim().isEmpty() ||
 			            textFieldTelefono.getText().trim().isEmpty() ||
-			            textField.getText().trim().isEmpty()) {
+			            PasswordConfermaPassword.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else {
-				setVisible(false);
-				JOptionPane.showMessageDialog(null, "Registrazione avvenuta con successo", "Utente Registrato", JOptionPane.INFORMATION_MESSAGE);
-				Homepage homepageFrame = new Homepage();
-				homepageFrame.setVisible(true);
+				} else if (!textFieldEmail.getText().trim().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+					JOptionPane.showMessageDialog(null, "Inserisci un indirizzo E-mail valido", "Indirizzo E-mail non valido", JOptionPane.WARNING_MESSAGE);
+				
+				} else if (!PasswordPassword.getText().equals(PasswordConfermaPassword.getText())) {
+					JOptionPane.showMessageDialog(null, "Le password non corrispondono", "Errore di conferma password", JOptionPane.WARNING_MESSAGE);
+				}else {
+					setVisible(false); JOptionPane.showMessageDialog(null, "Registrazione avvenuta con successo", "Utente Registrato", JOptionPane.INFORMATION_MESSAGE);
+					Homepage homepageFrame = new Homepage();
+					homepageFrame.setVisible(true);
 				}
-			}
-		});
+		}});
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBackground(new Color(30, 144, 255));
-		panel.setBounds(0, 0, 234, 373);
+		panel.setBackground(new Color(46, 132, 191));
+		panel.setBounds(0, 0, 234, 403);
 		Registrazione.add(panel);
 		
 		JLabel lblNewLabel = new JLabel("New label");
@@ -181,7 +186,7 @@ public class Registrazione extends JFrame {
 		panel.add(lblNewLabel);
 		
 		JButton btnIndietro = new JButton("");
-		btnIndietro.setBackground(new Color(30, 144, 255));
+		btnIndietro.setBackground(new Color(46, 132, 191));
 		btnIndietro.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\icons8-annulla-3d-fluency-32.png"));
 		btnIndietro.setBounds(10, 10, 39, 32);
 		btnIndietro.setFocusPainted(false);

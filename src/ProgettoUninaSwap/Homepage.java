@@ -43,7 +43,7 @@ public class Homepage extends JFrame {
 	public Homepage() {
 		setTitle("Homepage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 410);
+		setBounds(100, 100, 630, 410);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,13 +51,15 @@ public class Homepage extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblnuovoUtente = new JLabel("Sei un nuovo utente?");
-		lblnuovoUtente.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-		lblnuovoUtente.setBounds(265, 107, 130, 31);
+		lblnuovoUtente.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblnuovoUtente.setBounds(258, 108, 179, 34);
 		contentPane.add(lblnuovoUtente);
 		
 		JButton btnRegistrati = new JButton("Registrati");
-		btnRegistrati.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		btnRegistrati.setBounds(405, 105, 122, 36);
+		btnRegistrati.setForeground(Color.WHITE);
+		btnRegistrati.setBackground(new Color(46, 132, 191));
+		btnRegistrati.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
+		btnRegistrati.setBounds(441, 106, 122, 36);
 		btnRegistrati.setFocusPainted(false);
 		btnRegistrati.setBorderPainted(false);
 		contentPane.add(btnRegistrati);
@@ -72,13 +74,15 @@ public class Homepage extends JFrame {
 		});
 		
 		JLabel lblAccediConLe = new JLabel("Sei già registrato?");
-		lblAccediConLe.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-		lblAccediConLe.setBounds(265, 177, 130, 36);
+		lblAccediConLe.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblAccediConLe.setBounds(258, 178, 151, 36);
 		contentPane.add(lblAccediConLe);
 		
 		JButton btnAccedi = new JButton("Accedi");
-		btnAccedi.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 12));
-		btnAccedi.setBounds(405, 177, 122, 36);
+		btnAccedi.setForeground(Color.WHITE);
+		btnAccedi.setBackground(new Color(11, 52, 92));
+		btnAccedi.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
+		btnAccedi.setBounds(441, 178, 122, 36);
 		btnAccedi.setFocusPainted(false);
 		btnAccedi.setBorderPainted(false);
 		contentPane.add(btnAccedi);
@@ -93,7 +97,7 @@ public class Homepage extends JFrame {
 		});
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(30, 144, 255));
+		panel.setBackground(new Color(46, 132, 191));
 		panel.setBounds(0, 0, 234, 369);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -103,9 +107,9 @@ public class Homepage extends JFrame {
 		lblNewLabel.setBounds(10, 10, 214, 218);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Benvenuto");
-		lblNewLabel_1.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(353, 35, 88, 36);
+		JLabel lblNewLabel_1 = new JLabel("Benvenuto in Unina Swap");
+		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(289, 35, 245, 36);
 		contentPane.add(lblNewLabel_1);
 
 	}
