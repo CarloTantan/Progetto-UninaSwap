@@ -6,10 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +30,8 @@ import java.awt.SystemColor;
 import java.awt.Button;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class Annuncio extends JFrame {
 
@@ -194,21 +199,18 @@ public class Annuncio extends JFrame {
 		contentPane.add(ButtonImgOggetto);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
+		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{textfieldTitolo, textAreaDescrizione, textAreaFasciaOraria, textAreaModConsegna, textAreaCategoria, lblNewLabel, lblNewLabel_1, lblNewLabel_2, lblNewLabel_3, lblNewLabel_5, JScambio, JRegalo, JVendita, panel, ButtonAnnulla, lblNewLabel_6, LabelImg, ButtonImgOggetto}));
 		
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser scegliImg = new JFileChooser();
 		        scegliImg.setDialogTitle("Seleziona immagine");
-		        scegliImg.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Immagini PNG", "png"));
+		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
 
 		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
-		            Image img = iconaImg.getImage().getScaledInstance(
-		                    LabelImg.getWidth(),
-		                    LabelImg.getHeight(),
-		                    Image.SCALE_SMOOTH
-		                );
+		            Image img = iconaImg.getImage();
 		            LabelImg.setIcon(new ImageIcon(img));
 		        }
 			}
