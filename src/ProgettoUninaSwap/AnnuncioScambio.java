@@ -108,7 +108,9 @@ public class AnnuncioScambio extends Annuncio {
 				} else {
 					setVisible(false);
 					JOptionPane.showMessageDialog(null, "Pubblicazione avvenuta con successo", "Annuncio pubblicato", JOptionPane.INFORMATION_MESSAGE);
-
+					setVisible(false); 
+					AreaUtente utenteFrame = new AreaUtente(); 
+					utenteFrame.setVisible(true);
 				}
 			}
 		});
