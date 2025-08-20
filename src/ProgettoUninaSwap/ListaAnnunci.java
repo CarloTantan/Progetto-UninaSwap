@@ -79,14 +79,14 @@ public class ListaAnnunci extends JFrame {
 			}
 		});
 		btnUndo.setBackground(new Color(45, 134, 192));
-		btnUndo.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
+		btnUndo.setIcon(new ImageIcon(ListaAnnunci.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnUndo.setBounds(10, 10, 47, 78);
 		btnUndo.setFocusPainted(false);
 		btnUndo.setBorderPainted(false);
 		panel.add(btnUndo);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(ListaAnnunci.class.getResource("/icons/icons8-lista-48.png")));
 		lblNewLabel_1.setBounds(657, 10, 45, 78);
 		panel.add(lblNewLabel_1);
 		
