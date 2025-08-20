@@ -30,8 +30,6 @@ import java.awt.SystemColor;
 import java.awt.Button;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
 
 public class Annuncio extends JFrame {
 
@@ -60,7 +58,7 @@ public class Annuncio extends JFrame {
 	 */
 	public Annuncio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 781, 638);
+		setBounds(100, 100, 510, 638);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -183,7 +181,7 @@ public class Annuncio extends JFrame {
 		
 		JLabel LabelImg = new JLabel("");
 		LabelImg.setBackground(new Color(0, 52, 102));
-		LabelImg.setBounds(251, 77, 177, 36);
+		LabelImg.setBounds(251, 77, 177, 77);
 		contentPane.add(LabelImg);
 		ButtonAnnulla.setBorderPainted(false);
 		
@@ -195,11 +193,10 @@ public class Annuncio extends JFrame {
 			}
 		});
 		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(36, 77, 189, 36);
+		ButtonImgOggetto.setBounds(23, 77, 189, 36);
 		contentPane.add(ButtonImgOggetto);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
-		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{textfieldTitolo, textAreaDescrizione, textAreaFasciaOraria, textAreaModConsegna, textAreaCategoria, lblNewLabel, lblNewLabel_1, lblNewLabel_2, lblNewLabel_3, lblNewLabel_5, JScambio, JRegalo, JVendita, panel, ButtonAnnulla, lblNewLabel_6, LabelImg, ButtonImgOggetto}));
 		
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
