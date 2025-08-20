@@ -92,9 +92,13 @@ public class AnnuncioScambio extends Annuncio {
 		contentPane.add(lblNewLabel_2);
 		
 		JButton ButtonPubblica = new JButton("Pubblica ");
+		ButtonPubblica.setBackground(new Color(0, 52, 102));
+		ButtonPubblica.setForeground(new Color(255, 255, 255));
 		ButtonPubblica.setFont(new Font("Tahoma", Font.BOLD, 16));
 		ButtonPubblica.setBounds(221, 163, 152, 40);
 		contentPane.add(ButtonPubblica);
+		ButtonPubblica.setFocusPainted(false);
+		ButtonPubblica.setBorderPainted(false);
 		
 		ButtonPubblica.addActionListener(new ActionListener() {
 			@Override
