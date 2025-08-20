@@ -103,8 +103,8 @@ public class Homepage extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\IMG-20250718-WA00372.jpg"));
-		lblNewLabel.setBounds(10, 10, 214, 218);
+		lblNewLabel.setIcon(new ImageIcon(Homepage.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
+		lblNewLabel.setBounds(35, 25, 189, 191);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Benvenuto in Unina Swap");
