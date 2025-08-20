@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -89,6 +91,12 @@ public class OfferteRicevute extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnAccetta = new JButton("Accetta");
+		btnAccetta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Offerta accettata con successo", "Offerta accettata ", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+		});
 		btnAccetta.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
 		btnAccetta.setBackground(new Color(0, 52, 101));
 		btnAccetta.setForeground(new Color(255, 255, 255));
@@ -98,6 +106,12 @@ public class OfferteRicevute extends JFrame {
 		contentPane.add(btnAccetta);
 		
 		JButton btnRifiuta = new JButton("Rifiuta");
+		btnRifiuta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 JOptionPane.showMessageDialog(null, "Offerta Rifiutata con successo", "Offerta Rifiutata ", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+		});
 		btnRifiuta.setForeground(Color.WHITE);
 		btnRifiuta.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
 		btnRifiuta.setBackground(new Color(0, 52, 101));

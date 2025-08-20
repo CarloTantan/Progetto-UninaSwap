@@ -39,6 +39,7 @@ public class ListaAnnunci extends JFrame {
 		});
 	}
 
+
 	/**
 	 * Create the frame.
 	 */
@@ -108,6 +109,37 @@ public class ListaAnnunci extends JFrame {
 		contentPane.add(lblCategoria);
 		
 		JButton btnInviaOfferta = new JButton("Invia Offerta\r\n");
+		btnInviaOfferta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+					
+					String scelta=(String) comboBoxTipologia.getSelectedItem();
+					
+				if(scelta.equals("Scambio"))
+						{
+					setVisible(false);
+					OffertaScambio OffertaScambioFrame = new OffertaScambio();
+					OffertaScambioFrame.setVisible(true);
+					OffertaScambioFrame.setLocationRelativeTo(null);
+						}else if (scelta.equals("Vendita")) {
+							setVisible(false);
+							OffertaVendita OffertaVenditaFrame = new OffertaVendita();
+							OffertaVenditaFrame.setVisible(true);
+							OffertaVenditaFrame.setLocationRelativeTo(null);
+							
+							
+						}else if (scelta.equals("Regalo")) {
+							setVisible(false);
+							OffertaRegalo OffertaRegaloFrame = new OffertaRegalo();
+							OffertaRegaloFrame.setVisible(true);
+							OffertaRegaloFrame.setLocationRelativeTo(null);
+							
+						}
+				
+				
+				
+			}
+		});
 		btnInviaOfferta.setForeground(new Color(255, 255, 255));
 		btnInviaOfferta.setBackground(new Color(0, 52, 101));
 		btnInviaOfferta.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
@@ -129,4 +161,5 @@ public class ListaAnnunci extends JFrame {
 		
 	
 	}
+
 }
