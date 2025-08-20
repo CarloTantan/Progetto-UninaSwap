@@ -131,7 +131,9 @@ public class Login extends JFrame {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
+					
 					AreaUtente AreaUtenteFrame = new AreaUtente();
+					
 					AreaUtenteFrame.setVisible(true);
 					AreaUtenteFrame.setLocationRelativeTo(null);
 				

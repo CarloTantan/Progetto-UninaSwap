@@ -58,7 +58,15 @@ public class AreaUtente extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnVisualizzaOfferteRicevute = new JButton("Visualizza Offerte Ricevute");
-		btnVisualizzaOfferteRicevute.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				OfferteRicevute OfferteRicevuteFrame = new OfferteRicevute();
+				OfferteRicevuteFrame.setVisible(true);
+				OfferteRicevuteFrame.setLocationRelativeTo(null);
+			}
+		});
+		btnVisualizzaOfferteRicevute.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaOfferteRicevute.setForeground(new Color(255, 255, 255));
 		btnVisualizzaOfferteRicevute.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnVisualizzaOfferteRicevute.setBackground(new Color(0, 52, 104));
@@ -69,7 +77,7 @@ public class AreaUtente extends JFrame {
 		
 		JButton btnVisualizzaStoricoOfferte = new JButton("Visualizza Storico Offerte");
 		
-		btnVisualizzaStoricoOfferte.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		btnVisualizzaStoricoOfferte.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaStoricoOfferte.setForeground(Color.WHITE);
 		btnVisualizzaStoricoOfferte.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnVisualizzaStoricoOfferte.setBackground(new Color(0, 52, 104));
@@ -88,7 +96,7 @@ public class AreaUtente extends JFrame {
 				
 			}
 		});
-		btnInserisciRecensione.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-aggiungi-48.png"));
+		btnInserisciRecensione.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));
 		btnInserisciRecensione.setForeground(Color.WHITE);
 		btnInserisciRecensione.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnInserisciRecensione.setBackground(new Color(0, 52, 104));
@@ -106,7 +114,7 @@ public class AreaUtente extends JFrame {
 				AnnuncioFrame.setLocationRelativeTo(null);
 			}
 		});
-		btnCreaAnnuncio.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-aggiungi-48.png"));
+		btnCreaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));
 		btnCreaAnnuncio.setForeground(Color.WHITE);
 		btnCreaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnCreaAnnuncio.setBackground(new Color(0, 52, 104));
@@ -153,7 +161,7 @@ public class AreaUtente extends JFrame {
 				LoginFrame.setLocationRelativeTo(null);
 			}
 		});
-		btnUndo.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-annulla-3d-fluency-32.png"));
+		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnUndo.setBackground(new Color(45, 134, 192));
 		btnUndo.setBounds(10, 10, 46, 77);
 		btnUndo.setFocusPainted(false);
@@ -161,7 +169,15 @@ public class AreaUtente extends JFrame {
 		panel.add(btnUndo);
 		
 		JButton btnVisualizzaRecensioni = new JButton("Visualizza Recensioni");
-		btnVisualizzaRecensioni.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		btnVisualizzaRecensioni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				ListaRecensioni ListaRecensioniFrame = new ListaRecensioni();
+				ListaRecensioniFrame.setVisible(true);
+				ListaRecensioniFrame.setLocationRelativeTo(null);
+			}
+		});
+		btnVisualizzaRecensioni.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaRecensioni.setForeground(Color.WHITE);
 		btnVisualizzaRecensioni.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnVisualizzaRecensioni.setBackground(new Color(0, 52, 104));
@@ -180,7 +196,7 @@ public class AreaUtente extends JFrame {
 				ListaAnnunciFrame.setLocationRelativeTo(null);
 			}
 		});
-		btnVisualizzaAnnuncio.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-lista-48.png"));
+		btnVisualizzaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaAnnuncio.setForeground(Color.WHITE);
 		btnVisualizzaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
 		btnVisualizzaAnnuncio.setFocusPainted(false);
