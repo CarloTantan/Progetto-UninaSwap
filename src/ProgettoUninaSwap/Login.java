@@ -17,6 +17,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.awt.Toolkit;
 
 public class Login extends JFrame {
 
@@ -46,6 +47,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 410);
@@ -64,18 +66,18 @@ public class Login extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBackground(new Color(30, 144, 255));
+		panel.setBackground(new Color(46, 132, 191));
 		panel.setBounds(0, 0, 234, 373);
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\IMG-20250718-WA00372.jpg"));
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
 		lblNewLabel_1.setBounds(10, 52, 214, 218);
 		panel.add(lblNewLabel_1);
 		
 		JButton btnIndietro = new JButton("");
-		btnIndietro.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\icons8-annulla-3d-fluency-32.png"));
-		btnIndietro.setBackground(new Color(30, 144, 255));
+		btnIndietro.setIcon(new ImageIcon(Login.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+		btnIndietro.setBackground(new Color(46, 132, 191));
 		btnIndietro.setBounds(10, 10, 39, 32);
 		btnIndietro.setFocusPainted(false);
 		btnIndietro.setBorderPainted(false);
@@ -96,7 +98,7 @@ public class Login extends JFrame {
 		contentPane.add(lblPassword);
 		
 		textFieldPassword = new JPasswordField();
-		textFieldPassword.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		textFieldPassword.setFont(new Font("Dialog", Font.BOLD, 16));
 		textFieldPassword.setColumns(10);
 		textFieldPassword.setBounds(380, 124, 112, 26);
 		contentPane.add(textFieldPassword);
@@ -107,7 +109,7 @@ public class Login extends JFrame {
 		contentPane.add(lblMatricola);
 		
 		textFieldMatricola = new JTextField();
-		textFieldMatricola.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
+		textFieldMatricola.setFont(new Font("Dialog", Font.BOLD, 16));
 		textFieldMatricola.setColumns(10);
 		textFieldMatricola.setBounds(380, 84, 112, 26);
 		contentPane.add(textFieldMatricola);
@@ -115,7 +117,7 @@ public class Login extends JFrame {
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.setForeground(new Color(255, 255, 255));
 		btnAccedi.setBackground(new Color(0, 52, 101));
-		btnAccedi.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnAccedi.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
 		btnAccedi.setBounds(330, 185, 162, 35);
 		btnAccedi.setFocusPainted(false);
 		btnAccedi.setBorderPainted(false);

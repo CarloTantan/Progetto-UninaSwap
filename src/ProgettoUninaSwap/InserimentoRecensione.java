@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 public class InserimentoRecensione extends JFrame {
 
@@ -44,6 +45,7 @@ public class InserimentoRecensione extends JFrame {
 	 * Create the frame.
 	 */
 	public InserimentoRecensione() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scrivi la tua recensione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 410);
@@ -54,15 +56,15 @@ public class InserimentoRecensione extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBackground(new Color(30, 144, 255));
+		panel.setBackground(new Color(46, 132, 191));
 		panel.setBounds(0, 0, 577, 64);
 		contentPane.add(panel);
 		
 		JButton btnIndietro = new JButton("");
-		btnIndietro.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		btnIndietro.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnIndietro.setFocusPainted(false);
 		btnIndietro.setBorderPainted(false);
-		btnIndietro.setBackground(new Color(30, 144, 255));
+		btnIndietro.setBackground(new Color(46, 132, 191));
 		btnIndietro.setBounds(10, 10, 39, 32);
 		panel.add(btnIndietro);
 		btnIndietro.addActionListener(new ActionListener() {
@@ -74,13 +76,13 @@ public class InserimentoRecensione extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(59, 0, 81, 58);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(59, 0, 113, 58);
 		panel.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\IMG-20250718-WA00372.jpg"));
+		lblNewLabel_1.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
 		
 		JLabel lblInserisciUnaRecensione = new JLabel("Lascia una recensione");
-		lblInserisciUnaRecensione.setFont(new Font("Verdana Pro Black", Font.BOLD, 18));
+		lblInserisciUnaRecensione.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblInserisciUnaRecensione.setBounds(182, 10, 257, 54);
 		panel.add(lblInserisciUnaRecensione);
 		
@@ -93,13 +95,13 @@ public class InserimentoRecensione extends JFrame {
 		JComboBox comboBoxPunteggi = new JComboBox<>(punteggi);
 		comboBoxPunteggi.setForeground(new Color(0, 0, 0));
 		comboBoxPunteggi.setBackground(new Color(255, 255, 255));
-		comboBoxPunteggi.setFont(new Font("Verdana Pro Black", Font.BOLD, 14));
+		comboBoxPunteggi.setFont(new Font("Dialog", Font.BOLD, 16));
 		comboBoxPunteggi.setBounds(228, 92, 233, 26);
 		contentPane.add(comboBoxPunteggi);
 		
 		JLabel lblCommento = new JLabel("Commento");
 		lblCommento.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblCommento.setBounds(107, 140, 111, 26);
+		lblCommento.setBounds(107, 146, 111, 26);
 		contentPane.add(lblCommento);
 		
 		JTextArea textAreaCommento = new JTextArea();
@@ -113,16 +115,18 @@ public class InserimentoRecensione extends JFrame {
 		contentPane.add(textAreaCommento);
 		
 		JScrollPane scrollPane= new JScrollPane(textAreaCommento);
-		scrollPane.setBounds(228, 150, 222, 116);
+		scrollPane.setBounds(228, 150, 233, 116);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         contentPane.add(scrollPane);
         
         JButton btnInvia = new JButton("Invia");
+        btnInvia.setFocusPainted(false);
+        btnInvia.setBorderPainted(false);
         btnInvia.setForeground(new Color(255, 255, 255));
         btnInvia.setBackground(new Color(0, 52, 101));
         btnInvia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
-        btnInvia.setBounds(255, 286, 161, 50);
+        btnInvia.setBounds(228, 290, 233, 50);
         contentPane.add(btnInvia);
         
         btnInvia.addActionListener(new ActionListener() {
