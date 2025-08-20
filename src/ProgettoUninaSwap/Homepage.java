@@ -41,6 +41,7 @@ public class Homepage extends JFrame {
 	 * Create the frame.
 	 */
 	public Homepage() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Homepage.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Homepage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 630, 410);
@@ -98,13 +99,13 @@ public class Homepage extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(46, 132, 191));
-		panel.setBounds(0, 0, 234, 369);
+		panel.setBounds(0, 0, 234, 373);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Homepage.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
-		lblNewLabel.setBounds(35, 25, 189, 191);
+		lblNewLabel.setBounds(10, 0, 214, 251);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Benvenuto in Unina Swap");

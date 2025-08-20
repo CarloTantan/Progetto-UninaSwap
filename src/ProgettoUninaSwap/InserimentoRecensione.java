@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 public class InserimentoRecensione extends JFrame {
 
@@ -44,6 +45,7 @@ public class InserimentoRecensione extends JFrame {
 	 * Create the frame.
 	 */
 	public InserimentoRecensione() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scrivi la tua recensione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 410);
@@ -59,7 +61,7 @@ public class InserimentoRecensione extends JFrame {
 		contentPane.add(panel);
 		
 		JButton btnIndietro = new JButton("");
-		btnIndietro.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		btnIndietro.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnIndietro.setFocusPainted(false);
 		btnIndietro.setBorderPainted(false);
 		btnIndietro.setBackground(new Color(46, 132, 191));
@@ -74,10 +76,10 @@ public class InserimentoRecensione extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(59, 0, 81, 58);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(59, 0, 113, 58);
 		panel.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\marku\\Downloads\\IMG-20250718-WA00372.jpg"));
+		lblNewLabel_1.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
 		
 		JLabel lblInserisciUnaRecensione = new JLabel("Lascia una recensione");
 		lblInserisciUnaRecensione.setFont(new Font("Dialog", Font.BOLD, 20));
