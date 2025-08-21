@@ -34,6 +34,7 @@ import javax.swing.JScrollPane;
 import java.awt.Component;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
+import javax.swing.JTree;
 
 public class Annuncio extends JFrame {
 
@@ -75,13 +76,6 @@ public class Annuncio extends JFrame {
 		textfieldTitolo.setBackground(Color.WHITE);
 		textfieldTitolo.setBounds(251, 198, 203, 22);
 		contentPane.add(textfieldTitolo);
-		
-		JTextField textAreaFasciaOraria = new JTextField();
-		textAreaFasciaOraria.setFont(new Font("Dialog", Font.BOLD, 14));
-		textAreaFasciaOraria.setForeground(Color.BLACK);
-		textAreaFasciaOraria.setBackground(Color.WHITE);
-		textAreaFasciaOraria.setBounds(251, 346, 203, 22);
-		contentPane.add(textAreaFasciaOraria);
 		
 		JTextField textAreaModConsegna = new JTextField();
 		textAreaModConsegna.setFont(new Font("Dialog", Font.BOLD, 14));
@@ -213,6 +207,14 @@ public class Annuncio extends JFrame {
 		comboBoxCategoria.setBackground(Color.WHITE);
 		comboBoxCategoria.setBounds(251, 447, 203, 22);
 		contentPane.add(comboBoxCategoria);
+		
+		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:30", "11:00 - 13:30","15:00 - 17:30", "18:00 - 20:30"};
+		JComboBox comboBoxFasciaOraria = new JComboBox(fasciaOraria);
+		comboBoxFasciaOraria.setFont(new Font("Dialog", Font.BOLD, 16));
+		comboBoxCategoria.setBackground(Color.WHITE);
+		comboBoxFasciaOraria.setBounds(251, 348, 203, 21);
+		contentPane.add(comboBoxFasciaOraria);
+		
 		
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
