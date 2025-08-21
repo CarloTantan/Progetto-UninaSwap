@@ -39,6 +39,7 @@ public class ListaRecensioni extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaRecensioni() {
+		setTitle("Le tue recensioni");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 791, 431);
 		contentPane = new JPanel();

@@ -39,6 +39,7 @@ public class StoricoOfferte extends JFrame {
 	 * Create the frame.
 	 */
 	public StoricoOfferte() {
+		setTitle("Le tue offerte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 762, 512);
 		contentPane = new JPanel();
