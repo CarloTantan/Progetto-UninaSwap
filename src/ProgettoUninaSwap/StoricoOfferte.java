@@ -92,10 +92,10 @@ public class StoricoOfferte extends JFrame {
 		JButton btnRitira = new JButton("Ritira");
 		btnRitira.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int scelta= JOptionPane.showConfirmDialog(null, "Conferma"," vuoi ritirare??",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE );
+				int scelta= JOptionPane.showConfirmDialog(null, "Conferma"," Vuoi ritirare l'offerta?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE );
 				if(scelta==JOptionPane.YES_OPTION)	{
 				
-		JOptionPane.showMessageDialog(null, "Ritiro avvenuta con successo", null, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Ritiro avvenuto con successo", null, JOptionPane.INFORMATION_MESSAGE);
 		setVisible(false);
 		AreaUtente AreaUtenteFrame = new AreaUtente();
 		AreaUtenteFrame.setVisible(true);

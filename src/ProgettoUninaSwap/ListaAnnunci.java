@@ -52,7 +52,9 @@ public class ListaAnnunci extends JFrame {
 		setContentPane(contentPane);
 		
 		contentPane.setLayout(null);
-		JComboBox comboBoxTipologia = new JComboBox(new String[] {"Scambio","Regalo","Vendita"});
+		
+		String[] tipologie= {"Seleziona una tipologia", "Vendita", "Scambio", "Regalo"};
+		JComboBox comboBoxTipologia = new JComboBox(tipologie);
 		comboBoxTipologia.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		comboBoxTipologia.setBounds(106, 175, 203, 34);
 		comboBoxTipologia.setBackground(new Color(45, 134, 192));
@@ -90,9 +92,9 @@ public class ListaAnnunci extends JFrame {
 		lblNewLabel_1.setBounds(657, 10, 45, 78);
 		panel.add(lblNewLabel_1);
 		
-		JComboBox comboBoxCategoria = new JComboBox(new Object[]{});
+		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
+		JComboBox comboBoxCategoria = new JComboBox(categorie);
 		comboBoxCategoria.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {"Libri", "Musica", "Sport", "Altro"}));
 		comboBoxCategoria.setBackground(new Color(45, 134, 192));
 		comboBoxCategoria.setBounds(526, 175, 203, 34);
 		contentPane.add(comboBoxCategoria);
