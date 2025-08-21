@@ -121,7 +121,7 @@ public class OffertaScambio extends JFrame {
 		contentPane.add(btnConferma);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Verdana Pro Black", Font.BOLD, 13));
+		textArea.setFont(new Font("Verdana Pro Black", Font.BOLD, 15));
 		textArea.setForeground(new Color(255, 255, 255));
 		textArea.setBackground(new Color(0, 52, 101));
 		textArea.setBounds(276, 206, 193, 99);

@@ -51,7 +51,7 @@ public class OffertaRegalo extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(10, 0, 801, 83);
+		panel.setBounds(10, 0, 801, 82);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -73,7 +73,7 @@ public class OffertaRegalo extends JFrame {
 		panel.add(btnUndo);
 		
 		JLabel lblOffertaRegalo = new JLabel("Offerta Regalo");
-		lblOffertaRegalo.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblOffertaRegalo.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
 		lblOffertaRegalo.setBounds(309, 39, 164, 34);
 		panel.add(lblOffertaRegalo);
 		

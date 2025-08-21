@@ -82,7 +82,7 @@ public class OffertaVendita extends JFrame {
 		panel.add(btnUndo);
 		
 		textField = new JTextField();
-		textField.setFont(new Font("Verdana Pro Black", Font.BOLD, 14));
+		textField.setFont(new Font("Verdana Pro Black", Font.BOLD, 15));
 		textField.setBounds(303, 158, 166, 36);
 		contentPane.add(textField);
 		textField.setColumns(10);
