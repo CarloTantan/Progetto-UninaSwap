@@ -239,10 +239,9 @@ public class Annuncio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textfieldTitolo.getText().trim().isEmpty() || 
 						textAreaDescrizione.getText().trim().isEmpty() || 
-						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
-						LabelImg.getIcon()==null ||
-						textAreaFasciaOraria.getText().trim().isEmpty()) {
+						LabelImg.getIcon()==null 
+					) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else if (comboBoxCategoria.getSelectedIndex()==0){
 					JOptionPane.showMessageDialog(null, "Seleziona un punteggio", "Punteggio mancante", JOptionPane.WARNING_MESSAGE);
@@ -260,10 +259,9 @@ public class Annuncio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textfieldTitolo.getText().trim().isEmpty() || 
 						textAreaDescrizione.getText().trim().isEmpty() || 
-						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
-						LabelImg.getIcon()==null ||						
-						textAreaFasciaOraria.getText().trim().isEmpty()) {
+						LabelImg.getIcon()==null 				
+					) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
@@ -280,10 +278,9 @@ public class Annuncio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textfieldTitolo.getText().trim().isEmpty() || 
 						textAreaDescrizione.getText().trim().isEmpty() || 
-						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
-						LabelImg.getIcon()==null ||
-						textAreaFasciaOraria.getText().trim().isEmpty()) {
+						LabelImg.getIcon()==null 
+					) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
