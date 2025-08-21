@@ -70,6 +70,8 @@ public class Annuncio extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		
+		setContentPane(contentPane);
+		
 		JTextField textfieldTitolo = new JTextField();
 		textfieldTitolo.setFont(new Font("Dialog", Font.BOLD, 14));
 		textfieldTitolo.setForeground(Color.BLACK);
@@ -106,7 +108,7 @@ public class Annuncio extends JFrame {
 		
 		JLabel lblNewLabel_5 = new JLabel("Categoria oggetto");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_5.setBounds(36, 450, 236, 19);
+		lblNewLabel_5.setBounds(36, 453, 179, 22);
 		contentPane.add(lblNewLabel_5);
 		
 		JButton JScambio = new JButton("Scambio");
@@ -204,17 +206,16 @@ public class Annuncio extends JFrame {
 		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
 		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
 		comboBoxCategoria.setFont(new Font("Dialog", Font.BOLD, 16));
-		comboBoxCategoria.setBackground(Color.WHITE);
-		comboBoxCategoria.setBounds(251, 447, 203, 22);
+		comboBoxCategoria.setBackground(new Color(255, 255, 255));
+		comboBoxCategoria.setBounds(251, 447, 203, 28);
 		contentPane.add(comboBoxCategoria);
 		
 		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:30", "11:00 - 13:30","15:00 - 17:30", "18:00 - 20:30"};
-		JComboBox comboBoxFasciaOraria = new JComboBox(fasciaOraria);
+		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
+		comboBoxFasciaOraria.setBackground(new Color(255, 255, 255));
 		comboBoxFasciaOraria.setFont(new Font("Dialog", Font.BOLD, 16));
-		comboBoxCategoria.setBackground(Color.WHITE);
-		comboBoxFasciaOraria.setBounds(251, 348, 203, 21);
+		comboBoxFasciaOraria.setBounds(251, 347, 203, 22);
 		contentPane.add(comboBoxFasciaOraria);
-		
 		
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
