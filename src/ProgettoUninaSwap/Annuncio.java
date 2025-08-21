@@ -63,12 +63,10 @@ public class Annuncio extends JFrame {
 	public Annuncio() {
 		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 638);
+		setBounds(100, 100, 548, 638);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JTextField textfieldTitolo = new JTextField();
@@ -138,10 +136,11 @@ public class Annuncio extends JFrame {
 		JRegalo.setBorderPainted(false);
 		
 		JButton JVendita = new JButton("Vendita");
+		JVendita.setHorizontalAlignment(SwingConstants.RIGHT);
 		JVendita.setForeground(new Color(255, 255, 255));
 		JVendita.setBackground(new Color(0, 52, 102));
 		JVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
-		JVendita.setBounds(324, 514, 122, 56);
+		JVendita.setBounds(332, 514, 122, 56);
 		contentPane.add(JVendita);
 		JVendita.setFocusPainted(false);
 		JVendita.setBorderPainted(false);
@@ -177,7 +176,7 @@ public class Annuncio extends JFrame {
 		
 		JLabel LabelImg = new JLabel("");
 		LabelImg.setBackground(new Color(0, 52, 102));
-		LabelImg.setBounds(251, 77, 177, 77);
+		LabelImg.setBounds(251, 77, 203, 77);
 		contentPane.add(LabelImg);
 		ButtonAnnulla.setBorderPainted(false);
 		

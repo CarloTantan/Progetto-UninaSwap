@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
-public class AnnuncioScambio extends Annuncio {
+public class AnnuncioScambio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
