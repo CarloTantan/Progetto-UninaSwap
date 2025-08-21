@@ -67,7 +67,7 @@ public class ListaAnnunci extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Lista Annunci");
 		lblNewLabel.setBounds(333, 43, 179, 31);
-		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.BOLD, 20));
+		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.BOLD, 21));
 		panel.add(lblNewLabel);
 		
 		JButton btnUndo = new JButton("");
@@ -92,7 +92,7 @@ public class ListaAnnunci extends JFrame {
 		panel.add(lblNewLabel_1);
 		
 		JComboBox comboBoxCategoria = new JComboBox(new Object[]{});
-		comboBoxCategoria.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		comboBoxCategoria.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
 		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {"Libri", "Musica", "Sport", "Altro"}));
 		comboBoxCategoria.setBackground(new Color(45, 134, 192));
 		comboBoxCategoria.setBounds(526, 175, 203, 34);
