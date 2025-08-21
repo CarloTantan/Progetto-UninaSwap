@@ -43,6 +43,7 @@ public class OfferteRicevute extends JFrame {
 	 * Create the frame.
 	 */
 	public OfferteRicevute() {
+		setTitle("Offerte Ricevute");
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 753, 406);

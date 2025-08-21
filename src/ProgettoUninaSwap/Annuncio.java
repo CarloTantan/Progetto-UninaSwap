@@ -30,6 +30,10 @@ import java.awt.SystemColor;
 import java.awt.Button;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import java.awt.Component;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JComboBox;
 
 public class Annuncio extends JFrame {
 
@@ -57,8 +61,9 @@ public class Annuncio extends JFrame {
 	 * Create the frame.
 	 */
 	public Annuncio() {
+		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 510, 638);
+		setBounds(100, 100, 550, 638);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,35 +71,26 @@ public class Annuncio extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTextArea textfieldTitolo = new JTextArea();
-		textfieldTitolo.setForeground(new Color(255, 255, 255));
-		textfieldTitolo.setBackground(new Color(0, 52, 102));
-		textfieldTitolo.setBounds(251, 198, 179, 22);
+		JTextField textfieldTitolo = new JTextField();
+		textfieldTitolo.setFont(new Font("Dialog", Font.BOLD, 14));
+		textfieldTitolo.setForeground(Color.BLACK);
+		textfieldTitolo.setBackground(Color.WHITE);
+		textfieldTitolo.setBounds(251, 198, 203, 22);
 		contentPane.add(textfieldTitolo);
 		
-		JTextArea textAreaDescrizione = new JTextArea();
-		textAreaDescrizione.setForeground(new Color(255, 255, 255));
-		textAreaDescrizione.setBackground(new Color(0, 52, 102));
-		textAreaDescrizione.setBounds(251, 260, 179, 56);
-		contentPane.add(textAreaDescrizione);
-		
-		JTextArea textAreaFasciaOraria = new JTextArea();
-		textAreaFasciaOraria.setForeground(new Color(255, 255, 255));
-		textAreaFasciaOraria.setBackground(new Color(0, 52, 102));
-		textAreaFasciaOraria.setBounds(251, 346, 179, 22);
+		JTextField textAreaFasciaOraria = new JTextField();
+		textAreaFasciaOraria.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaFasciaOraria.setForeground(Color.BLACK);
+		textAreaFasciaOraria.setBackground(Color.WHITE);
+		textAreaFasciaOraria.setBounds(251, 346, 203, 22);
 		contentPane.add(textAreaFasciaOraria);
 		
-		JTextArea textAreaModConsegna = new JTextArea();
-		textAreaModConsegna.setForeground(new Color(255, 255, 255));
-		textAreaModConsegna.setBackground(new Color(0, 52, 102));
-		textAreaModConsegna.setBounds(251, 399, 179, 22);
+		JTextField textAreaModConsegna = new JTextField();
+		textAreaModConsegna.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaModConsegna.setForeground(Color.BLACK);
+		textAreaModConsegna.setBackground(Color.WHITE);
+		textAreaModConsegna.setBounds(251, 399, 203, 22);
 		contentPane.add(textAreaModConsegna);
-		
-		JTextArea textAreaCategoria = new JTextArea();
-		textAreaCategoria.setForeground(new Color(255, 255, 255));
-		textAreaCategoria.setBackground(new Color(0, 52, 102));
-		textAreaCategoria.setBounds(251, 449, 179, 22);
-		contentPane.add(textAreaCategoria);
 		
 		JLabel lblNewLabel = new JLabel("Titolo");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -152,7 +148,7 @@ public class Annuncio extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, 504, 58);
+		panel.setBounds(0, 0, 536, 58);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -160,7 +156,7 @@ public class Annuncio extends JFrame {
 		ButtonAnnulla.setBounds(0, 0, 46, 58);
 		panel.add(ButtonAnnulla);
 		ButtonAnnulla.setBackground(new Color(45, 134, 192));
-		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
+		ButtonAnnulla.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		ButtonAnnulla.setFocusPainted(false);
 		ButtonAnnulla.setBorderPainted(false);
 		
@@ -176,7 +172,7 @@ public class Annuncio extends JFrame {
 		
 		JLabel lblNewLabel_6 = new JLabel("Annuncio");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_6.setBounds(196, 0, 81, 58);
+		lblNewLabel_6.setBounds(234, 0, 81, 58);
 		panel.add(lblNewLabel_6);
 		
 		JLabel LabelImg = new JLabel("");
@@ -197,6 +193,27 @@ public class Annuncio extends JFrame {
 		contentPane.add(ButtonImgOggetto);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(251, 242, 203, 77);
+		contentPane.add(scrollPane);
+		
+		JTextArea textAreaDescrizione = new JTextArea();
+		textAreaDescrizione.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaDescrizione.setLineWrap(true);  
+		textAreaDescrizione.setWrapStyleWord(true);
+		textAreaDescrizione.setRows(4);
+		textAreaDescrizione.setColumns(20);
+		scrollPane.setViewportView(textAreaDescrizione);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
+		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
+		comboBoxCategoria.setFont(new Font("Dialog", Font.BOLD, 16));
+		comboBoxCategoria.setBackground(Color.WHITE);
+		comboBoxCategoria.setBounds(251, 447, 203, 22);
+		contentPane.add(comboBoxCategoria);
 		
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
@@ -224,10 +241,11 @@ public class Annuncio extends JFrame {
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
 						LabelImg.getIcon()==null ||
-						textAreaFasciaOraria.getText().trim().isEmpty() || 
-						textAreaCategoria.getText().trim().isEmpty()) {
+						textAreaFasciaOraria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else {
+				} else if (comboBoxCategoria.getSelectedIndex()==0){
+					JOptionPane.showMessageDialog(null, "Seleziona un punteggio", "Punteggio mancante", JOptionPane.WARNING_MESSAGE);
+				}{
 					setVisible(false);
 					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio();
 					annuncioScambioFrame.setVisible(true);
@@ -244,8 +262,7 @@ public class Annuncio extends JFrame {
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
 						LabelImg.getIcon()==null ||						
-						textAreaFasciaOraria.getText().trim().isEmpty() || 
-						textAreaCategoria.getText().trim().isEmpty()) {
+						textAreaFasciaOraria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
@@ -265,8 +282,7 @@ public class Annuncio extends JFrame {
 						textAreaFasciaOraria.getText().trim().isEmpty() || 
 						textAreaModConsegna.getText().trim().isEmpty() || 
 						LabelImg.getIcon()==null ||
-						textAreaFasciaOraria.getText().trim().isEmpty() || 
-						textAreaCategoria.getText().trim().isEmpty()) {
+						textAreaFasciaOraria.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
