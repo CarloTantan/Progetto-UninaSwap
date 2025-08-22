@@ -136,7 +136,7 @@ public class Annuncio extends JFrame {
 		JVendita.setForeground(new Color(255, 255, 255));
 		JVendita.setBackground(new Color(0, 52, 102));
 		JVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
-		JVendita.setBounds(332, 514, 122, 56);
+		JVendita.setBounds(342, 514, 135, 56);
 		contentPane.add(JVendita);
 		JVendita.setFocusPainted(false);
 		JVendita.setBorderPainted(false);
@@ -177,7 +177,8 @@ public class Annuncio extends JFrame {
 		ButtonAnnulla.setBorderPainted(false);
 		
 		JButton ButtonImgOggetto = new JButton("Oggetto");
-		ButtonImgOggetto.setBackground(new Color(255, 255, 255));
+		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
+		ButtonImgOggetto.setBackground(new Color(0, 52, 102));
 		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

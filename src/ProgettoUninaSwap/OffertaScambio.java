@@ -55,7 +55,7 @@ public class OffertaScambio extends JFrame {
 		
 		JLabel LabelImg = new JLabel("");
 		LabelImg.setBackground(new Color(0, 52, 102));
-		LabelImg.setBounds(169, 24, 0, 0);
+		LabelImg.setBounds(295, 84, 183, 99);
 		contentPane.add(LabelImg);
 		
 		
@@ -65,10 +65,20 @@ public class OffertaScambio extends JFrame {
 		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFileChooser scegliImg = new JFileChooser();
+		        scegliImg.setDialogTitle("Seleziona immagine");
+		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
+
+		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
+		            Image img = iconaImg.getImage();
+		            LabelImg.setIcon(new ImageIcon(img));
+		        }
 			}
+			
 		});
 		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(322, 121, 105, 37);
+		ButtonImgOggetto.setBounds(123, 122, 105, 37);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
 		contentPane.add(ButtonImgOggetto);
@@ -132,20 +142,8 @@ public class OffertaScambio extends JFrame {
 		lblNewLabel.setBounds(309, 178, 129, 18);
 		contentPane.add(lblNewLabel);
 		
-		ButtonImgOggetto.addActionListener(new ActionListener() {
-			@Override 
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser scegliImg = new JFileChooser();
-		        scegliImg.setDialogTitle("Seleziona immagine");
-		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
-
-		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
-		            Image img = iconaImg.getImage();
-		            LabelImg.setIcon(new ImageIcon(img));
-		        }
-			}
-		});
+	
+		
 		
 		
 	}
