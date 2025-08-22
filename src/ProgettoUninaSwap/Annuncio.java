@@ -209,7 +209,7 @@ public class Annuncio extends JFrame {
 		});
 					
 		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(21, 77, 191, 36);
+		ButtonImgOggetto.setBounds(21, 77, 170, 36);
 		contentPane.add(ButtonImgOggetto);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
