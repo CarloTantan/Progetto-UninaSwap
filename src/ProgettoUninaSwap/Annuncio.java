@@ -76,32 +76,32 @@ public class Annuncio extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel lblNewLabel_8 = new JLabel("");
-		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-exchange-32.png"));
+		lblNewLabel_8.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-exchange-32.png")));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setBounds(36, 514, 46, 56);
 		contentPane.add(lblNewLabel_8);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\sabri\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\R9Z7WFNO\\icons8-sale-32[1].png"));
+		lblNewLabel_7.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-sale-32.png")));
 		lblNewLabel_7.setBounds(339, 514, 39, 56);
 		contentPane.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\—Pngtree—gift icon_7390276.png"));
+		lblNewLabel_4.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/—Pngtree—gift icon_7390276.png")));
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4.setBounds(187, 514, 46, 56);
 		contentPane.add(lblNewLabel_4);
 		
 		JTextField textfieldTitolo = new JTextField();
-		textfieldTitolo.setFont(new Font("Dialog", Font.PLAIN, 16));
+		textfieldTitolo.setFont(new Font("Verdana", Font.PLAIN, 16));
 		textfieldTitolo.setForeground(new Color(255, 255, 255));
 		textfieldTitolo.setBackground(new Color(0, 52, 102));
 		textfieldTitolo.setBounds(251, 198, 203, 22);
 		contentPane.add(textfieldTitolo);
 		
 		JTextField textAreaModConsegna = new JTextField();
-		textAreaModConsegna.setFont(new Font("Dialog", Font.PLAIN, 14));
+		textAreaModConsegna.setFont(new Font("Verdana", Font.PLAIN, 14));
 		textAreaModConsegna.setForeground(new Color(255, 255, 255));
 		textAreaModConsegna.setBackground(new Color(0, 52, 102));
 		textAreaModConsegna.setBounds(251, 399, 203, 22);
@@ -110,32 +110,32 @@ public class Annuncio extends JFrame {
 		JLabel lblNewLabel = new JLabel("Titolo");
 		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setBackground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel.setBounds(36, 194, 179, 28);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Descrizione");
 		lblNewLabel_1.setBackground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(36, 266, 170, 28);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Fascia Oraria");
 		lblNewLabel_2.setBackground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_2.setBounds(36, 350, 135, 13);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Modalità di consegna");
 		lblNewLabel_3.setBackground(new Color(255, 255, 255));
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_3.setBounds(36, 398, 179, 22);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_5 = new JLabel("Categoria oggetto");
 		lblNewLabel_5.setForeground(new Color(0, 0, 0));
 		lblNewLabel_5.setBackground(new Color(255, 255, 255));
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_5.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_5.setBounds(36, 453, 179, 22);
 		contentPane.add(lblNewLabel_5);
 		
@@ -144,7 +144,7 @@ public class Annuncio extends JFrame {
 		JScambio.setForeground(new Color(255, 255, 255));
 		JScambio.setToolTipText("");
 		JScambio.setBackground(new Color(0, 52, 102));
-		JScambio.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JScambio.setFont(new Font("Verdana", Font.BOLD, 16));
 		JScambio.setBounds(36, 514, 135, 56);
 		contentPane.add(JScambio);
 		JScambio.setFocusPainted(false);
@@ -155,7 +155,7 @@ public class Annuncio extends JFrame {
 		JRegalo.setHorizontalAlignment(SwingConstants.RIGHT);
 		JRegalo.setForeground(new Color(255, 255, 255));
 		JRegalo.setBackground(new Color(0, 52, 102));
-		JRegalo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JRegalo.setFont(new Font("Verdana", Font.BOLD, 16));
 		JRegalo.setBounds(187, 514, 122, 56);
 		contentPane.add(JRegalo);
 		JRegalo.setFocusPainted(false);
@@ -165,7 +165,7 @@ public class Annuncio extends JFrame {
 		JVendita.setHorizontalAlignment(SwingConstants.RIGHT);
 		JVendita.setForeground(new Color(255, 255, 255));
 		JVendita.setBackground(new Color(0, 52, 102));
-		JVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JVendita.setFont(new Font("Verdana", Font.BOLD, 16));
 		JVendita.setBounds(339, 514, 115, 56);
 		contentPane.add(JVendita);
 		JVendita.setFocusPainted(false);
@@ -196,12 +196,12 @@ public class Annuncio extends JFrame {
 		}); 
 		
 		JLabel lblNewLabel_6 = new JLabel("Annuncio");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_6.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_6.setBounds(234, 0, 81, 58);
 		panel.add(lblNewLabel_6);
 		
 		JLabel LabelImg = new JLabel("");
-		LabelImg.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		LabelImg.setFont(new Font("Verdana", Font.PLAIN, 10));
 		LabelImg.setForeground(new Color(255, 255, 255));
 		LabelImg.setLabelFor(this);
 		LabelImg.setBackground(new Color(0, 52, 102));
@@ -240,7 +240,7 @@ public class Annuncio extends JFrame {
 		JTextArea textAreaDescrizione = new JTextArea();
 		textAreaDescrizione.setForeground(new Color(255, 255, 255));
 		textAreaDescrizione.setBackground(new Color(0, 52, 102));
-		textAreaDescrizione.setFont(new Font("Dialog", Font.PLAIN, 16));
+		textAreaDescrizione.setFont(new Font("Verdana", Font.PLAIN, 16));
 		textAreaDescrizione.setLineWrap(true);  
 		textAreaDescrizione.setWrapStyleWord(true);
 		textAreaDescrizione.setRows(4);
@@ -252,7 +252,7 @@ public class Annuncio extends JFrame {
 		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
 		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
 		comboBoxCategoria.setForeground(new Color(255, 255, 255));
-		comboBoxCategoria.setFont(new Font("Dialog", Font.BOLD, 16));
+		comboBoxCategoria.setFont(new Font("Verdana", Font.BOLD, 16));
 		comboBoxCategoria.setBackground(new Color(0, 52, 102));
 		comboBoxCategoria.setBounds(251, 447, 203, 28);
 		contentPane.add(comboBoxCategoria);
@@ -261,7 +261,7 @@ public class Annuncio extends JFrame {
 		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
 		comboBoxFasciaOraria.setForeground(new Color(255, 255, 255));
 		comboBoxFasciaOraria.setBackground(new Color(0, 52, 102));
-		comboBoxFasciaOraria.setFont(new Font("Dialog", Font.BOLD, 16));
+		comboBoxFasciaOraria.setFont(new Font("Verdana", Font.BOLD, 16));
 		comboBoxFasciaOraria.setBounds(251, 347, 203, 22);
 		contentPane.add(comboBoxFasciaOraria);
 
