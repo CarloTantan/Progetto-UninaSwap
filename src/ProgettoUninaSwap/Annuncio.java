@@ -76,14 +76,14 @@ public class Annuncio extends JFrame {
 		
 		JTextField textfieldTitolo = new JTextField();
 		textfieldTitolo.setFont(new Font("Dialog", Font.BOLD, 14));
-		textfieldTitolo.setForeground(Color.BLACK);
+		textfieldTitolo.setForeground(new Color(255, 255, 255));
 		textfieldTitolo.setBackground(new Color(0, 52, 102));
 		textfieldTitolo.setBounds(251, 198, 203, 22);
 		contentPane.add(textfieldTitolo);
 		
 		JTextField textAreaModConsegna = new JTextField();
 		textAreaModConsegna.setFont(new Font("Dialog", Font.BOLD, 14));
-		textAreaModConsegna.setForeground(Color.BLACK);
+		textAreaModConsegna.setForeground(new Color(255, 255, 255));
 		textAreaModConsegna.setBackground(new Color(0, 52, 102));
 		textAreaModConsegna.setBounds(251, 399, 203, 22);
 		contentPane.add(textAreaModConsegna);
@@ -209,7 +209,7 @@ public class Annuncio extends JFrame {
 		});
 					
 		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(21, 77, 155, 36);
+		ButtonImgOggetto.setBounds(21, 77, 194, 36);
 		contentPane.add(ButtonImgOggetto);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
@@ -219,6 +219,7 @@ public class Annuncio extends JFrame {
 		contentPane.add(scrollPane);
 		
 		JTextArea textAreaDescrizione = new JTextArea();
+		textAreaDescrizione.setForeground(new Color(255, 255, 255));
 		textAreaDescrizione.setBackground(new Color(0, 52, 102));
 		textAreaDescrizione.setFont(new Font("Dialog", Font.BOLD, 14));
 		textAreaDescrizione.setLineWrap(true);  
