@@ -58,6 +58,7 @@ public class StoricoOfferte extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnUndo = new JButton("");
+		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -74,8 +75,8 @@ public class StoricoOfferte extends JFrame {
 		panel.add(btnUndo);
 		
 		JLabel lblStoricoOfferte = new JLabel("Storico Offerte");
-		lblStoricoOfferte.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblStoricoOfferte.setBounds(306, 29, 178, 46);
+		lblStoricoOfferte.setFont(new Font("Verdana", Font.BOLD, 20));
+		lblStoricoOfferte.setBounds(288, 29, 217, 46);
 		panel.add(lblStoricoOfferte);
 		
 		JButton btnModifica = new JButton("Modifica");
@@ -86,7 +87,7 @@ public class StoricoOfferte extends JFrame {
 		});
 		btnModifica.setBackground(new Color(0, 52, 101));
 		btnModifica.setForeground(new Color(255, 255, 255));
-		btnModifica.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnModifica.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnModifica.setBounds(129, 291, 179, 40);
 		btnModifica.setFocusPainted(false);
 		btnModifica.setBorderPainted(false); 
@@ -113,7 +114,7 @@ public class StoricoOfferte extends JFrame {
 			}
 		});
 		btnRitira.setForeground(Color.WHITE);
-		btnRitira.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnRitira.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRitira.setBackground(new Color(0, 52, 101));
 		btnRitira.setBounds(463, 291, 179, 40);
 		btnRitira.setFocusPainted(false);

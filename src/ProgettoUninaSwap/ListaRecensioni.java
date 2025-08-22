@@ -58,7 +58,7 @@ public class ListaRecensioni extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblListaRecensioni = new JLabel("Lista Recensioni");
-		lblListaRecensioni.setFont(new Font("Verdana Pro Black", Font.BOLD, 20));
+		lblListaRecensioni.setFont(new Font("Verdana", Font.BOLD, 20));
 		lblListaRecensioni.setBounds(297, 20, 227, 32);
 		panel.add(lblListaRecensioni);
 		
@@ -79,7 +79,7 @@ public class ListaRecensioni extends JFrame {
 		panel.add(btnUndo);
 		
 		JButton btnRecensioniInviate = new JButton("Recensioni Inviate");
-		btnRecensioniInviate.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnRecensioniInviate.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRecensioniInviate.setBackground(new Color(0, 52, 101));
 		btnRecensioniInviate.setForeground(new Color(255, 255, 255));
 		btnRecensioniInviate.setBounds(63, 154, 250, 61);
@@ -88,7 +88,7 @@ public class ListaRecensioni extends JFrame {
 		contentPane.add(btnRecensioniInviate);
 		
 		JButton btnRecensioniRicevute = new JButton("Recensioni Ricevute");
-		btnRecensioniRicevute.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnRecensioniRicevute.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRecensioniRicevute.setForeground(Color.WHITE);
 		btnRecensioniRicevute.setBackground(new Color(0, 52, 101));
 		btnRecensioniRicevute.setBounds(457, 154, 263, 61);

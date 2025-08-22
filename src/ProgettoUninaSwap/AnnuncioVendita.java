@@ -46,7 +46,7 @@ public class AnnuncioVendita extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Vendita");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 341, 300);
+		setBounds(100, 100, 686, 487);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,13 +56,13 @@ public class AnnuncioVendita extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, 327, 55);
+		panel.setBounds(0, 0, 672, 55);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Annuncio di vendita");
-		lblNewLabel.setBounds(98, 10, 162, 20);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(227, 10, 230, 35);
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 		panel.add(lblNewLabel);
 		
 		JButton ButtonAnnulla = new JButton("");
@@ -86,19 +86,19 @@ public class AnnuncioVendita extends JFrame {
 		JTextArea textAreaPrezzo = new JTextArea();
 		textAreaPrezzo.setForeground(new Color(255, 255, 255));
 		textAreaPrezzo.setBackground(Color.WHITE);
-		textAreaPrezzo.setBounds(160, 88, 112, 22);
+		textAreaPrezzo.setBounds(321, 88, 112, 22);
 		contentPane.add(textAreaPrezzo);
 		
 		JLabel lblNewLabel_1 = new JLabel("Prezzo");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(58, 89, 92, 19);
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(219, 89, 92, 19);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton ButtonPubblica = new JButton("Pubblica");
 		ButtonPubblica.setForeground(new Color(255, 255, 255));
 		ButtonPubblica.setBackground(new Color(0, 52, 102));
-		ButtonPubblica.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonPubblica.setBounds(107, 162, 123, 37);
+		ButtonPubblica.setFont(new Font("Verdana", Font.BOLD, 16));
+		ButtonPubblica.setBounds(266, 163, 123, 37);
 		contentPane.add(ButtonPubblica);
         ButtonPubblica.setFocusPainted(false);
 		ButtonPubblica.setBorderPainted(false);

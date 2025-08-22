@@ -61,11 +61,12 @@ public class InserimentoRecensione extends JFrame {
 		contentPane.add(panel);
 		
 		JButton btnIndietro = new JButton("");
+		btnIndietro.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnIndietro.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnIndietro.setFocusPainted(false);
 		btnIndietro.setBorderPainted(false);
 		btnIndietro.setBackground(new Color(46, 132, 191));
-		btnIndietro.setBounds(10, 10, 39, 32);
+		btnIndietro.setBounds(10, 10, 39, 44);
 		panel.add(btnIndietro);
 		btnIndietro.addActionListener(new ActionListener() {
 			@Override
@@ -77,8 +78,8 @@ public class InserimentoRecensione extends JFrame {
 		});
 		
 		JLabel lblInserisciUnaRecensione = new JLabel("Lascia una recensione");
-		lblInserisciUnaRecensione.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblInserisciUnaRecensione.setBounds(228, 4, 257, 54);
+		lblInserisciUnaRecensione.setFont(new Font("Verdana", Font.BOLD, 20));
+		lblInserisciUnaRecensione.setBounds(210, 4, 275, 54);
 		panel.add(lblInserisciUnaRecensione);
 		
 		JLabel lblPunteggio = new JLabel("Punteggio");
@@ -90,7 +91,7 @@ public class InserimentoRecensione extends JFrame {
 		JComboBox comboBoxPunteggi = new JComboBox<>(punteggi);
 		comboBoxPunteggi.setForeground(new Color(0, 0, 0));
 		comboBoxPunteggi.setBackground(new Color(255, 255, 255));
-		comboBoxPunteggi.setFont(new Font("Dialog", Font.BOLD, 16));
+		comboBoxPunteggi.setFont(new Font("Verdana", Font.BOLD, 16));
 		comboBoxPunteggi.setBounds(228, 92, 233, 26);
 		contentPane.add(comboBoxPunteggi);
 		
@@ -105,7 +106,7 @@ public class InserimentoRecensione extends JFrame {
 		textAreaCommento.setColumns(90);
 		textAreaCommento.setWrapStyleWord(true);
 		textAreaCommento.setLineWrap(true);
-		textAreaCommento.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		textAreaCommento.setFont(new Font("Verdana Pro", Font.BOLD, 16));
 		textAreaCommento.setBounds(228, 145, 233, 151);
 		contentPane.add(textAreaCommento);
 		
@@ -120,7 +121,7 @@ public class InserimentoRecensione extends JFrame {
         btnInvia.setBorderPainted(false);
         btnInvia.setForeground(new Color(255, 255, 255));
         btnInvia.setBackground(new Color(0, 52, 101));
-        btnInvia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
+        btnInvia.setFont(new Font("Verdana", Font.BOLD, 16));
         btnInvia.setBounds(228, 290, 233, 50);
         contentPane.add(btnInvia);
         

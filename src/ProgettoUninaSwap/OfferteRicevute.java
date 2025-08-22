@@ -63,11 +63,12 @@ public class OfferteRicevute extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Offerte Ricevute");
-		lblNewLabel_1.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(268, 5, 181, 53);
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(268, 5, 219, 53);
 		panel.add(lblNewLabel_1);
 		
 		JButton btnUndo = new JButton("");
+		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -84,12 +85,13 @@ public class OfferteRicevute extends JFrame {
 		panel.add(btnUndo);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Verdana", Font.BOLD, 16));
 		textField.setBounds(263, 146, 183, 34);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Titolo Annuncio");
-		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel.setBounds(92, 137, 210, 44);
 		contentPane.add(lblNewLabel);
 		
@@ -100,7 +102,7 @@ public class OfferteRicevute extends JFrame {
 				
 			}
 		});
-		btnAccetta.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
+		btnAccetta.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnAccetta.setBackground(new Color(0, 52, 101));
 		btnAccetta.setForeground(new Color(255, 255, 255));
 		btnAccetta.setBounds(136, 245, 153, 44);
@@ -116,7 +118,7 @@ public class OfferteRicevute extends JFrame {
 			}
 		});
 		btnRifiuta.setForeground(Color.WHITE);
-		btnRifiuta.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
+		btnRifiuta.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRifiuta.setBackground(new Color(0, 52, 101));
 		btnRifiuta.setBounds(443, 245, 153, 44);
 		btnRifiuta.setFocusPainted(false);

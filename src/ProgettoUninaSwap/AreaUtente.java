@@ -68,7 +68,7 @@ public class AreaUtente extends JFrame {
 		});
 		btnVisualizzaOfferteRicevute.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaOfferteRicevute.setForeground(new Color(255, 255, 255));
-		btnVisualizzaOfferteRicevute.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnVisualizzaOfferteRicevute.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnVisualizzaOfferteRicevute.setBackground(new Color(0, 52, 104));
 		btnVisualizzaOfferteRicevute.setBounds(71, 275, 356, 84);
 		btnVisualizzaOfferteRicevute.setFocusPainted(false);
@@ -88,7 +88,7 @@ public class AreaUtente extends JFrame {
 		
 		btnVisualizzaStoricoOfferte.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaStoricoOfferte.setForeground(Color.WHITE);
-		btnVisualizzaStoricoOfferte.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnVisualizzaStoricoOfferte.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnVisualizzaStoricoOfferte.setBackground(new Color(0, 52, 104));
 		btnVisualizzaStoricoOfferte.setBounds(71, 163, 356, 84);
 		btnVisualizzaStoricoOfferte.setFocusPainted(false);
@@ -107,7 +107,7 @@ public class AreaUtente extends JFrame {
 		});
 		btnInserisciRecensione.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));
 		btnInserisciRecensione.setForeground(Color.WHITE);
-		btnInserisciRecensione.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnInserisciRecensione.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnInserisciRecensione.setBackground(new Color(0, 52, 104));
 		btnInserisciRecensione.setBounds(509, 163, 303, 84);
 		btnInserisciRecensione.setFocusPainted(false);
@@ -125,7 +125,7 @@ public class AreaUtente extends JFrame {
 		});
 		btnCreaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));
 		btnCreaAnnuncio.setForeground(Color.WHITE);
-		btnCreaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnCreaAnnuncio.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnCreaAnnuncio.setBackground(new Color(0, 52, 104));
 		btnCreaAnnuncio.setBounds(509, 275, 303, 84);
 		btnCreaAnnuncio.setFocusPainted(false);
@@ -141,6 +141,7 @@ public class AreaUtente extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\UNINA__4-1.png"));
 		lblNewLabel_2.setBounds(180, 10, 182, 106);
 		panel.add(lblNewLabel_2);
@@ -148,9 +149,10 @@ public class AreaUtente extends JFrame {
 		JLabel lblNewLabel = new JLabel("Area Utente");
 		lblNewLabel.setBounds(392, 44, 152, 32);
 		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Verdana Pro Cond Semibold", Font.BOLD | Font.ITALIC, 25));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 		
 		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(578, 10, 182, 84);
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
@@ -159,9 +161,10 @@ public class AreaUtente extends JFrame {
 		lblNewLabel_3.setBounds(686, 39, 160, 48);
 		panel.add(lblNewLabel_3);
 		lblNewLabel_3.setBackground(new Color(45, 134, 192));
-		lblNewLabel_3.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 16));
 		
 		JButton btnUndo = new JButton("");
+		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -188,7 +191,7 @@ public class AreaUtente extends JFrame {
 		});
 		btnVisualizzaRecensioni.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaRecensioni.setForeground(Color.WHITE);
-		btnVisualizzaRecensioni.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnVisualizzaRecensioni.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnVisualizzaRecensioni.setBackground(new Color(0, 52, 104));
 		btnVisualizzaRecensioni.setBounds(71, 388, 356, 84);
 		btnVisualizzaRecensioni.setFocusPainted(false);
@@ -207,7 +210,7 @@ public class AreaUtente extends JFrame {
 		});
 		btnVisualizzaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
 		btnVisualizzaAnnuncio.setForeground(Color.WHITE);
-		btnVisualizzaAnnuncio.setFont(new Font("Verdana Pro Black", Font.BOLD | Font.ITALIC, 15));
+		btnVisualizzaAnnuncio.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnVisualizzaAnnuncio.setFocusPainted(false);
 		btnVisualizzaAnnuncio.setBackground(new Color(0, 52, 104));
 		btnVisualizzaAnnuncio.setBounds(509, 388, 303, 84);
