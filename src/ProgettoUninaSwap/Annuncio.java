@@ -74,6 +74,24 @@ public class Annuncio extends JFrame {
 		
 		setContentPane(contentPane);
 		
+		JLabel lblNewLabel_8 = new JLabel("");
+		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-exchange-32.png"));
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setBounds(33, 514, 46, 56);
+		contentPane.add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_7 = new JLabel("");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\sabri\\AppData\\Local\\Microsoft\\Windows\\INetCache\\IE\\R9Z7WFNO\\icons8-sale-32[1].png"));
+		lblNewLabel_7.setBounds(339, 514, 39, 56);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\—Pngtree—gift icon_7390276.png"));
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4.setBounds(187, 514, 46, 56);
+		contentPane.add(lblNewLabel_4);
+		
 		JTextField textfieldTitolo = new JTextField();
 		textfieldTitolo.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textfieldTitolo.setForeground(new Color(255, 255, 255));
@@ -147,7 +165,7 @@ public class Annuncio extends JFrame {
 		JVendita.setForeground(new Color(255, 255, 255));
 		JVendita.setBackground(new Color(0, 52, 102));
 		JVendita.setFont(new Font("Tahoma", Font.BOLD, 16));
-		JVendita.setBounds(332, 514, 122, 56);
+		JVendita.setBounds(339, 514, 115, 56);
 		contentPane.add(JVendita);
 		JVendita.setFocusPainted(false);
 		JVendita.setBorderPainted(false);

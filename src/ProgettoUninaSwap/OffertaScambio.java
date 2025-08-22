@@ -85,7 +85,7 @@ public class OffertaScambio extends JFrame {
 		
 		JLabel lblOffertaScambio = new JLabel("Offerta Scambio");
 		lblOffertaScambio.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblOffertaScambio.setBounds(292, 22, 176, 42);
+		lblOffertaScambio.setBounds(292, 10, 176, 42);
 		panel.add(lblOffertaScambio);
 		
 		JButton btnUndo = new JButton("");
