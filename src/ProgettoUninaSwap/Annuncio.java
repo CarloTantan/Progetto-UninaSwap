@@ -259,9 +259,8 @@ public class Annuncio extends JFrame {
 						LabelImg.getIcon()==null 
 					) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else if (comboBoxCategoria.getSelectedIndex()==0){
-					JOptionPane.showMessageDialog(null, "Seleziona un punteggio", "Punteggio mancante", JOptionPane.WARNING_MESSAGE);
-				}{
+				}
+				else {
 					setVisible(false);
 					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio();
 					annuncioScambioFrame.setVisible(true);
