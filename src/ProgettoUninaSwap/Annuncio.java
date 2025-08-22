@@ -35,6 +35,7 @@ import java.awt.Component;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTree;
+import java.awt.Toolkit;
 
 public class Annuncio extends JFrame {
 
@@ -62,6 +63,7 @@ public class Annuncio extends JFrame {
 	 * Create the frame.
 	 */
 	public Annuncio() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 548, 638);
@@ -87,6 +89,7 @@ public class Annuncio extends JFrame {
 		contentPane.add(textAreaModConsegna);
 		
 		JLabel lblNewLabel = new JLabel("Titolo");
+		lblNewLabel.setBackground(new Color(0, 52, 102));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(36, 194, 85, 28);
 		contentPane.add(lblNewLabel);
@@ -112,6 +115,7 @@ public class Annuncio extends JFrame {
 		contentPane.add(lblNewLabel_5);
 		
 		JButton JScambio = new JButton("Scambio");
+		JScambio.setHorizontalAlignment(SwingConstants.RIGHT);
 		JScambio.setForeground(new Color(255, 255, 255));
 		JScambio.setToolTipText("");
 		JScambio.setBackground(new Color(0, 52, 102));
@@ -123,6 +127,7 @@ public class Annuncio extends JFrame {
 	
 		
 		JButton JRegalo = new JButton("Regalo");
+		JRegalo.setHorizontalAlignment(SwingConstants.RIGHT);
 		JRegalo.setForeground(new Color(255, 255, 255));
 		JRegalo.setBackground(new Color(0, 52, 102));
 		JRegalo.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -171,10 +176,12 @@ public class Annuncio extends JFrame {
 		panel.add(lblNewLabel_6);
 		
 		JLabel LabelImg = new JLabel("");
+		LabelImg.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		LabelImg.setForeground(new Color(0, 52, 102));
+		LabelImg.setLabelFor(this);
 		LabelImg.setBackground(new Color(0, 52, 102));
 		LabelImg.setBounds(251, 77, 203, 77);
 		contentPane.add(LabelImg);
-		ButtonAnnulla.setBorderPainted(false);
 		
 		JButton ButtonImgOggetto = new JButton("Oggetto");
 		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
@@ -232,8 +239,6 @@ public class Annuncio extends JFrame {
 		        }
 			}
 		});
-		
-		
 		
 		
 		JScambio.addActionListener(new ActionListener() {
