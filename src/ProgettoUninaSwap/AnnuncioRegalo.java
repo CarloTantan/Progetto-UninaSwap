@@ -82,6 +82,7 @@ public class AnnuncioRegalo extends JFrame {
 		}); 
 		
 		JTextArea textAreaMotivo = new JTextArea();
+		textAreaMotivo.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textAreaMotivo.setBackground(new Color(0, 52, 102));
 		textAreaMotivo.setForeground(new Color(255, 255, 255));
 		textAreaMotivo.setBounds(237, 91, 183, 39);

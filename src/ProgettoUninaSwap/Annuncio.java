@@ -75,14 +75,14 @@ public class Annuncio extends JFrame {
 		setContentPane(contentPane);
 		
 		JTextField textfieldTitolo = new JTextField();
-		textfieldTitolo.setFont(new Font("Dialog", Font.BOLD, 14));
+		textfieldTitolo.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textfieldTitolo.setForeground(new Color(255, 255, 255));
 		textfieldTitolo.setBackground(new Color(0, 52, 102));
 		textfieldTitolo.setBounds(251, 198, 203, 22);
 		contentPane.add(textfieldTitolo);
 		
 		JTextField textAreaModConsegna = new JTextField();
-		textAreaModConsegna.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaModConsegna.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textAreaModConsegna.setForeground(new Color(255, 255, 255));
 		textAreaModConsegna.setBackground(new Color(0, 52, 102));
 		textAreaModConsegna.setBounds(251, 399, 203, 22);
@@ -221,7 +221,7 @@ public class Annuncio extends JFrame {
 		JTextArea textAreaDescrizione = new JTextArea();
 		textAreaDescrizione.setForeground(new Color(255, 255, 255));
 		textAreaDescrizione.setBackground(new Color(0, 52, 102));
-		textAreaDescrizione.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaDescrizione.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textAreaDescrizione.setLineWrap(true);  
 		textAreaDescrizione.setWrapStyleWord(true);
 		textAreaDescrizione.setRows(4);

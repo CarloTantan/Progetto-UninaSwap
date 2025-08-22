@@ -83,6 +83,7 @@ public class AnnuncioScambio extends JFrame {
 		}); 
 		
 		JTextArea textAreaOggettoRichiesto = new JTextArea();
+		textAreaOggettoRichiesto.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textAreaOggettoRichiesto.setForeground(new Color(255, 255, 255));
 		textAreaOggettoRichiesto.setBackground(Color.WHITE);
 		textAreaOggettoRichiesto.setBackground(new Color(0, 52, 102));

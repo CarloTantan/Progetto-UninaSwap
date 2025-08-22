@@ -46,7 +46,7 @@ public class AnnuncioVendita extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Vendita");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 341, 300);
+		setBounds(100, 100, 434, 241);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,12 +56,12 @@ public class AnnuncioVendita extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, 327, 55);
+		panel.setBounds(0, 0, 420, 55);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Annuncio di vendita");
-		lblNewLabel.setBounds(98, 10, 162, 20);
+		lblNewLabel.setBounds(157, 10, 162, 20);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel.add(lblNewLabel);
 		
@@ -84,21 +84,22 @@ public class AnnuncioVendita extends JFrame {
 		}); 
 		
 		JTextArea textAreaPrezzo = new JTextArea();
+		textAreaPrezzo.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textAreaPrezzo.setForeground(new Color(255, 255, 255));
-		textAreaPrezzo.setBackground(Color.WHITE);
-		textAreaPrezzo.setBounds(160, 88, 112, 22);
+		textAreaPrezzo.setBackground(new Color(0, 52, 102));
+		textAreaPrezzo.setBounds(257, 89, 123, 18);
 		contentPane.add(textAreaPrezzo);
 		
-		JLabel lblNewLabel_1 = new JLabel("Prezzo");
+		JLabel lblNewLabel_1 = new JLabel("Prezzo oggetto");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(58, 89, 92, 19);
+		lblNewLabel_1.setBounds(70, 89, 163, 19);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton ButtonPubblica = new JButton("Pubblica");
 		ButtonPubblica.setForeground(new Color(255, 255, 255));
 		ButtonPubblica.setBackground(new Color(0, 52, 102));
 		ButtonPubblica.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonPubblica.setBounds(107, 162, 123, 37);
+		ButtonPubblica.setBounds(170, 141, 123, 37);
 		contentPane.add(ButtonPubblica);
         ButtonPubblica.setFocusPainted(false);
 		ButtonPubblica.setBorderPainted(false);
