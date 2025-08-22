@@ -119,6 +119,7 @@ public class Annuncio extends JFrame {
 		contentPane.add(lblNewLabel_5);
 		
 		JButton JScambio = new JButton("Scambio");
+		JScambio.setHorizontalAlignment(SwingConstants.RIGHT);
 		JScambio.setForeground(new Color(255, 255, 255));
 		JScambio.setToolTipText("");
 		JScambio.setBackground(new Color(0, 52, 102));
@@ -130,6 +131,7 @@ public class Annuncio extends JFrame {
 	
 		
 		JButton JRegalo = new JButton("Regalo");
+		JRegalo.setHorizontalAlignment(SwingConstants.RIGHT);
 		JRegalo.setForeground(new Color(255, 255, 255));
 		JRegalo.setBackground(new Color(0, 52, 102));
 		JRegalo.setFont(new Font("Tahoma", Font.BOLD, 16));
