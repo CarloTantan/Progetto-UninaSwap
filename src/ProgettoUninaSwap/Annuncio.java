@@ -75,24 +75,6 @@ public class Annuncio extends JFrame {
 		
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel_8 = new JLabel("");
-		lblNewLabel_8.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-exchange-32.png")));
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_8.setBounds(36, 514, 46, 56);
-		contentPane.add(lblNewLabel_8);
-		
-		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-sale-32.png")));
-		lblNewLabel_7.setBounds(327, 514, 39, 56);
-		contentPane.add(lblNewLabel_7);
-		
-		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/—Pngtree—gift icon_7390276.png")));
-		lblNewLabel_4.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4.setBounds(187, 514, 46, 56);
-		contentPane.add(lblNewLabel_4);
-		
 		JTextField textfieldTitolo = new JTextField();
 		textfieldTitolo.setFont(new Font("Verdana", Font.PLAIN, 16));
 		textfieldTitolo.setForeground(new Color(255, 255, 255));
@@ -138,35 +120,26 @@ public class Annuncio extends JFrame {
 		lblNewLabel_5.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_5.setBounds(36, 453, 179, 22);
 		contentPane.add(lblNewLabel_5);
-		
-		JButton JScambio = new JButton("Scambio");
-		JScambio.setHorizontalAlignment(SwingConstants.RIGHT);
-		JScambio.setForeground(new Color(255, 255, 255));
-		JScambio.setToolTipText("");
-		JScambio.setBackground(new Color(0, 52, 102));
-		JScambio.setFont(new Font("Verdana", Font.BOLD, 16));
-		JScambio.setBounds(36, 514, 135, 56);
-		contentPane.add(JScambio);
-		JScambio.setFocusPainted(false);
-		JScambio.setBorderPainted(false);
 	
 		
 		JButton JRegalo = new JButton("Regalo");
-		JRegalo.setHorizontalAlignment(SwingConstants.RIGHT);
+		JRegalo.setHorizontalAlignment(SwingConstants.LEFT);
+		JRegalo.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/—Pngtree—gift icon_7390276.png")));
 		JRegalo.setForeground(new Color(255, 255, 255));
 		JRegalo.setBackground(new Color(0, 52, 102));
 		JRegalo.setFont(new Font("Verdana", Font.BOLD, 16));
-		JRegalo.setBounds(187, 514, 122, 56);
+		JRegalo.setBounds(195, 514, 151, 56);
 		contentPane.add(JRegalo);
 		JRegalo.setFocusPainted(false);
 		JRegalo.setBorderPainted(false);
 		
 		JButton JVendita = new JButton("Vendita");
-		JVendita.setHorizontalAlignment(SwingConstants.RIGHT);
+		JVendita.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-sale-32.png")));
+		JVendita.setHorizontalAlignment(SwingConstants.LEFT);
 		JVendita.setForeground(new Color(255, 255, 255));
 		JVendita.setBackground(new Color(0, 52, 102));
 		JVendita.setFont(new Font("Verdana", Font.BOLD, 16));
-		JVendita.setBounds(319, 514, 135, 56);
+		JVendita.setBounds(356, 514, 145, 56);
 		contentPane.add(JVendita);
 		JVendita.setFocusPainted(false);
 		JVendita.setBorderPainted(false);
@@ -197,7 +170,7 @@ public class Annuncio extends JFrame {
 		
 		JLabel lblNewLabel_6 = new JLabel("Annuncio");
 		lblNewLabel_6.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_6.setBounds(234, 0, 81, 58);
+		lblNewLabel_6.setBounds(234, 0, 100, 58);
 		panel.add(lblNewLabel_6);
 		
 		JLabel LabelImg = new JLabel("");
@@ -264,6 +237,18 @@ public class Annuncio extends JFrame {
 		comboBoxFasciaOraria.setFont(new Font("Verdana", Font.BOLD, 16));
 		comboBoxFasciaOraria.setBounds(251, 347, 203, 22);
 		contentPane.add(comboBoxFasciaOraria);
+		
+		JButton JScambio = new JButton("Scambio");
+		JScambio.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-exchange-32.png")));
+		JScambio.setHorizontalAlignment(SwingConstants.LEFT);
+		JScambio.setForeground(new Color(255, 255, 255));
+		JScambio.setToolTipText("");
+		JScambio.setBackground(new Color(0, 52, 102));
+		JScambio.setFont(new Font("Verdana", Font.BOLD, 16));
+		JScambio.setBounds(36, 514, 151, 56);
+		contentPane.add(JScambio);
+		JScambio.setFocusPainted(false);
+		JScambio.setBorderPainted(false);
 
 		JScambio.addActionListener(new ActionListener() {
 			@Override
