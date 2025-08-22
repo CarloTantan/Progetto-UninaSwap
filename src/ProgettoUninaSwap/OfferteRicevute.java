@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class OfferteRicevute extends JFrame {
 
@@ -43,6 +44,7 @@ public class OfferteRicevute extends JFrame {
 	 * Create the frame.
 	 */
 	public OfferteRicevute() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OfferteRicevute.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Offerte Ricevute");
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

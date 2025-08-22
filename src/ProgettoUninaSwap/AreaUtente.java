@@ -153,7 +153,7 @@ public class AreaUtente extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(578, 10, 182, 84);
 		panel.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\icons8-utente-uomo-cerchiato-96.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
 		
 		JLabel lblNewLabel_3 = new JLabel("Giordano Rossi");
 		lblNewLabel_3.setBounds(686, 39, 160, 48);

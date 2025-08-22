@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextArea;
+import java.awt.Toolkit;
 
 public class OffertaScambio extends JFrame {
 
@@ -44,6 +45,8 @@ public class OffertaScambio extends JFrame {
 	 * Create the frame.
 	 */
 	public OffertaScambio() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		setTitle("Scambio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 782, 478);
 		contentPane = new JPanel();

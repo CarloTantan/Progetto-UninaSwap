@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.Toolkit;
 
 public class StoricoOfferte extends JFrame {
 
@@ -39,6 +40,7 @@ public class StoricoOfferte extends JFrame {
 	 * Create the frame.
 	 */
 	public StoricoOfferte() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(StoricoOfferte.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Le tue offerte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 762, 512);

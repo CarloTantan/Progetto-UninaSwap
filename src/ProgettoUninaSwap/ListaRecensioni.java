@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class ListaRecensioni extends JFrame {
 
@@ -39,6 +40,7 @@ public class ListaRecensioni extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaRecensioni() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaRecensioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Le tue recensioni");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 791, 431);

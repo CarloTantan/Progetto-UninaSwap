@@ -83,7 +83,7 @@ public class InserimentoRecensione extends JFrame {
 		
 		JLabel lblInserisciUnaRecensione = new JLabel("Lascia una recensione");
 		lblInserisciUnaRecensione.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblInserisciUnaRecensione.setBounds(182, 10, 257, 54);
+		lblInserisciUnaRecensione.setBounds(228, 4, 257, 54);
 		panel.add(lblInserisciUnaRecensione);
 		
 		JLabel lblPunteggio = new JLabel("Punteggio");
