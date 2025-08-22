@@ -62,7 +62,7 @@ public class Annuncio extends JFrame {
 	 * Create the frame.
 	 */
 	public Annuncio() {
-		setTitle("Crea la tua inserzione");
+		setTitle("Annuncio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 548, 638);
 		contentPane = new JPanel();
@@ -87,6 +87,7 @@ public class Annuncio extends JFrame {
 		contentPane.add(textAreaModConsegna);
 		
 		JLabel lblNewLabel = new JLabel("Titolo");
+		lblNewLabel.setBackground(new Color(0, 52, 102));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(36, 194, 85, 28);
 		contentPane.add(lblNewLabel);
@@ -171,10 +172,12 @@ public class Annuncio extends JFrame {
 		panel.add(lblNewLabel_6);
 		
 		JLabel LabelImg = new JLabel("");
+		LabelImg.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		LabelImg.setForeground(new Color(0, 52, 102));
+		LabelImg.setLabelFor(this);
 		LabelImg.setBackground(new Color(0, 52, 102));
 		LabelImg.setBounds(251, 77, 203, 77);
 		contentPane.add(LabelImg);
-		ButtonAnnulla.setBorderPainted(false);
 		
 		JButton ButtonImgOggetto = new JButton("Oggetto");
 		ButtonImgOggetto.setBackground(new Color(255, 255, 255));
@@ -231,8 +234,6 @@ public class Annuncio extends JFrame {
 		        }
 			}
 		});
-		
-		
 		
 		
 		JScambio.addActionListener(new ActionListener() {
