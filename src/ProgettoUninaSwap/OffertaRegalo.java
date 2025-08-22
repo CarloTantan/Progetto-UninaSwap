@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class OffertaRegalo extends JFrame {
 
@@ -41,6 +42,8 @@ public class OffertaRegalo extends JFrame {
 	 * Create the frame.
 	 */
 	public OffertaRegalo() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		setTitle("Regalo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 815, 439);
 		contentPane = new JPanel();

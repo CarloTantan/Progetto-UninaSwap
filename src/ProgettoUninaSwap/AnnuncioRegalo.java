@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
+import java.awt.Toolkit;
 
 public class AnnuncioRegalo extends JFrame {
 
@@ -42,6 +43,8 @@ public class AnnuncioRegalo extends JFrame {
 	 * Create the frame.
 	 */
 	public AnnuncioRegalo() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		setTitle("Regalo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 451, 258);
 		contentPane = new JPanel();
@@ -57,7 +60,7 @@ public class AnnuncioRegalo extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Annuncio di regalo");
-		lblNewLabel.setBounds(150, 10, 152, 20);
+		lblNewLabel.setBounds(140, 10, 152, 20);
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		

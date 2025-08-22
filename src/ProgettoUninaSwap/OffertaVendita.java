@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class OffertaVendita extends JFrame {
 // vendita prezzo casella di testo bottone conferma e indietro
@@ -44,6 +45,8 @@ public class OffertaVendita extends JFrame {
 	 * Create the frame.
 	 */
 	public OffertaVendita() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		setTitle("Vendita");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 783, 463);
 		contentPane = new JPanel();
@@ -87,9 +90,9 @@ public class OffertaVendita extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Prezzo");
+		JLabel lblNewLabel_1 = new JLabel("Proponi un importo");
 		lblNewLabel_1.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(209, 154, 91, 36);
+		lblNewLabel_1.setBounds(147, 154, 153, 40);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnConferma = new JButton("Conferma");

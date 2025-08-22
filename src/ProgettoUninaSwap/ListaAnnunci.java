@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class ListaAnnunci extends JFrame {
 
@@ -44,8 +45,9 @@ public class ListaAnnunci extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaAnnunci() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("ListaAnnunci");
+		setTitle("Ricerca annuncio");
 		setBounds(100, 100, 835, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -35,6 +35,7 @@ import java.awt.Component;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTree;
+import java.awt.Toolkit;
 
 public class Annuncio extends JFrame {
 
@@ -62,7 +63,8 @@ public class Annuncio extends JFrame {
 	 * Create the frame.
 	 */
 	public Annuncio() {
-		setTitle("Annuncio");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 548, 638);
 		contentPane = new JPanel();

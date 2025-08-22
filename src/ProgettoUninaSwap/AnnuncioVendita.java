@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
+import java.awt.Toolkit;
 
 public class AnnuncioVendita extends JFrame {
 
@@ -42,6 +43,8 @@ public class AnnuncioVendita extends JFrame {
 	 * Create the frame.
 	 */
 	public AnnuncioVendita() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		setTitle("Vendita");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 341, 300);
 		contentPane = new JPanel();
@@ -82,7 +85,7 @@ public class AnnuncioVendita extends JFrame {
 		
 		JTextArea textAreaPrezzo = new JTextArea();
 		textAreaPrezzo.setForeground(new Color(255, 255, 255));
-		textAreaPrezzo.setBackground(new Color(0, 52, 102));
+		textAreaPrezzo.setBackground(Color.WHITE);
 		textAreaPrezzo.setBounds(160, 88, 112, 22);
 		contentPane.add(textAreaPrezzo);
 		
