@@ -60,7 +60,7 @@ public class Login extends JFrame {
 		
 		JLabel lblLogin = new JLabel("Log in");
 		lblLogin.setToolTipText("");
-		lblLogin.setFont(new Font("Verdana Pro Black", Font.BOLD, 20));
+		lblLogin.setFont(new Font("Verdana", Font.BOLD, 20));
 		lblLogin.setBounds(370, 32, 82, 26);
 		contentPane.add(lblLogin);
 		
@@ -71,11 +71,13 @@ public class Login extends JFrame {
 		contentPane.add(panel);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
 		lblNewLabel_1.setBounds(10, 52, 214, 218);
 		panel.add(lblNewLabel_1);
 		
 		JButton btnIndietro = new JButton("");
+		btnIndietro.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnIndietro.setIcon(new ImageIcon(Login.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnIndietro.setBackground(new Color(46, 132, 191));
 		btnIndietro.setBounds(10, 10, 39, 32);
@@ -93,23 +95,23 @@ public class Login extends JFrame {
 		});
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblPassword.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblPassword.setBounds(277, 123, 150, 22);
 		contentPane.add(lblPassword);
 		
 		textFieldPassword = new JPasswordField();
-		textFieldPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+		textFieldPassword.setFont(new Font("Verdana", Font.BOLD, 16));
 		textFieldPassword.setColumns(10);
 		textFieldPassword.setBounds(380, 124, 112, 26);
 		contentPane.add(textFieldPassword);
 		
 		JLabel lblMatricola = new JLabel("Matricola");
-		lblMatricola.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblMatricola.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblMatricola.setBounds(277, 83, 137, 22);
 		contentPane.add(lblMatricola);
 		
 		textFieldMatricola = new JTextField();
-		textFieldMatricola.setFont(new Font("Dialog", Font.BOLD, 16));
+		textFieldMatricola.setFont(new Font("Verdana", Font.BOLD, 16));
 		textFieldMatricola.setColumns(10);
 		textFieldMatricola.setBounds(380, 84, 112, 26);
 		contentPane.add(textFieldMatricola);
@@ -117,7 +119,7 @@ public class Login extends JFrame {
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.setForeground(new Color(255, 255, 255));
 		btnAccedi.setBackground(new Color(0, 52, 101));
-		btnAccedi.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
+		btnAccedi.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnAccedi.setBounds(330, 185, 162, 35);
 		btnAccedi.setFocusPainted(false);
 		btnAccedi.setBorderPainted(false);

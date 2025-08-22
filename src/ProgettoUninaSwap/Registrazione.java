@@ -62,92 +62,92 @@ public class Registrazione extends JFrame {
 		Registrazione.setLayout(null);
 		
 		JLabel lblRegistra = new JLabel("Registrazione Nuovo Utente");
-		lblRegistra.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblRegistra.setBounds(295, 10, 280, 35);
+		lblRegistra.setFont(new Font("Verdana", Font.BOLD, 20));
+		lblRegistra.setBounds(252, 10, 346, 35);
 		Registrazione.add(lblRegistra);
 		
 		JLabel lblNome = new JLabel("Nome");
-		lblNome.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblNome.setBounds(272, 64, 57, 22);
+		lblNome.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblNome.setBounds(272, 64, 326, 22);
 		Registrazione.add(lblNome);
 		
 		textFieldNome = new JTextField();
-		textFieldNome.setFont(new Font("Dialog", Font.BOLD, 16));
-		textFieldNome.setBounds(444, 64, 139, 22);
+		textFieldNome.setFont(new Font("Verdana", Font.BOLD, 16));
+		textFieldNome.setBounds(444, 64, 154, 22);
 		Registrazione.add(textFieldNome);
 		textFieldNome.setColumns(10);
 		
 		JLabel lblCognome = new JLabel("Cognome");
-		lblCognome.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblCognome.setBounds(272, 96, 74, 22);
+		lblCognome.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblCognome.setBounds(272, 96, 326, 22);
 		Registrazione.add(lblCognome);
 		
 		textFieldCognome = new JTextField();
-		textFieldCognome.setFont(new Font("Dialog", Font.BOLD, 16));
+		textFieldCognome.setFont(new Font("Verdana", Font.BOLD, 16));
 		textFieldCognome.setColumns(10);
-		textFieldCognome.setBounds(444, 96, 139, 22);
+		textFieldCognome.setBounds(444, 96, 154, 22);
 		Registrazione.add(textFieldCognome);
 		
 		JLabel lblEmail = new JLabel("E-mail");
-		lblEmail.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblEmail.setBounds(272, 193, 74, 22);
+		lblEmail.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblEmail.setBounds(272, 193, 326, 22);
 		Registrazione.add(lblEmail);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblPassword.setBounds(272, 225, 74, 22);
+		lblPassword.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblPassword.setBounds(272, 225, 326, 22);
 		Registrazione.add(lblPassword);
 		
 		JLabel lblMatricola = new JLabel("Matricola");
-		lblMatricola.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblMatricola.setBounds(272, 128, 74, 22);
+		lblMatricola.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblMatricola.setBounds(272, 128, 326, 22);
 		Registrazione.add(lblMatricola);
 		
 		textFieldMatricola = new JTextField();
-		textFieldMatricola.setFont(new Font("Dialog", Font.BOLD, 16));
+		textFieldMatricola.setFont(new Font("Verdana", Font.BOLD, 16));
 		textFieldMatricola.setColumns(10);
-		textFieldMatricola.setBounds(444, 128, 139, 22);
+		textFieldMatricola.setBounds(444, 128, 154, 22);
 		Registrazione.add(textFieldMatricola);
 		
 		textFieldEmail = new JTextField();
-		textFieldEmail.setFont(new Font("Dialog", Font.BOLD, 16));
+		textFieldEmail.setFont(new Font("Verdana", Font.BOLD, 16));
 		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(444, 193, 139, 22);
+		textFieldEmail.setBounds(444, 193, 154, 22);
 		Registrazione.add(textFieldEmail);
 		
 		PasswordPassword = new JPasswordField();
-		PasswordPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+		PasswordPassword.setFont(new Font("Verdana", Font.BOLD, 16));
 		PasswordPassword.setColumns(10);
-		PasswordPassword.setBounds(444, 225, 139, 22);
+		PasswordPassword.setBounds(444, 225, 154, 22);
 		Registrazione.add(PasswordPassword);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblTelefono.setBounds(272, 160, 74, 22);
+		lblTelefono.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblTelefono.setBounds(272, 160, 326, 22);
 		Registrazione.add(lblTelefono);
 		
 		textFieldTelefono = new JTextField();
-		textFieldTelefono.setFont(new Font("Dialog", Font.BOLD, 16));
+		textFieldTelefono.setFont(new Font("Verdana", Font.BOLD, 16));
 		textFieldTelefono.setColumns(10);
-		textFieldTelefono.setBounds(444, 160, 139, 22);
+		textFieldTelefono.setBounds(444, 160, 154, 22);
 		Registrazione.add(textFieldTelefono);
 		
 		JLabel lblConfermaPassword = new JLabel("Conferma Password");
-		lblConfermaPassword.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblConfermaPassword.setBounds(272, 259, 162, 22);
+		lblConfermaPassword.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblConfermaPassword.setBounds(252, 257, 326, 22);
 		Registrazione.add(lblConfermaPassword);
 		
 		PasswordConfermaPassword = new JPasswordField();
-		PasswordConfermaPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+		PasswordConfermaPassword.setFont(new Font("Verdana", Font.BOLD, 16));
 		PasswordConfermaPassword.setColumns(10);
-		PasswordConfermaPassword.setBounds(444, 259, 139, 22);
+		PasswordConfermaPassword.setBounds(444, 259, 154, 22);
 		Registrazione.add(PasswordConfermaPassword);
 		
 		JButton btnRegistrati = new JButton("Registrati");
 		btnRegistrati.setForeground(Color.WHITE);
 		btnRegistrati.setBackground(new Color(46, 132, 191));
-		btnRegistrati.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 14));
-		btnRegistrati.setBounds(349, 313, 172, 35);
+		btnRegistrati.setFont(new Font("Verdana", Font.BOLD, 16));
+		btnRegistrati.setBounds(349, 313, 249, 35);
 		btnRegistrati.setFocusPainted(false);
 		btnRegistrati.setBorderPainted(false);
 		Registrazione.add(btnRegistrati);

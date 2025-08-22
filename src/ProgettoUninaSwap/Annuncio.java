@@ -77,7 +77,7 @@ public class Annuncio extends JFrame {
 		JLabel lblNewLabel_8 = new JLabel("");
 		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-exchange-32.png"));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_8.setBounds(33, 514, 46, 56);
+		lblNewLabel_8.setBounds(36, 514, 46, 56);
 		contentPane.add(lblNewLabel_8);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
@@ -144,7 +144,7 @@ public class Annuncio extends JFrame {
 		JScambio.setToolTipText("");
 		JScambio.setBackground(new Color(0, 52, 102));
 		JScambio.setFont(new Font("Tahoma", Font.BOLD, 16));
-		JScambio.setBounds(36, 514, 122, 56);
+		JScambio.setBounds(36, 514, 135, 56);
 		contentPane.add(JScambio);
 		JScambio.setFocusPainted(false);
 		JScambio.setBorderPainted(false);

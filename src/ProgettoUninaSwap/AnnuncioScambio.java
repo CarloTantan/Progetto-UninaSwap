@@ -47,7 +47,7 @@ public class AnnuncioScambio extends JFrame {
 		setTitle("Scambio");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 613, 300);
+		setBounds(100, 100, 792, 441);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -56,7 +56,7 @@ public class AnnuncioScambio extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, 609, 64);
+		panel.setBounds(0, 0, 792, 64);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -69,9 +69,9 @@ public class AnnuncioScambio extends JFrame {
 		ButtonAnnulla.setBorderPainted(false);
 		
 		JLabel lblNewLabel = new JLabel("Annuncio di scambio ");
-		lblNewLabel.setBounds(217, 23, 172, 20);
+		lblNewLabel.setBounds(268, 23, 255, 31);
 		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 		
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
@@ -83,23 +83,27 @@ public class AnnuncioScambio extends JFrame {
 		}); 
 		
 		JTextArea textAreaOggettoRichiesto = new JTextArea();
+<<<<<<< HEAD
 		textAreaOggettoRichiesto.setFont(new Font("Dialog", Font.PLAIN, 16));
+=======
+		textAreaOggettoRichiesto.setFont(new Font("Verdana", Font.BOLD, 16));
+>>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 		textAreaOggettoRichiesto.setForeground(new Color(255, 255, 255));
 		textAreaOggettoRichiesto.setBackground(Color.WHITE);
 		textAreaOggettoRichiesto.setBackground(new Color(0, 52, 102));
-		textAreaOggettoRichiesto.setBounds(324, 93, 168, 22);
+		textAreaOggettoRichiesto.setBounds(293, 127, 199, 40);
 		contentPane.add(textAreaOggettoRichiesto);
 		
 		JLabel lblNewLabel_2 = new JLabel("Oggetto richiesto ");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(100, 92, 162, 22);
+		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(93, 128, 162, 22);
 		contentPane.add(lblNewLabel_2);
 		
 		JButton ButtonPubblica = new JButton("Pubblica ");
 		ButtonPubblica.setBackground(new Color(0, 52, 102));
 		ButtonPubblica.setForeground(new Color(255, 255, 255));
-		ButtonPubblica.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonPubblica.setBounds(221, 163, 152, 40);
+		ButtonPubblica.setFont(new Font("Verdana", Font.BOLD, 16));
+		ButtonPubblica.setBounds(293, 256, 167, 53);
 		contentPane.add(ButtonPubblica);
 		ButtonPubblica.setFocusPainted(false);
 		ButtonPubblica.setBorderPainted(false);

@@ -52,15 +52,15 @@ public class Homepage extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblnuovoUtente = new JLabel("Sei un nuovo utente?");
-		lblnuovoUtente.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblnuovoUtente.setBounds(258, 108, 179, 34);
+		lblnuovoUtente.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblnuovoUtente.setBounds(242, 108, 215, 34);
 		contentPane.add(lblnuovoUtente);
 		
 		JButton btnRegistrati = new JButton("Registrati");
 		btnRegistrati.setForeground(Color.WHITE);
 		btnRegistrati.setBackground(new Color(46, 132, 191));
-		btnRegistrati.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
-		btnRegistrati.setBounds(441, 106, 122, 36);
+		btnRegistrati.setFont(new Font("Verdana", Font.BOLD, 16));
+		btnRegistrati.setBounds(455, 107, 122, 36);
 		btnRegistrati.setFocusPainted(false);
 		btnRegistrati.setBorderPainted(false);
 		contentPane.add(btnRegistrati);
@@ -75,15 +75,15 @@ public class Homepage extends JFrame {
 		});
 		
 		JLabel lblAccediConLe = new JLabel("Sei già registrato?");
-		lblAccediConLe.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblAccediConLe.setBounds(258, 178, 151, 36);
+		lblAccediConLe.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblAccediConLe.setBounds(258, 178, 199, 36);
 		contentPane.add(lblAccediConLe);
 		
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.setForeground(Color.WHITE);
 		btnAccedi.setBackground(new Color(11, 52, 92));
-		btnAccedi.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 16));
-		btnAccedi.setBounds(441, 178, 122, 36);
+		btnAccedi.setFont(new Font("Verdana", Font.BOLD, 16));
+		btnAccedi.setBounds(455, 178, 122, 36);
 		btnAccedi.setFocusPainted(false);
 		btnAccedi.setBorderPainted(false);
 		contentPane.add(btnAccedi);
@@ -109,8 +109,8 @@ public class Homepage extends JFrame {
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Benvenuto in Unina Swap");
-		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(289, 35, 245, 36);
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(258, 35, 305, 36);
 		contentPane.add(lblNewLabel_1);
 
 	}

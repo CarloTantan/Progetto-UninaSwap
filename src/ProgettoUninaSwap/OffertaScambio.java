@@ -58,7 +58,7 @@ public class OffertaScambio extends JFrame {
 		
 		JLabel LabelImg = new JLabel("");
 		LabelImg.setBackground(new Color(0, 52, 102));
-		LabelImg.setBounds(169, 24, 0, 0);
+		LabelImg.setBounds(295, 84, 183, 99);
 		contentPane.add(LabelImg);
 		
 		
@@ -68,10 +68,20 @@ public class OffertaScambio extends JFrame {
 		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFileChooser scegliImg = new JFileChooser();
+		        scegliImg.setDialogTitle("Seleziona immagine");
+		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
+
+		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
+		            Image img = iconaImg.getImage();
+		            LabelImg.setIcon(new ImageIcon(img));
+		        }
 			}
+			
 		});
-		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(322, 121, 105, 37);
+		ButtonImgOggetto.setFont(new Font("Verdana", Font.BOLD, 16));
+		ButtonImgOggetto.setBounds(123, 122, 105, 37);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
 		contentPane.add(ButtonImgOggetto);
@@ -84,8 +94,13 @@ public class OffertaScambio extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblOffertaScambio = new JLabel("Offerta Scambio");
+<<<<<<< HEAD
 		lblOffertaScambio.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
 		lblOffertaScambio.setBounds(292, 10, 176, 42);
+=======
+		lblOffertaScambio.setFont(new Font("Verdana", Font.BOLD, 20));
+		lblOffertaScambio.setBounds(292, 22, 215, 42);
+>>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 		panel.add(lblOffertaScambio);
 		
 		JButton btnUndo = new JButton("");
@@ -115,7 +130,7 @@ public class OffertaScambio extends JFrame {
 				ListaAnnunciFrame.setLocationRelativeTo(null);
 			}
 		});
-		btnConferma.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnConferma.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnConferma.setBackground(new Color(0, 52, 101));
 		btnConferma.setForeground(new Color(255, 255, 255));
 		btnConferma.setBounds(295, 346, 147, 54);
@@ -124,31 +139,19 @@ public class OffertaScambio extends JFrame {
 		contentPane.add(btnConferma);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Verdana Pro Black", Font.BOLD, 15));
+		textArea.setFont(new Font("Verdana", Font.BOLD, 16));
 		textArea.setForeground(new Color(255, 255, 255));
 		textArea.setBackground(new Color(0, 52, 101));
 		textArea.setBounds(276, 206, 193, 99);
 		contentPane.add(textArea);
 		
 		JLabel lblNewLabel = new JLabel("Descrizione");
-		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel.setBounds(309, 178, 129, 18);
 		contentPane.add(lblNewLabel);
 		
-		ButtonImgOggetto.addActionListener(new ActionListener() {
-			@Override 
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser scegliImg = new JFileChooser();
-		        scegliImg.setDialogTitle("Seleziona immagine");
-		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
-
-		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
-		            Image img = iconaImg.getImage();
-		            LabelImg.setIcon(new ImageIcon(img));
-		        }
-			}
-		});
+	
+		
 		
 		
 	}

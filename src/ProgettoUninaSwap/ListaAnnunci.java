@@ -58,7 +58,7 @@ public class ListaAnnunci extends JFrame {
 		
 		String[] tipologie= {"Seleziona una tipologia", "Vendita", "Scambio", "Regalo"};
 		JComboBox comboBoxTipologia = new JComboBox(tipologie);
-		comboBoxTipologia.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		comboBoxTipologia.setFont(new Font("Verdana", Font.BOLD, 16));
 		comboBoxTipologia.setBounds(106, 175, 258, 34);
 		comboBoxTipologia.setBackground(new Color(45, 134, 192));
 		contentPane.add(comboBoxTipologia);
@@ -71,10 +71,11 @@ public class ListaAnnunci extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Lista Annunci");
 		lblNewLabel.setBounds(333, 43, 179, 31);
-		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.BOLD, 21));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 		panel.add(lblNewLabel);
 		
 		JButton btnUndo = new JButton("");
+		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -91,6 +92,7 @@ public class ListaAnnunci extends JFrame {
 		panel.add(btnUndo);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_1.setIcon(new ImageIcon(ListaAnnunci.class.getResource("/icons/icons8-lista-48.png")));
 		lblNewLabel_1.setBounds(657, 10, 45, 78);
 		panel.add(lblNewLabel_1);
@@ -99,19 +101,19 @@ public class ListaAnnunci extends JFrame {
 		
 		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
 		JComboBox comboBoxCategoria = new JComboBox(categorie);
-		comboBoxCategoria.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		comboBoxCategoria.setFont(new Font("Verdana", Font.BOLD, 16));
 
 		comboBoxCategoria.setBackground(new Color(45, 134, 192));
 		comboBoxCategoria.setBounds(526, 175, 258, 34);
 		contentPane.add(comboBoxCategoria);
 		
 		JLabel lblTipologia = new JLabel("Tipologia");
-		lblTipologia.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblTipologia.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblTipologia.setBounds(136, 141, 143, 27);
 		contentPane.add(lblTipologia);
 		
 		JLabel lblCategoria = new JLabel("Categoria");
-		lblCategoria.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		lblCategoria.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblCategoria.setBounds(555, 141, 143, 27);
 		contentPane.add(lblCategoria);
 		
@@ -149,7 +151,7 @@ public class ListaAnnunci extends JFrame {
 		});
 		btnInviaOfferta.setForeground(new Color(255, 255, 255));
 		btnInviaOfferta.setBackground(new Color(0, 52, 101));
-		btnInviaOfferta.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnInviaOfferta.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnInviaOfferta.setBounds(100, 404, 209, 62);
 		btnInviaOfferta.setFocusPainted(false);
 		btnInviaOfferta.setBorderPainted(false);
@@ -158,7 +160,7 @@ public class ListaAnnunci extends JFrame {
 		
 		JButton btnVisualizza = new JButton("Visualizza ");
 		btnVisualizza.setForeground(Color.WHITE);
-		btnVisualizza.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnVisualizza.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnVisualizza.setBackground(new Color(0, 52, 101));
 		btnVisualizza.setBounds(520, 404, 209, 62);
 		btnVisualizza.setFocusPainted(false);

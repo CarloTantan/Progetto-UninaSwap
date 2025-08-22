@@ -63,11 +63,12 @@ public class OffertaVendita extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Offerta Vendita");
-		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.BOLD, 20));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 		lblNewLabel.setBounds(279, 10, 207, 79);
 		panel.add(lblNewLabel);
 		
 		JButton btnUndo = new JButton("");
+		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -85,14 +86,14 @@ public class OffertaVendita extends JFrame {
 		panel.add(btnUndo);
 		
 		textField = new JTextField();
-		textField.setFont(new Font("Verdana Pro Black", Font.BOLD, 15));
+		textField.setFont(new Font("Verdana", Font.BOLD, 16));
 		textField.setBounds(303, 158, 166, 36);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Proponi un importo");
-		lblNewLabel_1.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(147, 154, 153, 40);
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(95, 154, 205, 40);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnConferma = new JButton("Conferma");
@@ -107,7 +108,7 @@ public class OffertaVendita extends JFrame {
 		});
 		btnConferma.setBackground(new Color(0, 52, 101));
 		btnConferma.setForeground(new Color(255, 255, 255));
-		btnConferma.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnConferma.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnConferma.setBounds(280, 294, 219, 36);
 		btnConferma.setFocusPainted(false);
 		btnConferma.setBorderPainted(false); 

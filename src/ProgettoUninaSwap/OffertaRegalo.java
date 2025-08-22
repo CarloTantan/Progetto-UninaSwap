@@ -76,16 +76,17 @@ public class OffertaRegalo extends JFrame {
 		panel.add(btnUndo);
 		
 		JLabel lblOffertaRegalo = new JLabel("Offerta Regalo");
-		lblOffertaRegalo.setFont(new Font("Verdana Pro Black", Font.BOLD, 17));
-		lblOffertaRegalo.setBounds(309, 39, 164, 34);
+		lblOffertaRegalo.setFont(new Font("Verdana", Font.BOLD, 20));
+		lblOffertaRegalo.setBounds(285, 39, 228, 34);
 		panel.add(lblOffertaRegalo);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Verdana", Font.BOLD, 16));
 		textArea.setBounds(270, 173, 227, 105);
 		contentPane.add(textArea);
 		
 		JLabel lblNewLabel = new JLabel("Motivazione Regalo");
-		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.PLAIN, 16));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel.setBounds(279, 123, 201, 28);
 		contentPane.add(lblNewLabel);
 		
@@ -100,7 +101,7 @@ public class OffertaRegalo extends JFrame {
 			}
 		});
 		btnConferma.setForeground(Color.WHITE);
-		btnConferma.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
+		btnConferma.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnConferma.setFocusPainted(false);
 		btnConferma.setBorderPainted(false);
 		btnConferma.setBackground(new Color(0, 52, 101));
