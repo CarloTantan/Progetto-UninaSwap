@@ -75,39 +75,45 @@ public class Annuncio extends JFrame {
 		JTextField textfieldTitolo = new JTextField();
 		textfieldTitolo.setFont(new Font("Dialog", Font.BOLD, 14));
 		textfieldTitolo.setForeground(Color.BLACK);
-		textfieldTitolo.setBackground(Color.WHITE);
+		textfieldTitolo.setBackground(new Color(0, 52, 102));
 		textfieldTitolo.setBounds(251, 198, 203, 22);
 		contentPane.add(textfieldTitolo);
 		
 		JTextField textAreaModConsegna = new JTextField();
 		textAreaModConsegna.setFont(new Font("Dialog", Font.BOLD, 14));
 		textAreaModConsegna.setForeground(Color.BLACK);
-		textAreaModConsegna.setBackground(Color.WHITE);
+		textAreaModConsegna.setBackground(new Color(0, 52, 102));
 		textAreaModConsegna.setBounds(251, 399, 203, 22);
 		contentPane.add(textAreaModConsegna);
 		
 		JLabel lblNewLabel = new JLabel("Titolo");
-		lblNewLabel.setBackground(new Color(0, 52, 102));
+		lblNewLabel.setForeground(new Color(0, 0, 0));
+		lblNewLabel.setBackground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(36, 194, 85, 28);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Descrizione");
+		lblNewLabel_1.setBackground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(36, 266, 170, 28);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Fascia Oraria");
+		lblNewLabel_2.setBackground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_2.setBounds(36, 350, 135, 13);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Modalità di consegna");
+		lblNewLabel_3.setBackground(new Color(255, 255, 255));
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_3.setBounds(36, 398, 179, 22);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_5 = new JLabel("Categoria oggetto");
+		lblNewLabel_5.setForeground(new Color(0, 0, 0));
+		lblNewLabel_5.setBackground(new Color(255, 255, 255));
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_5.setBounds(36, 453, 179, 22);
 		contentPane.add(lblNewLabel_5);
@@ -173,53 +179,16 @@ public class Annuncio extends JFrame {
 		
 		JLabel LabelImg = new JLabel("");
 		LabelImg.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		LabelImg.setForeground(new Color(0, 52, 102));
+		LabelImg.setForeground(new Color(255, 255, 255));
 		LabelImg.setLabelFor(this);
 		LabelImg.setBackground(new Color(0, 52, 102));
 		LabelImg.setBounds(251, 77, 203, 77);
 		contentPane.add(LabelImg);
 		
 		JButton ButtonImgOggetto = new JButton("Oggetto");
-		ButtonImgOggetto.setBackground(new Color(255, 255, 255));
+		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
+		ButtonImgOggetto.setBackground(new Color(0, 52, 102));
 		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
-		ButtonImgOggetto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(23, 77, 189, 36);
-		contentPane.add(ButtonImgOggetto);
-		ButtonImgOggetto.setFocusPainted(false);
-		ButtonImgOggetto.setBorderPainted(false);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(251, 242, 203, 77);
-		contentPane.add(scrollPane);
-		
-		JTextArea textAreaDescrizione = new JTextArea();
-		textAreaDescrizione.setFont(new Font("Dialog", Font.BOLD, 14));
-		textAreaDescrizione.setLineWrap(true);  
-		textAreaDescrizione.setWrapStyleWord(true);
-		textAreaDescrizione.setRows(4);
-		textAreaDescrizione.setColumns(20);
-		scrollPane.setViewportView(textAreaDescrizione);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
-		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
-		comboBoxCategoria.setFont(new Font("Dialog", Font.BOLD, 16));
-		comboBoxCategoria.setBackground(new Color(255, 255, 255));
-		comboBoxCategoria.setBounds(251, 447, 203, 28);
-		contentPane.add(comboBoxCategoria);
-		
-		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:30", "11:00 - 13:30","15:00 - 17:30", "18:00 - 20:30"};
-		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
-		comboBoxFasciaOraria.setBackground(new Color(255, 255, 255));
-		comboBoxFasciaOraria.setFont(new Font("Dialog", Font.BOLD, 16));
-		comboBoxFasciaOraria.setBounds(251, 347, 203, 22);
-		contentPane.add(comboBoxFasciaOraria);
-		
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
@@ -234,8 +203,44 @@ public class Annuncio extends JFrame {
 		        }
 			}
 		});
+					
+		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
+		ButtonImgOggetto.setBounds(21, 77, 191, 36);
+		contentPane.add(ButtonImgOggetto);
+		ButtonImgOggetto.setFocusPainted(false);
+		ButtonImgOggetto.setBorderPainted(false);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(251, 242, 203, 77);
+		contentPane.add(scrollPane);
 		
+		JTextArea textAreaDescrizione = new JTextArea();
+		textAreaDescrizione.setBackground(new Color(0, 52, 102));
+		textAreaDescrizione.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaDescrizione.setLineWrap(true);  
+		textAreaDescrizione.setWrapStyleWord(true);
+		textAreaDescrizione.setRows(4);
+		textAreaDescrizione.setColumns(20);
+		scrollPane.setViewportView(textAreaDescrizione);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
+		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
+		comboBoxCategoria.setForeground(new Color(255, 255, 255));
+		comboBoxCategoria.setFont(new Font("Dialog", Font.BOLD, 16));
+		comboBoxCategoria.setBackground(new Color(0, 52, 102));
+		comboBoxCategoria.setBounds(251, 447, 203, 28);
+		contentPane.add(comboBoxCategoria);
+		
+		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:30", "11:00 - 13:30","15:00 - 17:30", "18:00 - 20:30"};
+		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
+		comboBoxFasciaOraria.setForeground(new Color(255, 255, 255));
+		comboBoxFasciaOraria.setBackground(new Color(0, 52, 102));
+		comboBoxFasciaOraria.setFont(new Font("Dialog", Font.BOLD, 16));
+		comboBoxFasciaOraria.setBounds(251, 347, 203, 22);
+		contentPane.add(comboBoxFasciaOraria);
+
 		JScambio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
