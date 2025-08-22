@@ -83,11 +83,7 @@ public class AnnuncioScambio extends JFrame {
 		}); 
 		
 		JTextArea textAreaOggettoRichiesto = new JTextArea();
-<<<<<<< HEAD
-		textAreaOggettoRichiesto.setFont(new Font("Dialog", Font.PLAIN, 16));
-=======
 		textAreaOggettoRichiesto.setFont(new Font("Verdana", Font.BOLD, 16));
->>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 		textAreaOggettoRichiesto.setForeground(new Color(255, 255, 255));
 		textAreaOggettoRichiesto.setBackground(Color.WHITE);
 		textAreaOggettoRichiesto.setBackground(new Color(0, 52, 102));

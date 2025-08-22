@@ -94,13 +94,8 @@ public class OffertaScambio extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblOffertaScambio = new JLabel("Offerta Scambio");
-<<<<<<< HEAD
-		lblOffertaScambio.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblOffertaScambio.setBounds(292, 10, 176, 42);
-=======
 		lblOffertaScambio.setFont(new Font("Verdana", Font.BOLD, 20));
 		lblOffertaScambio.setBounds(292, 22, 215, 42);
->>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 		panel.add(lblOffertaScambio);
 		
 		JButton btnUndo = new JButton("");

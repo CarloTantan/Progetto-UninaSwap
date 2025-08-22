@@ -82,11 +82,7 @@ public class AnnuncioRegalo extends JFrame {
 		}); 
 		
 		JTextArea textAreaMotivo = new JTextArea();
-<<<<<<< HEAD
-		textAreaMotivo.setFont(new Font("Dialog", Font.PLAIN, 16));
-=======
 		textAreaMotivo.setFont(new Font("Verdana", Font.BOLD, 16));
->>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 		textAreaMotivo.setBackground(new Color(0, 52, 102));
 		textAreaMotivo.setForeground(new Color(255, 255, 255));
 		textAreaMotivo.setBounds(310, 110, 183, 39);
