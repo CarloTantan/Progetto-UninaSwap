@@ -92,7 +92,7 @@ public class OffertaVendita extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Proponi un importo");
 		lblNewLabel_1.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(147, 154, 153, 40);
+		lblNewLabel_1.setBounds(95, 154, 205, 40);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnConferma = new JButton("Conferma");

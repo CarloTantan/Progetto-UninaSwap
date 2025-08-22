@@ -76,11 +76,6 @@ public class InserimentoRecensione extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(59, 0, 113, 58);
-		panel.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
-		
 		JLabel lblInserisciUnaRecensione = new JLabel("Lascia una recensione");
 		lblInserisciUnaRecensione.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblInserisciUnaRecensione.setBounds(228, 4, 257, 54);
