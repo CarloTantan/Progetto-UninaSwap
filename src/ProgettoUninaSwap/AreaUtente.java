@@ -45,7 +45,7 @@ public class AreaUtente extends JFrame {
 	 * Create the frame.
 	 */
 	public AreaUtente() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\UNINA_4.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AreaUtente.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("AreaUtente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 895, 565);
