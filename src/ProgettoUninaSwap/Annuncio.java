@@ -84,7 +84,7 @@ public class Annuncio extends JFrame {
 		JLabel lblNewLabel_7 = new JLabel("");
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-sale-32.png")));
-		lblNewLabel_7.setBounds(339, 514, 39, 56);
+		lblNewLabel_7.setBounds(327, 514, 39, 56);
 		contentPane.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
@@ -166,7 +166,7 @@ public class Annuncio extends JFrame {
 		JVendita.setForeground(new Color(255, 255, 255));
 		JVendita.setBackground(new Color(0, 52, 102));
 		JVendita.setFont(new Font("Verdana", Font.BOLD, 16));
-		JVendita.setBounds(339, 514, 115, 56);
+		JVendita.setBounds(319, 514, 135, 56);
 		contentPane.add(JVendita);
 		JVendita.setFocusPainted(false);
 		JVendita.setBorderPainted(false);
