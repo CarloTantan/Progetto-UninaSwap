@@ -92,7 +92,7 @@ public class Annuncio extends JFrame {
 		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setBackground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(36, 194, 85, 28);
+		lblNewLabel.setBounds(36, 194, 179, 28);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Descrizione");
