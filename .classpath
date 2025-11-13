@@ -10,7 +10,11 @@
 	<classpathentry kind="lib" path="com.miglayout.core_11.4.2.jar"/>
 	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
 	<classpathentry kind="lib" path="com.jgoodies.common_1.8.1.v20240327-0800.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/marku/Downloads/postgresql-42.7.8.jar">
+=======
+	<classpathentry kind="lib" path="C:/Users/carlo/Downloads/postgresql-42.7.8.jar">
+>>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
