@@ -25,6 +25,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JPasswordField textFieldPassword;
 	private JTextField textFieldMatricola;
+	private LoginDAO loginDAO;
 
 	/**
 	 * Launch the application.
@@ -48,6 +49,7 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		loginDAO = new LoginDAO();
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 410);
@@ -128,20 +130,53 @@ public class Login extends JFrame {
 		btnAccedi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if (textFieldMatricola.getText().trim().isEmpty() ||
 						textFieldPassword.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
-					setVisible(false);
-					
-					AreaUtente AreaUtenteFrame = new AreaUtente();
-					
-					AreaUtenteFrame.setVisible(true);
-					AreaUtenteFrame.setLocationRelativeTo(null);
+					effettuaLogin();
 				
 				}
 			}
 		});
+	}
+		private void effettuaLogin() {
+	        // Recupera i valori dai campi
+	        String matricola = textFieldMatricola.getText().trim();
+	        String password = new String(textFieldPassword.getPassword());
+	        
+	        // Validazione base
+	        if (matricola.isEmpty() || password.isEmpty()) {
+	            JOptionPane.showMessageDialog(this, 
+	                "Inserisci matricola e password", 
+	                "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	            return;
+	        }
+	        
+	        // Verifica login usando il DAO
+	        boolean loginValido = loginDAO.verificaLogin(matricola, password);
+	        
+	        if (loginValido) {
+	            JOptionPane.showMessageDialog(this, 
+	                "Login effettuato con successo!", 
+	                "Successo", 
+	                JOptionPane.INFORMATION_MESSAGE);
+	            
+	            // Apri l'interfaccia area utente
+	            this.dispose(); // Chiudi la finestra di login
+	            AreaUtente areaUtente = new AreaUtente();
+	            areaUtente.setVisible(true);
+	            
+	        } else {
+	            JOptionPane.showMessageDialog(this, 
+	                "Matricola o password non corretti", 
+	                "Errore Login", 
+	                JOptionPane.ERROR_MESSAGE);
+	            textFieldPassword.setText(""); // Pulisci il campo password
+	        }
+		
 	}
 
 }
