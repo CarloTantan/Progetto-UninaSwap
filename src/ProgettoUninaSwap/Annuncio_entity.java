@@ -3,14 +3,14 @@ package ProgettoUninaSwap;
 import java.util.Date;
 
 public class Annuncio_entity {
-	private String Titolo; 
-	private String Descrizione; 
-	private Enum FasciaOraria; 
-	private String ModalitàConsegna; 
-	private String StatoAnnuncio; 
-	private String Oggetto; 
-	private String CategoriaOggetto; 
-	private Date DataPubblicazione; 
+	protected String Titolo; 
+	protected String Descrizione; 
+	protected Enum FasciaOraria; 
+	protected String ModalitàConsegna; 
+	protected String StatoAnnuncio; 
+	protected String Oggetto; 
+	protected String CategoriaOggetto; 
+	protected Date DataPubblicazione; 
 	
 	public Annuncio_entity(String Titolo, String Descrizione, Enum FasciaOraria, String ModalitàConsegna, 
 			String StatoAnnuncio, String Oggetto, String CategoriaOggetto, Date DataPubblicazione ) {

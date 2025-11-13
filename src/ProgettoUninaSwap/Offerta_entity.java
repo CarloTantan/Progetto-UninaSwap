@@ -1,7 +1,7 @@
 package ProgettoUninaSwap;
 
 public class Offerta_entity {
-	private String StatoOfferta; 
+	protected String StatoOfferta; 
 	
 	public Offerta_entity(String StatoOfferta) {
 		this.StatoOfferta = StatoOfferta; 
