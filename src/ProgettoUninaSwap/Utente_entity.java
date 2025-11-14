@@ -15,7 +15,7 @@ public class Utente_entity {
 	
 //Getter
 	public String getNominativo() {
-		return Nominativo; 
+		return Nominativo;
 	}
 	
 	public String getEmail() {
