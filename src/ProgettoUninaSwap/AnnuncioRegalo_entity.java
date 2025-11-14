@@ -1,13 +1,13 @@
 package ProgettoUninaSwap;
-
+//gestione fasciaoraira
 import java.util.Date;
 
 public class AnnuncioRegalo_entity extends Annuncio_entity{
 	private String MotivoCessione; 
 	
-	public AnnuncioRegalo_entity(String Titolo, String Descrizione, Enum FasciaOraria, String ModalitàConsegna, 
+	public AnnuncioRegalo_entity(String Titolo, String Descrizione, String ModalitàConsegna, 
 			String StatoAnnuncio, String Oggetto, String CategoriaOggetto, Date DataPubblicazione ,String MotivoCessione) {
-		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, Oggetto, CategoriaOggetto, DataPubblicazione); 
+		super(Titolo, Descrizione, ModalitàConsegna, StatoAnnuncio, Oggetto, CategoriaOggetto, DataPubblicazione); 
 		this.MotivoCessione = MotivoCessione;
 	}
 	

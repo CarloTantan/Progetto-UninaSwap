@@ -57,7 +57,7 @@ public class ListaAnnunci extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ricerca annuncio");
-		setBounds(100, 100, 835, 600);
+		setBounds(100, 100, 1236, 846);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -161,7 +161,7 @@ public class ListaAnnunci extends JFrame {
 		btnInviaOfferta.setForeground(new Color(255, 255, 255));
 		btnInviaOfferta.setBackground(new Color(0, 52, 101));
 		btnInviaOfferta.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnInviaOfferta.setBounds(100, 404, 209, 62);
+		btnInviaOfferta.setBounds(82, 571, 209, 62);
 		btnInviaOfferta.setFocusPainted(false);
 		btnInviaOfferta.setBorderPainted(false);
 		
@@ -171,45 +171,58 @@ public class ListaAnnunci extends JFrame {
 		btnVisualizza.setForeground(Color.WHITE);
 		btnVisualizza.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnVisualizza.setBackground(new Color(0, 52, 101));
-		btnVisualizza.setBounds(520, 404, 209, 62);
+		btnVisualizza.setBounds(531, 571, 209, 62);
 		btnVisualizza.setFocusPainted(false);
 		btnVisualizza.setBorderPainted(false);
 		
 		contentPane.add(btnVisualizza);
 		
-		DefaultTableModel modelTabella = new DefaultTableModel(
-		        new Object[][]{},  // nessuna riga iniziale
-		        new String[]{"Matricola", "Nominativo", "Email", "Telefono"}  // colonne
-		    ) {
-		        @Override
-		        public boolean isCellEditable(int row, int column) {
-		            return false;  // rende la tabella non editabile
-		        }
-		    };
-		    
-		    tabellaUtenti = new JTable(modelTabella);
-		    tabellaUtenti.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
-		    tabellaUtenti.setBounds(106, 230, 678, 146);
-		    contentPane.add(tabellaUtenti);
+		
 		    
 		    JScrollPane scrollPane = new JScrollPane(tabellaUtenti);
-		    scrollPane.setBounds(106, 230, 678, 146);
+		    scrollPane.setBounds(39, 230, 1106, 238);
 		    contentPane.add(scrollPane);
 		
 		btnVisualizza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				caricaDatiUtenti();
-				}
+				   String selectedTipologia = (String) comboBoxTipologia.getSelectedItem();
+
+			        
+			        if (selectedTipologia != null && !selectedTipologia.equals("Regalo")) {
+			        	caricaAnnunciRegalo();
+			            
+			        }  else if (selectedTipologia != null && !selectedTipologia.equals("Scambio")) {
+			        	caricaAnnunciScambio();
+			            
+			        } else {
+			           
+			        	caricaAnnunci();
+			        }
+			}
 			});
 	}
 	
-	private void caricaDatiUtenti() {
+	private void caricaAnnunci() {
 	    try {
+	    	DefaultTableModel modelTabella = new DefaultTableModel(
+			        new Object[][]{},  // nessuna riga iniziale
+			        new String[]{ "Titolo", "Descrizione", "ModalitàC", "StatoAnnuncio", "Oggetto",  "CategoriaOggetto", "DataPubblicazione"}  // colonne
+			    ) {
+			        @Override
+			        public boolean isCellEditable(int row, int column) {
+			            return false;  // rende la tabella non editabile
+			        }
+			    };
+			    
+			    tabellaUtenti = new JTable(modelTabella);
+			    tabellaUtenti.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
+			    tabellaUtenti.setBounds(106, 230, 678, 146);
+			    contentPane.add(tabellaUtenti);
 	        // Crea un'istanza di SelectAcquirenti
-	        SelectAcquirenti selectAcquirenti = new SelectAcquirenti();
+			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
 	        
 	        // Chiama il metodo sull'istanza
-	        ArrayList<Utente_entity> utenti = selectAcquirenti.getUtenti();
+	        ArrayList<Annuncio_entity> Annunci = selectAnnunci.getAnnunci();
 
 	        // Prendi il modello della tabella
 	        DefaultTableModel model = (DefaultTableModel) tabellaUtenti.getModel();
@@ -218,22 +231,25 @@ public class ListaAnnunci extends JFrame {
 	        model.setRowCount(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
-	        for (Utente_entity u : utenti) {
+	        for (Annuncio_entity A : Annunci) {
 	            model.addRow(new Object[]{
-	                u.getMatricola(),
-	                u.getNominativo(),
-	                u.getEmail(),
-	                u.getNumeroTelefono()
+	                A.getTitolo(),
+	                A.getDescrizione(),
+	                A.getModalitàConsegna(),
+	                A.getStatoAnnuncio(),
+	                A.getOggetto(),
+	                A.getCategoriaOggetto(),
+	                A.getDataPubblicazione()
 	            });
 	        }
 
 	        JOptionPane.showMessageDialog(this,
-	            "Caricati " + utenti.size() + " utenti",
+	            "Caricati " + Annunci.size() + " Annunci",
 	            "Successo",
 	            JOptionPane.INFORMATION_MESSAGE);
 
 	    } catch (SQLException e) {
-	        System.err.println("Errore durante il caricamento degli utenti: " + e.getMessage());
+	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
 	        e.printStackTrace();
 	        JOptionPane.showMessageDialog(this,
 	            "Errore nel caricamento dei dati: " + e.getMessage(),
@@ -241,6 +257,193 @@ public class ListaAnnunci extends JFrame {
 	            JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private void caricaAnnunciRegalo() {
+	    try {
+	    	DefaultTableModel modelTabella = new DefaultTableModel(
+			        new Object[][]{},  // nessuna riga iniziale
+			        new String[]{ "Titolo", "Descrizione", "ModalitàC", "StatoAnnuncio", "Oggetto", "CategoriaOggetto", "DataPubblicazione","MotivoCessione"}  // colonne
+			    ) {
+			        @Override
+			        public boolean isCellEditable(int row, int column) {
+			            return false;  // rende la tabella non editabile
+			        }
+			    };
+			    
+			    tabellaUtenti = new JTable(modelTabella);
+			    tabellaUtenti.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
+			    tabellaUtenti.setBounds(106, 230, 678, 146);
+			    contentPane.add(tabellaUtenti);
+	        // Crea un'istanza di SelectAcquirenti
+			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+	        
+	        // Chiama il metodo sull'istanza
+	        ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo();
+
+	        // Prendi il modello della tabella
+	        DefaultTableModel model = (DefaultTableModel) tabellaUtenti.getModel();
+
+	        // Pulisci eventuali righe esistenti
+	        model.setRowCount(0);
+
+	        // Aggiungi ogni utente come riga nella tabella
+	        for (AnnuncioRegalo_entity A : Annunci) {
+	            model.addRow(new Object[]{
+	                A.getTitolo(),
+	                A.getDescrizione(),
+	                A.getModalitàConsegna(),
+	                A.getStatoAnnuncio(),
+	                A.getOggetto(),
+	                A.getCategoriaOggetto(),
+	                A.getDataPubblicazione(),
+	                A.getMotivoCessione()
+	            });
+	        }
+
+	        JOptionPane.showMessageDialog(this,
+	            "Caricati " + Annunci.size() + " Annunci",
+	            "Successo",
+	            JOptionPane.INFORMATION_MESSAGE);
+
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+	
+	
+	
+	
+	
+	
+	private void caricaAnnunciScambio() {
+	    try {
+	    	DefaultTableModel modelTabella = new DefaultTableModel(
+			        new Object[][]{},  // nessuna riga iniziale
+			        new String[]{ "Titolo", "Descrizione", "ModalitàC", "StatoAnnuncio", "Oggetto", "CategoriaOggetto", "DataPubblicazione","OggettoRichiesto"}  // colonne
+			    ) {
+			        @Override
+			        public boolean isCellEditable(int row, int column) {
+			            return false;  // rende la tabella non editabile
+			        }
+			    };
+			    
+			    tabellaUtenti = new JTable(modelTabella);
+			    tabellaUtenti.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
+			    tabellaUtenti.setBounds(106, 230, 678, 146);
+			    contentPane.add(tabellaUtenti);
+	        // Crea un'istanza di SelectAcquirenti
+			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+	        
+	        // Chiama il metodo sull'istanza
+	        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio();
+
+	        // Prendi il modello della tabella
+	        DefaultTableModel model = (DefaultTableModel) tabellaUtenti.getModel();
+
+	        // Pulisci eventuali righe esistenti
+	        model.setRowCount(0);
+
+	        // Aggiungi ogni utente come riga nella tabella
+	        for (AnnuncioScambio_entity A : Annunci) {
+	            model.addRow(new Object[]{
+	                A.getTitolo(),
+	                A.getDescrizione(),
+	                A.getModalitàConsegna(),
+	                A.getStatoAnnuncio(),
+	                A.getOggetto(),
+	                A.getCategoriaOggetto(),
+	                A.getDataPubblicazione(),
+	                A.getOggettoRichiesto()
+	            });
+	        }
+
+	        JOptionPane.showMessageDialog(this,
+	            "Caricati " + Annunci.size() + " Annunci",
+	            "Successo",
+	            JOptionPane.INFORMATION_MESSAGE);
+
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+	
+
+	private void caricaAnnunciVendita() {
+	    try {
+	    	DefaultTableModel modelTabella = new DefaultTableModel(
+			        new Object[][]{},  // nessuna riga iniziale
+			        new String[]{ "Titolo", "Descrizione", "ModalitàC", "StatoAnnuncio", "Oggetto", "CategoriaOggetto", "DataPubblicazione","PrezzoProposto"}  // colonne
+			    ) {
+			        @Override
+			        public boolean isCellEditable(int row, int column) {
+			            return false;  // rende la tabella non editabile
+			        }
+			    };
+			    
+			    tabellaUtenti = new JTable(modelTabella);
+			    tabellaUtenti.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
+			    tabellaUtenti.setBounds(106, 230, 678, 146);
+			    contentPane.add(tabellaUtenti);
+	        // Crea un'istanza di SelectAcquirenti
+			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+	        
+	        // Chiama il metodo sull'istanza
+	        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendità();
+
+	        // Prendi il modello della tabella
+	        DefaultTableModel model = (DefaultTableModel) tabellaUtenti.getModel();
+
+	        // Pulisci eventuali righe esistenti
+	        model.setRowCount(0);
+
+	        // Aggiungi ogni utente come riga nella tabella
+	        for (AnnuncioVendita_entity A : Annunci) {
+	            model.addRow(new Object[]{
+	                A.getTitolo(),
+	                A.getDescrizione(),
+	                A.getModalitàConsegna(),
+	                A.getStatoAnnuncio(),
+	                A.getOggetto(),
+	                A.getCategoriaOggetto(),
+	                A.getDataPubblicazione(),
+	                A.getPrezzoProposto()
+	            });
+	        }
+
+	        JOptionPane.showMessageDialog(this,
+	            "Caricati " + Annunci.size() + " Annunci",
+	            "Successo",
+	            JOptionPane.INFORMATION_MESSAGE);
+
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+	
+	
 		
 }
 
