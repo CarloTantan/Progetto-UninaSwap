@@ -4,13 +4,15 @@ public class Utente_entity {
 	private String Nominativo;
 	private String Email; 
 	private String Matricola;
-	private String NumeroTelefono; 
+	private String NumeroTelefono;
+	private String Password;
 	
-	public Utente_entity(String Nominativo, String Email, String Matricola, String NumeroTelefono) {
+	public Utente_entity(String Nominativo, String Email, String Matricola, String NumeroTelefono, String Password) {
 		this.Nominativo = Nominativo; 
 		this.Email = Email; 
 		this.Matricola = Matricola; 
-		this.NumeroTelefono = NumeroTelefono; 
+		this.NumeroTelefono = NumeroTelefono;
+		this.Password= Password;
 	}
 	
 //Getter
@@ -29,6 +31,10 @@ public class Utente_entity {
 	public String getNumeroTelefono() {
 		return NumeroTelefono; 
 	}
+	
+	public String getPassword() {
+		return Password;
+	}
 
 //Setter
 	public void setNominativo(String Nominativo) {
@@ -45,6 +51,10 @@ public class Utente_entity {
 	
 	public void setNumeroTelefono(String NumeroTelefono) {
 		this.NumeroTelefono = NumeroTelefono; 
+	}
+	
+	public void setPassword(String Password) {
+		this.Password= Password;
 	}
 	
 }

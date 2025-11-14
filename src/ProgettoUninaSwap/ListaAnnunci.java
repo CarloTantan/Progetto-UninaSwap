@@ -4,8 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import java.awt.Color;
 import javax.swing.JComboBox;
@@ -15,13 +18,19 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import javax.swing.JTable;
 
 public class ListaAnnunci extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private SelectAcquirenti selectAcquirenti;
+	private JTable table;
+	private JTable tabellaUtenti;
 
 	/**
 	 * Launch the application.
@@ -168,7 +177,70 @@ public class ListaAnnunci extends JFrame {
 		
 		contentPane.add(btnVisualizza);
 		
-	
+		DefaultTableModel modelTabella = new DefaultTableModel(
+		        new Object[][]{},  // nessuna riga iniziale
+		        new String[]{"Matricola", "Nominativo", "Email", "Telefono"}  // colonne
+		    ) {
+		        @Override
+		        public boolean isCellEditable(int row, int column) {
+		            return false;  // rende la tabella non editabile
+		        }
+		    };
+		    
+		    tabellaUtenti = new JTable(modelTabella);
+		    tabellaUtenti.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
+		    tabellaUtenti.setBounds(106, 230, 678, 146);
+		    contentPane.add(tabellaUtenti);
+		    
+		    JScrollPane scrollPane = new JScrollPane(tabellaUtenti);
+		    scrollPane.setBounds(106, 230, 678, 146);
+		    contentPane.add(scrollPane);
+		
+		btnVisualizza.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				caricaDatiUtenti();
+				}
+			});
 	}
+	
+	private void caricaDatiUtenti() {
+	    try {
+	        // Crea un'istanza di SelectAcquirenti
+	        SelectAcquirenti selectAcquirenti = new SelectAcquirenti();
+	        
+	        // Chiama il metodo sull'istanza
+	        ArrayList<Utente_entity> utenti = selectAcquirenti.getUtenti();
 
+	        // Prendi il modello della tabella
+	        DefaultTableModel model = (DefaultTableModel) tabellaUtenti.getModel();
+
+	        // Pulisci eventuali righe esistenti
+	        model.setRowCount(0);
+
+	        // Aggiungi ogni utente come riga nella tabella
+	        for (Utente_entity u : utenti) {
+	            model.addRow(new Object[]{
+	                u.getMatricola(),
+	                u.getNominativo(),
+	                u.getEmail(),
+	                u.getNumeroTelefono()
+	            });
+	        }
+
+	        JOptionPane.showMessageDialog(this,
+	            "Caricati " + utenti.size() + " utenti",
+	            "Successo",
+	            JOptionPane.INFORMATION_MESSAGE);
+
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante il caricamento degli utenti: " + e.getMessage());
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+		
 }
+
