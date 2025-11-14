@@ -1,12 +1,12 @@
 package ProgettoUninaSwap;
 
-public class Utente {
+public class Utente_entity {
 	private String Nominativo;
 	private String Email; 
 	private String Matricola;
 	private String NumeroTelefono; 
 	
-	public Utente(String Nominativo, String Email, String Matricola, String NumeroTelefono) {
+	public Utente_entity(String Nominativo, String Email, String Matricola, String NumeroTelefono) {
 		this.Nominativo = Nominativo; 
 		this.Email = Email; 
 		this.Matricola = Matricola; 

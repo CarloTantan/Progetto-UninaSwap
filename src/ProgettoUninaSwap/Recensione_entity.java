@@ -2,12 +2,12 @@ package ProgettoUninaSwap;
 
 import java.util.Date;
 
-public class Recensione {
+public class Recensione_entity {
 	private String Commento; 
 	private int Punteggio;
 	private Date Data; 
 	
-	public Recensione(String Commento, int Punteggio, Date Data) {
+	public Recensione_entity(String Commento, int Punteggio, Date Data) {
 		this.Commento = Commento;
 		this.Punteggio = Punteggio;
 		this.Data = Data; 
