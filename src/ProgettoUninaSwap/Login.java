@@ -175,7 +175,7 @@ public class Login extends JFrame {
 	                "Errore Login", 
 	                JOptionPane.ERROR_MESSAGE);
 
-	            textFieldPassword.setText(" ");// Pulisci il campo password
+	            textFieldPassword.setText("");// Pulisci il campo password
 	        }
 		
 	}
