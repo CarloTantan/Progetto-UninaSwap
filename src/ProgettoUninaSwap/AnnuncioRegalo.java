@@ -96,7 +96,7 @@ public class AnnuncioRegalo extends JFrame {
 		JButton ButtonPubblica = new JButton("Pubblica");
 		ButtonPubblica.setBackground(new Color(0, 52, 102));
 		ButtonPubblica.setForeground(new Color(255, 255, 255));
-		ButtonPubblica.setFont(new Font("Verdana", Font.BOLD, 16));
+		ButtonPubblica.setFont(new Font("Verdana", Font.BOLD, 16)); 
 		ButtonPubblica.setBounds(310, 221, 147, 48);
 		contentPane.add(ButtonPubblica);
 		ButtonPubblica.setFocusPainted(false);
