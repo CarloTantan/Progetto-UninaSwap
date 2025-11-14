@@ -174,6 +174,7 @@ public class Login extends JFrame {
 	                "Matricola o password non corretti", 
 	                "Errore Login", 
 	                JOptionPane.ERROR_MESSAGE);
+
 	            textFieldPassword.setText(" ");// Pulisci il campo password
 	        }
 		
