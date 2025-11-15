@@ -127,7 +127,6 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	                rs.getString("idOggetto"),
 	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 	                rs.getDate("DataPubblicazione"),
-	                rs.getDate("DataPubblicazione"), 
 	                rs.getString("OggettoRichiesto")
 	            );
 	            Annunci.add(annunciS);
