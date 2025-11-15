@@ -11,7 +11,6 @@ public class Recensione_entity {
 	private String MatricolaVenditore;
 	
 	
-	
 	public Recensione_entity(String Commento, int Punteggio, Date Data, String MatricolaAcquirente, String MatricolaVenditore) {
 		this.Commento = Commento;
 		this.Punteggio = Punteggio;
@@ -21,6 +20,10 @@ public class Recensione_entity {
 	}
 	
 	//Getter
+	public int getIdRecensione() {
+		return IdRecensione;
+	}
+	
 	public String getCommento() {
 		return Commento; 
 	}
@@ -42,6 +45,10 @@ public class Recensione_entity {
 	}
 	
 	//Setter
+	public void setIdRecensione(int IdRecensione) {
+		this.IdRecensione = IdRecensione;
+	}
+	
 	public void setCommento(String Commento) {
 		this.Commento = Commento; 
 	}
