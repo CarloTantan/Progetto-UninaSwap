@@ -126,7 +126,11 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 	                rs.getString("idOggetto"),
 	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+<<<<<<< HEAD
 	                rs.getDate("DataPubblicazione"),
+=======
+	                rs.getDate("DataPubblicazione"), 
+>>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 	                rs.getString("OggettoRichiesto")
 	            );
 	            Annunci.add(annunciS);

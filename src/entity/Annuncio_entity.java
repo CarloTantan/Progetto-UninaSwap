@@ -1,12 +1,11 @@
 package entity;
 
 import java.util.Date;
-
-import enumerations.FasciaOraria;
 import enumerations.StatoAnnuncio;
+import enumerations.TipologiaCategoria;
+import enumerations.FasciaOraria;
 
 public class Annuncio_entity {
-	//REMINDER PER LA FASCIA ORARIA SERVE ENTITà APPOSTA PER ENUM PER TANTO LA LEVO IN ANNUNCIO PER FARE LA SELECT POI VEDREMO COME FARE  tOLTA DAL COSTRUTTORE
 	protected String Titolo; 
 	protected String Descrizione; 
 	protected FasciaOraria FasciaOraria; 
@@ -14,9 +13,10 @@ public class Annuncio_entity {
 	protected StatoAnnuncio StatoAnnuncio; 
 	protected String idOggetto; 
 	protected Date DataPubblicazione; 
+	protected TipologiaCategoria categoria; 
 	
 	public Annuncio_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto, Date DataPubblicazione ) {
+			StatoAnnuncio StatoAnnuncio, String idOggetto,TipologiaCategoria categoria ,Date DataPubblicazione ) {
 		this.Titolo = Titolo; 
 		this.Descrizione = Descrizione; 
 		this.FasciaOraria = FasciaOraria;
@@ -24,6 +24,7 @@ public class Annuncio_entity {
 		this.StatoAnnuncio = StatoAnnuncio; 
 		this.idOggetto = idOggetto;
 		this.DataPubblicazione = DataPubblicazione; 
+		this.categoria=categoria;
 	}
 	
 //Getter 
@@ -35,7 +36,7 @@ public class Annuncio_entity {
 		return Descrizione; 
 	}
 	
-	public Enum getFasciaOraria() {
+	public FasciaOraria getFasciaOraria() {
 		return FasciaOraria; 
 	}
 	
@@ -84,4 +85,17 @@ public class Annuncio_entity {
 	public void setDataPubblicazione(Date DataPubblicazione) {
 		this.DataPubblicazione = DataPubblicazione; 
 	}
+	
+	
+	 public TipologiaCategoria getTipologiaCategoria() {
+	        return categoria;
+	    }
+	    
+	    public void setTipologiaCategoria(TipologiaCategoria categoria) {
+	        this.categoria = categoria;
+	    }
+	
+	
+	
+	
 }
