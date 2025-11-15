@@ -542,17 +542,7 @@ public class ListaAnnunci extends JFrame {
 	    }
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
