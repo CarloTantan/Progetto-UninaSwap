@@ -1,10 +1,9 @@
 package entity;
 //gestione fasciaoraira
 import java.util.Date;
-
-import enumerations.StatoAnnuncio;
-import enumerations.TipologiaCategoria;
 import enumerations.FasciaOraria;
+import enumerations.TipologiaCategoria;
+import enumerations.StatoAnnuncio;
 
 public class AnnuncioScambio_entity extends Annuncio_entity{
 	private String OggettoRichiesto; 

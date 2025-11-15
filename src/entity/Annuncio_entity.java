@@ -1,9 +1,9 @@
 package entity;
 
 import java.util.Date;
-import enumerations.StatoAnnuncio;
-import enumerations.TipologiaCategoria;
 import enumerations.FasciaOraria;
+import enumerations.TipologiaCategoria;
+import enumerations.StatoAnnuncio;
 
 public class Annuncio_entity {
 	protected String Titolo; 
