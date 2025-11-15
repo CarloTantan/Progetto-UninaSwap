@@ -253,7 +253,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 						rs.getString("idOggetto"),
 						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
 						rs.getDate("DataPubblicazione"), 
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita    ")
   
 						);
 				Annunci.add(annunciV);
