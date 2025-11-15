@@ -415,16 +415,16 @@ public class ListaAnnunci extends JFrame {
 	        model.setRowCount(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
-	        for (AnnuncioVendita_entity A : Annunci) {
+	        for (AnnuncioVendita_entity Av : Annunci) {
 	            model.addRow(new Object[]{
-	                A.getTitolo(),
-	                A.getDescrizione(),
-	                A.getModalitàConsegna(),
-	                A.getStatoAnnuncio(),
-	                A.getOggetto(),
-	                A.getCategoriaOggetto(),
-	                A.getDataPubblicazione(),
-	                A.getPrezzoProposto()
+	                Av.getTitolo(),
+	                Av.getDescrizione(),
+	                Av.getModalitàConsegna(),
+	                Av.getStatoAnnuncio(),
+	                Av.getOggetto(),
+	                Av.getCategoriaOggetto(),
+	                Av.getDataPubblicazione(),
+	                Av.getPrezzoProposto()
 	            });
 	        }
 
