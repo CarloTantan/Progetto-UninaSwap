@@ -5,9 +5,9 @@ import java.util.Date;
 public class AnnuncioRegalo_entity extends Annuncio_entity{
 	private String MotivoCessione; 
 	
-	public AnnuncioRegalo_entity(String Titolo, String Descrizione, String ModalitàConsegna, 
-			String StatoAnnuncio, String Oggetto, String CategoriaOggetto, Date DataPubblicazione ,String MotivoCessione) {
-		super(Titolo, Descrizione, ModalitàConsegna, StatoAnnuncio, Oggetto, CategoriaOggetto, DataPubblicazione); 
+	public AnnuncioRegalo_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
+			StatoAnnuncio StatoAnnuncio, String idOggetto, Date DataPubblicazione ,String MotivoCessione) {
+		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, DataPubblicazione); 
 		this.MotivoCessione = MotivoCessione;
 	}
 	

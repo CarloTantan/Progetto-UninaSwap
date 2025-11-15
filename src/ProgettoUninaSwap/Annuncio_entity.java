@@ -6,22 +6,20 @@ public class Annuncio_entity {
 	//REMINDER PER LA FASCIA ORARIA SERVE ENTITà APPOSTA PER ENUM PER TANTO LA LEVO IN ANNUNCIO PER FARE LA SELECT POI VEDREMO COME FARE  tOLTA DAL COSTRUTTORE
 	protected String Titolo; 
 	protected String Descrizione; 
-	protected Enum FasciaOraria; 
+	protected FasciaOraria FasciaOraria; 
 	protected String ModalitàConsegna; 
-	protected String StatoAnnuncio; 
-	protected String Oggetto; 
-	protected String CategoriaOggetto; 
+	protected StatoAnnuncio StatoAnnuncio; 
+	protected String idOggetto; 
 	protected Date DataPubblicazione; 
 	
-	public Annuncio_entity(String Titolo, String Descrizione,  String ModalitàConsegna, 
-			String StatoAnnuncio, String Oggetto, String CategoriaOggetto, Date DataPubblicazione ) {
+	public Annuncio_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
+			StatoAnnuncio StatoAnnuncio, String idOggetto, Date DataPubblicazione ) {
 		this.Titolo = Titolo; 
 		this.Descrizione = Descrizione; 
-	
+		this.FasciaOraria = FasciaOraria;
 		this.ModalitàConsegna = ModalitàConsegna; 
 		this.StatoAnnuncio = StatoAnnuncio; 
-		this.Oggetto = Oggetto;
-		this.CategoriaOggetto = CategoriaOggetto; 
+		this.idOggetto = idOggetto;
 		this.DataPubblicazione = DataPubblicazione; 
 	}
 	
@@ -42,16 +40,12 @@ public class Annuncio_entity {
 		return ModalitàConsegna;
 	}
 	
-	public String getStatoAnnuncio() {
+	public StatoAnnuncio getStatoAnnuncio() {
 		return StatoAnnuncio; 
 	}
 	
-	public String getOggetto() {
-		return Oggetto; 
-	}
-	
-	public String getCategoriaOggetto() {
-		return CategoriaOggetto;
+	public String getidOggetto() {
+		return idOggetto; 
 	}
 	
 	public Date getDataPubblicazione() {
@@ -68,7 +62,7 @@ public class Annuncio_entity {
 		this.Descrizione = Descrizione; 
 	}
 	
-	public void setFasciaOraria(Enum FasciaOraria) {
+	public void setFasciaOraria(FasciaOraria FasciaOraria) {
 		this.FasciaOraria = FasciaOraria;
 	}
 	
@@ -76,16 +70,12 @@ public class Annuncio_entity {
 		this.ModalitàConsegna = ModalitàConsegna; 
 	}
 	
-	public void setStatoAnnuncio(String StatoAnnuncio) {
+	public void setStatoAnnuncio(StatoAnnuncio StatoAnnuncio) {
 		this.StatoAnnuncio = StatoAnnuncio;
 	}
 	
-	public void setOggetto(String Oggetto) {
-		this.Oggetto = Oggetto; 
-	}
-	
-	public void setCategoriaOggetto(String CategoriaOggetto) {
-		this.CategoriaOggetto = CategoriaOggetto; 
+	public void setOggetto(String idOggetto) {
+		this.idOggetto = idOggetto; 
 	}
 	
 	public void setDataPubblicazione(Date DataPubblicazione) {

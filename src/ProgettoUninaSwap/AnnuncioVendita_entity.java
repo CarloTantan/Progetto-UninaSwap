@@ -3,19 +3,19 @@ package ProgettoUninaSwap;
 import java.util.Date;
 
 public class AnnuncioVendita_entity extends Annuncio_entity {
-	private float PrezzoProposto; 
+	private float PrezzoVendita; 
 	
-	public AnnuncioVendita_entity(String Titolo, String Descrizione,  String ModalitàConsegna, 
-			String StatoAnnuncio, String Oggetto, String CategoriaOggetto, Date DataPubblicazione ,float PrezzoProposto) {
-		super(Titolo, Descrizione, ModalitàConsegna, StatoAnnuncio, Oggetto, CategoriaOggetto, DataPubblicazione);
-		this.PrezzoProposto = PrezzoProposto; 
+	public AnnuncioVendita_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria,  String ModalitàConsegna, 
+			StatoAnnuncio StatoAnnuncio, String idOggetto, Date DataPubblicazione ,float PrezzoVendita) {
+		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, DataPubblicazione);
+		this.PrezzoVendita = PrezzoVendita; 
 	}
 
-	public float getPrezzoProposto() {
-		return PrezzoProposto; 
+	public float getPrezzoVendita() {
+		return PrezzoVendita; 
 	}
 	
-	public void setPrezzoProposto(float PrezzoProposto) {
-		this.PrezzoProposto = PrezzoProposto; 
+	public void setPrezzoVendita(float PrezzoVendita) {
+		this.PrezzoVendita = PrezzoVendita; 
 	}
 }

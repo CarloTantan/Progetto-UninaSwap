@@ -32,11 +32,11 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			while (rs.next()) {
 				Annuncio_entity annunci= new Annuncio_entity(
 						rs.getString("Titolo"), 
-						rs.getString("Descrizione"), 
+						rs.getString("Descrizione"),
+						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
 						rs.getString("ModalitàConsegna"), 
-						rs.getString("StatoAnnuncio"), 
-						rs.getString("Oggetto"),
-						rs.getString("CategoriaOggetto"), 
+						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+						rs.getString("idOggetto"),
 						rs.getDate("DataPubblicazione")
 					);
 				Annunci.add(annunci);
@@ -50,7 +50,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	}
 	public ArrayList<AnnuncioRegalo_entity> getAnnunciRegalo() throws SQLException {
 		ArrayList<AnnuncioRegalo_entity> Annunci = new ArrayList<>();
-	    String query= "SELECT * FROM AnnuncioRegalo";
+	    String query= "SELECT * FROM Annuncio WHERE tipologia='Regalo'";
 	    PreparedStatement pstmt= null;
 	    ResultSet rs= null;
 	    Connection conn = null;
@@ -63,11 +63,11 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciR= new AnnuncioRegalo_entity(
 						rs.getString("Titolo"), 
-						rs.getString("Descrizione"), 
+						rs.getString("Descrizione"),
+						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
 						rs.getString("ModalitàConsegna"), 
-						rs.getString("StatoAnnuncio"), 
-						rs.getString("Oggetto"),
-						rs.getString("CategoriaOggetto"), 
+						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+						rs.getString("idOggetto"),
 						rs.getDate("DataPubblicazione"), 
 						rs.getString("MotivoCessione")
 					);
@@ -87,7 +87,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	
 	public ArrayList<AnnuncioScambio_entity> getAnnunciScambio() throws SQLException {
 		ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
-	    String query= "SELECT * FROM AnnuncioScambio";
+	    String query= "SELECT * FROM Annuncio WHERE tipologia='Scambio'";
 	    PreparedStatement pstmt= null;
 	    ResultSet rs= null;
 	    Connection conn = null;
@@ -100,11 +100,11 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			while (rs.next()) {
 				AnnuncioScambio_entity annunciS= new AnnuncioScambio_entity(
 						rs.getString("Titolo"), 
-						rs.getString("Descrizione"), 
+						rs.getString("Descrizione"),
+						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
 						rs.getString("ModalitàConsegna"), 
-						rs.getString("StatoAnnuncio"), 
-						rs.getString("Oggetto"),
-						rs.getString("CategoriaOggetto"), 
+						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+						rs.getString("idOggetto"),
 						rs.getDate("DataPubblicazione"), 
 						rs.getString("OggettoRichiesto")
 					
@@ -122,9 +122,9 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		
 	}
 	
-	public ArrayList<AnnuncioVendita_entity> getAnnunciVendità() throws SQLException {
+	public ArrayList<AnnuncioVendita_entity> getAnnunciVendita() throws SQLException {
 		ArrayList<AnnuncioVendita_entity> Annunci = new ArrayList<>();
-	    String query= "SELECT * FROM AnnuncioVendità";
+	    String query= "SELECT * FROM Annuncio WHERE tipologia='Vendita'";
 	    PreparedStatement pstmt= null;
 	    ResultSet rs= null;
 	    Connection conn = null;
@@ -137,13 +137,13 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
 						rs.getString("Titolo"), 
-						rs.getString("Descrizione"), 
+						rs.getString("Descrizione"),
+						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
 						rs.getString("ModalitàConsegna"), 
-						rs.getString("StatoAnnuncio"), 
-						rs.getString("Oggetto"),
-						rs.getString("CategoriaOggetto"), 
+						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+						rs.getString("idOggetto"), 
 						rs.getDate("DataPubblicazione"), 
-						rs.getFloat("PrezzoProposto")
+						rs.getFloat("PrezzoVendita")
 					
 					);
 				Annunci.add(annunciV);
