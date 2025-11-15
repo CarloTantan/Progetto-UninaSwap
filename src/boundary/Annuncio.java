@@ -73,7 +73,7 @@ public class Annuncio extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		
-		setContentPane(contentPane);
+		setContentPane(contentPane); 
 		
 		JTextField textfieldTitolo = new JTextField();
 		textfieldTitolo.setFont(new Font("Verdana", Font.PLAIN, 16));
