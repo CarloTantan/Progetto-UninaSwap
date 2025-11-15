@@ -3,7 +3,6 @@ package ProgettoUninaSwap;
 import java.util.Date;
 
 public class Annuncio_entity {
-	//REMINDER PER LA FASCIA ORARIA SERVE ENTITà APPOSTA PER ENUM PER TANTO LA LEVO IN ANNUNCIO PER FARE LA SELECT POI VEDREMO COME FARE  tOLTA DAL COSTRUTTORE
 	protected String Titolo; 
 	protected String Descrizione; 
 	protected FasciaOraria FasciaOraria; 
@@ -33,7 +32,7 @@ public class Annuncio_entity {
 		return Descrizione; 
 	}
 	
-	public Enum getFasciaOraria() {
+	public FasciaOraria getFasciaOraria() {
 		return FasciaOraria; 
 	}
 	
