@@ -238,7 +238,6 @@ public class ListaAnnunci extends JFrame {
 	                A.getTitolo(),
 	                A.getDescrizione(),
 	                A.getFasciaOraria(),
-	                A.getFasciaOraria(),
 	                A.getModalitàConsegna(),
 	                A.getStatoAnnuncio(),
 	                A.getDataPubblicazione()
