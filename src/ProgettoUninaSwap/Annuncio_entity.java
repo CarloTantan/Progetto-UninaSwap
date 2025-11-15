@@ -10,9 +10,10 @@ public class Annuncio_entity {
 	protected StatoAnnuncio StatoAnnuncio; 
 	protected String idOggetto; 
 	protected Date DataPubblicazione; 
-	private String categoria; 
+	protected TipologiaCategoria categoria; 
+	
 	public Annuncio_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto,String categoria ,Date DataPubblicazione ) {
+			StatoAnnuncio StatoAnnuncio, String idOggetto,TipologiaCategoria categoria ,Date DataPubblicazione ) {
 		this.Titolo = Titolo; 
 		this.Descrizione = Descrizione; 
 		this.FasciaOraria = FasciaOraria;
@@ -83,11 +84,11 @@ public class Annuncio_entity {
 	}
 	
 	
-	 public String getTipologiaCategoria() {
+	 public TipologiaCategoria getTipologiaCategoria() {
 	        return categoria;
 	    }
 	    
-	    public void setTipologiaCategoria(String categoria) {
+	    public void setTipologiaCategoria(TipologiaCategoria categoria) {
 	        this.categoria = categoria;
 	    }
 	

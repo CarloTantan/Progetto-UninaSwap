@@ -6,8 +6,8 @@ public class AnnuncioScambio_entity extends Annuncio_entity{
 	private String OggettoRichiesto; 
 	
 	public AnnuncioScambio_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria,  String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto, Date DataPubblicazione, String OggettoRichiesto) {
-		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, OggettoRichiesto, DataPubblicazione);
+			StatoAnnuncio StatoAnnuncio, String idOggetto, TipologiaCategoria categoria, Date DataPubblicazione, String OggettoRichiesto) {
+		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, categoria, DataPubblicazione);
 		this.OggettoRichiesto = OggettoRichiesto; 
 	}
 	

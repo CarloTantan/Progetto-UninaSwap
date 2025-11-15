@@ -64,6 +64,25 @@ public class ListaAnnunci extends JFrame {
 		
 		contentPane.setLayout(null);
 		
+		DefaultTableModel modelTabella = new DefaultTableModel(
+			    new Object[][]{},
+			    new String[]{"Titolo", "Descrizione", "FasciaOraria", "ModalitàConsegna", 
+			                 "StatoAnnuncio", "DataPubblicazione", "Extra", "Categoria"}
+			) {
+			    @Override
+			    public boolean isCellEditable(int row, int column) {
+			        return false;
+			    }
+			};
+
+			tabellaAnnunci = new JTable(modelTabella);
+			tabellaAnnunci.setBackground(Color.WHITE);
+			tabellaAnnunci.getTableHeader().setReorderingAllowed(false);
+
+			JScrollPane scrollPane = new JScrollPane(tabellaAnnunci);
+			scrollPane.setBounds(39, 230, 1106, 238);
+			contentPane.add(scrollPane);
+		
 		String[] tipologie= {"Seleziona una tipologia", "Vendita", "Scambio", "Regalo"};
 		JComboBox comboBoxTipologia = new JComboBox(tipologie);
 		comboBoxTipologia.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -176,60 +195,43 @@ public class ListaAnnunci extends JFrame {
 		
 		contentPane.add(btnVisualizza);
 		
-		
-		    
-		    JScrollPane scrollPane = new JScrollPane(tabellaAnnunci);
-		    scrollPane.setBounds(39, 230, 1106, 238);
-		    contentPane.add(scrollPane);
+
 		
 		btnVisualizza.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				   String selectedTipologia = (String) comboBoxTipologia.getSelectedItem();
-				   String selectedCategoria = (String) comboBoxCategoria.getSelectedItem();
+		    public void actionPerformed(ActionEvent e) {
+		        String selectedTipologia = (String) comboBoxTipologia.getSelectedItem();
+		        String selectedCategoria = (String) comboBoxCategoria.getSelectedItem();
 
-			        
-			        if (selectedTipologia.equals("Regalo")) {
-			        	caricaAnnunciRegalo();
-			            
-			        }  else if (selectedTipologia.equals("Scambio")) {
-			        	caricaAnnunciScambio();
-			        	
-			        }  else if (selectedTipologia.equals("Vendita")) {
-			        	caricaAnnunciVendita();    
-			        }
-			        	else if (selectedTipologia.equals("Vendita") && selectedCategoria.equals("Libri")) {
-				        	caricaAnnunciVendita_Libri();    
-				        	
-			        } else {
-			           
-			        	caricaAnnunci();
-			        }
-			
-			
-			
-			
-			}
-			});
+		        if (selectedTipologia.equals("Seleziona una tipologia")) {
+		            JOptionPane.showMessageDialog(null, "Seleziona una tipologia!");
+		            return;
+		        }
+
+		        if (selectedTipologia.equals("Vendita") && 
+		            !selectedCategoria.equals("Seleziona una categoria")) {
+		            // Filtra per tipologia E categoria
+		            if (selectedCategoria.equals("Libri")) {
+		                caricaAnnunciVendita_Libri();
+		            } else if (selectedCategoria.equals("Musica")) {
+		                caricaAnnunciVendita_Musica();
+		            }
+		        } else if (selectedTipologia.equals("Regalo")) {
+		            caricaAnnunciRegalo();
+		        } else if (selectedTipologia.equals("Scambio")) {
+		            caricaAnnunciScambio();
+		        } else if (selectedTipologia.equals("Vendita")) {
+		            caricaAnnunciVendita();
+		        } else {
+		            caricaAnnunci();
+		        }
+		    }
+		});
 	}
 	
 	private void caricaAnnunci() {
 	    try {
-	    	DefaultTableModel modelTabella = new DefaultTableModel(
-			        new Object[][]{},  // nessuna riga iniziale
-			        new String[]{ "Titolo", "Descrizione", "ModalitàConsegna", "StatoAnnuncio", "DataPubblicazione,Categoria"}  // colonne
-			    ) {
-			        @Override
-			        public boolean isCellEditable(int row, int column) {
-			            return false;  // rende la tabella non editabile
-			        }
-			    };
-			    
-			    tabellaAnnunci = new JTable(modelTabella);
-			    tabellaAnnunci.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
-			    tabellaAnnunci.setBounds(106, 230, 678, 146);
-			    contentPane.add(tabellaAnnunci);
-	        // Crea un'istanza di SelectAcquirenti
-			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+	    	
+	        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
 	        
 	        // Chiama il metodo sull'istanza
 	        ArrayList<Annuncio_entity> Annunci = selectAnnunci.getAnnunci();
@@ -239,6 +241,10 @@ public class ListaAnnunci extends JFrame {
 
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Categoria"
+	            });
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (Annuncio_entity A : Annunci) {
@@ -278,20 +284,7 @@ public class ListaAnnunci extends JFrame {
 	
 	private void caricaAnnunciRegalo() {
 	    try {
-	    	DefaultTableModel modelTabella = new DefaultTableModel(
-			        new Object[][]{},  // nessuna riga iniziale
-			        new String[]{ "Titolo", "Descrizione", "FasciaOraria", "ModalitàConsegna", "StatoAnnuncio", "DataPubblicazione","MotivoCessione,Categoria"}  // colonne
-			    ) {
-			        @Override
-			        public boolean isCellEditable(int row, int column) {
-			            return false;  // rende la tabella non editabile
-			        }
-			    };
-			    
-			    tabellaAnnunci = new JTable(modelTabella);
-			    tabellaAnnunci.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
-			    tabellaAnnunci.setBounds(106, 230, 678, 146);
-			    contentPane.add(tabellaAnnunci);
+	    	
 	        // Crea un'istanza di SelectAcquirenti
 			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
 	        
@@ -303,6 +296,10 @@ public class ListaAnnunci extends JFrame {
 
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Motivo Cessione", "Categoria"
+	            });
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioRegalo_entity A : Annunci) {
@@ -340,20 +337,7 @@ public class ListaAnnunci extends JFrame {
 	
 	private void caricaAnnunciScambio() {
 	    try {
-	    	DefaultTableModel modelTabella = new DefaultTableModel(
-			        new Object[][]{},  // nessuna riga iniziale
-			        new String[]{ "Titolo", "Descrizione", "FasciaOraria", "ModalitàConsegna", "StatoAnnuncio", "DataPubblicazione","OggettoRichiesto,Categoria"}  // colonne
-			    ) {
-			        @Override
-			        public boolean isCellEditable(int row, int column) {
-			            return false;  // rende la tabella non editabile
-			        }
-			    };
-			    
-			    tabellaAnnunci = new JTable(modelTabella);
-			    tabellaAnnunci.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
-			    tabellaAnnunci.setBounds(106, 230, 678, 146);
-			    contentPane.add(tabellaAnnunci);
+	    	
 	        // Crea un'istanza di SelectAcquirenti
 			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
 	        
@@ -365,6 +349,10 @@ public class ListaAnnunci extends JFrame {
 
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+	            });
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioScambio_entity A : Annunci) {
@@ -398,33 +386,18 @@ public class ListaAnnunci extends JFrame {
 
 	private void caricaAnnunciVendita() {
 	    try {
-	    	DefaultTableModel modelTabella = new DefaultTableModel(
-			        new Object[][]{},  // nessuna riga iniziale
-			        new String[]{ "Titolo", "Descrizione", "ModalitàConsegna", "StatoAnnuncio", "DataPubblicazione","PrezzoVendita,Categoria"}  // colonne
-			    ) {
-			        @Override
-			        public boolean isCellEditable(int row, int column) {
-			            return false;  // rende la tabella non editabile
-			        }
-			    };
-			    
-			    tabellaAnnunci = new JTable(modelTabella);
-			    tabellaAnnunci.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
-			    tabellaAnnunci.setBounds(106, 230, 678, 146);
-			    contentPane.add(tabellaAnnunci);
-	        // Crea un'istanza di SelectAcquirenti
-			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
-	        
-	        // Chiama il metodo sull'istanza
+	        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
 	        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita();
 
-	        // Prendi il modello della tabella
 	        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+	        model.setRowCount(0); // Pulisci la tabella
+	        
+	        // Aggiorna le colonne per questo tipo
+	        model.setColumnIdentifiers(new String[]{
+	            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	            "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+	        });
 
-	        // Pulisci eventuali righe esistenti
-	        model.setRowCount(0);
-
-	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
 	            model.addRow(new Object[]{
 	                Av.getTitolo(),
@@ -434,7 +407,7 @@ public class ListaAnnunci extends JFrame {
 	                Av.getStatoAnnuncio(),
 	                Av.getDataPubblicazione(),
 	                Av.getPrezzoVendita(),
-	                Av.getTipologiaCategoria() 
+	                Av.getTipologiaCategoria()
 	            });
 	        }
 
@@ -444,10 +417,10 @@ public class ListaAnnunci extends JFrame {
 	            JOptionPane.INFORMATION_MESSAGE);
 
 	    } catch (SQLException e) {
-	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+	        System.err.println("Errore: " + e.getMessage());
 	        e.printStackTrace();
 	        JOptionPane.showMessageDialog(this,
-	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore nel caricamento: " + e.getMessage(),
 	            "Errore",
 	            JOptionPane.ERROR_MESSAGE);
 	    }
@@ -464,20 +437,7 @@ public class ListaAnnunci extends JFrame {
 	
 	private void caricaAnnunciVendita_Libri() {
 	    try {
-	    	DefaultTableModel modelTabella = new DefaultTableModel(
-			        new Object[][]{},  // nessuna riga iniziale
-			        new String[]{ "Titolo", "Descrizione", "ModalitàConsegna", "StatoAnnuncio", "DataPubblicazione","PrezzoVendita,Categoria"}  // colonne
-			    ) {
-			        @Override
-			        public boolean isCellEditable(int row, int column) {
-			            return false;  // rende la tabella non editabile
-			        }
-			    };
-			    
-			    tabellaAnnunci = new JTable(modelTabella);
-			    tabellaAnnunci.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
-			    tabellaAnnunci.setBounds(106, 230, 678, 146);
-			    contentPane.add(tabellaAnnunci);
+	    	
 	        // Crea un'istanza di SelectAcquirenti
 			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
 	        
@@ -489,6 +449,10 @@ public class ListaAnnunci extends JFrame {
 
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+	            });
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
@@ -525,20 +489,7 @@ public class ListaAnnunci extends JFrame {
 	
 	private void caricaAnnunciVendita_Musica() {
 	    try {
-	    	DefaultTableModel modelTabella = new DefaultTableModel(
-			        new Object[][]{},  // nessuna riga iniziale
-			        new String[]{ "Titolo", "Descrizione", "ModalitàConsegna", "StatoAnnuncio", "DataPubblicazione","PrezzoVendita,Categoria"}  // colonne
-			    ) {
-			        @Override
-			        public boolean isCellEditable(int row, int column) {
-			            return false;  // rende la tabella non editabile
-			        }
-			    };
-			    
-			    tabellaAnnunci = new JTable(modelTabella);
-			    tabellaAnnunci.setBackground(Color.WHITE);  // cambiato da BLACK a WHITE per leggibilità
-			    tabellaAnnunci.setBounds(106, 230, 678, 146);
-			    contentPane.add(tabellaAnnunci);
+	    	
 	        // Crea un'istanza di SelectAcquirenti
 			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
 	        
@@ -550,6 +501,10 @@ public class ListaAnnunci extends JFrame {
 
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+	            });
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
