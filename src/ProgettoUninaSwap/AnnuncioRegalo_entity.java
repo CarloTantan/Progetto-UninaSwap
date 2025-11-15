@@ -7,7 +7,7 @@ public class AnnuncioRegalo_entity extends Annuncio_entity{
 	
 	public AnnuncioRegalo_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
 			StatoAnnuncio StatoAnnuncio, String idOggetto, Date DataPubblicazione ,String MotivoCessione) {
-		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, DataPubblicazione); 
+		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, MotivoCessione, DataPubblicazione); 
 		this.MotivoCessione = MotivoCessione;
 	}
 	

@@ -11,9 +11,9 @@ public class Annuncio_entity {
 	protected StatoAnnuncio StatoAnnuncio; 
 	protected String idOggetto; 
 	protected Date DataPubblicazione; 
-	
+	private String categoria; 
 	public Annuncio_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto, Date DataPubblicazione ) {
+			StatoAnnuncio StatoAnnuncio, String idOggetto,String categoria ,Date DataPubblicazione ) {
 		this.Titolo = Titolo; 
 		this.Descrizione = Descrizione; 
 		this.FasciaOraria = FasciaOraria;
@@ -21,6 +21,7 @@ public class Annuncio_entity {
 		this.StatoAnnuncio = StatoAnnuncio; 
 		this.idOggetto = idOggetto;
 		this.DataPubblicazione = DataPubblicazione; 
+		this.categoria=categoria;
 	}
 	
 //Getter 
@@ -81,4 +82,17 @@ public class Annuncio_entity {
 	public void setDataPubblicazione(Date DataPubblicazione) {
 		this.DataPubblicazione = DataPubblicazione; 
 	}
+	
+	
+	 public String getTipologiaCategoria() {
+	        return categoria;
+	    }
+	    
+	    public void setTipologiaCategoria(String categoria) {
+	        this.categoria = categoria;
+	    }
+	
+	
+	
+	
 }
