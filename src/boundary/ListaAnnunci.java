@@ -213,16 +213,78 @@ public class ListaAnnunci extends JFrame {
 		            JOptionPane.showMessageDialog(null, "Seleziona una tipologia!");
 		            return;
 		        }
-
+		        
 		        if (selectedTipologia.equals("Vendita") && 
 		            !selectedCategoria.equals("Seleziona una categoria")) {
 		            // Filtra per tipologia E categoria
 		            if (selectedCategoria.equals("Libri")) {
 		                caricaAnnunciVendita_Libri();
-		            } else if (selectedCategoria.equals("Musica")) {
+		            }  else if (selectedCategoria.equals("Cancelleria")) {
+		                caricaAnnunciVendita_Cancelleria();
+		            }
+		            else if (selectedCategoria.equals("Sport")) {
+		                caricaAnnunciVendita_Sport();
+		            }
+		            else if (selectedCategoria.equals("Casa")) {
+		                caricaAnnunciVendita_Casa();
+		            }
+		            else if (selectedCategoria.equals("Altro")) {
+		                caricaAnnunciVendita_Altro();
+		            }
+		            else if (selectedCategoria.equals("Giochi")) {
+		                caricaAnnunciVendita_Giochi();
+		            }		
+		            else if (selectedCategoria.equals("Elettronica")) {
+		                caricaAnnunciVendita_Elettronica();
+		            }
+
+		            else if (selectedCategoria.equals("Vestiti")) {
+		                caricaAnnunciVendita_Vestiti();
+		            }
+		            else if (selectedCategoria.equals("Musica")) {
+		                caricaAnnunciVendita_Musica();
+		            }   
+		       
+		        }
+		       
+		        else if(selectedTipologia.equals("Regalo") && 
+			            !selectedCategoria.equals("Seleziona una categoria")) {
+	        	   if (selectedCategoria.equals("Libri")) {
+		                caricaAnnunciVendita_Libri();
+		            }  else if (selectedCategoria.equals("Cancelleria")) {
+		                caricaAnnunciVendita_Cancelleria();
+		            }
+		            else if (selectedCategoria.equals("Sport")) {
+		                caricaAnnunciVendita_Sport();
+		            }
+		            else if (selectedCategoria.equals("Casa")) {
+		                caricaAnnunciVendita_Casa();
+		            }
+		            else if (selectedCategoria.equals("Altro")) {
+		                caricaAnnunciVendita_Altro();
+		            }
+		            else if (selectedCategoria.equals("Giochi")) {
+		                caricaAnnunciVendita_Giochi();
+		            }		
+		            else if (selectedCategoria.equals("Elettronica")) {
+		                caricaAnnunciVendita_Elettronica();
+		            }
+
+		            else if (selectedCategoria.equals("Vestiti")) {
+		                caricaAnnunciVendita_Vestiti();
+		            }
+		            else if (selectedCategoria.equals("Musica")) {
 		                caricaAnnunciVendita_Musica();
 		            }
-		        } else if (selectedTipologia.equals("Regalo")) {
+
+	           
+	           }   
+	        
+
+		        
+		        
+		        
+		        else if (selectedTipologia.equals("Regalo")) {
 		            caricaAnnunciRegalo();
 		        } else if (selectedTipologia.equals("Scambio")) {
 		            caricaAnnunciScambio();
@@ -543,11 +605,813 @@ public class ListaAnnunci extends JFrame {
 	}
 	
 
+	private void caricaAnnunciVendita_Cancelleria() {
+	    try {
+	    	
+	        // Crea un'istanza di SelectAcquirenti
+			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+	        
+	        // Chiama il metodo sull'istanza
+	        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita_Cancelleria();
+
+	        // Prendi il modello della tabella
+	        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+	        // Pulisci eventuali righe esistenti
+	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+	            });
+
+	        // Aggiungi ogni utente come riga nella tabella
+	        for (AnnuncioVendita_entity Av : Annunci) {
+	            model.addRow(new Object[]{
+	                Av.getTitolo(),
+	                Av.getDescrizione(),
+	                Av.getFasciaOraria(),
+	                Av.getModalitàConsegna(),
+	                Av.getStatoAnnuncio(),
+	                Av.getDataPubblicazione(),
+	                Av.getPrezzoVendita(),
+	                Av.getTipologiaCategoria() 
+	            });
+	        }
+
+	        JOptionPane.showMessageDialog(this,
+	            "Caricati " + Annunci.size() + " Annunci",
+	            "Successo",
+	            JOptionPane.INFORMATION_MESSAGE);
+
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
 	
 	
+//Vestiti	
+	private void caricaAnnunciVendita_Vestiti() {
+	    try {
+	    	
+	        // Crea un'istanza di SelectAcquirenti
+			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+	        
+	        // Chiama il metodo sull'istanza
+	        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita_Vestiti();
+
+	        // Prendi il modello della tabella
+	        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+	        // Pulisci eventuali righe esistenti
+	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+	            });
+
+	        // Aggiungi ogni utente come riga nella tabella
+	        for (AnnuncioVendita_entity Av : Annunci) {
+	            model.addRow(new Object[]{
+	                Av.getTitolo(),
+	                Av.getDescrizione(),
+	                Av.getFasciaOraria(),
+	                Av.getModalitàConsegna(),
+	                Av.getStatoAnnuncio(),
+	                Av.getDataPubblicazione(),
+	                Av.getPrezzoVendita(),
+	                Av.getTipologiaCategoria() 
+	            });
+	        }
+
+	        JOptionPane.showMessageDialog(this,
+	            "Caricati " + Annunci.size() + " Annunci",
+	            "Successo",
+	            JOptionPane.INFORMATION_MESSAGE);
+
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
 	
+		
+	//Elettronica
+
+	private void caricaAnnunciVendita_Elettronica() {
+	    try {
+	    	
+	        // Crea un'istanza di SelectAcquirenti
+			    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+	        
+	        // Chiama il metodo sull'istanza
+	        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita_Elettronica();
+
+	        // Prendi il modello della tabella
+	        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+	        // Pulisci eventuali righe esistenti
+	        model.setRowCount(0);
+	        model.setColumnIdentifiers(new String[]{
+	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+	            });
+
+	        // Aggiungi ogni utente come riga nella tabella
+	        for (AnnuncioVendita_entity Av : Annunci) {
+	            model.addRow(new Object[]{
+	                Av.getTitolo(),
+	                Av.getDescrizione(),
+	                Av.getFasciaOraria(),
+	                Av.getModalitàConsegna(),
+	                Av.getStatoAnnuncio(),
+	                Av.getDataPubblicazione(),
+	                Av.getPrezzoVendita(),
+	                Av.getTipologiaCategoria() 
+	            });
+	        }
+
+	        JOptionPane.showMessageDialog(this,
+	            "Caricati " + Annunci.size() + " Annunci",
+	            "Successo",
+	            JOptionPane.INFORMATION_MESSAGE);
+
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this,
+	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+
+
+
+
+private void caricaAnnunciVendita_Giochi() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita_Giochi();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioVendita_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getPrezzoVendita(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+//Sport
+private void caricaAnnunciVendita_Sport() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita_Sport();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioVendita_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getPrezzoVendita(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciVendita_Casa() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita_Casa();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioVendita_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getPrezzoVendita(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciVendita_Altro() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioVendita_entity> Annunci = selectAnnunci.getAnnunciVendita_Altro();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioVendita_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getPrezzoVendita(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+//REGALO
+
+
+
+private void caricaAnnunciRegalo_Libri() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_libro();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioRegalo_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getMotivoCessione(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati:  " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+
+
+
+private void caricaAnnunciRegalo_Musica() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Musica();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioRegalo_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getMotivoCessione(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+private void caricaAnnunciRegalo_Cancelleria() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Cancelleria();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioRegalo_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getMotivoCessione(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+//Vestiti	
+private void caricaAnnunciRegalo_Vestiti() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Vestiti();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioRegalo_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getMotivoCessione(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 	
+//Elettronica
+
+private void caricaAnnunciRegalo_Elettronica() {
+    try {
+    	
+        // Crea un'istanza di SelectAcquirenti
+		    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        
+        // Chiama il metodo sull'istanza
+        ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Elettronica();
+
+        // Prendi il modello della tabella
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+        // Pulisci eventuali righe esistenti
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+            });
+
+        // Aggiungi ogni utente come riga nella tabella
+        for (AnnuncioRegalo_entity Av : Annunci) {
+            model.addRow(new Object[]{
+                Av.getTitolo(),
+                Av.getDescrizione(),
+                Av.getFasciaOraria(),
+                Av.getModalitàConsegna(),
+                Av.getStatoAnnuncio(),
+                Av.getDataPubblicazione(),
+                Av.getMotivoCessione(),
+                Av.getTipologiaCategoria() 
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException e) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + e.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+
+
+private void caricaAnnunciRegalo_Giochi() {
+try {
 	
+    // Crea un'istanza di SelectAcquirenti
+	    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+    
+    // Chiama il metodo sull'istanza
+    ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Giochi();
+
+    // Prendi il modello della tabella
+    DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+    // Pulisci eventuali righe esistenti
+    model.setRowCount(0);
+    model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+        });
+
+    // Aggiungi ogni utente come riga nella tabella
+    for (AnnuncioRegalo_entity Av : Annunci) {
+        model.addRow(new Object[]{
+            Av.getTitolo(),
+            Av.getDescrizione(),
+            Av.getFasciaOraria(),
+            Av.getModalitàConsegna(),
+            Av.getStatoAnnuncio(),
+            Av.getDataPubblicazione(),
+            Av.getMotivoCessione(),
+            Av.getTipologiaCategoria() 
+        });
+    }
+
+    JOptionPane.showMessageDialog(this,
+        "Caricati " + Annunci.size() + " Annunci",
+        "Successo",
+        JOptionPane.INFORMATION_MESSAGE);
+
+} catch (SQLException e) {
+    System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this,
+        "Errore nel caricamento dei dati: " + e.getMessage(),
+        "Errore",
+        JOptionPane.ERROR_MESSAGE);
+}
+}
+//Sport
+private void caricaAnnunciRegalo_Sport() {
+try {
+	
+    // Crea un'istanza di SelectAcquirenti
+	    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+    
+    // Chiama il metodo sull'istanza
+    ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Sport();
+
+    // Prendi il modello della tabella
+    DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+    // Pulisci eventuali righe esistenti
+    model.setRowCount(0);
+    model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+        });
+
+    // Aggiungi ogni utente come riga nella tabella
+    for (AnnuncioRegalo_entity Av : Annunci) {
+        model.addRow(new Object[]{
+            Av.getTitolo(),
+            Av.getDescrizione(),
+            Av.getFasciaOraria(),
+            Av.getModalitàConsegna(),
+            Av.getStatoAnnuncio(),
+            Av.getDataPubblicazione(),
+            Av.getMotivoCessione(),
+            Av.getTipologiaCategoria() 
+        });
+    }
+
+    JOptionPane.showMessageDialog(this,
+        "Caricati " + Annunci.size() + " Annunci",
+        "Successo",
+        JOptionPane.INFORMATION_MESSAGE);
+
+} catch (SQLException e) {
+    System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this,
+        "Errore nel caricamento dei dati: " + e.getMessage(),
+        "Errore",
+        JOptionPane.ERROR_MESSAGE);
+}
+}
+
+private void caricaAnnunciRegalo_Casa() {
+try {
+	
+    // Crea un'istanza di SelectAcquirenti
+	    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+    
+    // Chiama il metodo sull'istanza
+    ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Casa();
+
+    // Prendi il modello della tabella
+    DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+    // Pulisci eventuali righe esistenti
+    model.setRowCount(0);
+    model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+        });
+
+    // Aggiungi ogni utente come riga nella tabella
+    for (AnnuncioRegalo_entity Av : Annunci) {
+        model.addRow(new Object[]{
+            Av.getTitolo(),
+            Av.getDescrizione(),
+            Av.getFasciaOraria(),
+            Av.getModalitàConsegna(),
+            Av.getStatoAnnuncio(),
+            Av.getDataPubblicazione(),
+            Av.getMotivoCessione(),
+            Av.getTipologiaCategoria() 
+        });
+    }
+
+    JOptionPane.showMessageDialog(this,
+        "Caricati " + Annunci.size() + " Annunci",
+        "Successo",
+        JOptionPane.INFORMATION_MESSAGE);
+
+} catch (SQLException e) {
+    System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this,
+        "Errore nel caricamento dei dati: " + e.getMessage(),
+        "Errore",
+        JOptionPane.ERROR_MESSAGE);
+}
+}
+
+private void caricaAnnunciRegalo_Altro() {
+try {
+	
+    // Crea un'istanza di SelectAcquirenti
+	    ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+    
+    // Chiama il metodo sull'istanza
+    ArrayList<AnnuncioRegalo_entity> Annunci = selectAnnunci.getAnnunciRegalo_Altro();
+
+    // Prendi il modello della tabella
+    DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+
+    // Pulisci eventuali righe esistenti
+    model.setRowCount(0);
+    model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
+        });
+
+    // Aggiungi ogni utente come riga nella tabella
+    for (AnnuncioRegalo_entity Av : Annunci) {
+        model.addRow(new Object[]{
+            Av.getTitolo(),
+            Av.getDescrizione(),
+            Av.getFasciaOraria(),
+            Av.getModalitàConsegna(),
+            Av.getStatoAnnuncio(),
+            Av.getDataPubblicazione(),
+            Av.getMotivoCessione(),
+            Av.getTipologiaCategoria() 
+        });
+    }
+
+    JOptionPane.showMessageDialog(this,
+        "Caricati " + Annunci.size() + " Annunci",
+        "Successo",
+        JOptionPane.INFORMATION_MESSAGE);
+
+} catch (SQLException e) {
+    System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this,
+        "Errore nel caricamento dei dati: " + e.getMessage(),
+        "Errore",
+        JOptionPane.ERROR_MESSAGE);
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
