@@ -513,7 +513,7 @@ public class ListaAnnunci extends JFrame {
 	        System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
 	        e.printStackTrace();
 	        JOptionPane.showMessageDialog(this,
-	            "Errore nel caricamento dei dati: " + e.getMessage(),
+	            "Errore nel caricamento dei dati:  " + e.getMessage(),
 	            "Errore",
 	            JOptionPane.ERROR_MESSAGE);
 	    }
