@@ -304,7 +304,6 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 
 //musica
 		
-		//scambio libri 
 		public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_musica() throws SQLException {
 		    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
 		    String query = "SELECT A.*, O.*, C.Tipologia AS TipologiaCategoria " +
@@ -342,6 +341,166 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 
 		        return Annunci;
 			
+		}
+		
+//giochi	
+		public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Giochi() throws SQLException {
+		    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
+		    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+		                   "FROM Annuncio AS A " +
+		                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+		                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+		                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Giochi'";
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    Connection conn = null;
+		    
+		    try {
+		        conn = getConnection();
+		        pstmt = conn.prepareStatement(query);
+		        rs = pstmt.executeQuery();
+		        
+		        while (rs.next()) {
+		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"), 
+		                rs.getString("OggettoRichiesto")
+		            );
+		            Annunci.add(annunciS);
+		        }
+		    } finally {
+		        if(rs != null) rs.close();
+		        if(pstmt != null) pstmt.close();
+		        if(conn != null) conn.close();
+		    }
+		    
+		    return Annunci;
+		}
+		
+//sport
+		public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Sport() throws SQLException {
+		    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
+		    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+		                   "FROM Annuncio AS A " +
+		                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+		                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+		                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Sport'";
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    Connection conn = null;
+		    
+		    try {
+		        conn = getConnection();
+		        pstmt = conn.prepareStatement(query);
+		        rs = pstmt.executeQuery();
+		        
+		        while (rs.next()) {
+		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"), 
+		                rs.getString("OggettoRichiesto")
+		            );
+		            Annunci.add(annunciS);
+		        }
+		    } finally {
+		        if(rs != null) rs.close();
+		        if(pstmt != null) pstmt.close();
+		        if(conn != null) conn.close();
+		    }
+		    
+		    return Annunci;
+		}
+		
+//casa
+		public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Casa() throws SQLException {
+		    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
+		    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+		                   "FROM Annuncio AS A " +
+		                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+		                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+		                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Casa'";
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    Connection conn = null;
+		    
+		    try {
+		        conn = getConnection();
+		        pstmt = conn.prepareStatement(query);
+		        rs = pstmt.executeQuery();
+		        
+		        while (rs.next()) {
+		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"), 
+		                rs.getString("OggettoRichiesto")
+		            );
+		            Annunci.add(annunciS);
+		        }
+		    } finally {
+		        if(rs != null) rs.close();
+		        if(pstmt != null) pstmt.close();
+		        if(conn != null) conn.close();
+		    }
+		    
+		    return Annunci;
+		}
+		
+//altro 
+		public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Altro() throws SQLException {
+		    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
+		    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+		                   "FROM Annuncio AS A " +
+		                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+		                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+		                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Altro'";
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    Connection conn = null;
+		    
+		    try {
+		        conn = getConnection();
+		        pstmt = conn.prepareStatement(query);
+		        rs = pstmt.executeQuery();
+		        
+		        while (rs.next()) {
+		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"), 
+		                rs.getString("OggettoRichiesto")
+		            );
+		            Annunci.add(annunciS);
+		        }
+		    } finally {
+		        if(rs != null) rs.close();
+		        if(pstmt != null) pstmt.close();
+		        if(conn != null) conn.close();
+		    }
+		    
+		    return Annunci;
 		}
 
 //Vendita
@@ -1172,161 +1331,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		
 	}	
 	
-	public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Giochi() throws SQLException {
-	    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
-	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
-	                   "FROM Annuncio AS A " +
-	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
-	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
-	                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Giochi'";
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    Connection conn = null;
-	    
-	    try {
-	        conn = getConnection();
-	        pstmt = conn.prepareStatement(query);
-	        rs = pstmt.executeQuery();
-	        
-	        while (rs.next()) {
-	            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-	                rs.getString("Titolo"), 
-	                rs.getString("Descrizione"),
-	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-	                rs.getString("ModalitàConsegna"), 
-	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione"), 
-	                rs.getString("OggettoRichiesto")
-	            );
-	            Annunci.add(annunciS);
-	        }
-	    } finally {
-	        if(rs != null) rs.close();
-	        if(pstmt != null) pstmt.close();
-	        if(conn != null) conn.close();
-	    }
-	    
-	    return Annunci;
-	}
 	
-	public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Sport() throws SQLException {
-	    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
-	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
-	                   "FROM Annuncio AS A " +
-	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
-	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
-	                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Sport'";
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    Connection conn = null;
-	    
-	    try {
-	        conn = getConnection();
-	        pstmt = conn.prepareStatement(query);
-	        rs = pstmt.executeQuery();
-	        
-	        while (rs.next()) {
-	            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-	                rs.getString("Titolo"), 
-	                rs.getString("Descrizione"),
-	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-	                rs.getString("ModalitàConsegna"), 
-	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione"), 
-	                rs.getString("OggettoRichiesto")
-	            );
-	            Annunci.add(annunciS);
-	        }
-	    } finally {
-	        if(rs != null) rs.close();
-	        if(pstmt != null) pstmt.close();
-	        if(conn != null) conn.close();
-	    }
-	    
-	    return Annunci;
-	}
-	
-	public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Casa() throws SQLException {
-	    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
-	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
-	                   "FROM Annuncio AS A " +
-	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
-	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
-	                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Casa'";
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    Connection conn = null;
-	    
-	    try {
-	        conn = getConnection();
-	        pstmt = conn.prepareStatement(query);
-	        rs = pstmt.executeQuery();
-	        
-	        while (rs.next()) {
-	            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-	                rs.getString("Titolo"), 
-	                rs.getString("Descrizione"),
-	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-	                rs.getString("ModalitàConsegna"), 
-	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione"), 
-	                rs.getString("OggettoRichiesto")
-	            );
-	            Annunci.add(annunciS);
-	        }
-	    } finally {
-	        if(rs != null) rs.close();
-	        if(pstmt != null) pstmt.close();
-	        if(conn != null) conn.close();
-	    }
-	    
-	    return Annunci;
-	}
-	
-	public ArrayList<AnnuncioScambio_entity> getAnnunciScambio_Altro() throws SQLException {
-	    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
-	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
-	                   "FROM Annuncio AS A " +
-	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
-	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
-	                   "WHERE A.tipologia='Scambio' AND C.Tipologia='Altro'";
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    Connection conn = null;
-	    
-	    try {
-	        conn = getConnection();
-	        pstmt = conn.prepareStatement(query);
-	        rs = pstmt.executeQuery();
-	        
-	        while (rs.next()) {
-	            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-	                rs.getString("Titolo"), 
-	                rs.getString("Descrizione"),
-	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-	                rs.getString("ModalitàConsegna"), 
-	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione"), 
-	                rs.getString("OggettoRichiesto")
-	            );
-	            Annunci.add(annunciS);
-	        }
-	    } finally {
-	        if(rs != null) rs.close();
-	        if(pstmt != null) pstmt.close();
-	        if(conn != null) conn.close();
-	    }
-	    
-	    return Annunci;
-	}
 
 	
 	
