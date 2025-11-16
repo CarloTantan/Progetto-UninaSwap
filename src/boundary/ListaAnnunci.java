@@ -214,82 +214,116 @@ public class ListaAnnunci extends JFrame {
 		            return;
 		        }
 		        
-		        if (selectedTipologia.equals("Vendita") && 
-		            !selectedCategoria.equals("Seleziona una categoria")) {
-		            // Filtra per tipologia E categoria
-		            if (selectedCategoria.equals("Libri")) {
-		                caricaAnnunciVendita_Libri();
-		            }  else if (selectedCategoria.equals("Cancelleria")) {
-		                caricaAnnunciVendita_Cancelleria();
+		        // IF per VENDITA
+		        if (selectedTipologia.equals("Vendita")) {
+		            if (selectedCategoria.equals("Seleziona una categoria")) {
+		                caricaAnnunciVendita();
+		            } else {
+		                // SWITCH per le categorie di Vendita
+		                switch (selectedCategoria) {
+		                    case "Libri":
+		                        caricaAnnunciVendita_Libri();
+		                        break;
+		                    case "Musica":
+		                        caricaAnnunciVendita_Musica();
+		                        break;
+		                    case "Sport":
+		                        caricaAnnunciVendita_Sport();
+		                        break;
+		                    case "Cancelleria":
+		                        caricaAnnunciVendita_Cancelleria();
+		                        break;
+		                    case "Vestiti":
+		                        caricaAnnunciVendita_Vestiti();
+		                        break;
+		                    case "Elettronica":
+		                        caricaAnnunciVendita_Elettronica();
+		                        break;
+		                    case "Giochi":
+		                        caricaAnnunciVendita_Giochi();
+		                        break;
+		                    case "Casa":
+		                        caricaAnnunciVendita_Casa();
+		                        break;
+		                    case "Altro":
+		                        caricaAnnunciVendita_Altro();
+		                        break;
+		                }
 		            }
-		            else if (selectedCategoria.equals("Sport")) {
-		                caricaAnnunciVendita_Sport();
-		            }
-		            else if (selectedCategoria.equals("Casa")) {
-		                caricaAnnunciVendita_Casa();
-		            }
-		            else if (selectedCategoria.equals("Altro")) {
-		                caricaAnnunciVendita_Altro();
-		            }
-		            else if (selectedCategoria.equals("Giochi")) {
-		                caricaAnnunciVendita_Giochi();
-		            }		
-		            else if (selectedCategoria.equals("Elettronica")) {
-		                caricaAnnunciVendita_Elettronica();
-		            }
-
-		            else if (selectedCategoria.equals("Vestiti")) {
-		                caricaAnnunciVendita_Vestiti();
-		            }
-		            else if (selectedCategoria.equals("Musica")) {
-		                caricaAnnunciVendita_Musica();
-		            }   
-		       
-		        }
-		       
-		        else if(selectedTipologia.equals("Regalo") && 
-			            !selectedCategoria.equals("Seleziona una categoria")) {
-	        	   if (selectedCategoria.equals("Libri")) {
-		                caricaAnnunciVendita_Libri();
-		            }  else if (selectedCategoria.equals("Cancelleria")) {
-		                caricaAnnunciVendita_Cancelleria();
-		            }
-		            else if (selectedCategoria.equals("Sport")) {
-		                caricaAnnunciVendita_Sport();
-		            }
-		            else if (selectedCategoria.equals("Casa")) {
-		                caricaAnnunciVendita_Casa();
-		            }
-		            else if (selectedCategoria.equals("Altro")) {
-		                caricaAnnunciVendita_Altro();
-		            }
-		            else if (selectedCategoria.equals("Giochi")) {
-		                caricaAnnunciVendita_Giochi();
-		            }		
-		            else if (selectedCategoria.equals("Elettronica")) {
-		                caricaAnnunciVendita_Elettronica();
-		            }
-
-		            else if (selectedCategoria.equals("Vestiti")) {
-		                caricaAnnunciVendita_Vestiti();
-		            }
-		            else if (selectedCategoria.equals("Musica")) {
-		                caricaAnnunciVendita_Musica();
-		            }
-
-	           
-	           }   
-	        
-
-		        
-		        
-		        
+		        } 
+		        // IF per REGALO
 		        else if (selectedTipologia.equals("Regalo")) {
-		            caricaAnnunciRegalo();
-		        } else if (selectedTipologia.equals("Scambio")) {
-		            caricaAnnunciScambio();
-		        } else if (selectedTipologia.equals("Vendita")) {
-		            caricaAnnunciVendita();
+		            if (selectedCategoria.equals("Seleziona una categoria")) {
+		                caricaAnnunciRegalo();
+		            } else {
+		                // SWITCH per le categorie di Regalo
+		                switch (selectedCategoria) {
+		                    case "Libri":
+		                        caricaAnnunciRegalo_Libri();
+		                        break;
+		                    case "Musica":
+		                        caricaAnnunciRegalo_Musica();
+		                        break;
+		                    case "Sport":
+		                        caricaAnnunciRegalo_Sport();
+		                        break;
+		                    case "Cancelleria":
+		                        caricaAnnunciRegalo_Cancelleria();
+		                        break;
+		                    case "Vestiti":
+		                        caricaAnnunciRegalo_Vestiti();
+		                        break;
+		                    case "Elettronica":
+		                        caricaAnnunciRegalo_Elettronica();
+		                        break;
+		                    case "Giochi":
+		                        caricaAnnunciRegalo_Giochi();
+		                        break;
+		                    case "Casa":
+		                        caricaAnnunciRegalo_Casa();
+		                        break;
+		                    case "Altro":
+		                        caricaAnnunciRegalo_Altro();
+		                        break;
+		                }
+		            }
+		        } 
+		        // IF per SCAMBIO
+		        else if (selectedTipologia.equals("Scambio")) {
+		            if (selectedCategoria.equals("Seleziona una categoria")) {
+		                caricaAnnunciScambio();
+		            } else {
+		                // SWITCH per le categorie di Scambio
+		                switch (selectedCategoria) {
+		                    case "Libri":
+		                        caricaAnnunciScambio_Libri();
+		                        break;
+		                    case "Musica":
+		                        caricaAnnunciScambio_Musica();
+		                        break;
+		                    case "Sport":
+		                        caricaAnnunciScambio_Sport();
+		                        break;
+		                    case "Cancelleria":
+		                        caricaAnnunciScambio_Cancelleria();
+		                        break;
+		                    case "Vestiti":
+		                        caricaAnnunciScambio_Vestiti();
+		                        break;
+		                    case "Elettronica":
+		                        caricaAnnunciScambio_Elettronica();
+		                        break;
+		                    case "Giochi":
+		                        caricaAnnunciScambio_Giochi();
+		                        break;
+		                    case "Casa":
+		                        caricaAnnunciScambio_Casa();
+		                        break;
+		                    case "Altro":
+		                        caricaAnnunciScambio_Altro();
+		                        break;
+		                }
+		            }
 		        } else {
 		            caricaAnnunci();
 		        }
@@ -1397,20 +1431,365 @@ try {
 }
 }
 
+private void caricaAnnunciScambio_Libri() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_libri();
 
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
 
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
 
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
 
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
 
+private void caricaAnnunciScambio_Musica() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_musica();
 
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
 
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
 
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
 
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
 
+private void caricaAnnunciScambio_Cancelleria() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_cancelleria();
 
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
 
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
 
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
 
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciScambio_Vestiti() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_vestiti();
+
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
+
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciScambio_Elettronica() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_elettronica();
+
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
+
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciScambio_Giochi() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_Giochi();
+
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
+
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciScambio_Sport() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_Sport();
+
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
+
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciScambio_Casa() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_Casa();
+
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
+
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void caricaAnnunciScambio_Altro() {
+    try {
+        ListaAnnunciDAO selectAnnunci = new ListaAnnunciDAO();
+        ArrayList<AnnuncioScambio_entity> Annunci = selectAnnunci.getAnnunciScambio_Altro();
+
+        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
+        model.setRowCount(0);
+        model.setColumnIdentifiers(new String[]{
+            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+            "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
+        });
+
+        for (AnnuncioScambio_entity As : Annunci) {
+            model.addRow(new Object[]{
+                As.getTitolo(),
+                As.getDescrizione(),
+                As.getFasciaOraria(),
+                As.getModalitàConsegna(),
+                As.getStatoAnnuncio(),
+                As.getDataPubblicazione(),
+                As.getOggettoRichiesto(),
+                As.getTipologiaCategoria()
+            });
+        }
+
+        JOptionPane.showMessageDialog(this,
+            "Caricati " + Annunci.size() + " Annunci",
+            "Successo",
+            JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        System.err.println("Errore durante il caricamento degli Annunci: " + ex.getMessage());
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "Errore nel caricamento dei dati: " + ex.getMessage(),
+            "Errore",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
 
 }
 
