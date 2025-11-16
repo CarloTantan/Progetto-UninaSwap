@@ -42,6 +42,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	        
 	        while (rs.next()) {
 	            Annuncio_entity annunci = new Annuncio_entity(
+	            	rs.getInt("IdAnnuncio"),	
 	                rs.getString("Titolo"), 
 	                rs.getString("Descrizione"),
 	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
@@ -49,7 +50,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 	                rs.getString("idOggetto"),
 	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione")
+	                rs.getDate("DataPubblicazione"),
+	                rs.getString("MatricolaVenditore")
 	            );
 	            Annunci.add(annunci);
 	        }
@@ -80,14 +82,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	        
 	        while (rs.next()) {
 	            AnnuncioRegalo_entity annunciR = new AnnuncioRegalo_entity(
-	                rs.getString("Titolo"), 
-	                rs.getString("Descrizione"),
-	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-	                rs.getString("ModalitàConsegna"), 
-	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione"), 
+	            	rs.getInt("IdAnnuncio"),	
+		            rs.getString("Titolo"), 
+		            rs.getString("Descrizione"),
+		            FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		            rs.getString("ModalitàConsegna"), 
+		            StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		            rs.getString("idOggetto"),
+		            TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		            rs.getDate("DataPubblicazione"),
+		            rs.getString("MatricolaVenditore"),
 	                rs.getString("MotivoCessione")
 	            );
 	            Annunci.add(annunciR);
@@ -120,15 +124,17 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	        
 	        while (rs.next()) {
 	            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-	                rs.getString("Titolo"), 
-	                rs.getString("Descrizione"),
-	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-	                rs.getString("ModalitàConsegna"), 
-	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione"),
-	                rs.getString("OggettoRichiesto")
+	            		rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
+		                rs.getString("OggettoRichiesto")
 	            );
 	            Annunci.add(annunciS);
 	        }
@@ -160,14 +166,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioScambio_entity annunciV= new AnnuncioScambio_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), 
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getString("OggettoRichiesto") 
 						);
 				Annunci.add(annunciV);
@@ -200,14 +208,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 				
 				while (rs.next()) {
 					AnnuncioScambio_entity annunciV= new AnnuncioScambio_entity(
-							rs.getString("Titolo"), 
-							rs.getString("Descrizione"),
-							FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-							rs.getString("ModalitàConsegna"), 
-							StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-							rs.getString("idOggetto"),
-							TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), 
-							rs.getDate("DataPubblicazione"), 
+							rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto") 
 							);
 					Annunci.add(annunciV);
@@ -240,14 +250,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 				
 				while (rs.next()) {
 					AnnuncioScambio_entity annunciV= new AnnuncioScambio_entity(
-							rs.getString("Titolo"), 
-							rs.getString("Descrizione"),
-							FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-							rs.getString("ModalitàConsegna"), 
-							StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-							rs.getString("idOggetto"),
-							TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), 
-							rs.getDate("DataPubblicazione"), 
+							rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto") 
 							);
 					Annunci.add(annunciV);
@@ -281,14 +293,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 				
 				while (rs.next()) {
 					AnnuncioScambio_entity annunciV= new AnnuncioScambio_entity(
-							rs.getString("Titolo"), 
-							rs.getString("Descrizione"),
-							FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-							rs.getString("ModalitàConsegna"), 
-							StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-							rs.getString("idOggetto"),
-							TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), 
-							rs.getDate("DataPubblicazione"), 
+							rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto") 
 							);
 					Annunci.add(annunciV);
@@ -322,14 +336,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 				
 				while (rs.next()) {
 					AnnuncioScambio_entity annunciV= new AnnuncioScambio_entity(
-							rs.getString("Titolo"), 
-							rs.getString("Descrizione"),
-							FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-							rs.getString("ModalitàConsegna"), 
-							StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-							rs.getString("idOggetto"),
-							TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), 
-							rs.getDate("DataPubblicazione"), 
+							rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto") 
 							);
 					Annunci.add(annunciV);
@@ -362,14 +378,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		        
 		        while (rs.next()) {
 		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-		                rs.getString("Titolo"), 
-		                rs.getString("Descrizione"),
-		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-		                rs.getString("ModalitàConsegna"), 
-		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-		                rs.getDate("DataPubblicazione"), 
+		            		rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto")
 		            );
 		            Annunci.add(annunciS);
@@ -402,14 +420,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		        
 		        while (rs.next()) {
 		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-		                rs.getString("Titolo"), 
-		                rs.getString("Descrizione"),
-		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-		                rs.getString("ModalitàConsegna"), 
-		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-		                rs.getDate("DataPubblicazione"), 
+		            		rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"), 
 		                rs.getString("OggettoRichiesto")
 		            );
 		            Annunci.add(annunciS);
@@ -442,14 +462,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		        
 		        while (rs.next()) {
 		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-		                rs.getString("Titolo"), 
-		                rs.getString("Descrizione"),
-		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-		                rs.getString("ModalitàConsegna"), 
-		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-		                rs.getDate("DataPubblicazione"), 
+		            		rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"), 
 		                rs.getString("OggettoRichiesto")
 		            );
 		            Annunci.add(annunciS);
@@ -482,14 +504,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		        
 		        while (rs.next()) {
 		            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
-		                rs.getString("Titolo"), 
-		                rs.getString("Descrizione"),
-		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-		                rs.getString("ModalitàConsegna"), 
-		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-		                rs.getDate("DataPubblicazione"), 
+		            		rs.getInt("IdAnnuncio"),	
+			                rs.getString("Titolo"), 
+			                rs.getString("Descrizione"),
+			                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+			                rs.getString("ModalitàConsegna"), 
+			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+			                rs.getString("idOggetto"),
+			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                rs.getDate("DataPubblicazione"),
+			                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto")
 		            );
 		            Annunci.add(annunciS);
@@ -522,14 +546,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	        
 	        while (rs.next()) {
 	            AnnuncioVendita_entity annunciV = new AnnuncioVendita_entity(
-	                rs.getString("Titolo"), 
-	                rs.getString("Descrizione"),
-	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-	                rs.getString("ModalitàConsegna"), 
-	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-	                rs.getString("idOggetto"), 
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
-	                rs.getDate("DataPubblicazione"), 
+	            		rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 	                rs.getFloat("PrezzoVendita")
 	            );
 	            Annunci.add(annunciV);
@@ -562,14 +588,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), 
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita")
 						   
 						);
@@ -609,14 +637,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita")
   
 						);
@@ -652,14 +682,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita")
   
 						);
@@ -694,14 +726,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita ")
   
 						);
@@ -738,14 +772,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita")
   
 						);
@@ -780,14 +816,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita")
   
 						);
@@ -822,14 +860,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita")
   
 						);
@@ -864,14 +904,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita")
   
 						);
@@ -907,14 +949,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioVendita_entity annunciV= new AnnuncioVendita_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita")
   
 						);
@@ -955,14 +999,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciR= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), 
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione")
 						   
 						);
@@ -1002,14 +1048,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciR= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione")
 
   
@@ -1052,14 +1100,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciR= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione")
   
 						);
@@ -1094,14 +1144,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciR= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione ")
   
 						);
@@ -1138,14 +1190,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciR= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione")
   
 						);
@@ -1180,14 +1234,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciV= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione")
   
 						);
@@ -1222,14 +1278,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciV= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione")
   
 						);
@@ -1264,14 +1322,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciV= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione")
   
 						);
@@ -1307,14 +1367,16 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			
 			while (rs.next()) {
 				AnnuncioRegalo_entity annunciV= new AnnuncioRegalo_entity(
-						rs.getString("Titolo"), 
-						rs.getString("Descrizione"),
-						FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
-						rs.getString("ModalitàConsegna"), 
-						StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
-						rs.getString("idOggetto"),
-						TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")),  
-						rs.getDate("DataPubblicazione"), 
+						rs.getInt("IdAnnuncio"),	
+		                rs.getString("Titolo"), 
+		                rs.getString("Descrizione"),
+		                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+		                rs.getString("ModalitàConsegna"), 
+		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+		                rs.getString("idOggetto"),
+		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                rs.getDate("DataPubblicazione"),
+		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione")
   
 						);

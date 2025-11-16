@@ -8,9 +8,9 @@ import enumerations.StatoAnnuncio;
 public class AnnuncioScambio_entity extends Annuncio_entity{
 	private String OggettoRichiesto; 
 	
-	public AnnuncioScambio_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria,  String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto, TipologiaCategoria categoria, Date DataPubblicazione, String OggettoRichiesto) {
-		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, categoria, DataPubblicazione);
+	public AnnuncioScambio_entity(int IdAnnuncio, String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
+			StatoAnnuncio StatoAnnuncio, String idOggetto, TipologiaCategoria categoria, Date DataPubblicazione , String MatricolaVenditore, String OggettoRichiesto) {
+		super(IdAnnuncio, Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, categoria, DataPubblicazione, MatricolaVenditore);
 		this.OggettoRichiesto = OggettoRichiesto; 
 	}
 	

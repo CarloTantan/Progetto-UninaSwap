@@ -11,7 +11,7 @@ public class LoginDAO {
 	    }
 		
 		 public boolean verificaLogin(String matricola, String password) {
-		        String query = "SELECT * FROM acquirente WHERE matricolaacquirente = ? AND password = ?";
+		        String query = "SELECT * FROM utente WHERE matricola = ? AND password = ?";
 		        
 		        try (Connection conn = getConnection();
 		             PreparedStatement pstmt = conn.prepareStatement(query)) {

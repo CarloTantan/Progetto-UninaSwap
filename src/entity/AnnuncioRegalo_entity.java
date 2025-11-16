@@ -8,9 +8,9 @@ import enumerations.StatoAnnuncio;
 public class AnnuncioRegalo_entity extends Annuncio_entity{
 	private String MotivoCessione; 
 	
-	public AnnuncioRegalo_entity(String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto, TipologiaCategoria categoria, Date DataPubblicazione ,String MotivoCessione) {
-		super(Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, categoria, DataPubblicazione); 
+	public AnnuncioRegalo_entity(int IdAnnuncio, String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
+			StatoAnnuncio StatoAnnuncio, String idOggetto, TipologiaCategoria categoria, Date DataPubblicazione , String MatricolaVenditore, String MotivoCessione) {
+		super(IdAnnuncio, Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, categoria, DataPubblicazione, MatricolaVenditore); 
 		this.MotivoCessione = MotivoCessione;
 	}
 	
