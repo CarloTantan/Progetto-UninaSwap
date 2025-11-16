@@ -98,7 +98,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	        if(conn != null) conn.close();
 	    }
 	    
-	    return Annunci;
+	    return Annunci; 
 	}
 
 //scambio
