@@ -1394,12 +1394,6 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	}	
 	
 	
-
-	
-	
-	
-	
-	
 }
 
 
