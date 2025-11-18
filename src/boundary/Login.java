@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Toolkit;
+import javax.swing.JCheckBox;
 
 public class Login extends JFrame {
 
@@ -40,7 +41,7 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,7 +57,7 @@ public class Login extends JFrame {
 		loginDAO = new LoginDAO();
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 410);
+		setBounds(100, 100, 1232, 878);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -185,5 +186,4 @@ public class Login extends JFrame {
 	        }
 		
 	}
-
 }

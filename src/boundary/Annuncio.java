@@ -72,7 +72,9 @@ public class Annuncio extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 
 		setBounds(100, 100, 548, 638);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

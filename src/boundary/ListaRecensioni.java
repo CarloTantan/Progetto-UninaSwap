@@ -4,16 +4,26 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
+import dao.ListaAnnunciDAO;
+import dao.ListaRecensioniDao;
+import entity.AnnuncioVendita_entity;
+import entity.Recensione_entity;
 import entity.Utente_entity;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -22,7 +32,7 @@ public class ListaRecensioni extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
-
+	private JTable tabellaRecensione;
 	/**
 	 * Launch the application.
 	 */
@@ -55,7 +65,22 @@ public class ListaRecensioni extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
+		DefaultTableModel modelTabella = new DefaultTableModel(
+			    new Object[][]{},
+			    new String[]{"IdRecensione", "Commento", "Punteggio", "Data", 
+			                 "MatricolaAcquirente", "MatricolaVenditore"}
+			) {
+			    @Override
+			    public boolean isCellEditable(int row, int column) {
+			        return false;
+			    }
+			};
+
+			tabellaRecensione = new JTable(modelTabella);
+			tabellaRecensione.setBackground(Color.WHITE);
+			tabellaRecensione.getTableHeader().setReorderingAllowed(false);
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
 		panel.setBounds(10, 0, 767, 75);
@@ -84,6 +109,14 @@ public class ListaRecensioni extends JFrame {
 		panel.add(btnUndo);
 		
 		JButton btnRecensioniInviate = new JButton("Recensioni Inviate");
+		btnRecensioniInviate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			GetRecensioniInviate();
+			
+			}
+
+			
+		});
 		btnRecensioniInviate.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRecensioniInviate.setBackground(new Color(0, 52, 101));
 		btnRecensioniInviate.setForeground(new Color(255, 255, 255));
@@ -93,6 +126,15 @@ public class ListaRecensioni extends JFrame {
 		contentPane.add(btnRecensioniInviate);
 		
 		JButton btnRecensioniRicevute = new JButton("Recensioni Ricevute");
+		btnRecensioniRicevute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			GetRecensioniRicevute();
+			
+			}
+
+			
+		});
+
 		btnRecensioniRicevute.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRecensioniRicevute.setForeground(Color.WHITE);
 		btnRecensioniRicevute.setBackground(new Color(0, 52, 101));
@@ -101,4 +143,103 @@ public class ListaRecensioni extends JFrame {
 		btnRecensioniRicevute.setBorderPainted(false);
 		contentPane.add(btnRecensioniRicevute);
 	}
+	
+	
+	
+	
+	
+	private void GetRecensioniInviate() {
+	String matricola= UtenteLoggato.getMatricola();
+		 try {
+		    	
+		        // Crea un'istanza di SelectAcquirenti
+				    ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
+		        
+		        // Chiama il metodo sull'istanza
+		        ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniInviate(matricola);
+
+		        // Prendi il modello della tabella
+		        DefaultTableModel model = (DefaultTableModel) tabellaRecensione.getModel();
+
+		        // Pulisci eventuali righe esistenti
+		     
+
+		        // Aggiungi ogni utente come riga nella tabella
+		        for (Recensione_entity R : Recensioni) {
+		            model.addRow(new Object[]{
+		                R.getIdRecensione(),
+		                R.getCommento(),
+		                R.getPunteggio(),
+		                R.getData(),
+		                R.getMatricolaAcquirente(),
+		                R.getMatricolaVenditore()
+		                });
+		        }
+
+		        JOptionPane.showMessageDialog(this,
+		            "Caricati " + Recensioni.size() + " Recensioni",
+		            "Successo",
+		            JOptionPane.INFORMATION_MESSAGE);
+
+		    } catch (SQLException e) {
+		        System.err.println("Errore durante il caricamento degli Recensioni: " + e.getMessage());
+		        e.printStackTrace();
+		        JOptionPane.showMessageDialog(this,
+		            "Errore nel caricamento dei dati: " + e.getMessage(),
+		            "Errore",
+		            JOptionPane.ERROR_MESSAGE);
+		    }
+	}
+	
+	private void GetRecensioniRicevute() {
+		String matricola= UtenteLoggato.getMatricola();
+			 try {
+			    	
+			        // Crea un'istanza di SelectAcquirenti
+					    ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
+			        
+			        // Chiama il metodo sull'istanza
+			        ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniRicevute(matricola);
+
+			        // Prendi il modello della tabella
+			        DefaultTableModel model = (DefaultTableModel) tabellaRecensione.getModel();
+
+			        // Pulisci eventuali righe esistenti
+			     
+
+			        // Aggiungi ogni utente come riga nella tabella
+			        for (Recensione_entity R : Recensioni) {
+			            model.addRow(new Object[]{
+			                R.getIdRecensione(),
+			                R.getCommento(),
+			                R.getPunteggio(),
+			                R.getData(),
+			                R.getMatricolaAcquirente(),
+			                R.getMatricolaVenditore()
+			                });
+			        }
+
+			        JOptionPane.showMessageDialog(this,
+			            "Caricati " + Recensioni.size() + " Recensioni",
+			            "Successo",
+			            JOptionPane.INFORMATION_MESSAGE);
+
+			    } catch (SQLException e) {
+			        System.err.println("Errore durante il caricamento degli Recensioni: " + e.getMessage());
+			        e.printStackTrace();
+			        JOptionPane.showMessageDialog(this,
+			            "Errore nel caricamento dei dati: " + e.getMessage(),
+			            "Errore",
+			            JOptionPane.ERROR_MESSAGE);
+			    }
+		}
+		
+		
+	
+	
+	
+	
 }
+
+
+
