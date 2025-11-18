@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.RegistrazioneDAO;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -27,9 +30,9 @@ public class Registrazione extends JFrame {
 	private JTextField textFieldCognome;
 	private JTextField textFieldMatricola;
 	private JTextField textFieldEmail;
-	private JPasswordField PasswordPassword;
+	private JPasswordField textFieldPassword;
 	private JTextField textFieldTelefono;
-	private JPasswordField PasswordConfermaPassword;
+	private JPasswordField textFieldConfermaPassword;
 
 	/**
 	 * Launch the application.
@@ -115,11 +118,11 @@ public class Registrazione extends JFrame {
 		textFieldEmail.setBounds(444, 193, 154, 22);
 		Registrazione.add(textFieldEmail);
 		
-		PasswordPassword = new JPasswordField();
-		PasswordPassword.setFont(new Font("Verdana", Font.BOLD, 16));
-		PasswordPassword.setColumns(10);
-		PasswordPassword.setBounds(444, 225, 154, 22);
-		Registrazione.add(PasswordPassword);
+		textFieldPassword = new JPasswordField();
+		textFieldPassword.setFont(new Font("Verdana", Font.BOLD, 16));
+		textFieldPassword.setColumns(10);
+		textFieldPassword.setBounds(444, 225, 154, 22);
+		Registrazione.add(textFieldPassword);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -137,11 +140,11 @@ public class Registrazione extends JFrame {
 		lblConfermaPassword.setBounds(252, 257, 326, 22);
 		Registrazione.add(lblConfermaPassword);
 		
-		PasswordConfermaPassword = new JPasswordField();
-		PasswordConfermaPassword.setFont(new Font("Verdana", Font.BOLD, 16));
-		PasswordConfermaPassword.setColumns(10);
-		PasswordConfermaPassword.setBounds(444, 259, 154, 22);
-		Registrazione.add(PasswordConfermaPassword);
+		textFieldConfermaPassword = new JPasswordField();
+		textFieldConfermaPassword.setFont(new Font("Verdana", Font.BOLD, 16));
+		textFieldConfermaPassword.setColumns(10);
+		textFieldConfermaPassword.setBounds(444, 259, 154, 22);
+		Registrazione.add(textFieldConfermaPassword);
 		
 		JButton btnRegistrati = new JButton("Registrati");
 		btnRegistrati.setForeground(Color.WHITE);
@@ -160,22 +163,21 @@ public class Registrazione extends JFrame {
 			            textFieldCognome.getText().trim().isEmpty() ||
 			            textFieldMatricola.getText().trim().isEmpty() ||
 			            textFieldEmail.getText().trim().isEmpty() ||
-			            PasswordPassword.getText().trim().isEmpty() ||
+			            textFieldPassword.getText().trim().isEmpty() ||
 			            textFieldTelefono.getText().trim().isEmpty() ||
-			            PasswordConfermaPassword.getText().trim().isEmpty()) {
+			            textFieldConfermaPassword.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else if (!textFieldEmail.getText().trim().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-					JOptionPane.showMessageDialog(null, "Inserisci un indirizzo E-mail valido", "Indirizzo E-mail non valido", JOptionPane.WARNING_MESSAGE);
 				
-				} else if (!PasswordPassword.getText().equals(PasswordConfermaPassword.getText())) {
+				} else if (!textFieldPassword.getText().equals(textFieldConfermaPassword.getText())) {
 					JOptionPane.showMessageDialog(null, "Le password non corrispondono", "Errore di conferma password", JOptionPane.WARNING_MESSAGE);
 				}else {
-					setVisible(false); JOptionPane.showMessageDialog(null, "Registrazione avvenuta con successo", "Utente Registrato", JOptionPane.INFORMATION_MESSAGE);
-					Homepage homepageFrame = new Homepage();
-					homepageFrame.setVisible(true);
+					registrazioneUtente();
+					
 				}
 		}});
 		
+		
+
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(new Color(46, 132, 191));
@@ -204,5 +206,39 @@ public class Registrazione extends JFrame {
 		});
 		
 
+	}
+	
+	private void registrazioneUtente() {
+		String nome = textFieldNome.getText().trim();
+		String cognome = textFieldCognome.getText().trim();
+		String matricola = textFieldMatricola.getText().trim();
+		String telefono = textFieldTelefono.getText().trim();
+		String email = textFieldEmail.getText().trim();
+        String password = new String(textFieldPassword.getPassword());
+        
+        RegistrazioneDAO registrazioneDAO = new RegistrazioneDAO();
+        boolean registrazione = registrazioneDAO.effettuaRegistrazione(nome, cognome, matricola, telefono, email, password);
+        
+        if (registrazione) {
+            JOptionPane.showMessageDialog(this, 
+                "Registrazione effettuata con successo!", 
+                "Successo", 
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            // Apri l'interfaccia area utente
+            this.dispose(); // Chiudi la finestra di registrazione
+            Homepage homepageFrame = new Homepage();
+			homepageFrame.setVisible(true);
+            
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Email o matricola già in uso.", 
+                "Errore Registrazione", 
+                JOptionPane.ERROR_MESSAGE);
+
+            textFieldPassword.setText("");// Pulisci il campo password
+            textFieldConfermaPassword.setText("");
+        }
+        
 	}
 }
