@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import entity.Utente_entity;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,27 +25,29 @@ public class AnnuncioRegalo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AnnuncioRegalo frame = new AnnuncioRegalo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					AnnuncioRegalo frame = new AnnuncioRegalo();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioRegalo() {
+	public AnnuncioRegalo(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Regalo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +81,7 @@ public class AnnuncioRegalo extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(); 
+				Annuncio annuncioFrame = new Annuncio(UtenteLoggato); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
@@ -112,7 +116,7 @@ public class AnnuncioRegalo extends JFrame {
 					setVisible(false);
 					JOptionPane.showMessageDialog(null, "Pubblicazione avvenuta con successo", "Annuncio pubblicato", JOptionPane.INFORMATION_MESSAGE);
 					setVisible(false); 
-					AreaUtente utenteFrame = new AreaUtente(); 
+					AreaUtente utenteFrame = new AreaUtente(UtenteLoggato); 
 					utenteFrame.setVisible(true);
 				}
 			}

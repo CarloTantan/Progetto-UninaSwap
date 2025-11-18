@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import entity.Utente_entity;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -20,27 +22,29 @@ public class StoricoOfferte extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StoricoOfferte frame = new StoricoOfferte();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					StoricoOfferte frame = new StoricoOfferte();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public StoricoOfferte() {
+	public StoricoOfferte(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(StoricoOfferte.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Le tue offerte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,7 +67,7 @@ public class StoricoOfferte extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				AreaUtente AreaUtenteFrame = new AreaUtente();
+				AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
 				AreaUtenteFrame.setVisible(true);
 				AreaUtenteFrame.setLocationRelativeTo(null);
 			}
@@ -102,14 +106,14 @@ public class StoricoOfferte extends JFrame {
 				
 		JOptionPane.showMessageDialog(null, "Ritiro avvenuto con successo", null, JOptionPane.INFORMATION_MESSAGE);
 		setVisible(false);
-		AreaUtente AreaUtenteFrame = new AreaUtente();
+		AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
 		AreaUtenteFrame.setVisible(true);
 				}
 				else if(scelta==JOptionPane.NO_OPTION) {
 			
 				JOptionPane.showMessageDialog(null, "Ritiro non avvenuto", null, JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);
-				AreaUtente AreaUtenteFrame = new AreaUtente();
+				AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
 				AreaUtenteFrame.setVisible(true);
 				}
 			}

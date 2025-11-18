@@ -13,6 +13,7 @@ import entity.AnnuncioRegalo_entity;
 import entity.AnnuncioScambio_entity;
 import entity.AnnuncioVendita_entity;
 import entity.Annuncio_entity;
+import entity.Utente_entity;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -37,29 +38,31 @@ public class ListaAnnunci extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTable tabellaAnnunci;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListaAnnunci frame = new ListaAnnunci();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ListaAnnunci frame = new ListaAnnunci();
+//					frame.setVisible(true);
+//					frame.setLocationRelativeTo(null);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 
 	/**
 	 * Create the frame.
 	 */
-	public ListaAnnunci() {
+	public ListaAnnunci(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ricerca annuncio");
@@ -113,7 +116,7 @@ public class ListaAnnunci extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				AreaUtente AreaUtenteFrame = new AreaUtente();
+				AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
 				AreaUtenteFrame.setVisible(true);
 				AreaUtenteFrame.setLocationRelativeTo(null);
 			}
@@ -161,19 +164,19 @@ public class ListaAnnunci extends JFrame {
 				if(scelta.equals("Scambio"))
 						{
 					setVisible(false);
-					OffertaScambio OffertaScambioFrame = new OffertaScambio();
+					OffertaScambio OffertaScambioFrame = new OffertaScambio(UtenteLoggato);
 					OffertaScambioFrame.setVisible(true);
 					OffertaScambioFrame.setLocationRelativeTo(null);
 						}else if (scelta.equals("Vendita")) {
 							setVisible(false);
-							OffertaVendita OffertaVenditaFrame = new OffertaVendita();
+							OffertaVendita OffertaVenditaFrame = new OffertaVendita(UtenteLoggato);
 							OffertaVenditaFrame.setVisible(true);
 							OffertaVenditaFrame.setLocationRelativeTo(null);
 							
 							
 						}else if (scelta.equals("Regalo")) {
 							setVisible(false);
-							OffertaRegalo OffertaRegaloFrame = new OffertaRegalo();
+							OffertaRegalo OffertaRegaloFrame = new OffertaRegalo(UtenteLoggato);
 							OffertaRegaloFrame.setVisible(true);
 							OffertaRegaloFrame.setLocationRelativeTo(null);
 							

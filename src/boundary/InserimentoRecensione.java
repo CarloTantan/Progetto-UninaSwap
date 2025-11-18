@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import entity.Utente_entity;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,27 +27,29 @@ public class InserimentoRecensione extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InserimentoRecensione frame = new InserimentoRecensione();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					InserimentoRecensione frame = new InserimentoRecensione();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public InserimentoRecensione() {
+	public InserimentoRecensione(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scrivi la tua recensione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +77,7 @@ public class InserimentoRecensione extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				AreaUtente areaUtenteFrame = new AreaUtente();
+				AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
 				areaUtenteFrame.setVisible(true);
 			}
 		});
@@ -135,7 +139,7 @@ public class InserimentoRecensione extends JFrame {
 				} else {
 				setVisible(false);
 				JOptionPane.showMessageDialog(null, "Recensione inviata con successo", "Recensione inviata", JOptionPane.INFORMATION_MESSAGE);
-				AreaUtente areaUtenteFrame = new AreaUtente();
+				AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
 				areaUtenteFrame.setVisible(true);
 				}
 			}

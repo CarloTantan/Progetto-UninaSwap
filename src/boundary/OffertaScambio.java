@@ -17,6 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import entity.Utente_entity;
+
 import javax.swing.JTextArea;
 import java.awt.Toolkit;
 
@@ -24,27 +27,29 @@ public class OffertaScambio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					OffertaScambio frame = new OffertaScambio();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					OffertaScambio frame = new OffertaScambio();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public OffertaScambio() {
+	public OffertaScambio(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scambio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,7 +108,7 @@ public class OffertaScambio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				
-				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci();
+				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
 					ListaAnnunciFrame.setVisible(true);
 					ListaAnnunciFrame.setLocationRelativeTo(null);
 			}
@@ -120,7 +125,7 @@ public class OffertaScambio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				 JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
 				 setVisible(false);
-				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci();
+				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
 				ListaAnnunciFrame.setVisible(true);
 				ListaAnnunciFrame.setLocationRelativeTo(null);
 			}

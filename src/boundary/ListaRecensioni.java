@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import entity.Utente_entity;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -19,28 +21,30 @@ public class ListaRecensioni extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListaRecensioni frame = new ListaRecensioni();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ListaRecensioni frame = new ListaRecensioni();
+//					frame.setVisible(true);
+//					frame.setLocationRelativeTo(null);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public ListaRecensioni() {
+	public ListaRecensioni(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaRecensioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Le tue recensioni");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +71,7 @@ public class ListaRecensioni extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				AreaUtente AreaUtenteFrame = new AreaUtente();
+				AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
 				AreaUtenteFrame.setVisible(true);
 				AreaUtenteFrame.setLocationRelativeTo(null);
 			}

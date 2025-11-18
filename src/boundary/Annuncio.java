@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import entity.Utente_entity;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
@@ -42,28 +45,30 @@ public class Annuncio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Annuncio frame = new Annuncio();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Annuncio frame = new Annuncio();
+//					frame.setVisible(true);
+//					frame.setLocationRelativeTo(null);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Annuncio() {
+	public Annuncio(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,7 +168,7 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				AreaUtente utenteFrame = new AreaUtente(); 
+				AreaUtente utenteFrame = new AreaUtente(UtenteLoggato); 
 				utenteFrame.setVisible(true);
 			}
 		}); 
@@ -262,7 +267,7 @@ public class Annuncio extends JFrame {
 				}
 				else {
 					setVisible(false);
-					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio();
+					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(UtenteLoggato);
 					annuncioScambioFrame.setVisible(true);
 					annuncioScambioFrame.setLocationRelativeTo(null);
 				}
@@ -280,7 +285,7 @@ public class Annuncio extends JFrame {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
-					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo();
+					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(UtenteLoggato);
 					annuncioRegaloFrame.setVisible(true);
 					annuncioRegaloFrame.setLocationRelativeTo(null);
 				}
@@ -299,7 +304,7 @@ public class Annuncio extends JFrame {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
-					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita();
+					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(UtenteLoggato);
 					annuncioVenditaFrame.setVisible(true);
 					annuncioVenditaFrame.setLocationRelativeTo(null);
 				}

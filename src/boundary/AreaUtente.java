@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import entity.Utente_entity;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
@@ -23,28 +26,30 @@ public class AreaUtente extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnCreaAnnuncio;
+	private Utente_entity UtenteLoggato;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AreaUtente frame = new AreaUtente();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					AreaUtente frame = new AreaUtente();
+//					frame.setVisible(true);
+//					frame.setLocationRelativeTo(null);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AreaUtente() {
+	public AreaUtente(Utente_entity UtenteLoggato) {
+		this.UtenteLoggato = UtenteLoggato; // Assegna l'utente alla variabile di istanza
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AreaUtente.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("AreaUtente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +66,7 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				OfferteRicevute OfferteRicevuteFrame = new OfferteRicevute();
+				OfferteRicevute OfferteRicevuteFrame = new OfferteRicevute(UtenteLoggato);
 				OfferteRicevuteFrame.setVisible(true);
 				OfferteRicevuteFrame.setLocationRelativeTo(null);
 			}
@@ -79,7 +84,7 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaStoricoOfferte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				StoricoOfferte StoricoOfferteFrame = new StoricoOfferte();
+				StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(UtenteLoggato);
 				StoricoOfferteFrame.setVisible(true);
 				StoricoOfferteFrame.setLocationRelativeTo(null);	
 				
@@ -99,7 +104,7 @@ public class AreaUtente extends JFrame {
 		btnInserisciRecensione.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				InserimentoRecensione InserimentoRecensioneFrame = new InserimentoRecensione();
+				InserimentoRecensione InserimentoRecensioneFrame = new InserimentoRecensione(UtenteLoggato);
 				InserimentoRecensioneFrame.setVisible(true);
 				InserimentoRecensioneFrame.setLocationRelativeTo(null);
 				
@@ -118,7 +123,7 @@ public class AreaUtente extends JFrame {
 		btnCreaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Annuncio AnnuncioFrame = new Annuncio();
+				Annuncio AnnuncioFrame = new Annuncio(UtenteLoggato);
 				AnnuncioFrame.setVisible(true);
 				AnnuncioFrame.setLocationRelativeTo(null);
 			}
@@ -157,11 +162,12 @@ public class AreaUtente extends JFrame {
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
 		
-		JLabel lblNewLabel_3 = new JLabel("Giordano Rossi");
-		lblNewLabel_3.setBounds(686, 39, 160, 48);
-		panel.add(lblNewLabel_3);
-		lblNewLabel_3.setBackground(new Color(45, 134, 192));
-		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 16));
+		JLabel lblUtente = new JLabel();
+		lblUtente.setBounds(686, 39, 160, 48);
+		panel.add(lblUtente);
+		lblUtente.setBackground(new Color(45, 134, 192));
+		lblUtente.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblUtente.setText(UtenteLoggato.getNominativo());
 		
 		JButton btnUndo = new JButton("");
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -184,7 +190,7 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaRecensioni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ListaRecensioni ListaRecensioniFrame = new ListaRecensioni();
+				ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(UtenteLoggato);
 				ListaRecensioniFrame.setVisible(true);
 				ListaRecensioniFrame.setLocationRelativeTo(null);
 			}
@@ -203,7 +209,7 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci();
+				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
 				ListaAnnunciFrame.setVisible(true);
 				ListaAnnunciFrame.setLocationRelativeTo(null);
 			}

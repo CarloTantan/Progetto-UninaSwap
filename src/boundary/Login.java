@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.LoginDAO;
+import entity.Utente_entity;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -167,9 +168,11 @@ public class Login extends JFrame {
 	                "Successo", 
 	                JOptionPane.INFORMATION_MESSAGE);
 	            
+	            Utente_entity UtenteLoggato = loginDAO.getUtente(matricola);
+	            
 	            // Apri l'interfaccia area utente
 	            this.dispose(); // Chiudi la finestra di login
-	            AreaUtente areaUtente = new AreaUtente();
+	            AreaUtente areaUtente = new AreaUtente(UtenteLoggato);
 	            areaUtente.setVisible(true);
 	            
 	        } else {
