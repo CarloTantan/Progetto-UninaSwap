@@ -130,6 +130,8 @@ public class ListaRecensioni extends JFrame {
 		btnRecensioniInviate.setBorderPainted(false);
 		contentPane.add(btnRecensioniInviate);
 		
+		
+		
 		JButton btnRecensioniRicevute = new JButton("Recensioni Ricevute");
 		btnRecensioniRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
