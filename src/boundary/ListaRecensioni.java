@@ -182,7 +182,7 @@ public class ListaRecensioni extends JFrame {
 		            JOptionPane.INFORMATION_MESSAGE);
 
 		    } catch (SQLException e) {
-		        System.err.println("Errore durante il caricamento degli Recensioni: " + e.getMessage());
+		        System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
 		        e.printStackTrace();
 		        JOptionPane.showMessageDialog(this,
 		            "Errore nel caricamento dei dati: " + e.getMessage(),
@@ -195,17 +195,14 @@ public class ListaRecensioni extends JFrame {
 		String matricola= UtenteLoggato.getMatricola();
 			 try {
 			    	
-			        // Crea un'istanza di SelectAcquirenti
+			        // Crea un'istanza di SelectRecensioni
 					    ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
 			        
 			        // Chiama il metodo sull'istanza
 			        ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniRicevute(matricola);
 
 			        // Prendi il modello della tabella
-			        DefaultTableModel model = (DefaultTableModel) tabellaRecensione.getModel();
-
-			        // Pulisci eventuali righe esistenti
-			     
+			        DefaultTableModel model = (DefaultTableModel) tabellaRecensione.getModel();			     
 
 			        // Aggiungi ogni utente come riga nella tabella
 			        for (Recensione_entity R : Recensioni) {
@@ -225,7 +222,7 @@ public class ListaRecensioni extends JFrame {
 			            JOptionPane.INFORMATION_MESSAGE);
 
 			    } catch (SQLException e) {
-			        System.err.println("Errore durante il caricamento degli Recensioni: " + e.getMessage());
+			        System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
 			        e.printStackTrace();
 			        JOptionPane.showMessageDialog(this,
 			            "Errore nel caricamento dei dati: " + e.getMessage(),
