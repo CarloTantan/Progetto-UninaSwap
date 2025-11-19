@@ -60,7 +60,6 @@ public class ListaRecensioniDao {
 	
 	
 	
-	
 
 	public ArrayList<Recensione_entity> VisualizzaRecensioniRicevute(String matricola)throws SQLException  {
 		  ArrayList<Recensione_entity> Recensioni = new ArrayList<>();
