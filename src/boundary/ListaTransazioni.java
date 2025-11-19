@@ -7,13 +7,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTable;
+import java.awt.Toolkit;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class ListaTransazioni extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -40,14 +42,29 @@ public class ListaTransazioni extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaTransazioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+
 		
-		table = new JTable();
-		contentPane.add(table);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 446, 58);
+		panel.setBackground(new Color(70, 171, 225));
+
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JButton btnUndo = new JButton("");
+		btnUndo.setBounds(0, 0, 64, 58);
+		btnUndo.setIcon(new ImageIcon(ListaTransazioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+		btnUndo.setFocusPainted(false);
+		btnUndo.setBorderPainted(false);
+		btnUndo.setBackground(new Color(45, 134, 192));
+		panel.add(btnUndo);
 		
 		JLabel lblNewLabel = new JLabel("Transazioni avvenute");
+		lblNewLabel.setBounds(116, 10, 214, 25);
+		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		contentPane.add(lblNewLabel);
 
 	}
-
 }
