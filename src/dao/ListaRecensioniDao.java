@@ -24,8 +24,8 @@ public class ListaRecensioniDao {
 	public ArrayList<Recensione_entity> VisualizzaRecensioniInviate(String matricola)throws SQLException  {
 		  ArrayList<Recensione_entity> Recensioni = new ArrayList<>();
 	    String query = "SELECT * " +
-	                   "FROM Recesioni  " +
-	                   "WHERE MatricolaAcquirente= matricola AND MatricolaVenditore <> matricola   ";
+	                   "FROM Recensione  " +
+	                   "WHERE MatricolaAcquirente = ? AND MatricolaVenditore <> ?";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    Connection conn = null;
@@ -33,6 +33,8 @@ public class ListaRecensioniDao {
 	    try {
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, matricola);
+	        pstmt.setString(2, matricola);
 	        rs = pstmt.executeQuery();
 	        
 	        while (rs.next()) {
@@ -63,8 +65,8 @@ public class ListaRecensioniDao {
 	public ArrayList<Recensione_entity> VisualizzaRecensioniRicevute(String matricola)throws SQLException  {
 		  ArrayList<Recensione_entity> Recensioni = new ArrayList<>();
 	    String query = "SELECT * " +
-	                   "FROM Recesioni  " +
-	                   "WHERE MatricolaAcquirente<> matricola AND MatricolaVenditore = matricola   ";
+	                   "FROM Recensione  " +
+	                   "WHERE MatricolaAcquirente <> ? AND MatricolaVenditore = ?";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    Connection conn = null;
@@ -72,6 +74,8 @@ public class ListaRecensioniDao {
 	    try {
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, matricola);
+	        pstmt.setString(2, matricola);
 	        rs = pstmt.executeQuery();
 	        
 	        while (rs.next()) {

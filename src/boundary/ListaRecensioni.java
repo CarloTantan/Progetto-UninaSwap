@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -68,7 +69,7 @@ public class ListaRecensioni extends JFrame {
 
 		DefaultTableModel modelTabella = new DefaultTableModel(
 			    new Object[][]{},
-			    new String[]{"IdRecensione", "Commento", "Punteggio", "Data", 
+			    new String[]{"Commento", "Punteggio", "Data", 
 			                 "MatricolaAcquirente", "MatricolaVenditore"}
 			) {
 			    @Override
@@ -80,6 +81,10 @@ public class ListaRecensioni extends JFrame {
 			tabellaRecensione = new JTable(modelTabella);
 			tabellaRecensione.setBackground(Color.WHITE);
 			tabellaRecensione.getTableHeader().setReorderingAllowed(false);
+			
+			JScrollPane scrollPane = new JScrollPane(tabellaRecensione);
+			scrollPane.setBounds(63, 226, 657, 156);
+			contentPane.add(scrollPane);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
@@ -167,7 +172,6 @@ public class ListaRecensioni extends JFrame {
 		        // Aggiungi ogni utente come riga nella tabella
 		        for (Recensione_entity R : Recensioni) {
 		            model.addRow(new Object[]{
-		                R.getIdRecensione(),
 		                R.getCommento(),
 		                R.getPunteggio(),
 		                R.getData(),
@@ -207,7 +211,6 @@ public class ListaRecensioni extends JFrame {
 			        // Aggiungi ogni utente come riga nella tabella
 			        for (Recensione_entity R : Recensioni) {
 			            model.addRow(new Object[]{
-			                R.getIdRecensione(),
 			                R.getCommento(),
 			                R.getPunteggio(),
 			                R.getData(),
