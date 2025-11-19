@@ -119,7 +119,6 @@ public class ListaRecensioni extends JFrame {
 			GetRecensioniInviate();
 			
 			}
-
 			
 		});
 		btnRecensioniInviate.setFont(new Font("Verdana", Font.BOLD, 16));
