@@ -46,6 +46,8 @@ public class Annuncio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+    private String percorsoImg;
+    private JLabel LabelImg; 
 
 	/**
 	 * Launch the application.
@@ -180,7 +182,7 @@ public class Annuncio extends JFrame {
 		lblNewLabel_6.setBounds(234, 0, 100, 58);
 		panel.add(lblNewLabel_6);
 		
-		JLabel LabelImg = new JLabel("");
+		LabelImg = new JLabel("");
 		LabelImg.setFont(new Font("Verdana", Font.PLAIN, 10));
 		LabelImg.setForeground(new Color(255, 255, 255));
 		LabelImg.setLabelFor(this);
@@ -195,18 +197,11 @@ public class Annuncio extends JFrame {
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser scegliImg = new JFileChooser();
-		        scegliImg.setDialogTitle("Seleziona immagine");
-		        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
-
-		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
-		            Image img = iconaImg.getImage();
-		            LabelImg.setIcon(new ImageIcon(img));
+				caricaImg(); // Chiama il metodo caricaImg()
 		        }
-			}
 		});
-					
+		
+		
 		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
 		ButtonImgOggetto.setBounds(21, 77, 194, 36);
 		contentPane.add(ButtonImgOggetto);
@@ -313,4 +308,18 @@ public class Annuncio extends JFrame {
 			}
 		});
 	}
+	
+	public void caricaImg() {
+		JFileChooser scegliImg = new JFileChooser();
+        scegliImg.setDialogTitle("Seleziona immagine");
+        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
+
+        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+	    	percorsoImg = scegliImg.getSelectedFile().getAbsolutePath(); 
+            ImageIcon iconaImg = new ImageIcon(percorsoImg);
+            Image img = iconaImg.getImage();
+            LabelImg.setIcon(new ImageIcon(img));
+        }
+	}
+	
 }
