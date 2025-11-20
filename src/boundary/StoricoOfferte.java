@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -115,11 +116,8 @@ public class StoricoOfferte extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int scelta= JOptionPane.showConfirmDialog(null, "Conferma"," Vuoi ritirare l'offerta?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE );
 				if(scelta==JOptionPane.YES_OPTION)	{
-				
-		JOptionPane.showMessageDialog(null, "Ritiro avvenuto con successo", null, JOptionPane.INFORMATION_MESSAGE);
-		setVisible(false);
-		AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
-		AreaUtenteFrame.setVisible(true);
+					RimuoviOfferte();			
+		
 				}
 				else if(scelta==JOptionPane.NO_OPTION) {
 			
@@ -189,6 +187,46 @@ public class StoricoOfferte extends JFrame {
         }
     }
     
+    private void RimuoviOfferte() {
+    	int rigaSelezionata=tabellaOfferta.getSelectedRow();
+    	if(rigaSelezionata==-1) {
+    		JOptionPane.showMessageDialog(this,
+                    "Selezionare una riga da eliminare",
+                    "Attenzione",
+                    JOptionPane.WARNING_MESSAGE);
+    			return;
+    	}
+        try {
+        	
+        	
+        	int idOfferta = (int) modelTabella.getValueAt(rigaSelezionata, 0);
+        	
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            boolean eliminato = dao.DeleteOfferte(idOfferta);
+            
+            if (eliminato) {
+                // Rimuovi dalla tabella visiva
+                modelTabella.removeRow(rigaSelezionata);
+                
+                JOptionPane.showMessageDialog(this,
+                    "Offerta eliminata con successo",
+                    "Successo",
+                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Offerta non trovata",
+                    "Attenzione",
+                    JOptionPane.WARNING_MESSAGE);
+            }
+            
+        } catch ( Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Errore nell'eliminazione: " + e.getMessage(),
+                "Errore",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }    }
     
 	
 	

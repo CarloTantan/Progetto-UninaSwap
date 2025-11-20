@@ -44,29 +44,18 @@ public class StoricoOfferteDAO {
 	}
 	
 	
-	public ArrayList<Offerta_entity> UpdateOfferte(String matricola) throws SQLException {
-		ArrayList<Offerta_entity> ListaOfferte = new ArrayList<>();
-		String query = "SELECT  * FROM Offerte WHERE MatricolaAcquirente = ?";
+	public boolean DeleteOfferte(int IdOfferta) throws SQLException {
+
+		String query = "DELETE FROM Offerte WHERE IdOfferta  = ?";
 	    
 		try (Connection conn = getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(query)) {
-	        pstmt.setString(1, matricola);
-	        
-	        try (ResultSet rs = pstmt.executeQuery()){
-	        	while (rs.next()) {
-	        		Offerta_entity Offerte = new Offerta_entity(
-	        				rs.getInt("IdOfferta"),
-	        				rs.getString("StatoOfferta"),
-		            	rs.getString("MatricolaAcquirente"),
-		            	rs.getInt("IdAnnuncio"),
-		            	rs.getString("TipologiaOfferta")    
-	            );
-	        		ListaOfferte.add(Offerte);
-	        	}
-	        }
+	        pstmt.setInt(1, IdOfferta);
+	    int righeEliminate=pstmt.executeUpdate();
+	    return righeEliminate>0;
 		}
+		
 	    
-	    return ListaOfferte; 
 	}
 	
 	
