@@ -46,6 +46,8 @@ public class Annuncio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+    private String percorsoImg;
+    private JLabel LabelImg; 
 
 	/**
 	 * Launch the application.
@@ -180,7 +182,7 @@ public class Annuncio extends JFrame {
 		lblNewLabel_6.setBounds(234, 0, 100, 58);
 		panel.add(lblNewLabel_6);
 		
-		JLabel LabelImg = new JLabel("");
+		LabelImg = new JLabel("");
 		LabelImg.setFont(new Font("Verdana", Font.PLAIN, 10));
 		LabelImg.setForeground(new Color(255, 255, 255));
 		LabelImg.setLabelFor(this);
@@ -188,25 +190,18 @@ public class Annuncio extends JFrame {
 		LabelImg.setBounds(251, 77, 203, 77);
 		contentPane.add(LabelImg);
 		
-		JButton ButtonImgOggetto = new JButton("Oggetto");
+		JButton ButtonImgOggetto = new JButton("Carica immagine");
 		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
 		ButtonImgOggetto.setBackground(new Color(0, 52, 102));
 		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser scegliImg = new JFileChooser();
-		        scegliImg.setDialogTitle("Seleziona immagine");
-		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
-
-		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
-		            Image img = iconaImg.getImage();
-		            LabelImg.setIcon(new ImageIcon(img));
+				caricaImg(); // Chiama il metodo caricaImg()
 		        }
-			}
 		});
-					
+		
+		
 		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
 		ButtonImgOggetto.setBounds(21, 77, 194, 36);
 		contentPane.add(ButtonImgOggetto);
@@ -229,7 +224,7 @@ public class Annuncio extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
+		String[] categorie= {"Seleziona una categoria", "Libri", "Cancelleria", "Vestiti", "Elettronica", "Musica", "Giochi", "Sport", "Casa", "Altro"};
 		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
 		comboBoxCategoria.setForeground(new Color(255, 255, 255));
 		comboBoxCategoria.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -237,7 +232,7 @@ public class Annuncio extends JFrame {
 		comboBoxCategoria.setBounds(251, 447, 203, 28);
 		contentPane.add(comboBoxCategoria);
 		
-		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:30", "11:00 - 13:30","15:00 - 17:30", "18:00 - 20:30"};
+		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:00", "10:00 - 12:00","12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00", "20:00 - 22:00"};
 		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
 		comboBoxFasciaOraria.setForeground(new Color(255, 255, 255));
 		comboBoxFasciaOraria.setBackground(new Color(0, 52, 102));
@@ -313,4 +308,18 @@ public class Annuncio extends JFrame {
 			}
 		});
 	}
+	
+	public void caricaImg() {
+		JFileChooser scegliImg = new JFileChooser();
+        scegliImg.setDialogTitle("Seleziona immagine");
+        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
+
+        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+	    	percorsoImg = scegliImg.getSelectedFile().getAbsolutePath(); 
+            ImageIcon iconaImg = new ImageIcon(percorsoImg);
+            Image img = iconaImg.getImage();
+            LabelImg.setIcon(new ImageIcon(img));
+        }
+	}
+	
 }
