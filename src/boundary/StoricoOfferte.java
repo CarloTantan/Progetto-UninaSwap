@@ -105,7 +105,7 @@ public class StoricoOfferte extends JFrame {
 		btnModifica.setBackground(new Color(0, 52, 101));
 		btnModifica.setForeground(new Color(255, 255, 255));
 		btnModifica.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnModifica.setBounds(129, 291, 179, 40);
+		btnModifica.setBounds(128, 127, 179, 40);
 		btnModifica.setFocusPainted(false);
 		btnModifica.setBorderPainted(false); 
 		contentPane.add(btnModifica);
@@ -133,7 +133,7 @@ public class StoricoOfferte extends JFrame {
 		btnRitira.setForeground(Color.WHITE);
 		btnRitira.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRitira.setBackground(new Color(0, 52, 101));
-		btnRitira.setBounds(463, 291, 179, 40);
+		btnRitira.setBounds(474, 127, 179, 40);
 		btnRitira.setFocusPainted(false);
 		btnRitira.setBorderPainted(false); 
 		contentPane.add(btnRitira);
@@ -145,8 +145,8 @@ public class StoricoOfferte extends JFrame {
 	        // Creazione modello tabella
 	        modelTabella = new DefaultTableModel(
 	            new Object[][]{},
-	            new String[]{"Id Offerta", "StatoOfferta ", "MatricolaAcquirente Venditore", 
-	                        "Id Annuncio", "TipologiaOfferta"} ) {
+	            new String[]{"Id Offerta", "Stato", "MatricolaAcquirente", 
+	                        "Id Annuncio", "Tipologia"} ) {
 	            @Override
 	            public boolean isCellEditable(int row, int column) {
 	                return false;

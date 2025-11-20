@@ -20,7 +20,7 @@ public class StoricoOfferteDAO {
 	
 	public ArrayList<Offerta_entity> getOfferte(String matricola) throws SQLException {
 		ArrayList<Offerta_entity> ListaOfferte = new ArrayList<>();
-		String query = "SELECT  * FROM Offerte WHERE MatricolaAcquirente = ?";
+		String query = "SELECT  * FROM Offerta WHERE MatricolaAcquirente = ?";
 	    
 		try (Connection conn = getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -30,10 +30,10 @@ public class StoricoOfferteDAO {
 	        	while (rs.next()) {
 	        		Offerta_entity Offerte = new Offerta_entity(
 	        				rs.getInt("IdOfferta"),
-	        				rs.getString("StatoOfferta"),
+	        				rs.getString("Stato"),
 		            	rs.getString("MatricolaAcquirente"),
 		            	rs.getInt("IdAnnuncio"),
-		            	rs.getString("TipologiaOfferta")    
+		            	rs.getString("Tipologia")    
 	            );
 	        		ListaOfferte.add(Offerte);
 	        	}
