@@ -35,6 +35,7 @@ public class ListaTransazioni extends JFrame {
     private JTable tabellaTransazioni;
     private DefaultTableModel modelTabella;
     private Utente_entity UtenteLoggato;
+    private ArrayList<Transazione_entity> ListaTransazioni;
 
     /**
      * Launch the application.
@@ -116,15 +117,14 @@ public class ListaTransazioni extends JFrame {
         
         // Creazione modello tabella
         modelTabella = new DefaultTableModel(
-            new Object[][]{},
-            new String[]{"Titolo", "Matricola Acquirente", "Matricola Venditore", 
-                        "Id Annuncio", "Id Offerta", "Recensione Inserita"}
-        ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        	    new Object[][]{},
+        	    new String[]{"Titolo", "Matricola Acquirente", "Matricola Venditore", "Recensione Inserita"}
+        	) {
+        	    @Override
+        	    public boolean isCellEditable(int row, int column) {
+        	        return false;
+        	    }
+        	};
 
         // Creazione tabella
         tabellaTransazioni = new JTable(modelTabella);
@@ -137,9 +137,7 @@ public class ListaTransazioni extends JFrame {
         
      // Carica le transazioni
         caricaTransazioni();
-        
-        // Nascondi le colonne ID
-        nascondiColonneID();
+      
     }
     
     
@@ -147,16 +145,14 @@ public class ListaTransazioni extends JFrame {
     
     private void caricaTransazioni() {
         try {
-            TransazioniDAO dao = new TransazioniDAO();
-            ArrayList<Transazione_entity> lista = dao.getTransazioni(UtenteLoggato.getMatricola());
+            TransazioniDAO TransazioniDao = new TransazioniDAO();
+            ListaTransazioni = TransazioniDao.getTransazioni(UtenteLoggato.getMatricola());
 
-            for (Transazione_entity t : lista) {
+            for (Transazione_entity t : ListaTransazioni) {
                 modelTabella.addRow(new Object[]{
                     t.getTitoloAnnuncio(),
                     t.getMatricolaAcquirente(),
                     t.getMatricolaVenditore(),
-                    t.getIdAnnuncio(),
-                    t.getIdOfferta(),
                     t.hasRecensione() ? "Sì" : "No"
                 });
             }
@@ -169,22 +165,6 @@ public class ListaTransazioni extends JFrame {
         }
     }
     
-    
-     //Nasconde le colonne ID dalla vista della tabella
-     
-    private void nascondiColonneID() {
-        // Nascondi colonna ID Annuncio
-        tabellaTransazioni.getColumnModel().getColumn(3).setMinWidth(0);
-        tabellaTransazioni.getColumnModel().getColumn(3).setMaxWidth(0);
-        tabellaTransazioni.getColumnModel().getColumn(3).setWidth(0);
-        tabellaTransazioni.getColumnModel().getColumn(3).setPreferredWidth(0);
-        
-        // Nascondi colonna ID Offerta
-        tabellaTransazioni.getColumnModel().getColumn(4).setMinWidth(0);
-        tabellaTransazioni.getColumnModel().getColumn(4).setMaxWidth(0);
-        tabellaTransazioni.getColumnModel().getColumn(4).setWidth(0);
-        tabellaTransazioni.getColumnModel().getColumn(4).setPreferredWidth(0);
-    }
     
     
      //Apre l'interfaccia per inserire una recensione
@@ -202,15 +182,10 @@ public class ListaTransazioni extends JFrame {
         }
         
         // Recupera i dati dalla riga selezionata
-        String matricolaAcquirente = (String) tabellaTransazioni.getValueAt(selectedRow, 1);
-        String matricolaVenditore = (String) tabellaTransazioni.getValueAt(selectedRow, 2);
-        int idAnnuncio = (int) tabellaTransazioni.getValueAt(selectedRow, 3);
-        int idOfferta = (int) tabellaTransazioni.getValueAt(selectedRow, 4);
-        String hasRecensioneString = (String) tabellaTransazioni.getValueAt(selectedRow, 5);
-        boolean hasRecensione = "Sì".equals(hasRecensioneString);
+        Transazione_entity transazioneSelezionata = ListaTransazioni.get(selectedRow);
         
         // Verifica se la recensione è già stata inserita
-        if (hasRecensione) {
+        if (transazioneSelezionata.hasRecensione()) {
             JOptionPane.showMessageDialog(this,
                 "Hai già inserito una recensione per questa transazione!",
                 "Recensione già presente",
@@ -222,9 +197,9 @@ public class ListaTransazioni extends JFrame {
         this.dispose();
         InserimentoRecensione recensioneFrame = new InserimentoRecensione(
             UtenteLoggato,
-            matricolaAcquirente,
-            matricolaVenditore,
-            idOfferta
+            transazioneSelezionata.getMatricolaAcquirente(),
+            transazioneSelezionata.getMatricolaVenditore(),
+            transazioneSelezionata.getIdOfferta()
         );
         recensioneFrame.setVisible(true);
         recensioneFrame.setLocationRelativeTo(null);
