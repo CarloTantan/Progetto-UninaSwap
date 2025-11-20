@@ -59,7 +59,9 @@ public class StoricoOfferte extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(StoricoOfferte.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Le tue offerte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 762, 512);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -69,7 +71,7 @@ public class StoricoOfferte extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, 748, 85);
+		panel.setBounds(0, 0, contentPane.getWidth(), 85);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -159,7 +161,7 @@ public class StoricoOfferte extends JFrame {
 	        tabellaOfferta.getTableHeader().setReorderingAllowed(false);
 
 	        JScrollPane scrollPane = new JScrollPane(tabellaOfferta);
-	        scrollPane.setBounds(39, 230, 1106, 238);
+	        scrollPane.setBounds(39, 230, contentPane.getWidth()-78, contentPane.getHeight()-280);
 	        contentPane.add(scrollPane);
 	        caricaOfferte();
 	}
