@@ -59,9 +59,7 @@ public class StoricoOfferte extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(StoricoOfferte.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Le tue offerte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setLocationRelativeTo(null);
-		
+		setBounds(100, 100, 762, 512);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,7 +69,7 @@ public class StoricoOfferte extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, contentPane.getWidth(), 85);
+		panel.setBounds(0, 0, 748, 85);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -107,7 +105,7 @@ public class StoricoOfferte extends JFrame {
 		btnModifica.setBackground(new Color(0, 52, 101));
 		btnModifica.setForeground(new Color(255, 255, 255));
 		btnModifica.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnModifica.setBounds(128, 127, 179, 40);
+		btnModifica.setBounds(129, 291, 179, 40);
 		btnModifica.setFocusPainted(false);
 		btnModifica.setBorderPainted(false); 
 		contentPane.add(btnModifica);
@@ -135,7 +133,7 @@ public class StoricoOfferte extends JFrame {
 		btnRitira.setForeground(Color.WHITE);
 		btnRitira.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRitira.setBackground(new Color(0, 52, 101));
-		btnRitira.setBounds(474, 127, 179, 40);
+		btnRitira.setBounds(463, 291, 179, 40);
 		btnRitira.setFocusPainted(false);
 		btnRitira.setBorderPainted(false); 
 		contentPane.add(btnRitira);
@@ -147,8 +145,8 @@ public class StoricoOfferte extends JFrame {
 	        // Creazione modello tabella
 	        modelTabella = new DefaultTableModel(
 	            new Object[][]{},
-	            new String[]{"Id Offerta", "Stato", "MatricolaAcquirente", 
-	                        "Id Annuncio", "Tipologia"} ) {
+	            new String[]{"Id Offerta", "StatoOfferta ", "MatricolaAcquirente Venditore", 
+	                        "Id Annuncio", "TipologiaOfferta"} ) {
 	            @Override
 	            public boolean isCellEditable(int row, int column) {
 	                return false;
@@ -161,7 +159,7 @@ public class StoricoOfferte extends JFrame {
 	        tabellaOfferta.getTableHeader().setReorderingAllowed(false);
 
 	        JScrollPane scrollPane = new JScrollPane(tabellaOfferta);
-	        scrollPane.setBounds(40, 230, contentPane.getWidth()-78, contentPane.getHeight()-280);
+	        scrollPane.setBounds(39, 230, 1106, 238);
 	        contentPane.add(scrollPane);
 	        caricaOfferte();
 	}
