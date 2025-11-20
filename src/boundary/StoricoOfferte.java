@@ -131,7 +131,7 @@ public class StoricoOfferte extends JFrame {
 		btnRitira.setForeground(Color.WHITE);
 		btnRitira.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnRitira.setBackground(new Color(0, 52, 101));
-		btnRitira.setBounds(463, 291, 179, 40);
+		btnRitira.setBounds(462, 291, 179, 40);
 		btnRitira.setFocusPainted(false);
 		btnRitira.setBorderPainted(false); 
 		contentPane.add(btnRitira);
@@ -237,4 +237,3 @@ public class StoricoOfferte extends JFrame {
 	
 	
 
-}
