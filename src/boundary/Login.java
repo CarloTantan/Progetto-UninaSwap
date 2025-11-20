@@ -142,6 +142,7 @@ public class Login extends JFrame {
 		btnAccedi.setFocusPainted(false);
 		btnAccedi.setBorderPainted(false);
 		contentPane.add(btnAccedi);
+		getRootPane().setDefaultButton(btnAccedi);
 		
 		btnAccedi.addActionListener(new ActionListener() {
 			@Override

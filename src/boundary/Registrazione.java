@@ -154,6 +154,7 @@ public class Registrazione extends JFrame {
 		btnRegistrati.setFocusPainted(false);
 		btnRegistrati.setBorderPainted(false);
 		Registrazione.add(btnRegistrati);
+		getRootPane().setDefaultButton(btnRegistrati);
 		
 		btnRegistrati.addActionListener(new ActionListener() {
 			@Override
