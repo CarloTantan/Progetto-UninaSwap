@@ -161,7 +161,7 @@ public class StoricoOfferte extends JFrame {
 	        tabellaOfferta.getTableHeader().setReorderingAllowed(false);
 
 	        JScrollPane scrollPane = new JScrollPane(tabellaOfferta);
-	        scrollPane.setBounds(39, 230, contentPane.getWidth()-78, contentPane.getHeight()-280);
+	        scrollPane.setBounds(40, 230, contentPane.getWidth()-78, contentPane.getHeight()-280);
 	        contentPane.add(scrollPane);
 	        caricaOfferte();
 	}
