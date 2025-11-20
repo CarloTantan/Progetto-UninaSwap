@@ -22,34 +22,32 @@ public class TransazioniDAO {
 	
 	public ArrayList<Transazione_entity> getTransazioni(String matricola) throws SQLException {
 		ArrayList<Transazione_entity> ListaTransazioni = new ArrayList<>();
-		String query = "SELECT A.MatricolaVenditore, O.MatricolaAcquirente, O.idOfferta, O.idAnnuncio "
-				+ "FROM Offerta AS O JOIN Annuncio AS A ON O.idannuncio = A.idannuncio "
-				+ "WHERE O.stato = 'Accettata' AND O.MatricolaAcquirente = ?";
-		
-		PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    Connection conn = null;
+		String query = "SELECT A.Titolo, A.MatricolaVenditore, O.MatricolaAcquirente, " +
+                "O.idOfferta, O.idAnnuncio, " +
+                "CASE WHEN R.idRecensione IS NOT NULL THEN true ELSE false END as HasRecensione " +
+                "FROM Offerta AS O " +
+                "JOIN Annuncio AS A ON O.idAnnuncio = A.idAnnuncio " +
+                "LEFT JOIN Recensione AS R ON R.idOfferta = O.idOfferta " +
+                "WHERE O.stato = 'Accettata' AND O.MatricolaAcquirente = ?";
 	    
-	    try {
-	        conn = getConnection();
-	        pstmt = conn.prepareStatement(query);
+		try (Connection conn = getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(query)) {
 	        pstmt.setString(1, matricola);
-	        rs = pstmt.executeQuery();
 	        
-	        while (rs.next()) {
-	            Transazione_entity Transazione = new Transazione_entity(
-	            	rs.getInt("IdAnnuncio"),
-	            	rs.getInt("IdOfferta"),
-	            	rs.getString("MatricolaAcquirente"),
-	            	rs.getString("MatricolaVenditore")
+	        try (ResultSet rs = pstmt.executeQuery()){
+	        	while (rs.next()) {
+		            Transazione_entity Transazione = new Transazione_entity(
+		            	rs.getString("Titolo"),
+		            	rs.getInt("IdAnnuncio"),
+		            	rs.getInt("IdOfferta"),
+		            	rs.getString("MatricolaAcquirente"),
+		            	rs.getString("MatricolaVenditore"),
+		            	rs.getBoolean("HasRecensione")      
 	            );
 	            ListaTransazioni.add(Transazione);
+	        	}
 	        }
-	    } finally {
-	        if(rs != null) rs.close();
-	        if(pstmt != null) pstmt.close();
-	        if(conn != null) conn.close();
-	    }
+		}
 	    
 	    return ListaTransazioni; 
 	}

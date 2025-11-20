@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import dao.InserimentoRecensioneDAO;
 import entity.Utente_entity;
 
 import java.awt.Color;
@@ -21,6 +22,7 @@ import javax.swing.JComboBox;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.Toolkit;
 
 public class InserimentoRecensione extends JFrame {
@@ -28,6 +30,12 @@ public class InserimentoRecensione extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	private String matricolaVenditore;
+	private String matricolaAcquirente;
+	private int idOfferta;
+	private JComboBox<String> comboBoxPunteggi;
+    private JTextArea textAreaCommento;
+    private InserimentoRecensioneDAO recensioneDAO;
 
 	/**
 	 * Launch the application.
@@ -48,12 +56,17 @@ public class InserimentoRecensione extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InserimentoRecensione(Utente_entity UtenteLoggato) {
-		this.UtenteLoggato = UtenteLoggato;
+	public InserimentoRecensione(Utente_entity UtenteLoggato, String matricolaAcquirente, String matricolaVenditore, int idOfferta) {
+	    this.UtenteLoggato = UtenteLoggato;
+	    this.matricolaAcquirente = matricolaAcquirente;
+	    this.matricolaVenditore = matricolaVenditore;
+	    this.idOfferta = idOfferta;
+	    
 		setIconImage(Toolkit.getDefaultToolkit().getImage(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scrivi la tua recensione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 410);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,9 +89,7 @@ public class InserimentoRecensione extends JFrame {
 		btnIndietro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
-				areaUtenteFrame.setVisible(true);
+				tornaAreaUtente();
 			}
 		});
 		
@@ -136,15 +147,138 @@ public class InserimentoRecensione extends JFrame {
 				
 				if (comboBoxPunteggi.getSelectedIndex()==0){
 					JOptionPane.showMessageDialog(null, "Seleziona un punteggio", "Punteggio mancante", JOptionPane.WARNING_MESSAGE);
-				} else {
-				setVisible(false);
-				JOptionPane.showMessageDialog(null, "Recensione inviata con successo", "Recensione inviata", JOptionPane.INFORMATION_MESSAGE);
-				AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
-				areaUtenteFrame.setVisible(true);
-				}
-			}
-		});
+					return;
+				} 
+				
+				int punteggio = Integer.parseInt(comboBoxPunteggi.getSelectedItem().toString());
+		        String commento = textAreaCommento.getText();
+		        
+		        try {
+		        	InserimentoRecensioneDAO InserimentoRecensioneDAO = new InserimentoRecensioneDAO();
+		        	if (InserimentoRecensioneDAO.esisteRecensione(idOfferta)) {
+	                    JOptionPane.showMessageDialog(null, 
+	                        "Hai già inserito una recensione per questa transazione!", 
+	                        "Recensione già presente", JOptionPane.WARNING_MESSAGE);
+	                    return;
+	                }
+		        	
+		        	InserimentoRecensioneDAO.inserisciRecensione(
+		        			matricolaVenditore,
+		                    matricolaAcquirente,
+		                    punteggio,
+		                    commento,
+		                    idOfferta
+		            );
+
+		            JOptionPane.showMessageDialog(null, "Recensione inviata con successo!");
+		            setVisible(false);
+		            new AreaUtente(UtenteLoggato).setVisible(true);
+
+		        } catch (Exception ex) {
+		        	ex.printStackTrace();
+	                if (ex.getMessage().contains("unique")) {
+	                    JOptionPane.showMessageDialog(null, 
+	                        "Hai già inserito una recensione per questa transazione!");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, 
+	                        "Errore durante il salvataggio della recensione");
+	                }
+	            }
+	        }
+	    });
+        
+        
 
         
 	}
+	
+	//validazione campi
+	private boolean validaCampi() {
+        // Verifica che sia selezionato un punteggio
+        if (comboBoxPunteggi.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this,
+                "Seleziona un punteggio",
+                "Punteggio mancante",
+                JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+	
+	//invia la recensione al database
+	private void inviaRecensione() {
+        // Validazione campi
+        if (!validaCampi()) {
+            return;
+        }
+        
+        // Recupera i valori dai campi
+        int punteggio = Integer.parseInt(comboBoxPunteggi.getSelectedItem().toString());
+        String commento = textAreaCommento.getText().trim();
+        
+        try {
+            // Verifica se esiste già una recensione per questa offerta
+            if (recensioneDAO.esisteRecensione(idOfferta)) {
+                JOptionPane.showMessageDialog(this,
+                    "Hai già inserito una recensione per questa transazione!",
+                    "Recensione già presente",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            // Inserisci la recensione
+            recensioneDAO.inserisciRecensione(
+                matricolaVenditore,
+                matricolaAcquirente,
+                punteggio,
+                commento,
+                idOfferta
+            );
+
+            // Mostra messaggio di successo
+            JOptionPane.showMessageDialog(this,
+                "Recensione inviata con successo!",
+                "Successo",
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            // Torna all'area utente
+            tornaAreaUtente();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            
+            // Gestione errori specifici
+            if (ex.getMessage().contains("unique")) {
+                JOptionPane.showMessageDialog(this,
+                    "Hai già inserito una recensione per questa transazione!",
+                    "Recensione duplicata",
+                    JOptionPane.ERROR_MESSAGE);
+            } else if (ex.getMessage().contains("autorecensione")) {
+                JOptionPane.showMessageDialog(this,
+                    "Non puoi recensire te stesso!",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Errore durante il salvataggio della recensione: " + ex.getMessage(),
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Errore imprevisto durante il salvataggio della recensione",
+                "Errore",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+	
+	private void tornaAreaUtente() {
+        this.dispose();
+        AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
+        areaUtenteFrame.setVisible(true);
+        areaUtenteFrame.setLocationRelativeTo(null);
+    }
+	
 }

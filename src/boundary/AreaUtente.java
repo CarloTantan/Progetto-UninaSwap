@@ -104,9 +104,9 @@ public class AreaUtente extends JFrame {
 		btnInserisciRecensione.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				InserimentoRecensione InserimentoRecensioneFrame = new InserimentoRecensione(UtenteLoggato);
-				InserimentoRecensioneFrame.setVisible(true);
-				InserimentoRecensioneFrame.setLocationRelativeTo(null);
+				ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(UtenteLoggato);
+				ListaTransazioniFrame.setVisible(true);
+				ListaTransazioniFrame.setLocationRelativeTo(null);
 				
 			}
 		});

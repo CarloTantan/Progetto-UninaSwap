@@ -9,14 +9,16 @@ public class Recensione_entity {
 	private Date Data;
 	private String MatricolaAcquirente;
 	private String MatricolaVenditore;
+	private int IdOfferta;
 	
-	public Recensione_entity(int IdRecensione, String Commento, int Punteggio, Date Data, String MatricolaAcquirente, String MatricolaVenditore) {
+	public Recensione_entity(int IdRecensione, String Commento, int Punteggio, Date Data, String MatricolaAcquirente, String MatricolaVenditore, int IdOfferta) {
 		this.IdRecensione = IdRecensione;
 		this.Commento = Commento;
 		this.Punteggio = Punteggio;
 		this.Data = Data;
 		this.MatricolaAcquirente= MatricolaAcquirente;
 		this.MatricolaVenditore = MatricolaVenditore;
+		this.IdOfferta = IdOfferta;
 	}
 	
 //Getter
@@ -44,6 +46,10 @@ public class Recensione_entity {
 		return MatricolaVenditore;
 	}
 	
+	public Integer getIdOfferta() {
+        return IdOfferta;
+    }
+	
 //Setter
 	public void setIdRecensione(int IdRecensione) {
 		this.IdRecensione = IdRecensione;
@@ -68,5 +74,9 @@ public class Recensione_entity {
 	public void setMatricolaVenditore(String MatricolaVenditore) {
 		this.MatricolaVenditore = MatricolaVenditore;
 	}
+	
+	public void setIdOfferta(Integer IdOfferta) {
+        this.IdOfferta = IdOfferta;
+    }
 }
 
