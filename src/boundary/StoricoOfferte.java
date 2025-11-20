@@ -4,15 +4,24 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
+import dao.StoricoOfferteDAO;
+import dao.TransazioniDAO;
+import entity.Offerta_entity;
+import entity.Transazione_entity;
 import entity.Utente_entity;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,6 +32,8 @@ public class StoricoOfferte extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	 private DefaultTableModel modelTabella;
+	   private JTable tabellaOfferta;
 
 	/**
 	 * Launch the application.
@@ -90,6 +101,7 @@ public class StoricoOfferte extends JFrame {
 				
 			}
 		});
+		
 		btnModifica.setBackground(new Color(0, 52, 101));
 		btnModifica.setForeground(new Color(255, 255, 255));
 		btnModifica.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -125,6 +137,66 @@ public class StoricoOfferte extends JFrame {
 		btnRitira.setFocusPainted(false);
 		btnRitira.setBorderPainted(false); 
 		contentPane.add(btnRitira);
+	
+		  JPanel panelCentrale = new JPanel();
+	        panelCentrale.setBackground(Color.WHITE);
+	        contentPane.add(panelCentrale, BorderLayout.CENTER);
+	        
+	        // Creazione modello tabella
+	        modelTabella = new DefaultTableModel(
+	            new Object[][]{},
+	            new String[]{"IdOfferta", "StatoOfferta ", "MatricolaAcquirente Venditore", 
+	                        "IdAnnuncio", "TipologiaOfferta"} ) {
+	            @Override
+	            public boolean isCellEditable(int row, int column) {
+	                return false;
+	            }
+	        };
+
+	        // Creazione tabella
+	        tabellaOfferta = new JTable(modelTabella);
+	        tabellaOfferta.setBackground(Color.WHITE);
+	        tabellaOfferta.getTableHeader().setReorderingAllowed(false);
+
+	        JScrollPane scrollPane = new JScrollPane(tabellaOfferta);
+	        scrollPane.setBounds(39, 230, 1106, 238);
+	        contentPane.add(scrollPane);
+	        caricaOfferte();
 	}
+	
+	 
+    private void caricaOfferte() {
+        try {
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            ArrayList<Offerta_entity> lista = dao.getOfferte(UtenteLoggato.getMatricola());
+
+            for (Offerta_entity t : lista) {
+                modelTabella.addRow(new Object[]{
+                		t.getIdOfferta(),
+                    t.getStatoOfferta(),
+                    t.getMatricolaAcquirente(),
+                         t.getIdAnnuncio(),
+                    t.getTipologiaOfferta(),
+                   
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Errore nel caricamento delle offerte",
+                "Errore",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

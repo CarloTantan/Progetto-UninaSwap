@@ -4,14 +4,17 @@ public class Offerta_entity {
 	protected int IdOfferta;
 	protected String StatoOfferta;
 	protected String MatricolaAcquirente;
+	protected String TipologiaOfferta ;
 	protected int IdAnnuncio;
-	 
 	
-	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio) {
+	
+	
+	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta ) {
 		this.IdOfferta = IdOfferta;
 		this.StatoOfferta = StatoOfferta;
 		this.MatricolaAcquirente = MatricolaAcquirente;
 		this.IdAnnuncio = IdAnnuncio;
+		this.TipologiaOfferta=TipologiaOfferta;
 	}
 	
 //Getter	
@@ -21,6 +24,9 @@ public class Offerta_entity {
 	
 	public String getStatoOfferta() {
 		return StatoOfferta;
+	}
+	public String getTipologiaOfferta() {
+		return TipologiaOfferta;
 	}
 	
 	public String getMatricolaAcquirente() {
@@ -36,7 +42,10 @@ public class Offerta_entity {
 		this.IdOfferta = IdOfferta;
 	}
 	
-	public void setStatoOfferta(String StatoOfferta) {
+	public void setTipologiaOfferta(String TipologiaOfferta) {
+		this.TipologiaOfferta = TipologiaOfferta;
+	}
+	public void set(String StatoOfferta) {
 		this.StatoOfferta = StatoOfferta;
 	}
 	
