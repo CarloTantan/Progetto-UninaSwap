@@ -188,7 +188,7 @@ public class Annuncio extends JFrame {
 		LabelImg.setBounds(251, 77, 203, 77);
 		contentPane.add(LabelImg);
 		
-		JButton ButtonImgOggetto = new JButton("Oggetto");
+		JButton ButtonImgOggetto = new JButton("Carica immagine");
 		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
 		ButtonImgOggetto.setBackground(new Color(0, 52, 102));
 		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
@@ -197,7 +197,7 @@ public class Annuncio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser scegliImg = new JFileChooser();
 		        scegliImg.setDialogTitle("Seleziona immagine");
-		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
+		        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
 
 		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
@@ -229,7 +229,7 @@ public class Annuncio extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		String[] categorie= {"Seleziona una categoria", "Libri", "Musica", "Sport", "Altro"};
+		String[] categorie= {"Seleziona una categoria", "Libri", "Cancelleria", "Vestiti", "Elettronica", "Musica", "Giochi", "Sport", "Casa", "Altro"};
 		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
 		comboBoxCategoria.setForeground(new Color(255, 255, 255));
 		comboBoxCategoria.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -237,7 +237,7 @@ public class Annuncio extends JFrame {
 		comboBoxCategoria.setBounds(251, 447, 203, 28);
 		contentPane.add(comboBoxCategoria);
 		
-		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:30", "11:00 - 13:30","15:00 - 17:30", "18:00 - 20:30"};
+		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:00", "10:00 - 12:00","12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00", "20:00 - 22:00"};
 		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
 		comboBoxFasciaOraria.setForeground(new Color(255, 255, 255));
 		comboBoxFasciaOraria.setBackground(new Color(0, 52, 102));
