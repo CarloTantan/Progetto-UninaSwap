@@ -3,8 +3,9 @@ package entity;
 public class OffertaVendita_entity extends Offerta_entity{
 	private float PropostaEconomica;
 	
-	public OffertaVendita_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio, float PropostaEconomica) {
-		super(IdOfferta, StatoOfferta, MatricolaAcquirente, IdAnnuncio);
+	
+	public OffertaVendita_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio, float PropostaEconomica,String TipologiaOfferta) {
+		super(IdOfferta, StatoOfferta, MatricolaAcquirente, IdAnnuncio, TipologiaOfferta);
 		this.PropostaEconomica = PropostaEconomica;
 	}
 	

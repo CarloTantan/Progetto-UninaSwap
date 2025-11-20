@@ -3,8 +3,8 @@ package entity;
 public class OffertaRegalo_entity extends Offerta_entity{
 	private String MessaggioMotivazionale;
 	
-	public OffertaRegalo_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio, String MessaggioMotivazionale) {
-		super(IdOfferta, StatoOfferta, MatricolaAcquirente, IdAnnuncio); 
+	public OffertaRegalo_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio, String MessaggioMotivazionale,String TipologiaOfferta) {
+		super(IdOfferta, StatoOfferta, MatricolaAcquirente, IdAnnuncio, TipologiaOfferta); 
 		this.MessaggioMotivazionale = MessaggioMotivazionale; 
 	}
 	
