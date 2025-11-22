@@ -66,7 +66,7 @@ public class AreaUtente extends JFrame {
 		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				OfferteRicevute OfferteRicevuteFrame = new OfferteRicevute(UtenteLoggato);
+				AnnunciPubblicati OfferteRicevuteFrame = new AnnunciPubblicati(UtenteLoggato);
 				OfferteRicevuteFrame.setVisible(true);
 				OfferteRicevuteFrame.setLocationRelativeTo(null);
 			}

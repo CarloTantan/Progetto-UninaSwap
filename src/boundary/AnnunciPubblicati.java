@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
-public class OfferteRicevute extends JFrame {
+public class AnnunciPubblicati extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -47,10 +47,10 @@ public class OfferteRicevute extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OfferteRicevute(Utente_entity UtenteLoggato) {
+	public AnnunciPubblicati(Utente_entity UtenteLoggato) {
 		this.UtenteLoggato = UtenteLoggato;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(OfferteRicevute.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
-		setTitle("Offerte Ricevute");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnunciPubblicati.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+		setTitle("Annunci Pubblicati");
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 753, 406);
@@ -67,7 +67,7 @@ public class OfferteRicevute extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Offerte Ricevute");
+		JLabel lblNewLabel_1 = new JLabel("Annunci Pubblicati");
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(268, 5, 219, 53);
 		panel.add(lblNewLabel_1);
@@ -83,7 +83,7 @@ public class OfferteRicevute extends JFrame {
 			}
 		});
 		btnUndo.setBackground(new Color(45, 134, 192));
-		btnUndo.setIcon(new ImageIcon(OfferteRicevute.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+		btnUndo.setIcon(new ImageIcon(AnnunciPubblicati.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnUndo.setBounds(0, 0, 95, 68);
 		btnUndo.setFocusPainted(false);
 		btnUndo.setBorderPainted(false);
@@ -94,11 +94,6 @@ public class OfferteRicevute extends JFrame {
 		textField.setBounds(263, 146, 183, 34);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Titolo Annuncio");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel.setBounds(92, 137, 210, 44);
-		contentPane.add(lblNewLabel);
 		
 		JButton btnAccetta = new JButton("Accetta");
 		btnAccetta.addActionListener(new ActionListener() {
