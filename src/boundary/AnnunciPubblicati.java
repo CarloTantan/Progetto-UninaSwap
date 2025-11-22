@@ -87,7 +87,7 @@ public class AnnunciPubblicati extends JFrame {
 		btnUndo.setBounds(0, 0, 95, 68);
 		btnUndo.setFocusPainted(false);
 		btnUndo.setBorderPainted(false);
-		panel.add(btnUndo);
+		panel.add(btnUndo); 
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Verdana", Font.BOLD, 16));
