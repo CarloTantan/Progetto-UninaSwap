@@ -46,7 +46,7 @@ public class StoricoOfferteDAO {
 	
 	public boolean DeleteOfferte(int IdOfferta) throws SQLException {
 
-		String query = "DELETE FROM Offerte WHERE IdOfferta  = ?";
+		String query = "DELETE FROM Offerta WHERE IdOfferta  = ?";
 	    
 		try (Connection conn = getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(query)) {
