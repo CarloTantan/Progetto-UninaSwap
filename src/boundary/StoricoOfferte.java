@@ -219,13 +219,14 @@ public class StoricoOfferte extends JFrame {
                     JOptionPane.WARNING_MESSAGE);
             }
             
-        } catch ( Exception e) {
+        } catch ( SQLException  e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,
                 "Errore nell'eliminazione: " + e.getMessage(),
                 "Errore",
                 JOptionPane.ERROR_MESSAGE);
         }
+        
     }    }
     
 	
