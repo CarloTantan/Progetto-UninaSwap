@@ -143,8 +143,7 @@ public class StoricoOfferte extends JFrame {
 	        // Creazione modello tabella
 	        modelTabella = new DefaultTableModel(
 	            new Object[][]{},
-	            new String[]{"Id Offerta", "Stato ", "Matricola Acquirente", 
-	                        "Id Annuncio", "Tipologia"} ) {
+	            new String[]{"Stato ", "Matricola Acquirente", "Tipologia"} ) {
 	            @Override
 	            public boolean isCellEditable(int row, int column) {
 	                return false;
@@ -236,6 +235,25 @@ public class StoricoOfferte extends JFrame {
         
         }  
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
     
 	

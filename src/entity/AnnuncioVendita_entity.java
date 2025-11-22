@@ -9,8 +9,8 @@ public class AnnuncioVendita_entity extends Annuncio_entity {
 	private float PrezzoVendita; 
 
 	public AnnuncioVendita_entity(int IdAnnuncio, String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto, TipologiaCategoria categoria, Date DataPubblicazione , String MatricolaVenditore, float PrezzoVendita) {
-		super(IdAnnuncio, Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, categoria, DataPubblicazione, MatricolaVenditore);
+			StatoAnnuncio StatoAnnuncio, String idOggetto, TipologiaCategoria categoria, Date DataPubblicazione , String MatricolaVenditore, float PrezzoVendita,boolean VisualizzaOfferta) {
+		super(IdAnnuncio, Titolo, Descrizione, FasciaOraria, ModalitàConsegna, StatoAnnuncio, idOggetto, categoria, DataPubblicazione, MatricolaVenditore, VisualizzaOfferta);
 		this.PrezzoVendita = PrezzoVendita; 
 	}
 

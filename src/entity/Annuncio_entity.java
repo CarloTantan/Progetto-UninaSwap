@@ -16,9 +16,10 @@ public class Annuncio_entity {
 	protected Date DataPubblicazione; 
 	protected TipologiaCategoria categoria;
 	protected String MatricolaVenditore;
+	protected boolean VisualizzaOfferta;
 	
 	public Annuncio_entity(int IdAnnuncio, String Titolo, String Descrizione, FasciaOraria FasciaOraria, String ModalitàConsegna, 
-			StatoAnnuncio StatoAnnuncio, String idOggetto,TipologiaCategoria categoria ,Date DataPubblicazione, String MatricolaVenditore) {
+			StatoAnnuncio StatoAnnuncio, String idOggetto,TipologiaCategoria categoria ,Date DataPubblicazione, String MatricolaVenditore, boolean VisualizzaOfferta) {
 		this.IdAnnuncio = IdAnnuncio;
 		this.Titolo = Titolo; 
 		this.Descrizione = Descrizione; 
@@ -29,6 +30,7 @@ public class Annuncio_entity {
 		this.DataPubblicazione = DataPubblicazione; 
 		this.categoria=categoria;
 		this.MatricolaVenditore = MatricolaVenditore;
+		this.VisualizzaOfferta=VisualizzaOfferta;
 	}
 	
 //Getter
@@ -70,6 +72,9 @@ public class Annuncio_entity {
 	
 	public String getMatricolaVenditore() {
 		return MatricolaVenditore;
+	}
+	public boolean getVisualizzaOfferte() { 
+		return VisualizzaOfferta;
 	}
 	
 //Setter
@@ -113,6 +118,11 @@ public class Annuncio_entity {
 	public void setMatricolaVenditore(String MatricolaVenditore) {
 		this.MatricolaVenditore = MatricolaVenditore;
 	}
+	public void setVisualizzaOfferta(boolean VisualizzaOfferta) {
+		this.VisualizzaOfferta = VisualizzaOfferta;
+	}
+	
+	
 	
 	
 }
