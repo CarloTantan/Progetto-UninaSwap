@@ -214,7 +214,7 @@ public class StoricoOfferte extends JFrame {
                     JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this,
-                    "Offerta non trovata",
+                    "Offerta non ritirata ",
                     "Attenzione",
                     JOptionPane.WARNING_MESSAGE);
             }
