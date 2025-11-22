@@ -24,7 +24,6 @@ public class AnnunciPubblicati extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 	private Utente_entity UtenteLoggato;
 
 	/**
@@ -87,13 +86,7 @@ public class AnnunciPubblicati extends JFrame {
 		btnUndo.setBounds(0, 0, 95, 68);
 		btnUndo.setFocusPainted(false);
 		btnUndo.setBorderPainted(false);
-		panel.add(btnUndo); 
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Verdana", Font.BOLD, 16));
-		textField.setBounds(263, 146, 183, 34); 
-		contentPane.add(textField);
-		textField.setColumns(10);
+		panel.add(btnUndo);
 		
 		JButton btnAccetta = new JButton("Accetta");
 		btnAccetta.addActionListener(new ActionListener() {
