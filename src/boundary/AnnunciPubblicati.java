@@ -91,7 +91,7 @@ public class AnnunciPubblicati extends JFrame {
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Verdana", Font.BOLD, 16));
-		textField.setBounds(263, 146, 183, 34);
+		textField.setBounds(263, 146, 183, 34); 
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
