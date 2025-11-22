@@ -50,10 +50,13 @@ public class StoricoOfferteDAO {
 	    
 		try (Connection conn = getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(query)) {
-	        pstmt.setInt(1, IdOfferta);
-	    int righeEliminate=pstmt.executeUpdate();
-	    return righeEliminate>0;
-		}
+	        	pstmt.setInt(1, IdOfferta);
+	        	int righeEliminate=pstmt.executeUpdate();
+	        	return righeEliminate > 0;
+		} catch (SQLException e) {
+            
+            throw e;
+        }
 		
 	    
 	}

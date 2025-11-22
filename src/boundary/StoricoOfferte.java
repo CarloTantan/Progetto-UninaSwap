@@ -187,6 +187,11 @@ public class StoricoOfferte extends JFrame {
         }
     }
     
+    
+    
+    
+    
+    
     private void RimuoviOfferte() {
     	int rigaSelezionata=tabellaOfferta.getSelectedRow();
     	if(rigaSelezionata==-1) {
@@ -212,22 +217,26 @@ public class StoricoOfferte extends JFrame {
                     "Offerta eliminata con successo",
                     "Successo",
                     JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                    "Offerta non trovata",
-                    "Attenzione",
-                    JOptionPane.WARNING_MESSAGE);
             }
             
-        } catch ( SQLException  e) {
-            e.printStackTrace();
+        } catch (SQLException  e) {
+            
+            String errorMessage = e.getMessage();
+            if(errorMessage != null && errorMessage.contains("Impossibile ritirare un'offerta accettata")) {
+                JOptionPane.showMessageDialog(this,
+                    "Non puoi ritirare un'offerta già accettata",
+                    "Operazione non consentita",
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
             JOptionPane.showMessageDialog(this,
                 "Errore nell'eliminazione: " + e.getMessage(),
                 "Errore",
                 JOptionPane.ERROR_MESSAGE);
-        }
+            }
         
-    }    }
+        }  
+    }
+}
     
 	
 	
