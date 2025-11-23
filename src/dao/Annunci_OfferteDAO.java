@@ -25,8 +25,12 @@ public class Annunci_OfferteDAO {
 	
 	public ArrayList<Annuncio_entity> getAnnunci(String matricola) throws SQLException {
 	    ArrayList<Annuncio_entity> Annunci = new ArrayList<>();
-	    String query = "SELECT * " +
-                "FROM Annuncio  " +
+	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria, " +
+	    		"EXISTS (SELECT 1 FROM Offerta O WHERE O.IdAnnuncio = A.IdAnnuncio " +
+	    		"AND O.Stato = 'In Attesa') AS VisualizzaOfferta " +
+                "FROM Annuncio AS A "+
+	    		"JOIN Oggetto AS O ON A.idOggetto = O.idOggetto " +
+                "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
                 "WHERE MatricolaVenditore = ? ";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -35,8 +39,9 @@ public class Annunci_OfferteDAO {
 	    try {
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        rs = pstmt.executeQuery();
 	        pstmt.setString(1, matricola);
+	        rs = pstmt.executeQuery();
+	        
 	        while (rs.next()) {
 	            Annuncio_entity annunci = new Annuncio_entity(
 	            	rs.getInt("IdAnnuncio"),	
@@ -74,7 +79,7 @@ public class Annunci_OfferteDAO {
 	    ArrayList<Offerta_entity> Offerte = new ArrayList<>();
 	    String query = "SELECT * " +
                 "FROM Offerta  " +
-                "WHERE IdAnnuncio = ? AND StatoOfferta= 'In Attesa' ";
+                "WHERE IdAnnuncio = ? AND Stato = 'In Attesa' ";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    Connection conn = null;
@@ -82,15 +87,16 @@ public class Annunci_OfferteDAO {
 	    try {
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        rs = pstmt.executeQuery();
 	        pstmt.setInt(1, IdAnnuncio);
+	        rs = pstmt.executeQuery();
+	        
 	        while (rs.next()) {
 	        	Offerta_entity offerte = new Offerta_entity(
 	            	rs.getInt("IdOfferta"),	
-	                rs.getString("StatoOfferta"), 
+	                rs.getString("Stato"), 
 	                rs.getString("MatricolaAcquirente"),
 	                rs.getInt("IdAnnuncio"),	
-	                rs.getString("TipologiaOfferta")
+	                rs.getString("Tipologia")
 	                
 	        			);
 	        	Offerte.add(offerte);
@@ -103,24 +109,49 @@ public class Annunci_OfferteDAO {
 	    
 	    return Offerte;
 	
-	
-	
-	
-	
 	}
 	
+	public boolean accettaOfferta(int idOfferta) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            conn = getConnection();
+            
+            // Basta aggiornare lo stato dell'offerta, i trigger fanno il resto!
+            String query = "UPDATE Offerta SET Stato = 'Accettata' WHERE IdOfferta = ? AND Stato = 'In Attesa'";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, idOfferta);
+            
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+            
+        } finally {
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        }
+    }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public boolean rifiutaOfferta(int idOfferta) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            conn = getConnection();
+            
+            // Aggiorna lo stato dell'offerta a "Rifiutata"
+            String query = "UPDATE Offerta SET Stato = 'Rifiutata' WHERE IdOfferta = ? AND Stato = 'In Attesa'";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, idOfferta);
+            
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+            
+        } finally {
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        }
+    }
 	
 	
 }

@@ -51,7 +51,9 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	                rs.getString("idOggetto"),
 	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 	                rs.getDate("DataPubblicazione"),
-	                rs.getString("MatricolaVenditore")
+	                rs.getString("MatricolaVenditore"),
+					rs.getBoolean("VisualizzaOfferta")
+	                
 	            );
 	            Annunci.add(annunci);
 	        }
@@ -92,7 +94,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		            TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		            rs.getDate("DataPubblicazione"),
 		            rs.getString("MatricolaVenditore"),
-	                rs.getString("MotivoCessione")
+	                rs.getString("MotivoCessione"),
+					rs.getBoolean("VisualizzaOfferta")
 	            );
 	            Annunci.add(annunciR);
 	        }
@@ -134,7 +137,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-		                rs.getString("OggettoRichiesto")
+		                rs.getString("OggettoRichiesto"),
+						rs.getBoolean("VisualizzaOfferta")
 	            );
 	            Annunci.add(annunciS);
 	        }
@@ -176,7 +180,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getString("OggettoRichiesto") 
+						rs.getString("OggettoRichiesto"),
+						rs.getBoolean("VisualizzaOfferta") 
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -218,7 +223,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
-							rs.getString("OggettoRichiesto") 
+							rs.getString("OggettoRichiesto"),
+							rs.getBoolean("VisualizzaOfferta") 
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -260,7 +266,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
-							rs.getString("OggettoRichiesto") 
+							rs.getString("OggettoRichiesto"),
+							rs.getBoolean("VisualizzaOfferta") 
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -303,7 +310,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
-							rs.getString("OggettoRichiesto") 
+							rs.getString("OggettoRichiesto"),
+							rs.getBoolean("VisualizzaOfferta") 
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -346,7 +354,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
-							rs.getString("OggettoRichiesto") 
+							rs.getString("OggettoRichiesto"),
+							rs.getBoolean("VisualizzaOfferta") 
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -388,7 +397,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
-		                rs.getString("OggettoRichiesto")
+		                rs.getString("OggettoRichiesto"),
+						rs.getBoolean("VisualizzaOfferta")
 		            );
 		            Annunci.add(annunciS);
 		        }
@@ -430,7 +440,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"), 
-		                rs.getString("OggettoRichiesto")
+		                rs.getString("OggettoRichiesto"),
+						rs.getBoolean("VisualizzaOfferta")
 		            );
 		            Annunci.add(annunciS);
 		        }
@@ -472,7 +483,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"), 
-		                rs.getString("OggettoRichiesto")
+		                rs.getString("OggettoRichiesto"),
+						rs.getBoolean("VisualizzaOfferta")
 		            );
 		            Annunci.add(annunciS);
 		        }
@@ -514,7 +526,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
-		                rs.getString("OggettoRichiesto")
+		                rs.getString("OggettoRichiesto"),
+						rs.getBoolean("VisualizzaOfferta")
 		            );
 		            Annunci.add(annunciS);
 		        }
@@ -556,7 +569,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-	                rs.getFloat("PrezzoVendita")
+		                rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
 	            );
 	            Annunci.add(annunciV);
 	        }
@@ -598,7 +612,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
 						   
 						);
 				Annunci.add(annunciV);
@@ -647,7 +662,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -692,7 +708,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -736,7 +753,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getFloat("PrezzoVendita ")
+						rs.getFloat("PrezzoVendita "),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -782,7 +800,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -826,7 +845,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -870,7 +890,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -914,7 +935,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -959,7 +981,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-						rs.getFloat("PrezzoVendita")
+						rs.getFloat("PrezzoVendita"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -1009,7 +1032,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
 						   
 						);
 				Annunci.add(annunciR);
@@ -1058,7 +1082,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
 
   
 						);
@@ -1110,7 +1135,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciR);
@@ -1154,7 +1180,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getString("MotivoCessione ")
+						rs.getString("MotivoCessione "),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciR);
@@ -1200,7 +1227,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciR);
@@ -1244,7 +1272,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -1288,7 +1317,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -1332,7 +1362,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
@@ -1377,7 +1408,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
-						rs.getString("MotivoCessione")
+						rs.getString("MotivoCessione"),
+						rs.getBoolean("VisualizzaOfferta")
   
 						);
 				Annunci.add(annunciV);
