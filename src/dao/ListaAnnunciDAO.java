@@ -52,7 +52,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 	                rs.getDate("DataPubblicazione"),
 	                rs.getString("MatricolaVenditore"),
-					rs.getBoolean("VisualizzaOfferta")
+	                false
 	                
 	            );
 	            Annunci.add(annunci);
@@ -95,7 +95,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		            rs.getDate("DataPubblicazione"),
 		            rs.getString("MatricolaVenditore"),
 	                rs.getString("MotivoCessione"),
-					rs.getBoolean("VisualizzaOfferta")
+	                false
 	            );
 	            Annunci.add(annunciR);
 	        }
@@ -138,7 +138,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto"),
-						rs.getBoolean("VisualizzaOfferta")
+		                false
 	            );
 	            Annunci.add(annunciS);
 	        }
@@ -181,7 +181,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("OggettoRichiesto"),
-						rs.getBoolean("VisualizzaOfferta") 
+						false
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -224,7 +224,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
-							rs.getBoolean("VisualizzaOfferta") 
+							false
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -267,7 +267,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
-							rs.getBoolean("VisualizzaOfferta") 
+							false
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -311,7 +311,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
-							rs.getBoolean("VisualizzaOfferta") 
+							false
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -355,7 +355,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
-							rs.getBoolean("VisualizzaOfferta") 
+							false
 							);
 					Annunci.add(annunciV);
 				} } finally {
@@ -398,7 +398,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto"),
-						rs.getBoolean("VisualizzaOfferta")
+		                false
 		            );
 		            Annunci.add(annunciS);
 		        }
@@ -441,7 +441,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"), 
 		                rs.getString("OggettoRichiesto"),
-						rs.getBoolean("VisualizzaOfferta")
+		                false
 		            );
 		            Annunci.add(annunciS);
 		        }
@@ -484,7 +484,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"), 
 		                rs.getString("OggettoRichiesto"),
-						rs.getBoolean("VisualizzaOfferta")
+		                false
 		            );
 		            Annunci.add(annunciS);
 		        }
@@ -527,8 +527,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto"),
-						rs.getBoolean("VisualizzaOfferta")
-		            );
+		                false
+		                );
 		            Annunci.add(annunciS);
 		        }
 		    } finally {
@@ -570,8 +570,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 		                rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-	            );
+		                false
+		                );
 	            Annunci.add(annunciV);
 	        }
 	    } finally {
@@ -613,8 +613,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-						   
+						false						   
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -663,8 +662,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -709,8 +707,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -754,8 +751,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita "),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -801,8 +797,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -846,8 +841,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -891,8 +885,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -936,8 +929,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -982,8 +974,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -1033,8 +1024,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
-						   
+						false						   
 						);
 				Annunci.add(annunciR);
 			} } finally {
@@ -1048,10 +1038,6 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		
 		
 	}
-	
-	
-	
-	
 	
 	
 	public ArrayList<AnnuncioRegalo_entity> getAnnunciRegalo_Musica() throws SQLException {
@@ -1083,8 +1069,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
-
+						false
   
 						);
 				Annunci.add(annunciR);
@@ -1136,8 +1121,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciR);
 			} } finally {
@@ -1181,8 +1165,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione "),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciR);
 			} } finally {
@@ -1228,8 +1211,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false  
 						);
 				Annunci.add(annunciR);
 			} } finally {
@@ -1273,8 +1255,8 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
-  
+						false
+						
 						);
 				Annunci.add(annunciV);
 			} } finally {
@@ -1318,7 +1300,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
+						false
   
 						);
 				Annunci.add(annunciV);
@@ -1363,7 +1345,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
+						false
   
 						);
 				Annunci.add(annunciV);
@@ -1409,7 +1391,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),
-						rs.getBoolean("VisualizzaOfferta")
+						false
   
 						);
 				Annunci.add(annunciV);

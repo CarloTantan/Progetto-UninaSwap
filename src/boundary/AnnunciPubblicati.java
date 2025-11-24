@@ -116,7 +116,7 @@ public class AnnunciPubblicati extends JFrame {
         DefaultTableModel modelTabellaAnnunci = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Titolo", "Descrizione", "Fascia Oraria", "ModalitàConsegna",
-                    "Stato Annuncio", "Data Pubblicazione", "Categoria", "Offerte"}
+                    "Stato Annuncio", "Data Pubblicazione", "Categoria"}
             ) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
