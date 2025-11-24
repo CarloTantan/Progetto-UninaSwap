@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import entity.Oggetto_entity;
 import entity.Utente_entity;
 
 import javax.swing.JTextField;
@@ -40,12 +41,14 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTree;
 import java.awt.Toolkit;
+import javax.swing.DefaultComboBoxModel;
 
 public class Annuncio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	private Oggetto_entity OggettoAnnuncio;
     private String percorsoImg;
     private JLabel LabelImg; 
 
@@ -69,8 +72,10 @@ public class Annuncio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Annuncio(Utente_entity UtenteLoggato) {
+	public Annuncio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio) {
+		this.OggettoAnnuncio = OggettoAnnuncio;
 		this.UtenteLoggato = UtenteLoggato;
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,13 +127,6 @@ public class Annuncio extends JFrame {
 		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblNewLabel_3.setBounds(36, 398, 179, 22);
 		contentPane.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_5 = new JLabel("Categoria oggetto");
-		lblNewLabel_5.setForeground(new Color(0, 0, 0));
-		lblNewLabel_5.setBackground(new Color(255, 255, 255));
-		lblNewLabel_5.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_5.setBounds(36, 453, 179, 22);
-		contentPane.add(lblNewLabel_5);
 	
 		
 		JButton JRegalo = new JButton("Regalo");
@@ -225,12 +223,6 @@ public class Annuncio extends JFrame {
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		String[] categorie= {"Seleziona una categoria", "Libri", "Cancelleria", "Vestiti", "Elettronica", "Musica", "Giochi", "Sport", "Casa", "Altro"};
-		JComboBox comboBoxCategoria = new JComboBox<>(categorie);
-		comboBoxCategoria.setForeground(new Color(255, 255, 255));
-		comboBoxCategoria.setFont(new Font("Verdana", Font.BOLD, 16));
-		comboBoxCategoria.setBackground(new Color(0, 52, 102));
-		comboBoxCategoria.setBounds(251, 447, 203, 28);
-		contentPane.add(comboBoxCategoria);
 		
 		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:00", "10:00 - 12:00","12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00", "20:00 - 22:00"};
 		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
@@ -264,7 +256,7 @@ public class Annuncio extends JFrame {
 				}
 				else {
 					setVisible(false);
-					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(UtenteLoggato);
+					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(UtenteLoggato, OggettoAnnuncio);
 					annuncioScambioFrame.setVisible(true);
 					annuncioScambioFrame.setLocationRelativeTo(null);
 				}
@@ -282,7 +274,7 @@ public class Annuncio extends JFrame {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
-					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(UtenteLoggato);
+					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(UtenteLoggato, OggettoAnnuncio);
 					annuncioRegaloFrame.setVisible(true);
 					annuncioRegaloFrame.setLocationRelativeTo(null);
 				}
@@ -301,7 +293,7 @@ public class Annuncio extends JFrame {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
 				} else {
 					setVisible(false);
-					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(UtenteLoggato);
+					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(UtenteLoggato, OggettoAnnuncio);
 					annuncioVenditaFrame.setVisible(true);
 					annuncioVenditaFrame.setLocationRelativeTo(null);
 				}

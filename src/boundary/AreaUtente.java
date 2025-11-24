@@ -123,9 +123,9 @@ public class AreaUtente extends JFrame {
 		btnCreaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Annuncio AnnuncioFrame = new Annuncio(UtenteLoggato);
-				AnnuncioFrame.setVisible(true);
-				AnnuncioFrame.setLocationRelativeTo(null);
+				Oggetto OggettoFrame = new Oggetto(UtenteLoggato);
+				OggettoFrame.setVisible(true);
+				OggettoFrame.setLocationRelativeTo(null);
 			}
 		});
 		btnCreaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));

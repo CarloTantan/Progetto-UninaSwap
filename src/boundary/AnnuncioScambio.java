@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import entity.Oggetto_entity;
 import entity.Utente_entity;
 
 import java.awt.Color;
@@ -26,6 +27,7 @@ public class AnnuncioScambio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	private Oggetto_entity OggettoAnnuncio;
 
 	/**
 	 * Launch the application.
@@ -47,7 +49,8 @@ public class AnnuncioScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioScambio(Utente_entity UtenteLoggato) {
+	public AnnuncioScambio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio) {
+		this.OggettoAnnuncio = OggettoAnnuncio;
 		this.UtenteLoggato = UtenteLoggato;
 		setTitle("Scambio");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -82,7 +85,7 @@ public class AnnuncioScambio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(UtenteLoggato); 
+				Annuncio annuncioFrame = new Annuncio(UtenteLoggato, OggettoAnnuncio); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
