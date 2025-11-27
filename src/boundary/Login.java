@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -174,28 +175,38 @@ public class Login extends JFrame {
         }
         
         // Verifica login usando il DAO
-        boolean loginValido = loginDAO.verificaLogin(matricola, password);
-        
-        if (loginValido) {
-            JOptionPane.showMessageDialog(this, 
-                "Login effettuato con successo!", 
-                "Successo", 
-                JOptionPane.INFORMATION_MESSAGE);
-            
-            Utente_entity UtenteLoggato = loginDAO.getUtente(matricola);
-            
-            // Apri l'interfaccia area utente
-            this.dispose(); // Chiudi la finestra di login
-            AreaUtente areaUtente = new AreaUtente(UtenteLoggato);
-            areaUtente.setVisible(true);
-            
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                "Matricola o password non corretti", 
-                "Errore Login", 
-                JOptionPane.ERROR_MESSAGE);
+        try {
+        	boolean loginValido = loginDAO.verificaLogin(matricola, password);
+        	
+        	if (loginValido) {
+                JOptionPane.showMessageDialog(this, 
+                    "Login effettuato con successo!", 
+                    "Successo", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                Utente_entity UtenteLoggato = loginDAO.getUtente(matricola);
+                
+                // Apri l'interfaccia area utente
+                this.dispose(); // Chiudi la finestra di login
+                AreaUtente areaUtente = new AreaUtente(UtenteLoggato);
+                areaUtente.setVisible(true);
+                
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Matricola o password non corretti", 
+                    "Errore Login", 
+                    JOptionPane.ERROR_MESSAGE);
 
-            textFieldPassword.setText("");// Pulisci il campo password
+                textFieldPassword.setText("");// Pulisci il campo password
+            }
+        } catch (SQLException e) {
+        	 JOptionPane.showMessageDialog(this, 
+        			"Errore nell'autenticazione: " + 
+        			e.getMessage(), 
+        			"Errore", 
+        			JOptionPane.ERROR_MESSAGE);
         }
+        
+        
 	}
 }

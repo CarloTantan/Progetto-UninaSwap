@@ -57,6 +57,7 @@ public class StoricoOfferte extends JFrame {
 	 */
 	public StoricoOfferte(Utente_entity UtenteLoggato) {
 		this.UtenteLoggato = UtenteLoggato;
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(StoricoOfferte.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Le tue offerte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,6 +97,30 @@ public class StoricoOfferte extends JFrame {
 		lblStoricoOfferte.setBounds(288, 29, 217, 46);
 		panel.add(lblStoricoOfferte);
 		
+		// Creazione modello tabella
+		modelTabella = new DefaultTableModel(
+			    new Object[][]{},
+			    new String[]{"ID", "Stato", "Matricola Acquirente", "Tipologia"} ) {
+			    @Override
+			    public boolean isCellEditable(int row, int column) {
+			        return false;
+			    }
+			};
+
+        // Creazione tabella
+        tabellaOfferta = new JTable(modelTabella);
+        tabellaOfferta.setBackground(Color.WHITE);
+        tabellaOfferta.getTableHeader().setReorderingAllowed(false);
+        
+        tabellaOfferta.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaOfferta.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaOfferta.getColumnModel().getColumn(0).setWidth(0);
+        
+        JScrollPane scrollPane = new JScrollPane(tabellaOfferta);
+        scrollPane.setBounds(90, 95, 670, 180);
+        contentPane.add(scrollPane);
+        
+		
 		JButton btnModifica = new JButton("Modifica");
 		btnModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,9 +147,7 @@ public class StoricoOfferte extends JFrame {
 				else if(scelta==JOptionPane.NO_OPTION) {
 			
 				JOptionPane.showMessageDialog(null, "Ritiro non avvenuto", null, JOptionPane.INFORMATION_MESSAGE);
-				setVisible(false);
-				AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
-				AreaUtenteFrame.setVisible(true);
+				
 				}
 			}
 		});
@@ -136,29 +159,12 @@ public class StoricoOfferte extends JFrame {
 		btnRitira.setBorderPainted(false); 
 		contentPane.add(btnRitira);
 	
-		  JPanel panelCentrale = new JPanel();
-	        panelCentrale.setBackground(Color.WHITE);
-	        contentPane.add(panelCentrale, BorderLayout.CENTER);
+		
 	        
-	        // Creazione modello tabella
-	        modelTabella = new DefaultTableModel(
-	            new Object[][]{},
-	            new String[]{"Stato ", "Matricola Acquirente", "Tipologia"} ) {
-	            @Override
-	            public boolean isCellEditable(int row, int column) {
-	                return false;
-	            }
-	        };
-
-	        // Creazione tabella
-	        tabellaOfferta = new JTable(modelTabella);
-	        tabellaOfferta.setBackground(Color.WHITE);
-	        tabellaOfferta.getTableHeader().setReorderingAllowed(false);
-
-	        JScrollPane scrollPane = new JScrollPane(tabellaOfferta);
-	        scrollPane.setBounds(39, 230, 1106, 238);
-	        contentPane.add(scrollPane);
+	        
 	        caricaOfferte();
+
+	        
 	}
 	
 	 
@@ -170,10 +176,9 @@ public class StoricoOfferte extends JFrame {
             for (Offerta_entity t : lista) {
                 modelTabella.addRow(new Object[]{
                 		t.getIdOfferta(),
-                    t.getStatoOfferta(),
-                    t.getMatricolaAcquirente(),
-                         t.getIdAnnuncio(),
-                    t.getTipologiaOfferta(),
+                		t.getStatoOfferta(),
+                		t.getMatricolaAcquirente(),
+                		t.getTipologiaOfferta(),
                    
                 });
             }

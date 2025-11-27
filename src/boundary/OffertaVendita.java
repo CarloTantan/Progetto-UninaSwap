@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dao.OffertaDAO;
+import entity.Annuncio_entity;
 import entity.Utente_entity;
 
 import java.awt.Color;
@@ -17,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -26,8 +29,10 @@ public class OffertaVendita extends JFrame {
 	//regalo messaggio motivazionale perche vuoi questo regalo  conferma e indietro
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textFieldImportoProposto;
 	private Utente_entity UtenteLoggato;
+	private int IdAnnuncioScelto;
+	private OffertaDAO offertaDAO;
 
 	/**
 	 * Launch the application.
@@ -48,8 +53,11 @@ public class OffertaVendita extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaVendita(Utente_entity UtenteLoggato) {
+	public OffertaVendita(Utente_entity UtenteLoggato, int IdAnnuncioScelto) {
 		this.UtenteLoggato = UtenteLoggato;
+		this.IdAnnuncioScelto = IdAnnuncioScelto;
+		offertaDAO = new OffertaDAO();
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Vendita");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,11 +98,11 @@ public class OffertaVendita extends JFrame {
 		btnUndo.setBorderPainted(false); 
 		panel.add(btnUndo);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Verdana", Font.BOLD, 16));
-		textField.setBounds(303, 158, 166, 36);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textFieldImportoProposto = new JTextField();
+		textFieldImportoProposto.setFont(new Font("Verdana", Font.BOLD, 16));
+		textFieldImportoProposto.setBounds(303, 158, 166, 36);
+		contentPane.add(textFieldImportoProposto);
+		textFieldImportoProposto.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Proponi un importo");
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -104,11 +112,7 @@ public class OffertaVendita extends JFrame {
 		JButton btnConferma = new JButton("Conferma");
 		btnConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
-				 setVisible(false);
-				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
-				ListaAnnunciFrame.setVisible(true);
-				ListaAnnunciFrame.setLocationRelativeTo(null);
+				 inviaOffertaVendita();
 			}
 		});
 		btnConferma.setBackground(new Color(0, 52, 101));
@@ -119,5 +123,56 @@ public class OffertaVendita extends JFrame {
 		btnConferma.setBorderPainted(false); 
 		contentPane.add(btnConferma);
 	}
+	
+	public void inviaOffertaVendita() {
+		
+		String ImportoPropostoString = textFieldImportoProposto.getText().trim();
+		
+		if (ImportoPropostoString.isEmpty()) {
+			JOptionPane.showMessageDialog(this, 
+	                "Inserisci un importo.", 
+	                "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	            return;
+		}
+		
+		String MatricolaAcquirente = UtenteLoggato.getMatricola();
+		
+		try {
+			float ImportoProposto = Float.parseFloat(textFieldImportoProposto.getText().trim());
+			
+			
+			boolean OffertaValida = offertaDAO.inserimentoOffertaVendita(ImportoProposto, MatricolaAcquirente, IdAnnuncioScelto);
+			
+			if (OffertaValida) {
+				JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
+				 setVisible(false);
+				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
+				ListaAnnunciFrame.setVisible(true);
+				ListaAnnunciFrame.setLocationRelativeTo(null);
+			} else {
+	            JOptionPane.showMessageDialog(this, 
+	                    "Problema nell'invio dell'offerta", 
+	                    "Errore invio offerta", 
+	                    JOptionPane.ERROR_MESSAGE);
+			
+			
+			}
+		} catch (NumberFormatException e) {
+	        // Gestisce il caso di input non numerico
+	        JOptionPane.showMessageDialog(this, 
+	        		"L'importo deve essere un numero valido.", 
+	        		"Errore Input", 
+	        		JOptionPane.ERROR_MESSAGE);
+	        
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, 
+					"Errore nell'inserimento dell'offerta: " 
+					+ e.getMessage(), "Errore", 
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
+	}	
 
 }

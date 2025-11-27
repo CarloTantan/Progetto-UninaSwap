@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import entity.Annuncio_entity;
 import entity.Utente_entity;
 
 import java.awt.Color;
@@ -25,6 +26,7 @@ public class OffertaRegalo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	private int IdAnnuncioScelto;
 
 	/**
 	 * Launch the application.
@@ -45,8 +47,10 @@ public class OffertaRegalo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaRegalo(Utente_entity UtenteLoggato) {
+	public OffertaRegalo(Utente_entity UtenteLoggato, int IdAnnuncioScelto) {
+		this.IdAnnuncioScelto = IdAnnuncioScelto;
 		this.UtenteLoggato = UtenteLoggato;
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Regalo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

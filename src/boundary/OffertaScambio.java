@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import entity.Annuncio_entity;
 import entity.Utente_entity;
 
 import javax.swing.JTextArea;
@@ -28,6 +29,7 @@ public class OffertaScambio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	private int IdAnnuncioScelto;
 
 	/**
 	 * Launch the application.
@@ -48,8 +50,10 @@ public class OffertaScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaScambio(Utente_entity UtenteLoggato) {
+	public OffertaScambio(Utente_entity UtenteLoggato, int IdAnnuncioScelto) {
 		this.UtenteLoggato = UtenteLoggato;
+		this.IdAnnuncioScelto = IdAnnuncioScelto;
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scambio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
