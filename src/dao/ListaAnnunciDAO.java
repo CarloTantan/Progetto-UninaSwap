@@ -1267,8 +1267,6 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 
 	        return Annunci;
 		
-		
-		
 	}	
 	//Sport
 	public ArrayList<AnnuncioRegalo_entity> getAnnunciRegalo_Sport() throws SQLException {
