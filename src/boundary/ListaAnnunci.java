@@ -335,9 +335,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (Annuncio_entity A : Annunci) {
@@ -369,14 +376,6 @@ public class ListaAnnunci extends JFrame {
 	    }
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	private void caricaAnnunciRegalo() {
 	    try {
 	    	
@@ -392,9 +391,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Motivo Cessione", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioRegalo_entity A : Annunci) {
@@ -428,10 +434,6 @@ public class ListaAnnunci extends JFrame {
 	}
 	
 	
-	
-	
-	
-	
 	private void caricaAnnunciScambio() {
 	    try {
 	    	
@@ -447,9 +449,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioScambio_entity A : Annunci) {
@@ -493,9 +502,16 @@ public class ListaAnnunci extends JFrame {
 	        
 	        // Aggiorna le colonne per questo tipo
 	        model.setColumnIdentifiers(new String[]{
-	            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	            "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
 	        });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        for (AnnuncioVendita_entity Av : Annunci) {
 	            model.addRow(new Object[]{
@@ -527,15 +543,6 @@ public class ListaAnnunci extends JFrame {
 	    }
 	}
 	
-	
-		
-	
-	
-	
-	
-	
-	
-	
 	private void caricaAnnunciVendita_Libri() {
 	    try {
 	    	
@@ -551,9 +558,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
@@ -605,9 +619,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
@@ -656,9 +677,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
@@ -708,9 +736,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
@@ -761,9 +796,16 @@ public class ListaAnnunci extends JFrame {
 	        // Pulisci eventuali righe esistenti
 	        model.setRowCount(0);
 	        model.setColumnIdentifiers(new String[]{
-	                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+	        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
 	                "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
 	            });
+	        
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+	        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
 	        // Aggiungi ogni utente come riga nella tabella
 	        for (AnnuncioVendita_entity Av : Annunci) {
@@ -814,9 +856,16 @@ private void caricaAnnunciVendita_Giochi() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioVendita_entity Av : Annunci) {
@@ -864,9 +913,16 @@ private void caricaAnnunciVendita_Sport() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioVendita_entity Av : Annunci) {
@@ -914,9 +970,16 @@ private void caricaAnnunciVendita_Casa() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioVendita_entity Av : Annunci) {
@@ -964,9 +1027,16 @@ private void caricaAnnunciVendita_Altro() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioVendita_entity Av : Annunci) {
@@ -1017,9 +1087,16 @@ private void caricaAnnunciRegalo_Libri() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1071,9 +1148,16 @@ private void caricaAnnunciRegalo_Musica() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1122,9 +1206,16 @@ private void caricaAnnunciRegalo_Cancelleria() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1174,9 +1265,16 @@ private void caricaAnnunciRegalo_Vestiti() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1227,9 +1325,16 @@ private void caricaAnnunciRegalo_Elettronica() {
         // Pulisci eventuali righe esistenti
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-                "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
                 "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
             });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         // Aggiungi ogni utente come riga nella tabella
         for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1280,9 +1385,16 @@ try {
     // Pulisci eventuali righe esistenti
     model.setRowCount(0);
     model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+    		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
         });
+    
+    tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
     // Aggiungi ogni utente come riga nella tabella
     for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1330,9 +1442,16 @@ try {
     // Pulisci eventuali righe esistenti
     model.setRowCount(0);
     model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+    		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
         });
+    
+    tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
     // Aggiungi ogni utente come riga nella tabella
     for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1380,9 +1499,16 @@ try {
     // Pulisci eventuali righe esistenti
     model.setRowCount(0);
     model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+    		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
         });
+    
+    tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
     // Aggiungi ogni utente come riga nella tabella
     for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1430,9 +1556,16 @@ try {
     // Pulisci eventuali righe esistenti
     model.setRowCount(0);
     model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+    		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Prezzo Vendita", "Categoria"
         });
+    
+    tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+    tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
     // Aggiungi ogni utente come riga nella tabella
     for (AnnuncioRegalo_entity Av : Annunci) {
@@ -1473,9 +1606,16 @@ private void caricaAnnunciScambio_Libri() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1515,9 +1655,16 @@ private void caricaAnnunciScambio_Musica() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1557,9 +1704,16 @@ private void caricaAnnunciScambio_Cancelleria() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1599,9 +1753,16 @@ private void caricaAnnunciScambio_Vestiti() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1641,9 +1802,16 @@ private void caricaAnnunciScambio_Elettronica() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1683,9 +1851,16 @@ private void caricaAnnunciScambio_Giochi() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1725,9 +1900,16 @@ private void caricaAnnunciScambio_Sport() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1767,9 +1949,16 @@ private void caricaAnnunciScambio_Casa() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{
@@ -1809,9 +1998,16 @@ private void caricaAnnunciScambio_Altro() {
         DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{
-            "Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
+        		"MatricolaVenditore", "IdAnnuncio","Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna", 
             "Stato Annuncio", "Data Pubblicazione", "Oggetto Richiesto", "Categoria"
         });
+        
+        tabellaAnnunci.getColumnModel().getColumn(0).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(0).setWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMinWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabellaAnnunci.getColumnModel().getColumn(1).setWidth(0);
 
         for (AnnuncioScambio_entity As : Annunci) {
             model.addRow(new Object[]{

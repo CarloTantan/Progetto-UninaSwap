@@ -36,13 +36,13 @@ public class OffertaDAO {
         }
 	}
 	
-	public boolean inserimentoOffertaScambio(String OggettoRichiesto, String MatricolaAcquirente, int IdAnnuncio) throws SQLException {
-		String query = "INSERT INTO Offerta (OggettoRichiesto, MatricolaAcquirente, IdAnnuncio) VALUES (?, ?, ?)";
+	public boolean inserimentoOffertaScambio(String OggettoProposto, String MatricolaAcquirente, int IdAnnuncio) throws SQLException {
+		String query = "INSERT INTO Offerta (OggettoProposto, MatricolaAcquirente, IdAnnuncio) VALUES (?, ?, ?)";
 		
 		try (Connection conn = getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(query)) {
 			
-			pstmt.setString(1, OggettoRichiesto);
+			pstmt.setString(1, OggettoProposto);
 			pstmt.setString(2, MatricolaAcquirente);
 			pstmt.setInt(3, IdAnnuncio);
 			
@@ -59,7 +59,7 @@ public class OffertaDAO {
 	}
 	
 	public boolean inserimentoOffertaRegalo(String MessaggioMotivazionale, String MatricolaAcquirente, int IdAnnuncio) throws SQLException {
-		String query = "INSERT INTO Offerta (OggettoRichiesto, MatricolaAcquirente, IdAnnuncio) VALUES (?, ?, ?)";
+		String query = "INSERT INTO Offerta (MessaggioMotivazionale, MatricolaAcquirente, IdAnnuncio) VALUES (?, ?, ?)";
 		
 		try (Connection conn = getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(query)) {
