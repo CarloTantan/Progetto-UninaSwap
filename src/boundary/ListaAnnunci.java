@@ -196,7 +196,7 @@ public class ListaAnnunci extends JFrame {
                     a.getMatricolaVenditore(),
                     a.getTitolo(),
                     a.getDescrizione(),
-                    "Motivo: " + a.getMotivoCessione(),
+                    a.getMotivoCessione(),
                     a.getStatoAnnuncio(),
                     a.getTipologiaCategoria().toString(),
                     "Regalo"
@@ -216,7 +216,7 @@ public class ListaAnnunci extends JFrame {
                     a.getMatricolaVenditore(),
                     a.getTitolo(),
                     a.getDescrizione(),
-                    "Richiesto: " + a.getOggettoRichiesto(),
+                    a.getOggettoRichiesto(),
                     a.getStatoAnnuncio(),
                     a.getTipologiaCategoria().toString(),
                     "Scambio"
