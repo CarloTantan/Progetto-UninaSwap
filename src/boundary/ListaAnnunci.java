@@ -68,7 +68,7 @@ public class ListaAnnunci extends JFrame {
 		setTitle("Ricerca annuncio");
 		setBounds(100, 100, 1236, 846);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(5, 5, 6, 5));
 
 		setContentPane(contentPane);
 		
