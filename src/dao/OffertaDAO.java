@@ -3,7 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import entity.OffertaRegalo_entity;
 
 public class OffertaDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
@@ -79,4 +82,61 @@ public class OffertaDAO {
             return false;
         }
 	}
+	
+	
+	
+	public boolean aggiornaOffertaRegalo(String MessaggioMotivazionale, String MatricolaAcquirente, int IdAnnuncio, int IdOfferta) throws SQLException {
+	    String query = "UPDATE Offerta SET MessaggioMotivazionale = ?, MatricolaAcquirente = ?, IdAnnuncio = ? WHERE IdOfferta = ?";
+	    
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+	        
+	        pstmt.setString(1, MessaggioMotivazionale);
+	        pstmt.setString(2, MatricolaAcquirente);
+	        pstmt.setInt(3, IdAnnuncio);
+	        pstmt.setInt(4, IdOfferta);
+	        
+	        pstmt.executeUpdate();
+	        return true;
+	        
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante l'aggiornamento dell'offerta: " + e.getMessage());
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+	
+	
+	
+	
+	public OffertaRegalo_entity caricaOfferta(int IdOfferta) throws SQLException {
+	    String query = "SELECT * FROM Offerta WHERE IdOfferta = ?";
+	    
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+	        
+	        pstmt.setInt(1, IdOfferta);
+	        
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return new OffertaRegalo_entity(
+	                    rs.getInt("IdOfferta"),
+	                    rs.getString("StatoOfferta"),
+	                    rs.getString("MatricolaAcquirente"),
+	                    rs.getInt("IdAnnuncio"),
+	                    rs.getString("MessaggioMotivazionale"),
+	                    rs.getString("TipologiaOfferta")
+	                );
+	            }
+	        }
+	    }
+	    return null;
+	}
+	
+	
+	
+	
+	
+	
 }

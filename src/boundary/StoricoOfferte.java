@@ -124,7 +124,7 @@ public class StoricoOfferte extends JFrame {
 		JButton btnModifica = new JButton("Modifica");
 		btnModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				 SelezionaTipolgia();
 			}
 		});
 		
@@ -243,6 +243,39 @@ public class StoricoOfferte extends JFrame {
     
     
     
+    private void SelezionaTipolgia() {
+    	 int selectedRow = tabellaOfferta.getSelectedRow();
+
+         if (selectedRow == -1) {
+             JOptionPane.showMessageDialog(this,
+                 "Inserisci un oggetto che vuoi proporre.",
+                 "Errore",
+                 JOptionPane.ERROR_MESSAGE);
+             return;
+         }
+
+         // Estrai ID annuncio e tipologia
+         int IdAnnuncio = (int) tabellaOfferta.getValueAt(selectedRow, 0);
+         String Tipologia = (String) tabellaOfferta.getValueAt(selectedRow, 2);
+
+         // Apri il frame in base alla tipologia
+         if (Tipologia.equalsIgnoreCase("Regalo")) {
+             OffertaRegalo offertaFrame = new OffertaRegalo(UtenteLoggato, IdAnnuncio);
+             offertaFrame.setVisible(true);
+             offertaFrame.setLocationRelativeTo(null);
+
+         } else if (Tipologia.equalsIgnoreCase("Scambio")) {
+             OffertaScambio offertaFrame = new OffertaScambio(UtenteLoggato, IdAnnuncio);
+             offertaFrame.setVisible(true);
+             offertaFrame.setLocationRelativeTo(null);
+
+         } else if (Tipologia.equalsIgnoreCase("Vendita")) {
+             OffertaVendita offertaFrame = new OffertaVendita(UtenteLoggato, IdAnnuncio);
+             offertaFrame.setVisible(true);
+             offertaFrame.setLocationRelativeTo(null);
+         }
+     }
+    }
     
     
     
@@ -258,8 +291,7 @@ public class StoricoOfferte extends JFrame {
     
     
     
-    
-}
+
     
 	
 	
