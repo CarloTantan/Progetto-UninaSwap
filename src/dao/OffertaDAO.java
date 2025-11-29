@@ -124,11 +124,11 @@ public class OffertaDAO {
 	            if (rs.next()) {
 	                return new OffertaRegalo_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("StatoOfferta"),
+	                    rs.getString("Stato"),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getString("MessaggioMotivazionale"),
-	                    rs.getString("TipologiaOfferta")
+	                    rs.getString("Tipologia")
 	                );
 	            }
 	        }
@@ -138,7 +138,7 @@ public class OffertaDAO {
 	
 	
 	public OffertaVendita_entity caricaOffertaVendita(int IdOfferta) throws SQLException {
-	    String query = "SELECT * FROM Offerta WHERE IdOfferta = ? AND TipologiaOfferta = 'Vendita'";
+	    String query = "SELECT * FROM Offerta WHERE IdOfferta = ? AND Tipologia = 'Vendita'";
 
 	    try (Connection conn = getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -149,11 +149,11 @@ public class OffertaDAO {
 	            if (rs.next()) {
 	                return new OffertaVendita_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("StatoOfferta"),
+	                    rs.getString("Stato"),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getFloat("ImportoProposto"),
-	                    rs.getString("TipologiaOfferta")
+	                    rs.getString("Tipologia")
 	                );
 	            }
 	        }
@@ -162,7 +162,7 @@ public class OffertaDAO {
 	}
 
 	public OffertaScambio_entity caricaOffertaScambio(int IdOfferta) throws SQLException {
-	    String query = "SELECT * FROM Offerta WHERE IdOfferta = ? AND TipologiaOfferta = 'Scambio'";
+	    String query = "SELECT * FROM Offerta WHERE IdOfferta = ? AND Tipologia = 'Scambio'";
 
 	    try (Connection conn = getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -173,11 +173,11 @@ public class OffertaDAO {
 	            if (rs.next()) {
 	                return new OffertaScambio_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("StatoOfferta"),
+	                    rs.getString("Stato"),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getString("OggettoProposto"),
-	                    rs.getString("TipologiaOfferta")
+	                    rs.getString("Tipologia")
 	                );
 	            }
 	        }

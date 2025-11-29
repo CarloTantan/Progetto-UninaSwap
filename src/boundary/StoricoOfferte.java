@@ -175,7 +175,7 @@ public class StoricoOfferte extends JFrame {
 
             for (Offerta_entity t : lista) {
                 modelTabella.addRow(new Object[]{
-                		t.getIdAnnuncio(),
+                		t.getIdOfferta(),
                 		t.getStatoOfferta(),
                 		t.getMatricolaAcquirente(),
                 		t.getTipologiaOfferta(),
