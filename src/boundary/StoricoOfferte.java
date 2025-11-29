@@ -175,7 +175,7 @@ public class StoricoOfferte extends JFrame {
 
             for (Offerta_entity t : lista) {
                 modelTabella.addRow(new Object[]{
-                		t.getIdOfferta(),
+                		t.getIdAnnuncio(),
                 		t.getStatoOfferta(),
                 		t.getMatricolaAcquirente(),
                 		t.getTipologiaOfferta(),
@@ -256,7 +256,7 @@ public class StoricoOfferte extends JFrame {
 
          // Estrai ID annuncio e tipologia
          int IdAnnuncio = (int) tabellaOfferta.getValueAt(selectedRow, 0);
-         String Tipologia = (String) tabellaOfferta.getValueAt(selectedRow, 2);
+         String Tipologia = (String) tabellaOfferta.getValueAt(selectedRow, 3);
 
          // Apri il frame in base alla tipologia
          if (Tipologia.equalsIgnoreCase("Regalo")) {
