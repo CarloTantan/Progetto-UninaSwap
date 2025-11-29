@@ -12,7 +12,7 @@ public class LoginDAO {
 	        return DriverManager.getConnection(url, user, password);
 	    }
 		
-		 public boolean verificaLogin(String matricola, String password) {
+		 public boolean verificaLogin(String matricola, String password) throws SQLException {
 		        String query = "SELECT * FROM utente WHERE matricola = ? AND password = ?";
 		        
 		        try (Connection conn = getConnection();

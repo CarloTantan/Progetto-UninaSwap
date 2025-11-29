@@ -49,7 +49,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	                rs.getString("ModalitàConsegna"), 
 	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+	                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 	                rs.getDate("DataPubblicazione"),
 	                rs.getString("MatricolaVenditore"),
 	                false
@@ -91,7 +91,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		            rs.getString("ModalitàConsegna"), 
 		            StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		            rs.getString("idOggetto"),
-		            TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		            TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		            rs.getDate("DataPubblicazione"),
 		            rs.getString("MatricolaVenditore"),
 	                rs.getString("MotivoCessione"),
@@ -134,7 +134,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto"),
@@ -177,7 +177,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("OggettoRichiesto"),
@@ -220,7 +220,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
@@ -263,7 +263,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
@@ -307,7 +307,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
@@ -351,7 +351,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 							rs.getString("OggettoRichiesto"),
@@ -394,7 +394,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto"),
@@ -437,7 +437,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"), 
 		                rs.getString("OggettoRichiesto"),
@@ -480,7 +480,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"), 
 		                rs.getString("OggettoRichiesto"),
@@ -523,7 +523,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 			                rs.getString("ModalitàConsegna"), 
 			                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 			                rs.getString("idOggetto"),
-			                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+			                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 			                rs.getDate("DataPubblicazione"),
 			                rs.getString("MatricolaVenditore"),
 		                rs.getString("OggettoRichiesto"),
@@ -566,7 +566,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 		                rs.getFloat("PrezzoVendita"),
@@ -609,7 +609,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
@@ -658,7 +658,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
@@ -703,7 +703,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita"),
@@ -747,7 +747,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita "),
@@ -793,7 +793,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
@@ -837,7 +837,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
@@ -881,7 +881,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getFloat("PrezzoVendita"),
@@ -925,7 +925,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita"),
@@ -970,7 +970,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getFloat("PrezzoVendita"),
@@ -1020,7 +1020,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
@@ -1065,7 +1065,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),
@@ -1117,7 +1117,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
@@ -1161,7 +1161,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione "),
@@ -1207,7 +1207,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),
@@ -1251,7 +1251,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
@@ -1266,8 +1266,6 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	        }
 
 	        return Annunci;
-		
-		
 		
 	}	
 	//Sport
@@ -1296,7 +1294,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),
@@ -1341,7 +1339,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"),
 						rs.getString("MotivoCessione"),
@@ -1387,7 +1385,7 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 						rs.getString("MotivoCessione"),

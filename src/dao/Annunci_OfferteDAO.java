@@ -51,7 +51,7 @@ public class Annunci_OfferteDAO {
 	                rs.getString("ModalitàConsegna"), 
 	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 	                rs.getString("idOggetto"),
-	                TipologiaCategoria.valueOf(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+	                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
 	                rs.getDate("DataPubblicazione"),
 	                rs.getString("MatricolaVenditore"),
 	                rs.getBoolean("VisualizzaOfferta")

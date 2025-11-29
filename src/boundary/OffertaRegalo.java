@@ -4,8 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import dao.OffertaDAO;
+import entity.Annuncio_entity;
 import entity.Utente_entity;
 
 import java.awt.Color;
@@ -16,7 +19,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -25,6 +31,9 @@ public class OffertaRegalo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	private int IdAnnuncioScelto;
+	private OffertaDAO offertaDAO;
+	private JTextArea textAreaMessaggioMotivazionale;
 
 	/**
 	 * Launch the application.
@@ -45,8 +54,11 @@ public class OffertaRegalo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaRegalo(Utente_entity UtenteLoggato) {
+	public OffertaRegalo(Utente_entity UtenteLoggato, int IdAnnuncioScelto) {
+		this.IdAnnuncioScelto = IdAnnuncioScelto;
 		this.UtenteLoggato = UtenteLoggato;
+		offertaDAO = new OffertaDAO();
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Regalo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,6 +85,7 @@ public class OffertaRegalo extends JFrame {
 					ListaAnnunciFrame.setLocationRelativeTo(null);
 			}
 		});
+		
 		btnUndo.setBackground(new Color(45, 134, 192));
 		btnUndo.setIcon(new ImageIcon(OffertaRegalo.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnUndo.setBounds(10, 10, 46, 68);
@@ -85,26 +98,27 @@ public class OffertaRegalo extends JFrame {
 		lblOffertaRegalo.setBounds(285, 39, 228, 34);
 		panel.add(lblOffertaRegalo);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Verdana", Font.BOLD, 16));
-		textArea.setBounds(270, 173, 227, 105);
-		contentPane.add(textArea);
+		textAreaMessaggioMotivazionale = new JTextArea();
+		textAreaMessaggioMotivazionale.setFont(new Font("Verdana", Font.BOLD, 16));
+		textAreaMessaggioMotivazionale.setLineWrap(true); 
+		textAreaMessaggioMotivazionale.setWrapStyleWord(true); 
 		
-		JLabel lblNewLabel = new JLabel("Motivazione Regalo");
+		JScrollPane scrollPane = new JScrollPane(textAreaMessaggioMotivazionale);
+		scrollPane.setBounds(270, 173, 227, 105);
+		contentPane.add(scrollPane);
+		
+		JLabel lblNewLabel = new JLabel("Motivazione");
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel.setBounds(279, 123, 201, 28);
+		lblNewLabel.setBounds(318, 123, 140, 28);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnConferma = new JButton("Conferma");
 		btnConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
-				 setVisible(false);
-				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
-				ListaAnnunciFrame.setVisible(true);
-				ListaAnnunciFrame.setLocationRelativeTo(null);
+				inviaOffertaRegalo();
 			}
 		});
+		
 		btnConferma.setForeground(Color.WHITE);
 		btnConferma.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnConferma.setFocusPainted(false);
@@ -114,6 +128,48 @@ public class OffertaRegalo extends JFrame {
 		btnConferma.setFocusPainted(false);
 		btnConferma.setBorderPainted(false); 
 		contentPane.add(btnConferma);
+	}
+	
+	public void inviaOffertaRegalo() {
+		
+		String MessaggioMotivazionale = textAreaMessaggioMotivazionale.getText().trim();
+		
+		if (MessaggioMotivazionale.isEmpty()) {
+			JOptionPane.showMessageDialog(this, 
+	                "Inserisci una motivazione.", 
+	                "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	            return;
+		}
+		
+		String MatricolaAcquirente = UtenteLoggato.getMatricola();
+		
+		try {
+			
+			boolean OffertaValida = offertaDAO.inserimentoOffertaRegalo(MessaggioMotivazionale, MatricolaAcquirente, IdAnnuncioScelto);
+			
+			if (OffertaValida) {
+				JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
+				 setVisible(false);
+				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
+				ListaAnnunciFrame.setVisible(true);
+				ListaAnnunciFrame.setLocationRelativeTo(null);
+			} else {
+	            JOptionPane.showMessageDialog(this, 
+	                    "Problema nell'invio dell'offerta", 
+	                    "Errore invio offerta", 
+	                    JOptionPane.ERROR_MESSAGE);
+			
+			}
+			        
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, 
+					"Errore nell'inserimento dell'offerta: " 
+					+ e.getMessage(), "Errore", 
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
 	}
 
 }

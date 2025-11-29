@@ -128,6 +128,7 @@ public class AreaUtente extends JFrame {
 				OggettoFrame.setLocationRelativeTo(null);
 			}
 		});
+		
 		btnCreaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));
 		btnCreaAnnuncio.setForeground(Color.WHITE);
 		btnCreaAnnuncio.setFont(new Font("Verdana", Font.BOLD, 16));

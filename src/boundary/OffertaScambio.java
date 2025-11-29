@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,16 +19,22 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import dao.OffertaDAO;
+import entity.Annuncio_entity;
 import entity.Utente_entity;
 
 import javax.swing.JTextArea;
 import java.awt.Toolkit;
+import javax.swing.JTextField;
 
 public class OffertaScambio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
+	private int IdAnnuncioScelto;
+	private OffertaDAO offertaDAO;
+	private JTextField textFieldOggettoProposto;
 
 	/**
 	 * Launch the application.
@@ -48,8 +55,11 @@ public class OffertaScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaScambio(Utente_entity UtenteLoggato) {
+	public OffertaScambio(Utente_entity UtenteLoggato, int IdAnnuncioScelto) {
 		this.UtenteLoggato = UtenteLoggato;
+		this.IdAnnuncioScelto = IdAnnuncioScelto;
+		offertaDAO = new OffertaDAO();
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scambio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,36 +70,6 @@ public class OffertaScambio extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JLabel LabelImg = new JLabel("");
-		LabelImg.setBackground(new Color(0, 52, 102));
-		LabelImg.setBounds(295, 84, 183, 99);
-		contentPane.add(LabelImg);
-		
-		
-		JButton ButtonImgOggetto = new JButton("Oggetto");
-		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
-		ButtonImgOggetto.setBackground(new Color(0, 52, 101));
-		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
-		ButtonImgOggetto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser scegliImg = new JFileChooser();
-		        scegliImg.setDialogTitle("Seleziona immagine");
-		        scegliImg.setFileFilter(new FileNameExtensionFilter("Immagini PNG", "png"));
-
-		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-		            ImageIcon iconaImg = new ImageIcon(scegliImg.getSelectedFile().getAbsolutePath());
-		            Image img = iconaImg.getImage();
-		            LabelImg.setIcon(new ImageIcon(img));
-		        }
-			}
-			
-		});
-		ButtonImgOggetto.setFont(new Font("Verdana", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(123, 122, 105, 37);
-		ButtonImgOggetto.setFocusPainted(false);
-		ButtonImgOggetto.setBorderPainted(false);
-		contentPane.add(ButtonImgOggetto);
 		
 		
 		JPanel panel = new JPanel();
@@ -123,11 +103,7 @@ public class OffertaScambio extends JFrame {
 		JButton btnConferma = new JButton("Conferma");
 		btnConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
-				 setVisible(false);
-				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
-				ListaAnnunciFrame.setVisible(true);
-				ListaAnnunciFrame.setLocationRelativeTo(null);
+				inviaOffertaScambio();
 			}
 		});
 		btnConferma.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -138,20 +114,58 @@ public class OffertaScambio extends JFrame {
 		btnConferma.setBorderPainted(false);
 		contentPane.add(btnConferma);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Verdana", Font.BOLD, 16));
-		textArea.setForeground(new Color(255, 255, 255));
-		textArea.setBackground(new Color(0, 52, 101));
-		textArea.setBounds(276, 206, 193, 99);
-		contentPane.add(textArea);
-		
-		JLabel lblNewLabel = new JLabel("Descrizione");
+		JLabel lblNewLabel = new JLabel("Oggetto proposto");
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel.setBounds(309, 178, 129, 18);
+		lblNewLabel.setBounds(93, 131, 169, 34);
 		contentPane.add(lblNewLabel);
 		
-	
+		textFieldOggettoProposto = new JTextField();
+		textFieldOggettoProposto.setFont(new Font("Verdana", Font.BOLD, 16));
+		textFieldOggettoProposto.setColumns(10);
+		textFieldOggettoProposto.setBounds(276, 131, 166, 36);
+		contentPane.add(textFieldOggettoProposto);
 		
+	
+	}
+	
+	public void inviaOffertaScambio() {
+		
+		String OggettoProposto = textFieldOggettoProposto.getText().trim();
+		
+		if (OggettoProposto.isEmpty()) {
+			JOptionPane.showMessageDialog(this, 
+	                "Inserisci un oggetto che vuoi proporre.", 
+	                "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	            return;
+		}
+		
+		String MatricolaAcquirente = UtenteLoggato.getMatricola();
+		
+		try {
+			
+			boolean OffertaValida = offertaDAO.inserimentoOffertaScambio(OggettoProposto, MatricolaAcquirente, IdAnnuncioScelto);
+			
+			if (OffertaValida) {
+				JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
+				 setVisible(false);
+				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
+				ListaAnnunciFrame.setVisible(true);
+				ListaAnnunciFrame.setLocationRelativeTo(null);
+			} else {
+	            JOptionPane.showMessageDialog(this, 
+	                    "Problema nell'invio dell'offerta", 
+	                    "Errore invio offerta", 
+	                    JOptionPane.ERROR_MESSAGE);
+			
+			}
+			        
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, 
+					"Errore nell'inserimento dell'offerta: " 
+					+ e.getMessage(), "Errore", 
+					JOptionPane.ERROR_MESSAGE);
+		}
 		
 		
 	}
