@@ -62,7 +62,22 @@ public class StoricoOfferteDAO {
 	}
 	
 
-	
+	public int getIdAnnuncioFromOfferta(int IdOfferta) throws SQLException {
+	    String query = "SELECT IdAnnuncio FROM Offerta WHERE IdOfferta = ?";
+	    
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+	        
+	        pstmt.setInt(1, IdOfferta);
+	        
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt("IdAnnuncio");
+	            }
+	        }
+	    }
+	    return -1;
+	}
 	
 	
 	

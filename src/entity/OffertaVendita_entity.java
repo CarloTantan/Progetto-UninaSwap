@@ -1,19 +1,19 @@
 package entity;
 
 public class OffertaVendita_entity extends Offerta_entity{
-	private float PropostaEconomica;
+	private float ImportoProposto;
 	
 	
-	public OffertaVendita_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio, float PropostaEconomica,String TipologiaOfferta) {
+	public OffertaVendita_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio, float ImportoProposto,String TipologiaOfferta) {
 		super(IdOfferta, StatoOfferta, MatricolaAcquirente, IdAnnuncio, TipologiaOfferta);
-		this.PropostaEconomica = PropostaEconomica;
+		this.ImportoProposto = ImportoProposto;
 	}
 	
-	public float getPropostaEconomica() {
-		return PropostaEconomica;
+	public float getImportoProposto() {
+		return ImportoProposto;
 	}
 	
-	public void setPropostaEconomica(float PropostaEconomica) {
-		this.PropostaEconomica = PropostaEconomica; 
+	public void setImportoProposto(float ImportoProposto) {
+		this.ImportoProposto = ImportoProposto; 
 	}
 }

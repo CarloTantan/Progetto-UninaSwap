@@ -37,7 +37,7 @@ public class OffertaRegalo extends JFrame {
 	private JTextArea textAreaMessaggioMotivazionale;
 	private int IdOffertaDaModificare = -1;
 	private boolean isModificaMode = false;
-	private JButton btnConferma;
+	private JButton btnConferma; 
 	
 	/**
 	 * Launch the application.
@@ -116,7 +116,7 @@ public class OffertaRegalo extends JFrame {
 		lblNewLabel.setBounds(318, 123, 140, 28);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnConferma = new JButton("Conferma");
+		btnConferma = new JButton("Conferma");
 		btnConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inviaOffertaRegalo();
@@ -199,29 +199,27 @@ public void inviaOffertaRegalo() {
 
 	
 	
-	
-	public void caricaOffertaPerModifica(int idOfferta) {
-		try {
-			OffertaRegalo_entity offerta = offertaDAO.caricaOfferta(idOfferta);
-			
-			if (offerta != null) {
-				// Riempie il campo con il messaggio salvato
-				textAreaMessaggioMotivazionale.setText(offerta.getMessaggioMotivazionale());
-				
-				// Attiva modalità modifica
-				IdOffertaDaModificare = idOfferta;
-				isModificaMode = true;
-				btnConferma.setText("Aggiorna");
-				
-			} else {
-				JOptionPane.showMessageDialog(this, "Offerta non trovata", "Errore", JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, "Errore nel caricamento: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-			ex.printStackTrace();
-		}
-	}
-
+public void caricaOffertaPerModifica(int idOfferta) {
+    try {
+        OffertaRegalo_entity offerta = offertaDAO.caricaOfferta(idOfferta);
+        
+        if (offerta != null) {
+            // Riempie il campo con il messaggio salvato
+            textAreaMessaggioMotivazionale.setText(offerta.getMessaggioMotivazionale());
+            
+            // Attiva modalità modifica
+            IdOffertaDaModificare = idOfferta;
+            isModificaMode = true;
+            btnConferma.setText("Aggiorna");
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Offerta non trovata", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Errore nel caricamento: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+    }
+}
 	
 	
 }

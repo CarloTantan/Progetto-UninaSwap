@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.OffertaDAO;
 import entity.Annuncio_entity;
+import entity.OffertaVendita_entity;
 import entity.Utente_entity;
 
 import java.awt.Color;
@@ -33,7 +34,9 @@ public class OffertaVendita extends JFrame {
 	private Utente_entity UtenteLoggato;
 	private int IdAnnuncioScelto;
 	private OffertaDAO offertaDAO;
-
+	private int IdOffertaDaModificare = -1;
+	private boolean isModificaMode = false;
+	private JButton btnConferma;
 	/**
 	 * Launch the application.
 	 */
@@ -109,7 +112,7 @@ public class OffertaVendita extends JFrame {
 		lblNewLabel_1.setBounds(95, 154, 205, 40);
 		contentPane.add(lblNewLabel_1);
 		
-		JButton btnConferma = new JButton("Conferma");
+		 btnConferma = new JButton("Conferma");
 		btnConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 inviaOffertaVendita();
@@ -125,54 +128,95 @@ public class OffertaVendita extends JFrame {
 	}
 	
 	public void inviaOffertaVendita() {
-		
-		String ImportoPropostoString = textFieldImportoProposto.getText().trim();
-		
-		if (ImportoPropostoString.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
+	    
+	    String ImportoPropostoString = textFieldImportoProposto.getText().trim();
+	    
+	    if (ImportoPropostoString.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, 
 	                "Inserisci un importo.", 
 	                "Errore", 
 	                JOptionPane.ERROR_MESSAGE);
 	            return;
-		}
-		
-		String MatricolaAcquirente = UtenteLoggato.getMatricola();
-		
-		try {
-			float ImportoProposto = Float.parseFloat(textFieldImportoProposto.getText().trim());
-			
-			
-			boolean OffertaValida = offertaDAO.inserimentoOffertaVendita(ImportoProposto, MatricolaAcquirente, IdAnnuncioScelto);
-			
-			if (OffertaValida) {
-				JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
-				 setVisible(false);
-				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
-				ListaAnnunciFrame.setVisible(true);
-				ListaAnnunciFrame.setLocationRelativeTo(null);
-			} else {
-	            JOptionPane.showMessageDialog(this, 
-	                    "Problema nell'invio dell'offerta", 
-	                    "Errore invio offerta", 
-	                    JOptionPane.ERROR_MESSAGE);
-			
-			
-			}
-		} catch (NumberFormatException e) {
-	        // Gestisce il caso di input non numerico
-	        JOptionPane.showMessageDialog(this, 
-	        		"L'importo deve essere un numero valido.", 
-	        		"Errore Input", 
-	        		JOptionPane.ERROR_MESSAGE);
+	    }
+	    
+	    String MatricolaAcquirente = UtenteLoggato.getMatricola();
+	    
+	    try {
+	        float ImportoProposto = Float.parseFloat(textFieldImportoProposto.getText().trim());
 	        
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, 
-					"Errore nell'inserimento dell'offerta: " 
-					+ e.getMessage(), "Errore", 
-					JOptionPane.ERROR_MESSAGE);
-		}
-		
-		
-	}	
+	        boolean OffertaValida;
+	        
+	        if (isModificaMode) {
+	            // UPDATE
+	            OffertaValida = offertaDAO.aggiornaOffertaVendita(
+	                ImportoProposto, 
+	                MatricolaAcquirente, 
+	                IdAnnuncioScelto, 
+	                IdOffertaDaModificare
+	            );
+	        } else {
+	            // INSERT
+	            OffertaValida = offertaDAO.inserimentoOffertaVendita(
+	                ImportoProposto, 
+	                MatricolaAcquirente, 
+	                IdAnnuncioScelto
+	            );
+	        }
+	        
+	        if (OffertaValida) {
+	            String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
+	            JOptionPane.showMessageDialog(null, messaggio, null, JOptionPane.INFORMATION_MESSAGE);
+	             setVisible(false);
+	             ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
+	            ListaAnnunciFrame.setVisible(true);
+	            ListaAnnunciFrame.setLocationRelativeTo(null);
+	        } else {
+	            JOptionPane.showMessageDialog(this, 
+	                    "Problema nell'operazione", 
+	                    "Errore", 
+	                    JOptionPane.ERROR_MESSAGE);
+	        }
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(this, 
+	                "L'importo deve essere un numero valido.", 
+	                "Errore Input", 
+	                JOptionPane.ERROR_MESSAGE);
+	        
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(this, 
+	                "Errore nell'operazione: " 
+	                + e.getMessage(), "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	    }
+	}
+	public void caricaOffertaPerModifica(int idOfferta) {
+	    try {
+	        OffertaVendita_entity offerta = offertaDAO.caricaOffertaVendita(idOfferta);
+
+	        if (offerta != null) {
+	            // Riempie il campo con l'importo proposto salvato
+	            textFieldImportoProposto.setText(String.valueOf(offerta.getImportoProposto()));
+
+	            // Attiva modalità modifica
+	            IdOffertaDaModificare = idOfferta;
+	            isModificaMode = true;
+	            btnConferma.setText("Aggiorna");
+
+	        } else {
+	            JOptionPane.showMessageDialog(this, 
+	                "Offerta non trovata", 
+	                "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	        }
+	    } catch (SQLException ex) {
+	        JOptionPane.showMessageDialog(this, 
+	            "Errore nel caricamento: " + ex.getMessage(), 
+	            "Errore", 
+	            JOptionPane.ERROR_MESSAGE);
+	        ex.printStackTrace();
+	    }
+	}
+	
 
 }

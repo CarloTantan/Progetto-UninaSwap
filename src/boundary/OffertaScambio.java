@@ -21,6 +21,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import dao.OffertaDAO;
 import entity.Annuncio_entity;
+import entity.OffertaRegalo_entity;
+import entity.OffertaScambio_entity;
 import entity.Utente_entity;
 
 import javax.swing.JTextArea;
@@ -35,7 +37,9 @@ public class OffertaScambio extends JFrame {
 	private int IdAnnuncioScelto;
 	private OffertaDAO offertaDAO;
 	private JTextField textFieldOggettoProposto;
-
+	private int IdOffertaDaModificare = -1;
+	private boolean isModificaMode = false;
+	private JButton btnConferma;
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +63,7 @@ public class OffertaScambio extends JFrame {
 		this.UtenteLoggato = UtenteLoggato;
 		this.IdAnnuncioScelto = IdAnnuncioScelto;
 		offertaDAO = new OffertaDAO();
+		
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scambio");
@@ -100,7 +105,7 @@ public class OffertaScambio extends JFrame {
 		btnUndo.setBorderPainted(false);
 		panel.add(btnUndo);
 		
-		JButton btnConferma = new JButton("Conferma");
+		 btnConferma = new JButton("Conferma");
 		btnConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inviaOffertaScambio();
@@ -129,44 +134,97 @@ public class OffertaScambio extends JFrame {
 	}
 	
 	public void inviaOffertaScambio() {
-		
-		String OggettoProposto = textFieldOggettoProposto.getText().trim();
-		
-		if (OggettoProposto.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
+	    
+	    String OggettoProposto = textFieldOggettoProposto.getText().trim();
+	    
+	    if (OggettoProposto.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, 
 	                "Inserisci un oggetto che vuoi proporre.", 
 	                "Errore", 
 	                JOptionPane.ERROR_MESSAGE);
 	            return;
-		}
-		
-		String MatricolaAcquirente = UtenteLoggato.getMatricola();
-		
-		try {
-			
-			boolean OffertaValida = offertaDAO.inserimentoOffertaScambio(OggettoProposto, MatricolaAcquirente, IdAnnuncioScelto);
-			
-			if (OffertaValida) {
-				JOptionPane.showMessageDialog(null, "Offerta inviata ", null, JOptionPane.INFORMATION_MESSAGE);
-				 setVisible(false);
-				 ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
-				ListaAnnunciFrame.setVisible(true);
-				ListaAnnunciFrame.setLocationRelativeTo(null);
-			} else {
+	    }
+	    
+	    String MatricolaAcquirente = UtenteLoggato.getMatricola();
+	    
+	    try {
+	        boolean OffertaValida;
+	        
+	        if (isModificaMode) {
+	            // UPDATE
+	            OffertaValida = offertaDAO.aggiornaOffertaScambio(
+	                OggettoProposto, 
+	                MatricolaAcquirente, 
+	                IdAnnuncioScelto, 
+	                IdOffertaDaModificare
+	            );
+	        } else {
+	            // INSERT
+	            OffertaValida = offertaDAO.inserimentoOffertaScambio(
+	                OggettoProposto, 
+	                MatricolaAcquirente, 
+	                IdAnnuncioScelto
+	            );
+	        }
+	        
+	        if (OffertaValida) {
+	            String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
+	            JOptionPane.showMessageDialog(null, messaggio, null, JOptionPane.INFORMATION_MESSAGE);
+	             setVisible(false);
+	             ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
+	            ListaAnnunciFrame.setVisible(true);
+	            ListaAnnunciFrame.setLocationRelativeTo(null);
+	        } else {
 	            JOptionPane.showMessageDialog(this, 
-	                    "Problema nell'invio dell'offerta", 
-	                    "Errore invio offerta", 
+	                    "Problema nell'operazione", 
+	                    "Errore", 
 	                    JOptionPane.ERROR_MESSAGE);
-			
-			}
-			        
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, 
-					"Errore nell'inserimento dell'offerta: " 
-					+ e.getMessage(), "Errore", 
-					JOptionPane.ERROR_MESSAGE);
-		}
-		
-		
+	        }
+	                
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(this, 
+	                "Errore nell'operazione: " 
+	                + e.getMessage(), "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	    }
 	}
+	public void caricaOffertaPerModifica(int idOfferta) {
+	    try {
+	        OffertaScambio_entity offerta = offertaDAO.caricaOffertaScambio(idOfferta);
+
+	        if (offerta != null) {
+	            // Riempie il campo con l'oggetto proposto salvato
+	            textFieldOggettoProposto.setText(offerta.getOggettoProposto());
+
+	            // Attiva modalità modifica
+	            IdOffertaDaModificare = idOfferta;
+	            isModificaMode = true;
+	            btnConferma.setText("Aggiorna");
+
+	        } else {
+	            JOptionPane.showMessageDialog(this, 
+	                "Offerta non trovata", 
+	                "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	        }
+	    } catch (SQLException ex) {
+	        JOptionPane.showMessageDialog(this, 
+	            "Errore nel caricamento: " + ex.getMessage(), 
+	            "Errore", 
+	            JOptionPane.ERROR_MESSAGE);
+	        ex.printStackTrace();
+	    }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

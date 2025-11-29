@@ -8,7 +8,7 @@ public class OffertaScambio_entity extends Offerta_entity{
 		this.OggettoProposto = OggettoProposto; 
 	}
 	
-	public String getOggettoRichiesto() {
+	public String getOggettoProposto() {
 		return OggettoProposto;
 	}
 
