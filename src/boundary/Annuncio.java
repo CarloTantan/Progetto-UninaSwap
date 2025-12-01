@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import entity.Oggetto_entity;
 import entity.Utente_entity;
+import enumerations.FasciaOraria;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -20,15 +21,18 @@ import java.awt.Dimension;
 
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Image;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
@@ -42,6 +46,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTree;
 import java.awt.Toolkit;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 public class Annuncio extends JFrame {
 
@@ -49,8 +54,10 @@ public class Annuncio extends JFrame {
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
 	private Oggetto_entity OggettoAnnuncio;
-    private String percorsoImg;
-    private JLabel LabelImg; 
+	private ArrayList<String> PercorsiImmagini; // Lista per memorizzare i percorsi delle immagini
+	private DefaultListModel<String> listModelFoto;
+	private String percorsoImg;
+	private JList<String> listFoto;
 
 	/**
 	 * Launch the application.
@@ -75,11 +82,12 @@ public class Annuncio extends JFrame {
 	public Annuncio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio) {
 		this.OggettoAnnuncio = OggettoAnnuncio;
 		this.UtenteLoggato = UtenteLoggato;
+		this.PercorsiImmagini = new ArrayList<>();
+		this.listModelFoto = new DefaultListModel<>();
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		 
 		setBounds(100, 100, 548, 638);
 		
 		contentPane = new JPanel();
@@ -180,13 +188,12 @@ public class Annuncio extends JFrame {
 		lblNewLabel_6.setBounds(234, 0, 100, 58);
 		panel.add(lblNewLabel_6);
 		
-		LabelImg = new JLabel("");
-		LabelImg.setFont(new Font("Verdana", Font.PLAIN, 10));
-		LabelImg.setForeground(new Color(255, 255, 255));
-		LabelImg.setLabelFor(this);
-		LabelImg.setBackground(new Color(0, 52, 102));
-		LabelImg.setBounds(251, 77, 203, 77);
-		contentPane.add(LabelImg);
+		// Lista per visualizzare le foto caricate
+		listFoto = new JList<>(listModelFoto);
+		listFoto.setFont(new Font("Verdana", Font.PLAIN, 10));
+		JScrollPane scrollPaneFoto = new JScrollPane(listFoto);
+		scrollPaneFoto.setBounds(251, 77, 203, 77);
+		contentPane.add(scrollPaneFoto);
 		
 		JButton ButtonImgOggetto = new JButton("Carica immagine");
 		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
@@ -195,7 +202,7 @@ public class Annuncio extends JFrame {
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
-				caricaImg(); // Chiama il metodo caricaImg()
+				caricaImmagini(); // Chiama il metodo caricaImg()
 		        }
 		});
 		
@@ -205,6 +212,27 @@ public class Annuncio extends JFrame {
 		contentPane.add(ButtonImgOggetto);
 		ButtonImgOggetto.setFocusPainted(false);
 		ButtonImgOggetto.setBorderPainted(false);
+		
+		// Pulsante per rimuovere foto selezionata
+		JButton ButtonRimuoviFoto = new JButton("Rimuovi");
+		ButtonRimuoviFoto.setForeground(new Color(255, 255, 255));
+		ButtonRimuoviFoto.setBackground(new Color(0, 52, 102));
+		ButtonRimuoviFoto.setFont(new Font("Tahoma", Font.BOLD, 12));
+		ButtonRimuoviFoto.setBounds(21, 124, 194, 30);
+		ButtonRimuoviFoto.setFocusPainted(false);
+		ButtonRimuoviFoto.setBorderPainted(false);
+		contentPane.add(ButtonRimuoviFoto);
+		
+		ButtonRimuoviFoto.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedIndex = listFoto.getSelectedIndex();
+				if (selectedIndex != -1) {
+					PercorsiImmagini.remove(selectedIndex);
+					listModelFoto.remove(selectedIndex);
+				}
+			}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(251, 242, 203, 77);
@@ -244,74 +272,102 @@ public class Annuncio extends JFrame {
 		JScambio.setFocusPainted(false);
 		JScambio.setBorderPainted(false);
 
-		JScambio.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textfieldTitolo.getText().trim().isEmpty() || 
-						textAreaDescrizione.getText().trim().isEmpty() || 
-						textAreaModConsegna.getText().trim().isEmpty() || 
-						LabelImg.getIcon()==null 
-					) {
-					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					setVisible(false);
-					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(UtenteLoggato, OggettoAnnuncio);
-					annuncioScambioFrame.setVisible(true);
-					annuncioScambioFrame.setLocationRelativeTo(null);
-				}
+		// Validazione e navigazione comune
+				ActionListener validazioneComune = new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (!validaCampi(textfieldTitolo, textAreaDescrizione, textAreaModConsegna, comboBoxFasciaOraria)) {
+							return;
+						}
+						
+						// Recupera la fascia oraria selezionata
+						String fasciaSelezionata = (String) comboBoxFasciaOraria.getSelectedItem();
+						FasciaOraria fasciaOraria = FasciaOraria.fromLabel(fasciaSelezionata);
+						
+						// Determina quale pulsante è stato premuto
+						JButton sourceButton = (JButton) e.getSource();
+						setVisible(false);
+						
+						if (sourceButton == JScambio) {
+							AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(
+								UtenteLoggato, OggettoAnnuncio,
+								textfieldTitolo.getText().trim(),
+								textAreaDescrizione.getText().trim(),
+								textAreaModConsegna.getText().trim(),
+								fasciaOraria,
+								PercorsiImmagini
+							);
+							annuncioScambioFrame.setVisible(true);
+							annuncioScambioFrame.setLocationRelativeTo(null);
+						} else if (sourceButton == JRegalo) {
+							AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(
+								UtenteLoggato, OggettoAnnuncio,
+								textfieldTitolo.getText().trim(),
+								textAreaDescrizione.getText().trim(),
+								textAreaModConsegna.getText().trim(),
+								fasciaOraria,
+								PercorsiImmagini
+							);
+							annuncioRegaloFrame.setVisible(true);
+							annuncioRegaloFrame.setLocationRelativeTo(null);
+						} else if (sourceButton == JVendita) {
+							AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(
+								UtenteLoggato, OggettoAnnuncio,
+								textfieldTitolo.getText().trim(),
+								textAreaDescrizione.getText().trim(),
+								textAreaModConsegna.getText().trim(),
+								fasciaOraria,
+								PercorsiImmagini
+							);
+							annuncioVenditaFrame.setVisible(true);
+							annuncioVenditaFrame.setLocationRelativeTo(null);
+						}
+					}
+				};
+				
+				JScambio.addActionListener(validazioneComune);
+				JRegalo.addActionListener(validazioneComune);
+				JVendita.addActionListener(validazioneComune);
 			}
-		});
-		
-		JRegalo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textfieldTitolo.getText().trim().isEmpty() || 
-						textAreaDescrizione.getText().trim().isEmpty() || 
-						textAreaModConsegna.getText().trim().isEmpty() || 
-						LabelImg.getIcon()==null 				
-					) {
-					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else {
-					setVisible(false);
-					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(UtenteLoggato, OggettoAnnuncio);
-					annuncioRegaloFrame.setVisible(true);
-					annuncioRegaloFrame.setLocationRelativeTo(null);
+			
+			private void caricaImmagini() {
+				JFileChooser scegliImg = new JFileChooser();
+		        scegliImg.setDialogTitle("Seleziona immagini");
+		        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
+		        scegliImg.setMultiSelectionEnabled(true); // Abilita selezione multipla
+
+		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+		        	java.io.File[] files = scegliImg.getSelectedFiles();
+		        	for (java.io.File file : files) {
+		        		String percorso = file.getAbsolutePath();
+		        		PercorsiImmagini.add(percorso);
+		        		listModelFoto.addElement(file.getName());
+		        	}
+		        }
+			}
+			
+			private boolean validaCampi(JTextField titolo, JTextArea descrizione, 
+			                           JTextField modConsegna, JComboBox<String> fasciaOraria) {
+				if (titolo.getText().trim().isEmpty() || 
+					descrizione.getText().trim().isEmpty() || 
+					modConsegna.getText().trim().isEmpty() || 
+					PercorsiImmagini.isEmpty()) {
+					JOptionPane.showMessageDialog(null, 
+						"Tutti i campi sono obbligatori e devi caricare almeno una foto", 
+						"Campi mancanti", 
+						JOptionPane.WARNING_MESSAGE);
+					return false;
 				}
 				
-			}
-		});
-		
-		JVendita.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textfieldTitolo.getText().trim().isEmpty() || 
-						textAreaDescrizione.getText().trim().isEmpty() || 
-						textAreaModConsegna.getText().trim().isEmpty() || 
-						LabelImg.getIcon()==null 
-					) {
-					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else {
-					setVisible(false);
-					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(UtenteLoggato, OggettoAnnuncio);
-					annuncioVenditaFrame.setVisible(true);
-					annuncioVenditaFrame.setLocationRelativeTo(null);
+				String fasciaSelezionata = (String) fasciaOraria.getSelectedItem();
+				if (fasciaSelezionata == null || fasciaSelezionata.equals("Seleziona una fascia oraria")) {
+					JOptionPane.showMessageDialog(null, 
+						"Seleziona una fascia oraria valida", 
+						"Fascia oraria non valida", 
+						JOptionPane.WARNING_MESSAGE);
+					return false;
 				}
+				
+				return true;
 			}
-		});
-	}
-	
-	public void caricaImg() {
-		JFileChooser scegliImg = new JFileChooser();
-        scegliImg.setDialogTitle("Seleziona immagine");
-        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
-
-        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-	    	percorsoImg = scegliImg.getSelectedFile().getAbsolutePath(); 
-            ImageIcon iconaImg = new ImageIcon(percorsoImg);
-            Image img = iconaImg.getImage();
-            LabelImg.setIcon(new ImageIcon(img));
-        }
-	}
-	
-}
+		}

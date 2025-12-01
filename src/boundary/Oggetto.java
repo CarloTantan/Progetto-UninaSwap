@@ -33,6 +33,7 @@ public class Oggetto extends JFrame {
 	private Utente_entity UtenteLoggato;
 	private JTextField textFieldNomeOggetto;
 	private JTextField textFieldDescrizioneOggetto;
+	private JComboBox<String> comboBoxCategoria;
 
 	/**
 	 * Launch the application.
@@ -124,7 +125,7 @@ public class Oggetto extends JFrame {
 		lblNewLabel_5.setBounds(105, 217, 179, 22);
 		contentPane.add(lblNewLabel_5);
 		
-		JComboBox<String> comboBoxCategoria = new JComboBox<>();
+		comboBoxCategoria = new JComboBox<>();
 		comboBoxCategoria.addItem("Seleziona una categoria");
 		for (TipologiaCategoria categoria : TipologiaCategoria.values()) {
 		    comboBoxCategoria.addItem(categoria.getNome());
@@ -138,58 +139,9 @@ public class Oggetto extends JFrame {
 		JButton btnContinua = new JButton("Continua");
 		btnContinua.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        String nome = textFieldNomeOggetto.getText().trim();
-		        String descrizione = textFieldDescrizioneOggetto.getText().trim();
-		        String categoriaSelezionata = (String) comboBoxCategoria.getSelectedItem();
-		        
-		        // Validazione input
-		        if (nome.isEmpty() || descrizione.isEmpty()) {
-		            JOptionPane.showMessageDialog(null, 
-		                "Nome e descrizione sono obbligatori", 
-		                "Campi mancanti", 
-		                JOptionPane.WARNING_MESSAGE);
-		            return;
-		        }
-		        
-		        if (categoriaSelezionata == null || categoriaSelezionata.equals("Seleziona una categoria")) {
-		            JOptionPane.showMessageDialog(null, 
-		                "Seleziona una categoria valida", 
-		                "Categoria non valida", 
-		                JOptionPane.WARNING_MESSAGE);
-		            return;
-		        }
-		        
-		        try {
-		            // Ottieni l'ID dalla categoria selezionata
-		            TipologiaCategoria categoria = TipologiaCategoria.fromNome(categoriaSelezionata);
-		            int idCategoria = categoria.getId();
-		            
-		            OggettoDAO oggettoDAO = new OggettoDAO();
-		            int idOggetto = oggettoDAO.inserisciOggetto(nome, descrizione, idCategoria);
-		            
-		            	            
-		            // Crea l'entità oggetto
-		            Oggetto_entity oggetto = new Oggetto_entity(idOggetto, nome, descrizione, idCategoria);
-		            
-		            // Passa all'interfaccia Annuncio
-		            setVisible(false);
-		            Annuncio AnnuncioFrame = new Annuncio(UtenteLoggato, oggetto);
-		            AnnuncioFrame.setVisible(true);
-		            AnnuncioFrame.setLocationRelativeTo(null);
-		            
-		        } catch (IllegalArgumentException ex) {
-		            JOptionPane.showMessageDialog(null, 
-		                "Categoria non valida", 
-		                "Errore", 
-		                JOptionPane.ERROR_MESSAGE);
-		        } catch (SQLException ex) {
-		            JOptionPane.showMessageDialog(null, 
-		                "Errore durante l'inserimento dell'oggetto: " + ex.getMessage(), 
-		                "Errore Database", 
-		                JOptionPane.ERROR_MESSAGE);
-		            ex.printStackTrace();
-		        }
+		    	inserisciOggetto();
 		    }
+		        
 		});
 		
 		
@@ -202,4 +154,58 @@ public class Oggetto extends JFrame {
 		contentPane.add(btnContinua);
 
 	}
+		public void inserisciOggetto() {
+			String nome = textFieldNomeOggetto.getText().trim();
+	        String descrizione = textFieldDescrizioneOggetto.getText().trim();
+	        String categoriaSelezionata = (String) comboBoxCategoria.getSelectedItem();
+	        
+	        // Validazione input
+	        if (nome.isEmpty() || descrizione.isEmpty()) {
+	            JOptionPane.showMessageDialog(null, 
+	                "Nome e descrizione sono obbligatori", 
+	                "Campi mancanti", 
+	                JOptionPane.WARNING_MESSAGE);
+	            return;
+	        }
+	        
+	        if (categoriaSelezionata == null || categoriaSelezionata.equals("Seleziona una categoria")) {
+	            JOptionPane.showMessageDialog(null, 
+	                "Seleziona una categoria valida", 
+	                "Categoria non valida", 
+	                JOptionPane.WARNING_MESSAGE);
+	            return;
+	        }
+	        
+	        try {
+	            // Ottieni l'ID dalla categoria selezionata
+	            TipologiaCategoria categoria = TipologiaCategoria.fromNome(categoriaSelezionata);
+	            int idCategoria = categoria.getId();
+	            
+	            OggettoDAO oggettoDAO = new OggettoDAO();
+	            int idOggetto = oggettoDAO.inserisciOggetto(nome, descrizione, idCategoria);
+	            
+	            	            
+	            // Crea l'entità oggetto
+	            Oggetto_entity oggetto = new Oggetto_entity(idOggetto, nome, descrizione, idCategoria);
+	            
+	            // Passa all'interfaccia Annuncio
+	            setVisible(false);
+	            Annuncio AnnuncioFrame = new Annuncio(UtenteLoggato, oggetto);
+	            AnnuncioFrame.setVisible(true);
+	            AnnuncioFrame.setLocationRelativeTo(null);
+	            
+	        } catch (IllegalArgumentException ex) {
+	            JOptionPane.showMessageDialog(null, 
+	                "Categoria non valida", 
+	                "Errore", 
+	                JOptionPane.ERROR_MESSAGE);
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, 
+	                "Errore durante l'inserimento dell'oggetto: " + ex.getMessage(), 
+	                "Errore Database", 
+	                JOptionPane.ERROR_MESSAGE);
+	            ex.printStackTrace();
+	        }
+	    }
+	
 }

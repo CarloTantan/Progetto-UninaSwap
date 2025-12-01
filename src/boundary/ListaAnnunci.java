@@ -3,10 +3,13 @@ package boundary;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import dao.FotoAnnuncioDAO;
 import dao.ListaAnnunciDAO;
 import entity.*;
 import enumerations.StatoAnnuncio;
 import java.awt.event.*;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -241,14 +244,10 @@ public class ListaAnnunci extends JFrame {
             setLayout(new BorderLayout(10, 10));
             setBackground(Color.WHITE);
 
-            // Immagine
-            JLabel img = new JLabel("📷 Foto", SwingConstants.CENTER);
-            img.setPreferredSize(new Dimension(200, 150));
-            img.setOpaque(true);
-            img.setBackground(new Color(240, 240, 240));
-            img.setFont(new Font("Verdana", Font.PLAIN, 14));
+            // Carosello foto
+            JPanel caroselloPanel = creaCaroselloFoto(id);
+            add(caroselloPanel, BorderLayout.NORTH);
 
-            add(img, BorderLayout.NORTH);
 
             // Info panel
             JPanel info = new JPanel();
@@ -299,7 +298,135 @@ public class ListaAnnunci extends JFrame {
             add(info, BorderLayout.CENTER);
         }
     }
+    
+    //crea un carosello di foto per l'annuncio
+    
+    private JPanel creaCaroselloFoto(int idAnnuncio) {
+        JPanel caroselloPanel = new JPanel(new BorderLayout());
+        caroselloPanel.setPreferredSize(new Dimension(200, 180));
+        caroselloPanel.setBackground(new Color(240, 240, 240));
+        
+        // Label per l'immagine
+        JLabel lblImmagine = new JLabel();
+        lblImmagine.setPreferredSize(new Dimension(200, 150));
+        lblImmagine.setHorizontalAlignment(SwingConstants.CENTER);
+        lblImmagine.setVerticalAlignment(SwingConstants.CENTER);
+        lblImmagine.setOpaque(true);
+        lblImmagine.setBackground(new Color(240, 240, 240));
+        
+        // Panel per i controlli (frecce + contatore)
+        JPanel controlliPanel = new JPanel(new BorderLayout());
+        controlliPanel.setBackground(Color.WHITE);
+        controlliPanel.setPreferredSize(new Dimension(200, 30));
+        
+        // Label contatore (es: "1/5")
+        JLabel lblContatore = new JLabel("", SwingConstants.CENTER);
+        lblContatore.setFont(new Font("Verdana", Font.BOLD, 12));
+        lblContatore.setForeground(new Color(0, 52, 101));
+        
+        // Bottone freccia sinistra
+        JButton btnPrev = new JButton(new ImageIcon(ListaAnnunci.class.getResource("/icons/icons8-arrow-pointing-left-24.png")));
+        btnPrev.setBackground(new Color(45, 134, 192));
+        btnPrev.setBorderPainted(false);
+        btnPrev.setFocusPainted(false);
+        btnPrev.setPreferredSize(new Dimension(50, 30));
+        
+        // Bottone freccia destra
+        JButton btnNext = new JButton(new ImageIcon(ListaAnnunci.class.getResource("/icons/icons8-arrow-24.png")));
+        btnNext.setBackground(new Color(45, 134, 192));
+        btnNext.setBorderPainted(false);
+        btnNext.setFocusPainted(false);
+        btnNext.setPreferredSize(new Dimension(50, 30));
+        
+        controlliPanel.add(btnPrev, BorderLayout.WEST);
+        controlliPanel.add(lblContatore, BorderLayout.CENTER);
+        controlliPanel.add(btnNext, BorderLayout.EAST);
+        
+        caroselloPanel.add(lblImmagine, BorderLayout.CENTER);
+        caroselloPanel.add(controlliPanel, BorderLayout.SOUTH);
+        
+        // Carica le foto dal database
+        try {
+            FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
+            ArrayList<String> percorsi = fotoDAO.getFotoByAnnuncio(idAnnuncio);
+            
+            if (percorsi != null && !percorsi.isEmpty()) {
+                // Array per tenere traccia dell'indice corrente
+                final int[] indiceCorrente = {0};
+                
+                // Metodo per aggiornare l'immagine visualizzata
+                Runnable aggiornaImmagine = () -> {
+                    String percorsoFoto = percorsi.get(indiceCorrente[0]);
+                    File file = new File(percorsoFoto);
+                    
+                    if (file.exists()) {
+                        ImageIcon originalIcon = new ImageIcon(percorsoFoto);
+                        Image scaledImage = originalIcon.getImage().getScaledInstance(
+                            200, 150, Image.SCALE_SMOOTH
+                        );
+                        lblImmagine.setIcon(new ImageIcon(scaledImage));
+                        lblImmagine.setText("");
+                    } else {
+                        lblImmagine.setIcon(null);
+                        lblImmagine.setText("Immagine non trovata");
+                        lblImmagine.setFont(new Font("Verdana", Font.PLAIN, 12));
+                    }
+                    
+                    // Aggiorna contatore
+                    lblContatore.setText((indiceCorrente[0] + 1) + "/" + percorsi.size());
+                    
+                    // Abilita/disabilita frecce
+                    btnPrev.setEnabled(indiceCorrente[0] > 0);
+                    btnNext.setEnabled(indiceCorrente[0] < percorsi.size() - 1);
+                };
+                
+                // Mostra la prima immagine
+                aggiornaImmagine.run();
+                
+                // Azione freccia sinistra
+                btnPrev.addActionListener(e -> {
+                    if (indiceCorrente[0] > 0) {
+                        indiceCorrente[0]--;
+                        aggiornaImmagine.run();
+                    }
+                });
+                
+                // Azione freccia destra
+                btnNext.addActionListener(e -> {
+                    if (indiceCorrente[0] < percorsi.size() - 1) {
+                        indiceCorrente[0]++;
+                        aggiornaImmagine.run();
+                    }
+                });
+                
+                // Se c'è solo una foto, nascondi i controlli
+                if (percorsi.size() <= 1) {
+                    btnPrev.setVisible(false);
+                    btnNext.setVisible(false);
+                }
+                
+            } else {
+                // Nessuna foto disponibile
+                lblImmagine.setText("📷 Nessuna foto");
+                lblImmagine.setFont(new Font("Verdana", Font.PLAIN, 14));
+                btnPrev.setVisible(false);
+                btnNext.setVisible(false);
+                lblContatore.setVisible(false);
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Errore nel caricamento delle foto: " + e.getMessage());
+            lblImmagine.setText("Errore caricamento");
+            lblImmagine.setFont(new Font("Verdana", Font.PLAIN, 12));
+            btnPrev.setVisible(false);
+            btnNext.setVisible(false);
+            lblContatore.setVisible(false);
+        }
+        
+        return caroselloPanel;
+    }
 
+    
     // -------------------- OFFERTA --------------------
 
     private void apriOfferta(int idAnnuncio, String matricolaVenditore, StatoAnnuncio stato, String tipologia) {
