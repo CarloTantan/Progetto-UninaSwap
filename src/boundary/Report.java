@@ -42,7 +42,7 @@ public class Report extends JFrame {
         // TABELLA 1: OFFERTE
         DefaultTableModel modelTabella = new DefaultTableModel(
     		    new Object[][]{},
-    		    new String[]{"Offerte Totali", "Offerte Regalo Inviata", "Offerte Scambio Inviata", "Offerte Vendita Inviata","Offerte Vendita Accettata","Offerte Regalo Accettata","Offerte Scambio Accettata"}
+    		    new String[]{"Offerte  Totali", "Offerte Regalo Inviata", "Offerte Scambio Inviata", "Offerte Vendita Inviata","Offerte Vendita Accettata","Offerte Regalo Accettata","Offerte Scambio Accettata"}
     		) {
     		    @Override
     		    public boolean isCellEditable(int row, int column) {
