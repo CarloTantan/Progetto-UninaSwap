@@ -6,8 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dao.FotoAnnuncioDAO;
+import dao.InserimentoAnnunciDAO;
 import entity.Oggetto_entity;
 import entity.Utente_entity;
+import enumerations.FasciaOraria;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -16,6 +19,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
@@ -28,6 +33,11 @@ public class AnnuncioScambio extends JFrame {
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
 	private Oggetto_entity OggettoAnnuncio;
+	private String titolo;
+	private String descrizione;
+	private String modalitaConsegna;
+	private FasciaOraria fasciaOraria;
+	private ArrayList<String> percorsiImmagini;	
 
 	/**
 	 * Launch the application.
@@ -49,9 +59,17 @@ public class AnnuncioScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioScambio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio) {
+	public AnnuncioScambio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio,
+            String titolo, String descrizione, String modalitaConsegna,
+            FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini) {
 		this.OggettoAnnuncio = OggettoAnnuncio;
 		this.UtenteLoggato = UtenteLoggato;
+		this.titolo = titolo;
+		this.descrizione = descrizione;
+		this.modalitaConsegna = modalitaConsegna;
+		this.fasciaOraria = fasciaOraria;
+		this.percorsiImmagini = percorsiImmagini;		
+		
 		setTitle("Scambio");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,6 +113,8 @@ public class AnnuncioScambio extends JFrame {
 		textAreaOggettoRichiesto.setForeground(new Color(255, 255, 255));
 		textAreaOggettoRichiesto.setBackground(Color.WHITE);
 		textAreaOggettoRichiesto.setBackground(new Color(0, 52, 102));
+		textAreaOggettoRichiesto.setLineWrap(true);
+		textAreaOggettoRichiesto.setWrapStyleWord(true);		
 		textAreaOggettoRichiesto.setBounds(293, 127, 199, 40);
 		contentPane.add(textAreaOggettoRichiesto);
 		
@@ -116,16 +136,51 @@ public class AnnuncioScambio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (textAreaOggettoRichiesto.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else {
+					JOptionPane.showMessageDialog(null, 
+						"Il campo oggetto richiesto è obbligatorio", 
+						"Campo mancante", 
+						JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
+				try {
+					String oggettoRichiesto = textAreaOggettoRichiesto.getText().trim();
+					
+					// Inserisci l'annuncio nel database
+					InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
+					int idAnnuncio = annuncioDAO.inserisciAnnuncioScambio(
+						titolo, 
+						descrizione, 
+						modalitaConsegna, 
+						fasciaOraria, 
+						oggettoRichiesto, 
+						UtenteLoggato.getMatricola(), 
+						OggettoAnnuncio.getIdOggetto()
+					);
+					
+					// Inserisci le foto dell'annuncio
+					FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
+					for (String percorsoImg : percorsiImmagini) {
+						fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
+					}
+					
 					setVisible(false);
-					JOptionPane.showMessageDialog(null, "Pubblicazione avvenuta con successo", "Annuncio pubblicato", JOptionPane.INFORMATION_MESSAGE);
-					setVisible(false); 
+					JOptionPane.showMessageDialog(null, 
+						"Pubblicazione avvenuta con successo", 
+						"Annuncio pubblicato", 
+						JOptionPane.INFORMATION_MESSAGE);
 					AreaUtente utenteFrame = new AreaUtente(UtenteLoggato); 
 					utenteFrame.setVisible(true);
+					utenteFrame.setLocationRelativeTo(null);
+					
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, 
+						"Errore durante la pubblicazione: " + ex.getMessage(), 
+						"Errore Database", 
+						JOptionPane.ERROR_MESSAGE);
+					ex.printStackTrace();
 				}
 			}
 		});
-		
 	}
 }

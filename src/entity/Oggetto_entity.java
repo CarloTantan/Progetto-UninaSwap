@@ -14,7 +14,7 @@ public class Oggetto_entity {
 	}
 	
 	//Getter
-	public int getidOggetto() {
+	public int getIdOggetto() {
 		return IdOggetto;
 	}
 	
