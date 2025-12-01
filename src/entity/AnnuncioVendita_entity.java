@@ -21,4 +21,30 @@ public class AnnuncioVendita_entity extends Annuncio_entity {
 	public void setPrezzoVendita(float PrezzoVendita) {
 		this.PrezzoVendita = PrezzoVendita; 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

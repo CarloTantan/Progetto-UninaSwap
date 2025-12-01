@@ -6,20 +6,24 @@ public class Offerta_entity {
 	protected String MatricolaAcquirente;
 	protected String TipologiaOfferta ;
 	protected int IdAnnuncio;
+	protected int NumeroOfferte;
 	
 	
-	
-	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta ) {
+	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta,int NumeroOfferte ) {
 		this.IdOfferta = IdOfferta;
 		this.StatoOfferta = StatoOfferta;
 		this.MatricolaAcquirente = MatricolaAcquirente;
 		this.IdAnnuncio = IdAnnuncio;
 		this.TipologiaOfferta=TipologiaOfferta;
+		this.NumeroOfferte= NumeroOfferte;
 	}
 	
 //Getter	
 	public int getIdOfferta() {
 		return IdOfferta;
+	}
+	public int getNumeroOfferte() {
+		return NumeroOfferte;
 	}
 	
 	public String getStatoOfferta() {
@@ -56,4 +60,12 @@ public class Offerta_entity {
 	public void setIdAnnuncio(int IdAnnuncio) {
 		this.IdAnnuncio = IdAnnuncio;
 	}
+	public void setNumeroOfferte(int NumeroOfferte) {
+		this.NumeroOfferte = NumeroOfferte;
+	}
+	
+	
+	
+	
+	
 }
