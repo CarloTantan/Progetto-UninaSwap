@@ -9,13 +9,12 @@ public class Offerta_entity {
 
 	
 	
-	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta ) {
+	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta) {
 		this.IdOfferta = IdOfferta;
 		this.StatoOfferta = StatoOfferta;
 		this.MatricolaAcquirente = MatricolaAcquirente;
 		this.IdAnnuncio = IdAnnuncio;
 		this.TipologiaOfferta=TipologiaOfferta;
-		
 	}
 	
 //Getter	
@@ -58,10 +57,6 @@ public class Offerta_entity {
 	public void setIdAnnuncio(int IdAnnuncio) {
 		this.IdAnnuncio = IdAnnuncio;
 	}
-	
-	
-	
-	
-	
+
 	
 }
