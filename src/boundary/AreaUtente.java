@@ -174,10 +174,10 @@ public class AreaUtente extends JFrame {
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				dispose();
 				Login LoginFrame = new Login();
-				LoginFrame.setVisible(true);
-				LoginFrame.setLocationRelativeTo(null);
+		        LoginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Aggiungi questa riga
+		        LoginFrame.setVisible(true);
 			}
 		});
 		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));

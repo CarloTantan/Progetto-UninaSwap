@@ -12,12 +12,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import java.awt.Toolkit;
@@ -25,7 +32,7 @@ import java.awt.Toolkit;
 public class Registrazione extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel Registrazione;
+	private JPanel contentPane;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldMatricola;
@@ -37,18 +44,18 @@ public class Registrazione extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registrazione frame = new Registrazione();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Registrazione frame = new Registrazione();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -57,109 +64,189 @@ public class Registrazione extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Registrazione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Registrazione");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 670, 440);
-		Registrazione = new JPanel();
-		Registrazione.setBackground(Color.WHITE);
-		Registrazione.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(Registrazione);
-		Registrazione.setLayout(null);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setMinimumSize(new Dimension(1100, 600));
 		
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout());
+		
+		// Pannello laterale sinistro
+		JPanel panelLaterale = new JPanel();
+		panelLaterale.setLayout(null);
+		panelLaterale.setBackground(new Color(46, 132, 191));
+		panelLaterale.setPreferredSize(new Dimension(350, 0));
+		contentPane.add(panelLaterale, BorderLayout.WEST);
+		
+		// Logo
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
+		lblLogo.setBounds(68, 200, 214, 218);
+		panelLaterale.add(lblLogo);
+		
+		// Bottone indietro
+		JButton btnIndietro = new JButton("");
+		btnIndietro.setBackground(new Color(46, 132, 191));
+		btnIndietro.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+		btnIndietro.setBounds(15, 15, 50, 50);
+		btnIndietro.setFocusPainted(false);
+		btnIndietro.setBorderPainted(false);
+		panelLaterale.add(btnIndietro);
+		
+		btnIndietro.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	dispose();
+		    	Homepage homepageFrame = new Homepage();
+		    	homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		        homepageFrame.setVisible(true);
+		    }
+		});
+		
+		// Pannello centrale con GridBagLayout
+		JPanel panelCentrale = new JPanel();
+		panelCentrale.setBackground(Color.WHITE);
+		panelCentrale.setLayout(new GridBagLayout());
+		contentPane.add(panelCentrale, BorderLayout.CENTER);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(8, 10, 8, 10);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		
+		// Titolo
 		JLabel lblRegistra = new JLabel("Registrazione Nuovo Utente");
-		lblRegistra.setFont(new Font("Verdana", Font.BOLD, 20));
-		lblRegistra.setBounds(252, 10, 346, 35);
-		Registrazione.add(lblRegistra);
+		lblRegistra.setFont(new Font("Verdana", Font.BOLD, 28));
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 2;
+		gbc.insets = new Insets(20, 10, 30, 10);
+		gbc.anchor = GridBagConstraints.CENTER;
+		panelCentrale.add(lblRegistra, gbc);
 		
+		// Reset per i campi
+		gbc.gridwidth = 1;
+		gbc.insets = new Insets(8, 10, 8, 10);
+		gbc.anchor = GridBagConstraints.WEST;
+		
+		// Nome
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNome.setBounds(272, 64, 326, 22);
-		Registrazione.add(lblNome);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panelCentrale.add(lblNome, gbc);
 		
 		textFieldNome = new JTextField();
-		textFieldNome.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldNome.setBounds(444, 64, 154, 22);
-		Registrazione.add(textFieldNome);
-		textFieldNome.setColumns(10);
+		textFieldNome.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldNome.setPreferredSize(new Dimension(250, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		panelCentrale.add(textFieldNome, gbc);
 		
+		// Cognome
 		JLabel lblCognome = new JLabel("Cognome");
 		lblCognome.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblCognome.setBounds(272, 96, 326, 22);
-		Registrazione.add(lblCognome);
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		panelCentrale.add(lblCognome, gbc);
 		
 		textFieldCognome = new JTextField();
-		textFieldCognome.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldCognome.setColumns(10);
-		textFieldCognome.setBounds(444, 96, 154, 22);
-		Registrazione.add(textFieldCognome);
+		textFieldCognome.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldCognome.setPreferredSize(new Dimension(250, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		panelCentrale.add(textFieldCognome, gbc);
 		
-		JLabel lblEmail = new JLabel("E-mail");
-		lblEmail.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblEmail.setBounds(272, 193, 326, 22);
-		Registrazione.add(lblEmail);
-		
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblPassword.setBounds(272, 225, 326, 22);
-		Registrazione.add(lblPassword);
-		
+		// Matricola
 		JLabel lblMatricola = new JLabel("Matricola");
 		lblMatricola.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblMatricola.setBounds(272, 128, 326, 22);
-		Registrazione.add(lblMatricola);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		panelCentrale.add(lblMatricola, gbc);
 		
 		textFieldMatricola = new JTextField();
-		textFieldMatricola.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldMatricola.setColumns(10);
-		textFieldMatricola.setBounds(444, 128, 154, 22);
-		Registrazione.add(textFieldMatricola);
+		textFieldMatricola.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldMatricola.setPreferredSize(new Dimension(250, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		panelCentrale.add(textFieldMatricola, gbc);
 		
-		textFieldEmail = new JTextField();
-		textFieldEmail.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(444, 193, 154, 22);
-		Registrazione.add(textFieldEmail);
-		
-		textFieldPassword = new JPasswordField();
-		textFieldPassword.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldPassword.setColumns(10);
-		textFieldPassword.setBounds(444, 225, 154, 22);
-		Registrazione.add(textFieldPassword);
-		
+		// Telefono
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblTelefono.setBounds(272, 160, 326, 22);
-		Registrazione.add(lblTelefono);
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		panelCentrale.add(lblTelefono, gbc);
 		
 		textFieldTelefono = new JTextField();
-		textFieldTelefono.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldTelefono.setColumns(10);
-		textFieldTelefono.setBounds(444, 160, 154, 22);
-		Registrazione.add(textFieldTelefono);
+		textFieldTelefono.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldTelefono.setPreferredSize(new Dimension(250, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		panelCentrale.add(textFieldTelefono, gbc);
 		
+		// Email
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setFont(new Font("Verdana", Font.BOLD, 16));
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		panelCentrale.add(lblEmail, gbc);
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldEmail.setPreferredSize(new Dimension(250, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 5;
+		panelCentrale.add(textFieldEmail, gbc);
+		
+		// Password
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Verdana", Font.BOLD, 16));
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		panelCentrale.add(lblPassword, gbc);
+		
+		textFieldPassword = new JPasswordField();
+		textFieldPassword.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldPassword.setPreferredSize(new Dimension(250, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 6;
+		panelCentrale.add(textFieldPassword, gbc);
+		
+		// Conferma Password
 		JLabel lblConfermaPassword = new JLabel("Conferma Password");
 		lblConfermaPassword.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblConfermaPassword.setBounds(252, 257, 326, 22);
-		Registrazione.add(lblConfermaPassword);
+		gbc.gridx = 0;
+		gbc.gridy = 7;
+		panelCentrale.add(lblConfermaPassword, gbc);
 		
 		textFieldConfermaPassword = new JPasswordField();
-		textFieldConfermaPassword.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldConfermaPassword.setColumns(10);
-		textFieldConfermaPassword.setBounds(444, 259, 154, 22);
-		Registrazione.add(textFieldConfermaPassword);
+		textFieldConfermaPassword.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldConfermaPassword.setPreferredSize(new Dimension(250, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 7;
+		panelCentrale.add(textFieldConfermaPassword, gbc);
 		
+		// Bottone Registrati
 		JButton btnRegistrati = new JButton("Registrati");
 		btnRegistrati.setForeground(Color.WHITE);
 		btnRegistrati.setBackground(new Color(46, 132, 191));
-		btnRegistrati.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnRegistrati.setBounds(349, 313, 249, 35);
+		btnRegistrati.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnRegistrati.setPreferredSize(new Dimension(200, 45));
 		btnRegistrati.setFocusPainted(false);
 		btnRegistrati.setBorderPainted(false);
-		Registrazione.add(btnRegistrati);
+		gbc.gridx = 0;
+		gbc.gridy = 8;
+		gbc.gridwidth = 2;
+		gbc.insets = new Insets(20, 10, 10, 10);
+		gbc.anchor = GridBagConstraints.CENTER;
+		panelCentrale.add(btnRegistrati, gbc);
 		getRootPane().setDefaultButton(btnRegistrati);
 		
 		btnRegistrati.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 				if (textFieldNome.getText().trim().isEmpty() ||
 			            textFieldCognome.getText().trim().isEmpty() ||
 			            textFieldMatricola.getText().trim().isEmpty() ||
@@ -168,45 +255,13 @@ public class Registrazione extends JFrame {
 			            textFieldTelefono.getText().trim().isEmpty() ||
 			            textFieldConfermaPassword.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				
 				} else if (!textFieldPassword.getText().equals(textFieldConfermaPassword.getText())) {
 					JOptionPane.showMessageDialog(null, "Le password non corrispondono", "Errore di conferma password", JOptionPane.WARNING_MESSAGE);
-				}else {
+				} else {
 					registrazioneUtente();
-					
 				}
-		}});
-		
-		
-
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(new Color(46, 132, 191));
-		panel.setBounds(0, 0, 234, 403);
-		Registrazione.add(panel);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
-		lblNewLabel.setBounds(10, 52, 214, 218);
-		panel.add(lblNewLabel);
-		
-		JButton btnIndietro = new JButton("");
-		btnIndietro.setBackground(new Color(46, 132, 191));
-		btnIndietro.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
-		btnIndietro.setBounds(10, 10, 39, 32);
-		btnIndietro.setFocusPainted(false);
-		btnIndietro.setBorderPainted(false);
-		panel.add(btnIndietro);
-		btnIndietro.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		    	dispose();
-		    	Homepage homepageFrame = new Homepage();
-		        homepageFrame.setVisible(true);
-		    }
+			}
 		});
-		
-
 	}
 	
 	private void registrazioneUtente() {
@@ -226,9 +281,9 @@ public class Registrazione extends JFrame {
                 "Successo", 
                 JOptionPane.INFORMATION_MESSAGE);
             
-            // Apri l'interfaccia area utente
-            this.dispose(); // Chiudi la finestra di registrazione
+            this.dispose();
             Homepage homepageFrame = new Homepage();
+            homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			homepageFrame.setVisible(true);
             
         } else {
@@ -237,9 +292,8 @@ public class Registrazione extends JFrame {
                 "Errore Registrazione", 
                 JOptionPane.ERROR_MESSAGE);
 
-            textFieldPassword.setText("");// Pulisci il campo password
+            textFieldPassword.setText("");
             textFieldConfermaPassword.setText("");
         }
-        
 	}
 }
