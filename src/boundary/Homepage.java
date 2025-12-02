@@ -88,7 +88,7 @@ public class Homepage extends JFrame {
 		gbc.gridy = 0;
 		gbc.gridwidth = 2;
 		gbc.insets = new Insets(20, 10, 40, 10);
-		panelCentrale.add(lblTitolo, gbc);
+		panelCentrale.add(lblTitolo, (GridBagConstraints) gbc.clone());
 		
 		JLabel lblnuovoUtente = new JLabel("Sei un nuovo utente?");
 		lblnuovoUtente.setFont(new Font("Verdana", Font.BOLD, 18));
@@ -97,7 +97,7 @@ public class Homepage extends JFrame {
 		gbc.gridwidth = 1;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		gbc.anchor = GridBagConstraints.EAST;
-		panelCentrale.add(lblnuovoUtente, gbc);
+		panelCentrale.add(lblnuovoUtente, (GridBagConstraints) gbc.clone());
 		
 		JButton btnRegistrati = new JButton("Registrati");
 		btnRegistrati.setForeground(Color.WHITE);
@@ -109,7 +109,7 @@ public class Homepage extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		gbc.anchor = GridBagConstraints.WEST;
-		panelCentrale.add(btnRegistrati, gbc);
+		panelCentrale.add(btnRegistrati, (GridBagConstraints) gbc.clone());
 		
 		btnRegistrati.addActionListener(new ActionListener() {
 			@Override
@@ -124,7 +124,7 @@ public class Homepage extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.anchor = GridBagConstraints.EAST;
-		panelCentrale.add(lblGiaRegistrato, gbc);
+		panelCentrale.add(lblGiaRegistrato, (GridBagConstraints) gbc.clone());
 		
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.setForeground(Color.WHITE);
@@ -136,7 +136,7 @@ public class Homepage extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		gbc.anchor = GridBagConstraints.WEST;
-		panelCentrale.add(btnAccedi, gbc);
+		panelCentrale.add(btnAccedi, (GridBagConstraints) gbc.clone());
 		
 		btnAccedi.addActionListener(new ActionListener() {
 			@Override
