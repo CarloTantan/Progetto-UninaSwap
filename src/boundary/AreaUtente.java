@@ -174,7 +174,7 @@ public class AreaUtente extends JFrame {
 				setVisible(false);
 				StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(UtenteLoggato);
 				StoricoOfferteFrame.setVisible(true);
-				StoricoOfferteFrame.setLocationRelativeTo(null);
+				
 			}
 		});
 		buttonPanel.add(btnVisualizzaStoricoOfferte, gbc);
@@ -187,7 +187,7 @@ public class AreaUtente extends JFrame {
 				setVisible(false);
 				ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(UtenteLoggato);
 				ListaTransazioniFrame.setVisible(true);
-				ListaTransazioniFrame.setLocationRelativeTo(null);
+				
 			}
 		});
 		buttonPanel.add(btnInserisciRecensione, gbc);
@@ -202,7 +202,7 @@ public class AreaUtente extends JFrame {
 				setVisible(false);
 				AnnunciPubblicati OfferteRicevuteFrame = new AnnunciPubblicati(UtenteLoggato);
 				OfferteRicevuteFrame.setVisible(true);
-				OfferteRicevuteFrame.setLocationRelativeTo(null);
+				
 			}
 		});
 		buttonPanel.add(btnVisualizzaOfferteRicevute, gbc);
@@ -214,7 +214,7 @@ public class AreaUtente extends JFrame {
 				setVisible(false);
 				Oggetto OggettoFrame = new Oggetto(UtenteLoggato);
 				OggettoFrame.setVisible(true);
-				OggettoFrame.setLocationRelativeTo(null);
+				
 			}
 		});
 		buttonPanel.add(btnCreaAnnuncio, gbc);
@@ -229,7 +229,7 @@ public class AreaUtente extends JFrame {
 				setVisible(false);
 				ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(UtenteLoggato);
 				ListaRecensioniFrame.setVisible(true);
-				ListaRecensioniFrame.setLocationRelativeTo(null);
+				
 			}
 		});
 		buttonPanel.add(btnVisualizzaRecensioni, gbc);
@@ -242,7 +242,7 @@ public class AreaUtente extends JFrame {
 				setVisible(false);
 				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
 				ListaAnnunciFrame.setVisible(true);
-				ListaAnnunciFrame.setLocationRelativeTo(null);
+				
 			}
 		});
 		buttonPanel.add(btnVisualizzaAnnuncio, gbc);

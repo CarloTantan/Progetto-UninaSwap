@@ -10,12 +10,19 @@ import javax.swing.border.EmptyBorder;
 import dao.InserimentoRecensioneDAO;
 import entity.Utente_entity;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
@@ -65,27 +72,48 @@ public class InserimentoRecensione extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scrivi la tua recensione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 410);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setMinimumSize(new Dimension(800, 600));
 		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPane.setBackground(new Color(245, 247, 250));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(new Color(46, 132, 191));
-		panel.setBounds(0, 0, 577, 64);
-		contentPane.add(panel);
+		// Header Panel
+		JPanel headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(50, 132, 188));
+		headerPanel.setPreferredSize(new Dimension(0, 100));
+		headerPanel.setLayout(new BorderLayout(10, 0));
+		contentPane.add(headerPanel, BorderLayout.NORTH);
+		
+		// Pannello sinistro con pulsante back
+		JPanel leftPanel = new JPanel();
+		leftPanel.setBackground(new Color(50, 132, 188));
+		leftPanel.setPreferredSize(new Dimension(100, 100));
+		leftPanel.setBorder(new EmptyBorder(25, 15, 0, 0));
 		
 		JButton btnIndietro = new JButton("");
-		btnIndietro.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnIndietro.setIcon(new ImageIcon(InserimentoRecensione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+		btnIndietro.setBackground(new Color(50, 132, 188));
+		btnIndietro.setPreferredSize(new Dimension(50, 50));
 		btnIndietro.setFocusPainted(false);
 		btnIndietro.setBorderPainted(false);
-		btnIndietro.setBackground(new Color(46, 132, 191));
-		btnIndietro.setBounds(10, 10, 39, 44);
-		panel.add(btnIndietro);
+		btnIndietro.setContentAreaFilled(false);
+		
+		// Effetto hover
+		btnIndietro.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				btnIndietro.setBackground(new Color(70, 152, 208));
+				btnIndietro.setContentAreaFilled(true);
+			}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				btnIndietro.setBackground(new Color(50, 132, 188));
+				btnIndietro.setContentAreaFilled(false);
+			}
+		});
+		
 		btnIndietro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -93,192 +121,202 @@ public class InserimentoRecensione extends JFrame {
 			}
 		});
 		
-		JLabel lblInserisciUnaRecensione = new JLabel("Lascia una recensione");
-		lblInserisciUnaRecensione.setFont(new Font("Verdana", Font.BOLD, 20));
-		lblInserisciUnaRecensione.setBounds(210, 4, 275, 54);
-		panel.add(lblInserisciUnaRecensione);
+		leftPanel.add(btnIndietro);
+		headerPanel.add(leftPanel, BorderLayout.WEST);
 		
+		// Pannello centrale con titolo
+		JPanel centerPanel = new JPanel();
+		centerPanel.setBackground(new Color(50, 132, 188));
+		centerPanel.setBorder(new EmptyBorder(30, 0, 0, 0));
+		JLabel lblTitolo = new JLabel("Lascia una recensione");
+		lblTitolo.setForeground(Color.WHITE);
+		lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
+		centerPanel.add(lblTitolo);
+		headerPanel.add(centerPanel, BorderLayout.CENTER);
+		
+		// Container principale con padding
+		JPanel mainContainer = new JPanel();
+		mainContainer.setBackground(new Color(245, 247, 250));
+		mainContainer.setBorder(new EmptyBorder(50, 100, 50, 100));
+		mainContainer.setLayout(new GridBagLayout());
+		contentPane.add(mainContainer, BorderLayout.CENTER);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(15, 10, 15, 10);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		
+		// Label Punteggio
 		JLabel lblPunteggio = new JLabel("Punteggio");
-		lblPunteggio.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblPunteggio.setBounds(107, 91, 111, 26);
-		contentPane.add(lblPunteggio);
+		lblPunteggio.setFont(new Font("Verdana", Font.BOLD, 18));
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.weightx = 0.3;
+		mainContainer.add(lblPunteggio, gbc);
 		
-		String[] punteggi= {"Seleziona punteggio", "1", "2", "3", "4", "5"};
-		JComboBox comboBoxPunteggi = new JComboBox<>(punteggi);
+		// ComboBox Punteggio
+		String[] punteggi = {"Seleziona punteggio", "1", "2", "3", "4", "5"};
+		comboBoxPunteggi = new JComboBox<>(punteggi);
 		comboBoxPunteggi.setForeground(new Color(0, 0, 0));
 		comboBoxPunteggi.setBackground(new Color(255, 255, 255));
-		comboBoxPunteggi.setFont(new Font("Verdana", Font.BOLD, 16));
-		comboBoxPunteggi.setBounds(228, 92, 233, 26);
-		contentPane.add(comboBoxPunteggi);
+		comboBoxPunteggi.setFont(new Font("Verdana", Font.PLAIN, 16));
+		comboBoxPunteggi.setPreferredSize(new Dimension(300, 40));
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.weightx = 0.7;
+		mainContainer.add(comboBoxPunteggi, gbc);
 		
+		// Label Commento
 		JLabel lblCommento = new JLabel("Commento");
-		lblCommento.setFont(new Font("Verdana Pro Black", Font.BOLD, 16));
-		lblCommento.setBounds(107, 146, 111, 26);
-		contentPane.add(lblCommento);
+		lblCommento.setFont(new Font("Verdana", Font.BOLD, 18));
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.weightx = 0.3;
+		mainContainer.add(lblCommento, gbc);
 		
-		JTextArea textAreaCommento = new JTextArea();
+		// TextArea Commento con ScrollPane
+		textAreaCommento = new JTextArea();
 		textAreaCommento.setForeground(new Color(0, 0, 0));
-		textAreaCommento.setRows(8);
-		textAreaCommento.setColumns(90);
 		textAreaCommento.setWrapStyleWord(true);
 		textAreaCommento.setLineWrap(true);
-		textAreaCommento.setFont(new Font("Verdana Pro", Font.BOLD, 16));
-		textAreaCommento.setBounds(228, 145, 233, 151);
-		contentPane.add(textAreaCommento);
+		textAreaCommento.setFont(new Font("Verdana", Font.PLAIN, 14));
+		textAreaCommento.setRows(8);
 		
-		JScrollPane scrollPane= new JScrollPane(textAreaCommento);
-		scrollPane.setBounds(228, 150, 233, 116);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        contentPane.add(scrollPane);
+		JScrollPane scrollPane = new JScrollPane(textAreaCommento);
+		scrollPane.setPreferredSize(new Dimension(400, 200));
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 0.7;
+		gbc.weighty = 1.0;
+		mainContainer.add(scrollPane, gbc);
+		
+		// Bottone Invia
+		JButton btnInvia = new JButton("Invia");
+		btnInvia.setFocusPainted(false);
+		btnInvia.setBorderPainted(false);
+		btnInvia.setForeground(new Color(255, 255, 255));
+		btnInvia.setBackground(new Color(0, 52, 104));
+		btnInvia.setFont(new Font("Verdana", Font.BOLD, 16));
+		btnInvia.setPreferredSize(new Dimension(200, 50));
+		
+		// Effetto hover
+		btnInvia.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				btnInvia.setBackground(new Color(0, 70, 140));
+			}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				btnInvia.setBackground(new Color(0, 52, 104));
+			}
+		});
+		
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridwidth = 2;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.weighty = 0;
+		gbc.insets = new Insets(30, 10, 20, 10);
+		mainContainer.add(btnInvia, gbc);
         
-        JButton btnInvia = new JButton("Invia");
-        btnInvia.setFocusPainted(false);
-        btnInvia.setBorderPainted(false);
-        btnInvia.setForeground(new Color(255, 255, 255));
-        btnInvia.setBackground(new Color(0, 52, 101));
-        btnInvia.setFont(new Font("Verdana", Font.BOLD, 16));
-        btnInvia.setBounds(228, 290, 233, 50);
-        contentPane.add(btnInvia);
-        
-        btnInvia.addActionListener(new ActionListener() {
-        	@Override
+		btnInvia.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if (comboBoxPunteggi.getSelectedIndex()==0){
-					JOptionPane.showMessageDialog(null, "Seleziona un punteggio", "Punteggio mancante", JOptionPane.WARNING_MESSAGE);
-					return;
-				} 
-				
-				int punteggio = Integer.parseInt(comboBoxPunteggi.getSelectedItem().toString());
-		        String commento = textAreaCommento.getText();
-		        
-		        try {
-		        	InserimentoRecensioneDAO InserimentoRecensioneDAO = new InserimentoRecensioneDAO();
-		        	if (InserimentoRecensioneDAO.esisteRecensione(idOfferta)) {
-	                    JOptionPane.showMessageDialog(null, 
-	                        "Hai già inserito una recensione per questa transazione!", 
-	                        "Recensione già presente", JOptionPane.WARNING_MESSAGE);
-	                    return;
-	                }
-		        	
-		        	InserimentoRecensioneDAO.inserisciRecensione(
-		        			matricolaVenditore,
-		                    matricolaAcquirente,
-		                    punteggio,
-		                    commento,
-		                    idOfferta
-		            );
-
-		            JOptionPane.showMessageDialog(null, "Recensione inviata con successo!");
-		            setVisible(false);
-		            new AreaUtente(UtenteLoggato).setVisible(true);
-
-		        } catch (Exception ex) {
-		        	ex.printStackTrace();
-	                if (ex.getMessage().contains("unique")) {
-	                    JOptionPane.showMessageDialog(null, 
-	                        "Hai già inserito una recensione per questa transazione!");
-	                } else {
-	                    JOptionPane.showMessageDialog(null, 
-	                        "Errore durante il salvataggio della recensione");
-	                }
-	            }
-	        }
-	    });
-        
-        
-
-        
+				inviaRecensione();
+			}
+		});
 	}
 	
-	//validazione campi
+	// Validazione campi
 	private boolean validaCampi() {
-        // Verifica che sia selezionato un punteggio
-        if (comboBoxPunteggi.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this,
-                "Seleziona un punteggio",
-                "Punteggio mancante",
-                JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        
-        return true;
-    }
+		// Verifica che sia selezionato un punteggio
+		if (comboBoxPunteggi.getSelectedIndex() == 0) {
+			JOptionPane.showMessageDialog(this,
+				"Seleziona un punteggio",
+				"Punteggio mancante",
+				JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		
+		return true;
+	}
 	
-	//invia la recensione al database
+	// Invia la recensione al database
 	private void inviaRecensione() {
-        // Validazione campi
-        if (!validaCampi()) {
-            return;
-        }
-        
-        // Recupera i valori dai campi
-        int punteggio = Integer.parseInt(comboBoxPunteggi.getSelectedItem().toString());
-        String commento = textAreaCommento.getText().trim();
-        
-        try {
-            // Verifica se esiste già una recensione per questa offerta
-            if (recensioneDAO.esisteRecensione(idOfferta)) {
-                JOptionPane.showMessageDialog(this,
-                    "Hai già inserito una recensione per questa transazione!",
-                    "Recensione già presente",
-                    JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            
-            // Inserisci la recensione
-            recensioneDAO.inserisciRecensione(
-                matricolaVenditore,
-                matricolaAcquirente,
-                punteggio,
-                commento,
-                idOfferta
-            );
+		// Validazione campi
+		if (!validaCampi()) {
+			return;
+		}
+		
+		// Recupera i valori dai campi
+		int punteggio = Integer.parseInt(comboBoxPunteggi.getSelectedItem().toString());
+		String commento = textAreaCommento.getText().trim();
+		
+		try {
+			InserimentoRecensioneDAO InserimentoRecensioneDAO = new InserimentoRecensioneDAO();
+			
+			// Verifica se esiste già una recensione per questa offerta
+			if (InserimentoRecensioneDAO.esisteRecensione(idOfferta)) {
+				JOptionPane.showMessageDialog(this,
+					"Hai già inserito una recensione per questa transazione!",
+					"Recensione già presente",
+					JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			// Inserisci la recensione
+			InserimentoRecensioneDAO.inserisciRecensione(
+				matricolaVenditore,
+				matricolaAcquirente,
+				punteggio,
+				commento,
+				idOfferta
+			);
 
-            // Mostra messaggio di successo
-            JOptionPane.showMessageDialog(this,
-                "Recensione inviata con successo!",
-                "Successo",
-                JOptionPane.INFORMATION_MESSAGE);
-            
-            // Torna all'area utente
-            tornaAreaUtente();
+			// Mostra messaggio di successo
+			JOptionPane.showMessageDialog(this,
+				"Recensione inviata con successo!",
+				"Successo",
+				JOptionPane.INFORMATION_MESSAGE);
+			
+			// Torna all'area utente
+			tornaAreaUtente();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            
-            // Gestione errori specifici
-            if (ex.getMessage().contains("unique")) {
-                JOptionPane.showMessageDialog(this,
-                    "Hai già inserito una recensione per questa transazione!",
-                    "Recensione duplicata",
-                    JOptionPane.ERROR_MESSAGE);
-            } else if (ex.getMessage().contains("autorecensione")) {
-                JOptionPane.showMessageDialog(this,
-                    "Non puoi recensire te stesso!",
-                    "Errore",
-                    JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                    "Errore durante il salvataggio della recensione: " + ex.getMessage(),
-                    "Errore",
-                    JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                "Errore imprevisto durante il salvataggio della recensione",
-                "Errore",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			
+			// Gestione errori specifici
+			if (ex.getMessage().contains("unique")) {
+				JOptionPane.showMessageDialog(this,
+					"Hai già inserito una recensione per questa transazione!",
+					"Recensione duplicata",
+					JOptionPane.ERROR_MESSAGE);
+			} else if (ex.getMessage().contains("autorecensione")) {
+				JOptionPane.showMessageDialog(this,
+					"Non puoi recensire te stesso!",
+					"Errore",
+					JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this,
+					"Errore durante il salvataggio della recensione: " + ex.getMessage(),
+					"Errore",
+					JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(this,
+				"Errore imprevisto durante il salvataggio della recensione",
+				"Errore",
+				JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
 	private void tornaAreaUtente() {
-        this.dispose();
-        AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
-        areaUtenteFrame.setVisible(true);
-        areaUtenteFrame.setLocationRelativeTo(null);
-    }
-	
+		this.dispose();
+		AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
+		areaUtenteFrame.setVisible(true);
+	}
 }
