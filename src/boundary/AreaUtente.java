@@ -9,8 +9,15 @@ import javax.swing.border.EmptyBorder;
 import entity.Utente_entity;
 
 import javax.swing.JButton;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -19,6 +26,8 @@ import javax.swing.JTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ActionEvent;
 
 public class AreaUtente extends JFrame {
@@ -27,7 +36,9 @@ public class AreaUtente extends JFrame {
 	private JPanel contentPane;
 	private JButton btnCreaAnnuncio;
 	private Utente_entity UtenteLoggato;
-
+	private JPanel headerPanel;
+	private JPanel buttonPanel;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -53,16 +64,139 @@ public class AreaUtente extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AreaUtente.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("AreaUtente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 895, 565);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setMinimumSize(new Dimension(1100, 600));
 		
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		contentPane.setBackground(new Color(245, 247, 250));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JButton btnVisualizzaOfferteRicevute = new JButton("Visualizza Offerte Ricevute");
+		// Header Panel
+		JPanel headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(50, 132, 188));
+		headerPanel.setPreferredSize(new Dimension(0, 100));
+		headerPanel.setLayout(new BorderLayout(10, 0));
+		contentPane.add(headerPanel, BorderLayout.NORTH);
+		
+		// Pannello sinistro con pulsante back
+		JPanel leftPanel = new JPanel();
+		leftPanel.setBackground(new Color(50, 132, 188));
+		leftPanel.setPreferredSize(new Dimension(100, 100));
+		leftPanel.setBorder(new EmptyBorder(25, 15, 0, 0));
+		
+		JButton btnUndo = new JButton("");
+		btnUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Login LoginFrame = new Login();
+				LoginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				LoginFrame.setVisible(true);
+			}
+		});
+		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+		btnUndo.setBackground(new Color(50, 132, 188));
+		btnUndo.setPreferredSize(new Dimension(50, 50));
+		btnUndo.setFocusPainted(false);
+		btnUndo.setBorderPainted(false);
+		btnUndo.setContentAreaFilled(false);
+		
+		// Effetto hover per il pulsante back
+		btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				btnUndo.setBackground(new Color(70, 152, 208));
+				btnUndo.setContentAreaFilled(true);
+			}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				btnUndo.setBackground(new Color(50, 132, 188));
+				btnUndo.setContentAreaFilled(false);
+			}
+		});
+		
+		leftPanel.add(btnUndo);
+		headerPanel.add(leftPanel, BorderLayout.WEST);
+		
+		// Pannello centrale con titolo
+		JPanel centerPanel = new JPanel();
+		centerPanel.setBackground(new Color(50, 132, 188));
+		centerPanel.setBorder(new EmptyBorder(30, 0, 0, 0));
+		JLabel lblTitle = new JLabel("Area Utente");
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setFont(new Font("Verdana", Font.BOLD, 24));
+		centerPanel.add(lblTitle);
+		headerPanel.add(centerPanel, BorderLayout.CENTER);
+		
+		// Pannello destro con info utente
+		JPanel rightPanel = new JPanel();
+		rightPanel.setBackground(new Color(50, 132, 188));
+		rightPanel.setPreferredSize(new Dimension(300, 100));
+		rightPanel.setBorder(new EmptyBorder(0, 0, 0, 15));
+		
+		JLabel lblIconaUtente = new JLabel("");
+		lblIconaUtente.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
+		rightPanel.add(lblIconaUtente);
+		
+		JLabel lblNomeUtente = new JLabel(UtenteLoggato.getNominativo());
+		lblNomeUtente.setForeground(Color.WHITE);
+		lblNomeUtente.setFont(new Font("Verdana", Font.BOLD, 16));
+		rightPanel.add(lblNomeUtente);
+		
+		headerPanel.add(rightPanel, BorderLayout.EAST);
+		
+		// Container principale per i pulsanti con padding
+		JPanel mainContainer = new JPanel();
+		mainContainer.setBackground(new Color(245, 247, 250));
+		mainContainer.setBorder(new EmptyBorder(40, 80, 40, 80));
+		mainContainer.setLayout(new BorderLayout());
+		contentPane.add(mainContainer, BorderLayout.CENTER);
+		
+		// Button Panel con GridBagLayout
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(new Color(245, 247, 250));
+		GridBagLayout gbl = new GridBagLayout();
+		buttonPanel.setLayout(gbl);
+		mainContainer.add(buttonPanel, BorderLayout.CENTER);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(15, 15, 15, 15);
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1.0;
+		gbc.weighty = 1.0;
+		
+		// Prima riga
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		JButton btnVisualizzaStoricoOfferte = createStyledButton("Visualizza Storico Offerte", 
+			"/icons/icons8-lista-48.png");
+		btnVisualizzaStoricoOfferte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(UtenteLoggato);
+				StoricoOfferteFrame.setVisible(true);
+				StoricoOfferteFrame.setLocationRelativeTo(null);
+			}
+		});
+		buttonPanel.add(btnVisualizzaStoricoOfferte, gbc);
+		
+		gbc.gridx = 1;
+		JButton btnInserisciRecensione = createStyledButton("Inserisci Recensione", 
+			"/icons/icons8-aggiungi-48.png");
+		btnInserisciRecensione.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(UtenteLoggato);
+				ListaTransazioniFrame.setVisible(true);
+				ListaTransazioniFrame.setLocationRelativeTo(null);
+			}
+		});
+		buttonPanel.add(btnInserisciRecensione, gbc);
+		
+		// Seconda riga
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		JButton btnVisualizzaOfferteRicevute = createStyledButton("Visualizza Offerte Ricevute", 
+			"/icons/icons8-lista-48.png");
 		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -71,55 +205,10 @@ public class AreaUtente extends JFrame {
 				OfferteRicevuteFrame.setLocationRelativeTo(null);
 			}
 		});
-		btnVisualizzaOfferteRicevute.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
-		btnVisualizzaOfferteRicevute.setForeground(new Color(255, 255, 255));
-		btnVisualizzaOfferteRicevute.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnVisualizzaOfferteRicevute.setBackground(new Color(0, 52, 104));
-		btnVisualizzaOfferteRicevute.setBounds(71, 275, 356, 84);
-		btnVisualizzaOfferteRicevute.setFocusPainted(false);
-		btnVisualizzaOfferteRicevute.setBorderPainted(false);
-		contentPane.add(btnVisualizzaOfferteRicevute);
+		buttonPanel.add(btnVisualizzaOfferteRicevute, gbc);
 		
-		JButton btnVisualizzaStoricoOfferte = new JButton("Visualizza Storico Offerte");
-		btnVisualizzaStoricoOfferte.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(UtenteLoggato);
-				StoricoOfferteFrame.setVisible(true);
-				StoricoOfferteFrame.setLocationRelativeTo(null);	
-				
-			}
-		});
-		
-		btnVisualizzaStoricoOfferte.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
-		btnVisualizzaStoricoOfferte.setForeground(Color.WHITE);
-		btnVisualizzaStoricoOfferte.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnVisualizzaStoricoOfferte.setBackground(new Color(0, 52, 104));
-		btnVisualizzaStoricoOfferte.setBounds(71, 163, 356, 84);
-		btnVisualizzaStoricoOfferte.setFocusPainted(false);
-		btnVisualizzaStoricoOfferte.setBorderPainted(false);
-		contentPane.add(btnVisualizzaStoricoOfferte);
-		
-		JButton btnInserisciRecensione = new JButton("Inserisci Recensione");
-		btnInserisciRecensione.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(UtenteLoggato);
-				ListaTransazioniFrame.setVisible(true);
-				ListaTransazioniFrame.setLocationRelativeTo(null);
-				
-			}
-		});
-		btnInserisciRecensione.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));
-		btnInserisciRecensione.setForeground(Color.WHITE);
-		btnInserisciRecensione.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnInserisciRecensione.setBackground(new Color(0, 52, 104));
-		btnInserisciRecensione.setBounds(509, 163, 303, 84);
-		btnInserisciRecensione.setFocusPainted(false);
-		btnInserisciRecensione.setBorderPainted(false);
-		contentPane.add(btnInserisciRecensione);
-		
-		btnCreaAnnuncio = new JButton("Crea Annuncio");
+		gbc.gridx = 1;
+		btnCreaAnnuncio = createStyledButton("Crea Annuncio", "/icons/icons8-aggiungi-48.png");
 		btnCreaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -128,66 +217,13 @@ public class AreaUtente extends JFrame {
 				OggettoFrame.setLocationRelativeTo(null);
 			}
 		});
+		buttonPanel.add(btnCreaAnnuncio, gbc);
 		
-		btnCreaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-aggiungi-48.png")));
-		btnCreaAnnuncio.setForeground(Color.WHITE);
-		btnCreaAnnuncio.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnCreaAnnuncio.setBackground(new Color(0, 52, 104));
-		btnCreaAnnuncio.setBounds(509, 275, 303, 84);
-		btnCreaAnnuncio.setFocusPainted(false);
-	
-		btnCreaAnnuncio.setBorderPainted(false);
-		
-		contentPane.add(btnCreaAnnuncio);
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(50, 132, 188));
-		panel.setBounds(0, 0, 897, 102);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\carlo\\OneDrive\\Desktop\\DISEGNI_APP\\UNINA__4-1.png"));
-		lblNewLabel_2.setBounds(180, 10, 182, 106);
-		panel.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel = new JLabel("Area Utente");
-		lblNewLabel.setBounds(392, 44, 152, 32);
-		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(578, 10, 182, 84);
-		panel.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
-		
-		JLabel lblUtente = new JLabel();
-		lblUtente.setBounds(686, 39, 160, 48);
-		panel.add(lblUtente);
-		lblUtente.setBackground(new Color(45, 134, 192));
-		lblUtente.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblUtente.setText(UtenteLoggato.getNominativo());
-		
-		JButton btnUndo = new JButton("");
-		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnUndo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				Login LoginFrame = new Login();
-		        LoginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Aggiungi questa riga
-		        LoginFrame.setVisible(true);
-			}
-		});
-		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
-		btnUndo.setBackground(new Color(45, 134, 192));
-		btnUndo.setBounds(10, 10, 46, 77);
-		btnUndo.setFocusPainted(false);
-		btnUndo.setBorderPainted(false);
-		panel.add(btnUndo);
-		
-		JButton btnVisualizzaRecensioni = new JButton("Visualizza Recensioni");
+		// Terza riga
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		JButton btnVisualizzaRecensioni = createStyledButton("Visualizza Recensioni", 
+			"/icons/icons8-lista-48.png");
 		btnVisualizzaRecensioni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -196,17 +232,11 @@ public class AreaUtente extends JFrame {
 				ListaRecensioniFrame.setLocationRelativeTo(null);
 			}
 		});
-		btnVisualizzaRecensioni.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
-		btnVisualizzaRecensioni.setForeground(Color.WHITE);
-		btnVisualizzaRecensioni.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnVisualizzaRecensioni.setBackground(new Color(0, 52, 104));
-		btnVisualizzaRecensioni.setBounds(71, 388, 356, 84);
-		btnVisualizzaRecensioni.setFocusPainted(false);
-		btnVisualizzaRecensioni.setBorderPainted(false);
+		buttonPanel.add(btnVisualizzaRecensioni, gbc);
 		
-		contentPane.add(btnVisualizzaRecensioni);
-		
-		JButton btnVisualizzaAnnuncio = new JButton("Visualizza Annuncio");
+		gbc.gridx = 1;
+		JButton btnVisualizzaAnnuncio = createStyledButton("Visualizza Annuncio", 
+			"/icons/icons8-lista-48.png");
 		btnVisualizzaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -215,14 +245,34 @@ public class AreaUtente extends JFrame {
 				ListaAnnunciFrame.setLocationRelativeTo(null);
 			}
 		});
-		btnVisualizzaAnnuncio.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
-		btnVisualizzaAnnuncio.setForeground(Color.WHITE);
-		btnVisualizzaAnnuncio.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnVisualizzaAnnuncio.setFocusPainted(false);
-		btnVisualizzaAnnuncio.setBackground(new Color(0, 52, 104));
-		btnVisualizzaAnnuncio.setBounds(509, 388, 303, 84);
-		btnVisualizzaAnnuncio.setFocusPainted(false);
-		btnVisualizzaAnnuncio.setBorderPainted(false);
-		contentPane.add(btnVisualizzaAnnuncio);
+		buttonPanel.add(btnVisualizzaAnnuncio, gbc);
+	}
+	
+	private JButton createStyledButton(String text, String iconPath) {
+		JButton button = new JButton(text);
+		try {
+			button.setIcon(new ImageIcon(AreaUtente.class.getResource(iconPath)));
+		} catch (Exception e) {
+			// Icona non trovata, continua senza
+		}
+		button.setForeground(Color.WHITE);
+		button.setFont(new Font("Verdana", Font.PLAIN, 14));
+		button.setBackground(new Color(0, 52, 104));
+		button.setFocusPainted(false);
+		button.setBorderPainted(false);
+		button.setPreferredSize(new Dimension(300, 120));
+		button.setMaximumSize(new Dimension(400, 140));
+		
+		// Aggiungi effetto hover
+		button.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				button.setBackground(new Color(0, 70, 140));
+			}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				button.setBackground(new Color(0, 52, 104));
+			}
+		});
+		
+		return button;
 	}
 }
