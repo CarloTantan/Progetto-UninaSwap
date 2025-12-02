@@ -296,4 +296,5 @@ public class Registrazione extends JFrame {
             textFieldConfermaPassword.setText("");
         }
 	}
+	
 }
