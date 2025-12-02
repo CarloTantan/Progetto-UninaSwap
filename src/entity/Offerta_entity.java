@@ -6,6 +6,7 @@ public class Offerta_entity {
 	protected String MatricolaAcquirente;
 	protected String TipologiaOfferta ;
 	protected int IdAnnuncio;
+
 	
 	
 	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta) {
@@ -45,7 +46,7 @@ public class Offerta_entity {
 	public void setTipologiaOfferta(String TipologiaOfferta) {
 		this.TipologiaOfferta = TipologiaOfferta;
 	}
-	public void set(String StatoOfferta) {
+	public void setStato(String StatoOfferta) {
 		this.StatoOfferta = StatoOfferta;
 	}
 	
@@ -56,6 +57,6 @@ public class Offerta_entity {
 	public void setIdAnnuncio(int IdAnnuncio) {
 		this.IdAnnuncio = IdAnnuncio;
 	}
-	
+
 	
 }
