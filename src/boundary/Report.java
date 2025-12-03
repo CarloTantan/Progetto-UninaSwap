@@ -92,11 +92,13 @@ public class Report extends JFrame {
    
 
     private void caricaPrezzi() {
+    	String matricola = UtenteLoggato.getMatricola();
+    	
         try {
             ReportDAO reportDAO = new ReportDAO();
             
             // Ottieni i dati dei prezzi
-            String[] prezzi = reportDAO.getPrezziAnnunci();
+            String[] prezzi = reportDAO.getPrezziAnnunci(matricola);
             
             // Prendi il modello della tabella
             DefaultTableModel model = (DefaultTableModel) tabellaPrezzi.getModel();

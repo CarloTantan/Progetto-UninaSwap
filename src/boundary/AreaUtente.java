@@ -29,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
 
 public class AreaUtente extends JFrame {
 
@@ -127,12 +128,44 @@ public class AreaUtente extends JFrame {
 		centerPanel.add(lblTitle);
 		headerPanel.add(centerPanel, BorderLayout.CENTER);
 		
-		// Pannello destro con info utente
+		// Pannello destro con bottone report e info utente
 		JPanel rightPanel = new JPanel();
 		rightPanel.setBackground(new Color(50, 132, 188));
-		rightPanel.setPreferredSize(new Dimension(300, 100));
-		rightPanel.setBorder(new EmptyBorder(0, 0, 0, 15));
+		rightPanel.setPreferredSize(new Dimension(500, 100));
+		rightPanel.setBorder(new EmptyBorder(10, 0, 0, 15));
+		rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 0));
 		
+		// Bottone Report (PRIMA dell'icona utente)
+		JButton btnReport = new JButton("Visualizza Report");
+		btnReport.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-lista-48.png")));
+		btnReport.setForeground(Color.WHITE);
+		btnReport.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnReport.setBackground(new Color(50, 132, 188));
+		btnReport.setPreferredSize(new Dimension(200, 50));
+		btnReport.setFocusPainted(false);
+		btnReport.setBorderPainted(false);
+		
+		btnReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Report ReportFrame = new Report(UtenteLoggato);
+				ReportFrame.setVisible(true);
+			}
+		});
+		
+		// Effetto hover per il bottone report
+		btnReport.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				btnReport.setBackground(new Color(70, 152, 208));
+			}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				btnReport.setBackground(new Color(50, 132, 188));
+			}
+		});
+		
+		rightPanel.add(btnReport);
+		
+		// Icona e nome utente (DOPO il bottone report)
 		JLabel lblIconaUtente = new JLabel("");
 		lblIconaUtente.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
 		rightPanel.add(lblIconaUtente);
