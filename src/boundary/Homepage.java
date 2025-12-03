@@ -119,6 +119,15 @@ public class Homepage extends JFrame {
 			}
 		});
 		
+		btnRegistrati.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        btnRegistrati.setBackground(new Color(66, 152, 211));
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btnRegistrati.setBackground(new Color(46, 132, 191));
+		    }
+		});
+		
 		JLabel lblGiaRegistrato = new JLabel("Sei già registrato?");
 		lblGiaRegistrato.setFont(new Font("Verdana", Font.BOLD, 18));
 		gbc.gridx = 0;
@@ -143,6 +152,15 @@ public class Homepage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				apriLogin();
 			}
+		});
+		
+		btnAccedi.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        btnAccedi.setBackground(new Color(0, 70, 140));
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btnAccedi.setBackground(new Color(0, 52, 101));
+		    }
 		});
 	}
 	

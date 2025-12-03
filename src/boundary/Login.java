@@ -107,6 +107,17 @@ public class Login extends JFrame {
 		    }
 		});
 		
+		btnIndietro.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        btnIndietro.setBackground(new Color(66, 152, 211));
+		        btnIndietro.setContentAreaFilled(true);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btnIndietro.setBackground(new Color(46, 132, 191));
+		        btnIndietro.setContentAreaFilled(false);
+		    }
+		});
+		
 		// Pannello centrale con GridBagLayout
 		JPanel panelCentrale = new JPanel();
 		panelCentrale.setBackground(Color.WHITE);
@@ -195,6 +206,15 @@ public class Login extends JFrame {
 				
 				}
 			}
+		});
+		
+		btnAccedi.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        btnAccedi.setBackground(new Color(0, 70, 140));
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btnAccedi.setBackground(new Color(0, 52, 101));
+		    }
 		});
 	}
 	

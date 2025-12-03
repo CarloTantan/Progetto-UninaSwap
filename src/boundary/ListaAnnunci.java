@@ -26,9 +26,10 @@ public class ListaAnnunci extends JFrame {
 
         setTitle("Lista Annunci");
         setIconImage(Toolkit.getDefaultToolkit().getImage(
-                ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")
-        ));
+                ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(1000, 700));
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         setContentPane(mainPanel);
@@ -51,7 +52,6 @@ public class ListaAnnunci extends JFrame {
             setVisible(false);
             AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
             areaUtenteFrame.setVisible(true);
-            areaUtenteFrame.setLocationRelativeTo(null);
         });
 
         header.add(btnUndo, BorderLayout.WEST);
@@ -113,10 +113,8 @@ public class ListaAnnunci extends JFrame {
 
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // ---- FINALIZZAZIONE WINDOW ----
-        pack();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setVisible(true);
+        
+        
     }
 
     // -------------------- LOGICA -------------------
@@ -303,12 +301,12 @@ public class ListaAnnunci extends JFrame {
     
     private JPanel creaCaroselloFoto(int idAnnuncio) {
         JPanel caroselloPanel = new JPanel(new BorderLayout());
-        caroselloPanel.setPreferredSize(new Dimension(200, 180));
+        caroselloPanel.setPreferredSize(new Dimension(200, 200));
         caroselloPanel.setBackground(new Color(240, 240, 240));
         
         // Label per l'immagine
         JLabel lblImmagine = new JLabel();
-        lblImmagine.setPreferredSize(new Dimension(200, 150));
+        lblImmagine.setPreferredSize(new Dimension(200, 170));
         lblImmagine.setHorizontalAlignment(SwingConstants.CENTER);
         lblImmagine.setVerticalAlignment(SwingConstants.CENTER);
         lblImmagine.setOpaque(true);
@@ -362,7 +360,7 @@ public class ListaAnnunci extends JFrame {
                     if (file.exists()) {
                         ImageIcon originalIcon = new ImageIcon(percorsoFoto);
                         Image scaledImage = originalIcon.getImage().getScaledInstance(
-                            200, 150, Image.SCALE_SMOOTH
+                            200, 170, Image.SCALE_SMOOTH
                         );
                         lblImmagine.setIcon(new ImageIcon(scaledImage));
                         lblImmagine.setText("");

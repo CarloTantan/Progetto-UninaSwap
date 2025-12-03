@@ -199,7 +199,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				dispose();
 				AnnunciPubblicati OfferteRicevuteFrame = new AnnunciPubblicati(UtenteLoggato);
 				OfferteRicevuteFrame.setVisible(true);
 				
@@ -246,7 +246,11 @@ public class AreaUtente extends JFrame {
 			}
 		});
 		buttonPanel.add(btnVisualizzaAnnuncio, gbc);
+		
+		
 	}
+	
+	
 	
 	private JButton createStyledButton(String text, String iconPath) {
 		JButton button = new JButton(text);
@@ -275,4 +279,6 @@ public class AreaUtente extends JFrame {
 		
 		return button;
 	}
+	
+	
 }
