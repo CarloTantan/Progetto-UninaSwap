@@ -43,8 +43,8 @@ public class ListaRecensioniDao {
 	                rs.getString("Commento"), 
 	                rs.getInt("Punteggio"),
 	                rs.getDate("Data"), 
-	                rs.getString("MatricolaVenditore"),
 	                rs.getString("MatricolaAcquirente"),
+	                rs.getString("MatricolaVenditore"),
 	                rs.getInt("IdOfferta")
 	                
 	            );
@@ -84,8 +84,8 @@ public class ListaRecensioniDao {
 	                rs.getString("Commento"), 
 	                rs.getInt("Punteggio"),
 	                rs.getDate("Data"), 
-	                rs.getString("MatricolaVenditore"),
 	                rs.getString("MatricolaAcquirente"),
+	                rs.getString("MatricolaVenditore"),
 	                rs.getInt("IdOfferta")
 	                
 	            );
