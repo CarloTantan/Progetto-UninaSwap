@@ -27,7 +27,10 @@ import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -136,6 +139,10 @@ public class Report extends JFrame {
         
         headerPanel.add(rightPanel, BorderLayout.EAST);
         
+        // Carica i dati PRIMA di creare l'interfaccia
+        caricaOfferte();
+        caricaPrezzi();
+        
         // ========== CONTENUTO PRINCIPALE ==========
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
@@ -147,22 +154,26 @@ public class Report extends JFrame {
         contentPane.add(scrollPane, BorderLayout.CENTER);
         
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(20, 20, 20, 20);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(20, 20, 10, 20);
         gbc.weightx = 1.0;
-
-        // ETICHETTA TABELLA OFFERTE
+        gbc.gridx = 0;
+        
+        // ========== TABELLA OFFERTE ==========
+        gbc.gridy = 0;
         JLabel lblOfferte = new JLabel("Riepilogo Offerte");
-        lblOfferte.setBounds(63, 50, 200, 25);
-        lblOfferte.setFont(lblOfferte.getFont().deriveFont(16f));
-        contentPane.add(lblOfferte);
+        lblOfferte.setFont(new Font("Verdana", Font.BOLD, 18));
+        lblOfferte.setForeground(new Color(0, 52, 101));
+        mainPanel.add(lblOfferte, gbc);
 
-        // TABELLA 1: OFFERTE
+        gbc.gridy = 1;
+        gbc.insets = new Insets(10, 20, 20, 20);
+        
         DefaultTableModel modelTabella = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Offerte Totali", "Offerte Regalo Inviata", "Offerte Scambio Inviata", 
-                            "Offerte Vendita Inviata","Offerte Vendita Accettata",
-                            "Offerte Regalo Accettata","Offerte Scambio Accettata"}
+            new Object[][]{},
+            new String[]{"Offerte Totali", "Offerte Regalo Inviata", "Offerte Scambio Inviata", 
+                        "Offerte Vendita Inviata","Offerte Vendita Accettata",
+                        "Offerte Regalo Accettata","Offerte Scambio Accettata"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -172,19 +183,41 @@ public class Report extends JFrame {
 
         tabellaOfferte = new JTable(modelTabella);
         tabellaOfferte.setBackground(Color.WHITE);
+        tabellaOfferte.setFont(new Font("Verdana", Font.PLAIN, 12));
+        tabellaOfferte.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 12));
+        tabellaOfferte.getTableHeader().setBackground(new Color(45, 134, 192));
+        tabellaOfferte.getTableHeader().setForeground(Color.WHITE);
         tabellaOfferte.getTableHeader().setReorderingAllowed(false);
+        tabellaOfferte.setRowHeight(30);
+        
+        // Popola la tabella offerte
+        DefaultTableModel modelOff = (DefaultTableModel) tabellaOfferte.getModel();
+        modelOff.addRow(new Object[]{
+            offerteTotali, 
+            offerteRegalo,
+            offerteScambio,
+            offerteVendita,
+            offerteVenditaAccettata,
+            offerteRegaloAccettata,
+            offertaScambioAccettata
+        });
 
         JScrollPane scrollPaneOfferte = new JScrollPane(tabellaOfferte);
-        scrollPaneOfferte.setBounds(63, 85, 900, 80);
-        contentPane.add(scrollPaneOfferte);
+        scrollPaneOfferte.setPreferredSize(new Dimension(1100, 80));
+        mainPanel.add(scrollPaneOfferte, gbc);
 
-        // ETICHETTA TABELLA PREZZI
+        // ========== TABELLA PREZZI ==========
+        gbc.gridy = 2;
+        gbc.insets = new Insets(40, 20, 10, 20);
+        
         JLabel lblPrezzi = new JLabel("Statistiche Prezzi Annunci");
-        lblPrezzi.setBounds(63, 200, 250, 25);
-        lblPrezzi.setFont(lblPrezzi.getFont().deriveFont(16f));
-        contentPane.add(lblPrezzi);
+        lblPrezzi.setFont(new Font("Verdana", Font.BOLD, 18));
+        lblPrezzi.setForeground(new Color(0, 52, 101));
+        mainPanel.add(lblPrezzi, gbc);
 
-        // TABELLA 2: PREZZI
+        gbc.gridy = 3;
+        gbc.insets = new Insets(10, 20, 20, 20);
+        
         DefaultTableModel modelPrezzi = new DefaultTableModel(
             new Object[][]{},
             new String[]{"Prezzo Minimo", "Prezzo Massimo", "Prezzo Medio"}) {
@@ -196,54 +229,97 @@ public class Report extends JFrame {
 
         tabellaPrezzi = new JTable(modelPrezzi);
         tabellaPrezzi.setBackground(Color.WHITE);
+        tabellaPrezzi.setFont(new Font("Verdana", Font.PLAIN, 12));
+        tabellaPrezzi.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 12));
+        tabellaPrezzi.getTableHeader().setBackground(new Color(45, 134, 192));
+        tabellaPrezzi.getTableHeader().setForeground(Color.WHITE);
         tabellaPrezzi.getTableHeader().setReorderingAllowed(false);
+        tabellaPrezzi.setRowHeight(30);
+        
+        // Popola la tabella prezzi
+        DefaultTableModel modelPr = (DefaultTableModel) tabellaPrezzi.getModel();
+        modelPr.addRow(new Object[]{
+            prezzi[0],
+            prezzi[1],
+            prezzi[2]
+        });
 
         JScrollPane scrollPanePrezzi = new JScrollPane(tabellaPrezzi);
-        scrollPanePrezzi.setBounds(63, 235, 600, 80);
-        contentPane.add(scrollPanePrezzi);
-
-        // Carica i dati
-        caricaOfferte();
-        caricaPrezzi();
+        scrollPanePrezzi.setPreferredSize(new Dimension(600, 80));
+        mainPanel.add(scrollPanePrezzi, gbc);
         
-        // GRAFICI - Posizionali sotto le tabelle
+        // ========== GRAFICI ==========
+        gbc.gridy = 4;
+        gbc.insets = new Insets(40, 20, 10, 20);
         
-        // Grafico 1: Torta Offerte Totali per Tipologia
-        JLabel lblGraficoTotali = new JLabel("Distribuzione Offerte Inviate per Tipologia");
-        lblGraficoTotali.setBounds(63, 350, 350, 25);
-        lblGraficoTotali.setFont(lblGraficoTotali.getFont().deriveFont(14f));
-        contentPane.add(lblGraficoTotali);
+        JLabel lblGrafici = new JLabel("Analisi Grafiche");
+        lblGrafici.setFont(new Font("Verdana", Font.BOLD, 18));
+        lblGrafici.setForeground(new Color(0, 52, 101));
+        mainPanel.add(lblGrafici, gbc);
         
-        ChartPanel panelloGraficoTotali = creaGraficoOfferteTotali();
-        panelloGraficoTotali.setBounds(63, 380, 400, 300);
-        contentPane.add(panelloGraficoTotali);
+        // Panel per contenere i tre grafici
+        gbc.gridy = 5;
+        gbc.insets = new Insets(10, 20, 30, 20);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weighty = 1.0;
         
-        // Grafico 2: Torta Offerte Accettate per Tipologia
-        JLabel lblGraficoAccettate = new JLabel("Distribuzione Offerte Accettate per Tipologia");
-        lblGraficoAccettate.setBounds(520, 350, 350, 25);
-        lblGraficoAccettate.setFont(lblGraficoAccettate.getFont().deriveFont(14f));
-        contentPane.add(lblGraficoAccettate);
+        JPanel graficiPanel = new JPanel(new GridBagLayout());
+        graficiPanel.setBackground(Color.WHITE);
+        mainPanel.add(graficiPanel, gbc);
         
-        ChartPanel panelloGraficoAccettate = creaGraficoOfferteAccettate();
-        panelloGraficoAccettate.setBounds(520, 380, 400, 300);
-        contentPane.add(panelloGraficoAccettate);
+        GridBagConstraints gbcGrafici = new GridBagConstraints();
+        gbcGrafici.fill = GridBagConstraints.BOTH;
+        gbcGrafici.insets = new Insets(10, 10, 10, 10);
+        gbcGrafici.weightx = 1.0;
+        gbcGrafici.weighty = 1.0;
         
-        // Grafico 3: Barre per i Prezzi
-        JLabel lblGraficoPrezzi = new JLabel("Analisi Prezzi");
-        lblGraficoPrezzi.setBounds(63, 700, 200, 25);
-        lblGraficoPrezzi.setFont(lblGraficoPrezzi.getFont().deriveFont(14f));
-        contentPane.add(lblGraficoPrezzi);
+        // Grafico 1: Torta Offerte Totali
+        gbcGrafici.gridx = 0;
+        gbcGrafici.gridy = 0;
+        JPanel panel1 = new JPanel(new BorderLayout());
+        panel1.setBackground(Color.WHITE);
+        JLabel lbl1 = new JLabel("Offerte Inviate per Tipologia", JLabel.CENTER);
+        lbl1.setFont(new Font("Verdana", Font.BOLD, 14));
+        lbl1.setForeground(new Color(0, 52, 101));
+        lbl1.setBorder(new EmptyBorder(5, 5, 10, 5));
+        panel1.add(lbl1, BorderLayout.NORTH);
+        ChartPanel chart1 = creaGraficoOfferteTotali();
+        chart1.setPreferredSize(new Dimension(400, 350));
+        panel1.add(chart1, BorderLayout.CENTER);
+        graficiPanel.add(panel1, gbcGrafici);
         
-        ChartPanel panelloGraficoPrezzi = creaGraficoPrezzi();
-        panelloGraficoPrezzi.setBounds(63, 730, 600, 300);
-        contentPane.add(panelloGraficoPrezzi);
+        // Grafico 2: Torta Offerte Accettate
+        gbcGrafici.gridx = 1;
+        JPanel panel2 = new JPanel(new BorderLayout());
+        panel2.setBackground(Color.WHITE);
+        JLabel lbl2 = new JLabel("Offerte Accettate per Tipologia", JLabel.CENTER);
+        lbl2.setFont(new Font("Verdana", Font.BOLD, 14));
+        lbl2.setForeground(new Color(0, 52, 101));
+        lbl2.setBorder(new EmptyBorder(5, 5, 10, 5));
+        panel2.add(lbl2, BorderLayout.NORTH);
+        ChartPanel chart2 = creaGraficoOfferteAccettate();
+        chart2.setPreferredSize(new Dimension(400, 350));
+        panel2.add(chart2, BorderLayout.CENTER);
+        graficiPanel.add(panel2, gbcGrafici);
+        
+        // Grafico 3: Barre Prezzi
+        gbcGrafici.gridx = 2;
+        JPanel panel3 = new JPanel(new BorderLayout());
+        panel3.setBackground(Color.WHITE);
+        JLabel lbl3 = new JLabel("Analisi Prezzi", JLabel.CENTER);
+        lbl3.setFont(new Font("Verdana", Font.BOLD, 14));
+        lbl3.setForeground(new Color(0, 52, 101));
+        lbl3.setBorder(new EmptyBorder(5, 5, 10, 5));
+        panel3.add(lbl3, BorderLayout.NORTH);
+        ChartPanel chart3 = creaGraficoPrezzi();
+        chart3.setPreferredSize(new Dimension(400, 350));
+        panel3.add(chart3, BorderLayout.CENTER);
+        graficiPanel.add(panel3, gbcGrafici);
     }
 
-    // Metodo per creare il grafico a torta delle offerte totali
     private ChartPanel creaGraficoOfferteTotali() {
         DefaultPieDataset dataset = new DefaultPieDataset();
         
-        // Aggiungi solo le offerte con valori > 0
         if (offerteRegalo > 0) {
             dataset.setValue("Regalo (" + offerteRegalo + ")", offerteRegalo);
         }
@@ -255,25 +331,27 @@ public class Report extends JFrame {
         }
         
         JFreeChart grafico = ChartFactory.createPieChart(
-            "Offerte Totali: " + offerteTotali,
+            "Totali: " + offerteTotali,
             dataset,
-            true,  // legenda
-            true,  // tooltips
-            false  // urls
+            true,
+            true,
+            false
         );
         
+        PiePlot plot = (PiePlot) grafico.getPlot();
+        plot.setSectionPaint("Regalo (" + offerteRegalo + ")", new Color(209, 56, 56)); // Rosso
+        plot.setSectionPaint("Scambio (" + offerteScambio + ")", new Color(108, 67, 232)); // Arancione
+        plot.setSectionPaint("Vendita (" + offerteVendita + ")", new Color(56, 209, 97)); // Verde        
+        
         ChartPanel chartPanel = new ChartPanel(grafico);
-        chartPanel.setPreferredSize(new Dimension(400, 300));
         return chartPanel;
     }
     
-    // Metodo per creare il grafico a torta delle offerte accettate
     private ChartPanel creaGraficoOfferteAccettate() {
         DefaultPieDataset dataset = new DefaultPieDataset();
         
         int totaleAccettate = offerteRegaloAccettata + offertaScambioAccettata + offerteVenditaAccettata;
         
-        // Aggiungi solo le offerte accettate con valori > 0
         if (offerteRegaloAccettata > 0) {
             dataset.setValue("Regalo (" + offerteRegaloAccettata + ")", offerteRegaloAccettata);
         }
@@ -285,7 +363,7 @@ public class Report extends JFrame {
         }
         
         JFreeChart grafico = ChartFactory.createPieChart(
-            "Offerte Accettate: " + totaleAccettate,
+            "Accettate: " + totaleAccettate,
             dataset,
             true,
             true,
@@ -293,16 +371,13 @@ public class Report extends JFrame {
         );
         
         ChartPanel chartPanel = new ChartPanel(grafico);
-        chartPanel.setPreferredSize(new Dimension(400, 300));
         return chartPanel;
     }
     
-    // Metodo per creare il grafico a barre dei prezzi
     private ChartPanel creaGraficoPrezzi() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         if (prezzi != null && !prezzi[0].contains("Non")) {
-            // Rimuovi il simbolo € e converti in double per il grafico
             try {
                 double min = Double.parseDouble(prezzi[0].replace("€", ""));
                 double max = Double.parseDouble(prezzi[1].replace("€", ""));
@@ -312,16 +387,14 @@ public class Report extends JFrame {
                 dataset.addValue(medio, "Prezzi", "Medio");
                 dataset.addValue(max, "Prezzi", "Massimo");
             } catch (NumberFormatException e) {
-                // Se c'è un errore nel parsing, crea dataset vuoto
                 dataset.addValue(0, "Prezzi", "Nessun Dato");
             }
         } else {
-            // Nessun dato disponibile
             dataset.addValue(0, "Prezzi", "Nessun Dato");
         }
         
         JFreeChart grafico = ChartFactory.createBarChart(
-            "Statistiche Prezzi Offerte Vendita Accettate",
+            "Offerte Vendita",
             "Tipo",
             "Importo (€)",
             dataset,
@@ -331,8 +404,12 @@ public class Report extends JFrame {
             false
         );
         
+        CategoryPlot plot = grafico.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        
+        renderer.setSeriesPaint(0, new Color(50, 132, 188)); // Blu
+        
         ChartPanel chartPanel = new ChartPanel(grafico);
-        chartPanel.setPreferredSize(new Dimension(600, 300));
         return chartPanel;
     }
 
@@ -341,20 +418,7 @@ public class Report extends JFrame {
         
         try {
             ReportDAO reportDAO = new ReportDAO();
-            
-            // Ottieni i dati dei prezzi
             prezzi = reportDAO.getPrezziAnnunci(matricola);
-            
-            // Prendi il modello della tabella
-            DefaultTableModel model = (DefaultTableModel) tabellaPrezzi.getModel();
-            model.setRowCount(0);
-            
-            // Aggiungi una riga
-            model.addRow(new Object[]{
-                prezzi[0],  // Prezzo Minimo
-                prezzi[1],  // Prezzo Massimo
-                prezzi[2]   // Prezzo Medio
-            });
             
         } catch (SQLException e) {
             System.err.println("Errore durante il caricamento dei prezzi: " + e.getMessage());
@@ -372,7 +436,6 @@ public class Report extends JFrame {
         try {
             ReportDAO reportDAO = new ReportDAO();
             
-            // Ottieni i dati delle offerte e memorizzali nelle variabili di istanza
             offerteTotali = reportDAO.VisualizzaOfferteTotali(matricola);
             offerteRegalo = reportDAO.VisualizzaOfferteRegalo(matricola);
             offerteScambio = reportDAO.VisualizzaOfferteScambio(matricola);
@@ -380,21 +443,6 @@ public class Report extends JFrame {
             offerteRegaloAccettata = reportDAO.VisualizzaOfferteRegaloAccettata(matricola);
             offertaScambioAccettata = reportDAO.VisualizzaOfferteScambioAccettata(matricola);
             offerteVenditaAccettata = reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
-            
-            // Prendi il modello della tabella
-            DefaultTableModel model = (DefaultTableModel) tabellaOfferte.getModel();
-            model.setRowCount(0);
-            
-            // Aggiungi una riga
-            model.addRow(new Object[]{
-                offerteTotali, 
-                offerteRegalo,
-                offerteScambio,
-                offerteVendita,
-                offerteVenditaAccettata,
-                offerteRegaloAccettata,
-                offertaScambioAccettata
-            });
             
         } catch (SQLException e) {
             System.err.println("Errore durante il caricamento delle offerte: " + e.getMessage());

@@ -293,7 +293,7 @@ public class AreaUtente extends JFrame {
 			// Icona non trovata, continua senza
 		}
 		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Verdana", Font.PLAIN, 14));
+		button.setFont(new Font("Verdana", Font.BOLD, 20));
 		button.setBackground(new Color(0, 52, 104));
 		button.setFocusPainted(false);
 		button.setBorderPainted(false);
