@@ -68,7 +68,7 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	        setIconImage(Toolkit.getDefaultToolkit().getImage(
 	                VisualizzaRecensioniVenditore.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        setSize(800, 600);
+	        setExtendedState(JFrame.MAXIMIZED_BOTH);
 	        setMinimumSize(new Dimension(700, 500));
 
 	        JPanel mainPanel = new JPanel(new BorderLayout());
@@ -182,13 +182,13 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	                new LineBorder(new Color(200, 200, 200), 1, true),
 	                new EmptyBorder(15, 15, 15, 15)
 	        ));
-	        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+	        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
 
 	        // Header con stelle e data
 	        JPanel headerPanel = new JPanel(new BorderLayout());
 	        headerPanel.setBackground(Color.WHITE);
 
-	        // Stelle - USA IL NUOVO METODO
+	        // Stelle
 	        JPanel panelStelle = creaPannelloStelle(rec.getPunteggio());
 
 	        // Data
@@ -200,6 +200,25 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	        headerPanel.add(panelStelle, BorderLayout.WEST);
 	        headerPanel.add(lblData, BorderLayout.EAST);
 
+	        // ============ PANNELLO CENTRALE (titolo annuncio + commento) ============
+	        JPanel centralPanel = new JPanel();
+	        centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
+	        centralPanel.setBackground(Color.WHITE);
+
+	        // Titolo annuncio
+	        try {
+	            String titoloAnnuncio = dao.getTitoloAnnuncioDaOfferta(rec.getIdOfferta());
+	            if (titoloAnnuncio != null) {
+	                JLabel lblTitoloAnnuncio = new JLabel("Annuncio: " + titoloAnnuncio);
+	                lblTitoloAnnuncio.setFont(new Font("Verdana", Font.BOLD, 13));
+	                lblTitoloAnnuncio.setForeground(new Color(0, 52, 104));
+	                lblTitoloAnnuncio.setBorder(new EmptyBorder(0, 0, 8, 0));
+	                centralPanel.add(lblTitoloAnnuncio);
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Errore nel recupero titolo annuncio: " + e.getMessage());
+	        }
+
 	        // Commento
 	        JTextArea txtCommento = new JTextArea(rec.getCommento() != null ? rec.getCommento() : "Nessun commento");
 	        txtCommento.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -208,10 +227,11 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	        txtCommento.setWrapStyleWord(true);
 	        txtCommento.setEditable(false);
 	        txtCommento.setOpaque(false);
-	        txtCommento.setBorder(new EmptyBorder(10, 0, 10, 0));
+	        txtCommento.setBorder(new EmptyBorder(5, 0, 10, 0));
+	        centralPanel.add(txtCommento);
 
-	        // Footer con nome acquirente
-	        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	        // Footer con nome acquirente + matricola
+	        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
 	        footerPanel.setBackground(Color.WHITE);
 
 	        try {
@@ -220,12 +240,18 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	            lblAcquirente.setFont(new Font("Verdana", Font.ITALIC, 12));
 	            lblAcquirente.setForeground(new Color(100, 100, 100));
 	            footerPanel.add(lblAcquirente);
+
+	            // Aggiungi matricola acquirente
+	            JLabel lblMatricola = new JLabel("(" + rec.getMatricolaAcquirente() + ")");
+	            lblMatricola.setFont(new Font("Verdana", Font.PLAIN, 11));
+	            lblMatricola.setForeground(new Color(120, 120, 120));
+	            footerPanel.add(lblMatricola);
 	        } catch (SQLException e) {
 	            System.err.println("Errore nel recupero nome acquirente: " + e.getMessage());
 	        }
 
 	        card.add(headerPanel, BorderLayout.NORTH);
-	        card.add(txtCommento, BorderLayout.CENTER);
+	        card.add(centralPanel, BorderLayout.CENTER);
 	        card.add(footerPanel, BorderLayout.SOUTH);
 
 	        return card;

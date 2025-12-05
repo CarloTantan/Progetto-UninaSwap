@@ -1,22 +1,28 @@
 package boundary;
 
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.ListaAnnunciDAO;
 import dao.ListaRecensioniDao;
+import dao.RecensioneVenditoreDAO;
 import entity.AnnuncioVendita_entity;
 import entity.Recensione_entity;
 import entity.Utente_entity;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
@@ -25,12 +31,16 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
@@ -38,10 +48,10 @@ import java.awt.Toolkit;
 public class ListaRecensioni extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
-	private JTable tabellaRecensione;
-	private DefaultTableModel modelTabella;
+    private JPanel contentPane;
+    private Utente_entity UtenteLoggato;
+    private JPanel panelRecensioni;
+    private JLabel lblContatore;
 	/**
 	 * Launch the application.
 	 */
@@ -63,256 +73,360 @@ public class ListaRecensioni extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaRecensioni(Utente_entity UtenteLoggato) {
-		this.UtenteLoggato = UtenteLoggato;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaRecensioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
-		setTitle("Le tue recensioni");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setMinimumSize(new Dimension(1250, 700));
-		
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(245, 247, 250));
-		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+        this.UtenteLoggato = UtenteLoggato;
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(
+                ListaRecensioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+        setTitle("Le tue recensioni");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(1250, 700));
 
-		// Header Panel
-		JPanel headerPanel = new JPanel();
-		headerPanel.setBackground(new Color(50, 132, 188));
-		headerPanel.setPreferredSize(new Dimension(0, 100));
-		headerPanel.setLayout(new BorderLayout(10, 0));
-		contentPane.add(headerPanel, BorderLayout.NORTH);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(245, 247, 250));
+        contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+        contentPane.setLayout(new BorderLayout(0, 0));
+        setContentPane(contentPane);
 
-		// Pannello sinistro con pulsante back
-		JPanel leftPanel = new JPanel();
-		leftPanel.setBackground(new Color(50, 132, 188));
-		leftPanel.setPreferredSize(new Dimension(100, 100));
-		leftPanel.setBorder(new EmptyBorder(25, 15, 0, 0));
-		
-		JButton btnUndo = new JButton("");
-		btnUndo.setIcon(new ImageIcon(ListaRecensioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
-		btnUndo.setBackground(new Color(50, 132, 188));
-		btnUndo.setPreferredSize(new Dimension(50, 50));
-		btnUndo.setFocusPainted(false);
-		btnUndo.setBorderPainted(false);
-		btnUndo.setContentAreaFilled(false);
-		
-		// Effetto hover
-		btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnUndo.setBackground(new Color(70, 152, 208));
-				btnUndo.setContentAreaFilled(true);
-			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnUndo.setBackground(new Color(50, 132, 188));
-				btnUndo.setContentAreaFilled(false);
-			}
-		});
-		
-		btnUndo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
-				AreaUtenteFrame.setVisible(true);
-			}
-		});
-		
-		leftPanel.add(btnUndo);
-		headerPanel.add(leftPanel, BorderLayout.WEST);
+        // ============ HEADER ============
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(50, 132, 188));
+        headerPanel.setPreferredSize(new Dimension(0, 100));
+        headerPanel.setLayout(new BorderLayout(10, 0));
+        contentPane.add(headerPanel, BorderLayout.NORTH);
 
-		// Pannello centrale con titolo
-		JPanel centerPanel = new JPanel();
-		centerPanel.setBackground(new Color(50, 132, 188));
-		centerPanel.setBorder(new EmptyBorder(30, 0, 0, 0));
-		JLabel lblTitolo = new JLabel("Lista Recensioni");
-		lblTitolo.setForeground(Color.WHITE);
-		lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
-		centerPanel.add(lblTitolo);
-		headerPanel.add(centerPanel, BorderLayout.CENTER);
+        // Pulsante indietro
+        JPanel leftPanel = new JPanel();
+        leftPanel.setBackground(new Color(50, 132, 188));
+        leftPanel.setPreferredSize(new Dimension(100, 100));
+        leftPanel.setBorder(new EmptyBorder(25, 15, 0, 0));
 
-		// Container principale
-		JPanel mainContainer = new JPanel();
-		mainContainer.setBackground(new Color(245, 247, 250));
-		mainContainer.setBorder(new EmptyBorder(30, 50, 30, 50));
-		mainContainer.setLayout(new BorderLayout(0, 20));
-		contentPane.add(mainContainer, BorderLayout.CENTER);
+        JButton btnUndo = new JButton("");
+        btnUndo.setIcon(new ImageIcon(
+                ListaRecensioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+        btnUndo.setBackground(new Color(50, 132, 188));
+        btnUndo.setPreferredSize(new Dimension(50, 50));
+        btnUndo.setFocusPainted(false);
+        btnUndo.setBorderPainted(false);
+        btnUndo.setContentAreaFilled(false);
 
-		// Pannello pulsanti
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(new Color(245, 247, 250));
-		buttonPanel.setLayout(new GridBagLayout());
-		mainContainer.add(buttonPanel, BorderLayout.NORTH);
+        btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUndo.setBackground(new Color(70, 152, 208));
+                btnUndo.setContentAreaFilled(true);
+            }
 
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(10, 15, 10, 15);
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.weightx = 1.0;
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnUndo.setBackground(new Color(50, 132, 188));
+                btnUndo.setContentAreaFilled(false);
+            }
+        });
 
-		// Pulsante Recensioni Inviate
-		JButton btnRecensioniInviate = new JButton("Recensioni Inviate");
-		btnRecensioniInviate.setFont(new Font("Verdana", Font.PLAIN, 14));
-		btnRecensioniInviate.setBackground(new Color(0, 52, 104));
-		btnRecensioniInviate.setForeground(Color.WHITE);
-		btnRecensioniInviate.setPreferredSize(new Dimension(250, 50));
-		btnRecensioniInviate.setFocusPainted(false);
-		btnRecensioniInviate.setBorderPainted(false);
-		
-		// Effetto hover
-		btnRecensioniInviate.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnRecensioniInviate.setBackground(new Color(0, 70, 140));
-			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnRecensioniInviate.setBackground(new Color(0, 52, 104));
-			}
-		});
-		
-		btnRecensioniInviate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GetRecensioniInviate();
-			}
-		});
-		
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		buttonPanel.add(btnRecensioniInviate, gbc);
+        btnUndo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
+                AreaUtenteFrame.setVisible(true);
+            }
+        });
 
-		// Pulsante Recensioni Ricevute
-		JButton btnRecensioniRicevute = new JButton("Recensioni Ricevute");
-		btnRecensioniRicevute.setFont(new Font("Verdana", Font.PLAIN, 14));
-		btnRecensioniRicevute.setForeground(Color.WHITE);
-		btnRecensioniRicevute.setBackground(new Color(0, 52, 104));
-		btnRecensioniRicevute.setPreferredSize(new Dimension(250, 50));
-		btnRecensioniRicevute.setFocusPainted(false);
-		btnRecensioniRicevute.setBorderPainted(false);
-		
-		// Effetto hover
-		btnRecensioniRicevute.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnRecensioniRicevute.setBackground(new Color(0, 70, 140));
-			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnRecensioniRicevute.setBackground(new Color(0, 52, 104));
-			}
-		});
-		
-		btnRecensioniRicevute.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GetRecensioniRicevute();
-			}
-		});
-		
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		buttonPanel.add(btnRecensioniRicevute, gbc);
+        leftPanel.add(btnUndo);
+        headerPanel.add(leftPanel, BorderLayout.WEST);
 
-		// Creazione modello tabella
-		modelTabella = new DefaultTableModel(
-			new Object[][]{},
-			new String[]{"Commento", "Punteggio", "Data", "Matricola Acquirente", "Matricola Venditore"}
-		) {
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
+        // Titolo centrale
+        JPanel centerPanel = new JPanel();
+        centerPanel.setBackground(new Color(50, 132, 188));
+        centerPanel.setBorder(new EmptyBorder(20, 0, 0, 0));
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
-		// Creazione tabella
-		tabellaRecensione = new JTable(modelTabella);
-		tabellaRecensione.setBackground(Color.WHITE);
-		tabellaRecensione.setFont(new Font("Verdana", Font.PLAIN, 13));
-		tabellaRecensione.setRowHeight(30);
-		tabellaRecensione.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 14));
-		tabellaRecensione.getTableHeader().setBackground(new Color(0, 52, 104));
-		tabellaRecensione.getTableHeader().setForeground(Color.WHITE);
-		tabellaRecensione.getTableHeader().setReorderingAllowed(false);
-		tabellaRecensione.setSelectionBackground(new Color(70, 152, 208));
-		tabellaRecensione.setSelectionForeground(Color.WHITE);
+        JLabel lblTitolo = new JLabel("Le Tue Recensioni");
+        lblTitolo.setForeground(Color.WHITE);
+        lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
+        lblTitolo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		JScrollPane scrollPane = new JScrollPane(tabellaRecensione);
-		scrollPane.setBorder(null);
-		mainContainer.add(scrollPane, BorderLayout.CENTER);
-	}
+        lblContatore = new JLabel("Seleziona una categoria");
+        lblContatore.setForeground(Color.WHITE);
+        lblContatore.setFont(new Font("Verdana", Font.PLAIN, 14));
+        lblContatore.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-	private void GetRecensioniInviate() {
-		String matricola = UtenteLoggato.getMatricola();
-		try {
-			// Pulisci la tabella PRIMA di caricare i nuovi dati
-			modelTabella.setRowCount(0);
-			
-			// Crea un'istanza di ListaRecensioniDao
-			ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
-			
-			// Chiama il metodo sull'istanza
-			ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniInviate(matricola);
+        centerPanel.add(lblTitolo);
+        centerPanel.add(Box.createVerticalStrut(5));
+        centerPanel.add(lblContatore);
 
-			// Aggiungi ogni recensione come riga nella tabella
-			for (Recensione_entity R : Recensioni) {
-				modelTabella.addRow(new Object[]{
-					R.getCommento(),
-					R.getPunteggio(),
-					R.getData(),
-					R.getMatricolaAcquirente(),
-					R.getMatricolaVenditore()
-				});
-			}
+        headerPanel.add(centerPanel, BorderLayout.CENTER);
 
-			if (Recensioni.size() == 0) {
-				JOptionPane.showMessageDialog(this,
-					"Non hai ancora inviato recensioni",
-					"Nessuna recensione",
-					JOptionPane.INFORMATION_MESSAGE);
-			}
+        // ============ CONTAINER PRINCIPALE ============
+        JPanel mainContainer = new JPanel();
+        mainContainer.setBackground(new Color(245, 247, 250));
+        mainContainer.setBorder(new EmptyBorder(30, 50, 30, 50));
+        mainContainer.setLayout(new BorderLayout(0, 20));
+        contentPane.add(mainContainer, BorderLayout.CENTER);
 
-		} catch (SQLException e) {
-			System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this,
-				"Errore nel caricamento dei dati: " + e.getMessage(),
-				"Errore",
-				JOptionPane.ERROR_MESSAGE);
-		}
-	}
+        // ============ PANNELLO PULSANTI ============
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(245, 247, 250));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
+        mainContainer.add(buttonPanel, BorderLayout.NORTH);
 
-	private void GetRecensioniRicevute() {
-		String matricola = UtenteLoggato.getMatricola();
-		try {
-			// Pulisci la tabella PRIMA di caricare i nuovi dati
-			modelTabella.setRowCount(0);
-			
-			// Crea un'istanza di ListaRecensioniDao
-			ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
-			
-			// Chiama il metodo sull'istanza
-			ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniRicevute(matricola);
+        // Pulsante Recensioni Inviate
+        JButton btnRecensioniInviate = new JButton("Recensioni Inviate");
+        btnRecensioniInviate.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnRecensioniInviate.setBackground(new Color(0, 52, 104));
+        btnRecensioniInviate.setForeground(Color.WHITE);
+        btnRecensioniInviate.setPreferredSize(new Dimension(250, 50));
+        btnRecensioniInviate.setFocusPainted(false);
+        btnRecensioniInviate.setBorderPainted(false);
 
-			// Aggiungi ogni recensione come riga nella tabella
-			for (Recensione_entity R : Recensioni) {
-				modelTabella.addRow(new Object[]{
-					R.getCommento(),
-					R.getPunteggio(),
-					R.getData(),
-					R.getMatricolaAcquirente(),
-					R.getMatricolaVenditore()
-				});
-			}
+        btnRecensioniInviate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRecensioniInviate.setBackground(new Color(0, 70, 140));
+            }
 
-			if (Recensioni.size() == 0) {
-				JOptionPane.showMessageDialog(this,
-					"Non hai ancora ricevuto recensioni",
-					"Nessuna recensione",
-					JOptionPane.INFORMATION_MESSAGE);
-			}
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRecensioniInviate.setBackground(new Color(0, 52, 104));
+            }
+        });
 
-		} catch (SQLException e) {
-			System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this,
-				"Errore nel caricamento dei dati: " + e.getMessage(),
-				"Errore",
-				JOptionPane.ERROR_MESSAGE);
-		}
-	}
+        btnRecensioniInviate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GetRecensioniInviate();
+            }
+        });
+
+        buttonPanel.add(btnRecensioniInviate);
+
+        // Pulsante Recensioni Ricevute
+        JButton btnRecensioniRicevute = new JButton("Recensioni Ricevute");
+        btnRecensioniRicevute.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnRecensioniRicevute.setForeground(Color.WHITE);
+        btnRecensioniRicevute.setBackground(new Color(0, 52, 104));
+        btnRecensioniRicevute.setPreferredSize(new Dimension(250, 50));
+        btnRecensioniRicevute.setFocusPainted(false);
+        btnRecensioniRicevute.setBorderPainted(false);
+
+        btnRecensioniRicevute.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRecensioniRicevute.setBackground(new Color(0, 70, 140));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRecensioniRicevute.setBackground(new Color(0, 52, 104));
+            }
+        });
+
+        btnRecensioniRicevute.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GetRecensioniRicevute();
+            }
+        });
+
+        buttonPanel.add(btnRecensioniRicevute);
+
+        // ============ PANNELLO RECENSIONI (con scroll) ============
+        panelRecensioni = new JPanel();
+        panelRecensioni.setLayout(new BoxLayout(panelRecensioni, BoxLayout.Y_AXIS));
+        panelRecensioni.setBackground(Color.WHITE);
+        panelRecensioni.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        JScrollPane scrollPane = new JScrollPane(panelRecensioni);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBorder(null);
+        mainContainer.add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private void GetRecensioniInviate() {
+        String matricola = UtenteLoggato.getMatricola();
+        try {
+            // Pulisci il pannello
+            panelRecensioni.removeAll();
+
+            ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
+            RecensioneVenditoreDAO recensioneDAO = new RecensioneVenditoreDAO();
+            ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniInviate(matricola);
+
+            // Aggiorna contatore
+            lblContatore.setText("Recensioni inviate: " + Recensioni.size());
+
+            if (Recensioni.isEmpty()) {
+                JLabel lblNoRecensioni = new JLabel("Non hai ancora inviato recensioni");
+                lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
+                lblNoRecensioni.setForeground(Color.GRAY);
+                lblNoRecensioni.setAlignmentX(Component.CENTER_ALIGNMENT);
+                panelRecensioni.add(Box.createVerticalStrut(50));
+                panelRecensioni.add(lblNoRecensioni);
+            } else {
+                for (Recensione_entity R : Recensioni) {
+                    panelRecensioni.add(creaCardRecensione(R, recensioneDAO, true));
+                    panelRecensioni.add(Box.createVerticalStrut(15));
+                }
+            }
+
+            panelRecensioni.revalidate();
+            panelRecensioni.repaint();
+
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Errore nel caricamento dei dati: " + e.getMessage(),
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void GetRecensioniRicevute() {
+        String matricola = UtenteLoggato.getMatricola();
+        try {
+            // Pulisci il pannello
+            panelRecensioni.removeAll();
+
+            ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
+            RecensioneVenditoreDAO recensioneDAO = new RecensioneVenditoreDAO();
+            ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniRicevute(matricola);
+
+            // Aggiorna contatore
+            lblContatore.setText("Recensioni ricevute: " + Recensioni.size() +", Valutazione media: " + String.format("%.2f", recensioneDAO.getValutazioneMedia(matricola)));
+
+            if (Recensioni.isEmpty()) {
+                JLabel lblNoRecensioni = new JLabel("Non hai ancora ricevuto recensioni");
+                lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
+                lblNoRecensioni.setForeground(Color.GRAY);
+                lblNoRecensioni.setAlignmentX(Component.CENTER_ALIGNMENT);
+                panelRecensioni.add(Box.createVerticalStrut(50));
+                panelRecensioni.add(lblNoRecensioni);
+            } else {
+                for (Recensione_entity R : Recensioni) {
+                    panelRecensioni.add(creaCardRecensione(R, recensioneDAO, false));
+                    panelRecensioni.add(Box.createVerticalStrut(15));
+                }
+            }
+
+            panelRecensioni.revalidate();
+            panelRecensioni.repaint();
+
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Errore nel caricamento dei dati: " + e.getMessage(),
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private JPanel creaCardRecensione(Recensione_entity rec, RecensioneVenditoreDAO dao, boolean isInviata) {
+        JPanel card = new JPanel();
+        card.setLayout(new BorderLayout(10, 10));
+        card.setBackground(Color.WHITE);
+        card.setBorder(new CompoundBorder(
+                new LineBorder(new Color(200, 200, 200), 1, true),
+                new EmptyBorder(15, 15, 15, 15)));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
+
+        // ============ HEADER (stelle + data) ============
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(Color.WHITE);
+
+        // Stelle
+        JPanel panelStelle = creaPannelloStelle(rec.getPunteggio());
+
+        // Data
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        JLabel lblData = new JLabel(sdf.format(rec.getData()));
+        lblData.setFont(new Font("Verdana", Font.PLAIN, 12));
+        lblData.setForeground(Color.GRAY);
+
+        headerPanel.add(panelStelle, BorderLayout.WEST);
+        headerPanel.add(lblData, BorderLayout.EAST);
+
+        // ============ PANNELLO CENTRALE (titolo annuncio + commento) ============
+        JPanel centralPanel = new JPanel();
+        centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
+        centralPanel.setBackground(Color.WHITE);
+
+        // Titolo annuncio
+        try {
+            String titoloAnnuncio = dao.getTitoloAnnuncioDaOfferta(rec.getIdOfferta());
+            if (titoloAnnuncio != null) {
+                JLabel lblTitoloAnnuncio = new JLabel("Annuncio: " + titoloAnnuncio);
+                lblTitoloAnnuncio.setFont(new Font("Verdana", Font.BOLD, 13));
+                lblTitoloAnnuncio.setForeground(new Color(0, 52, 104));
+                lblTitoloAnnuncio.setBorder(new EmptyBorder(0, 0, 8, 0));
+                centralPanel.add(lblTitoloAnnuncio);
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero titolo annuncio: " + e.getMessage());
+        }
+
+        // Commento
+        JTextArea txtCommento = new JTextArea(rec.getCommento() != null ? rec.getCommento() : "Nessun commento");
+        txtCommento.setFont(new Font("Verdana", Font.PLAIN, 13));
+        txtCommento.setForeground(Color.DARK_GRAY);
+        txtCommento.setLineWrap(true);
+        txtCommento.setWrapStyleWord(true);
+        txtCommento.setEditable(false);
+        txtCommento.setOpaque(false);
+        txtCommento.setBorder(new EmptyBorder(5, 0, 10, 0));
+        centralPanel.add(txtCommento);
+
+        // ============ FOOTER (nome utente + matricola) ============
+        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
+        footerPanel.setBackground(Color.WHITE);
+
+        try {
+            String matricolaAltraPersona = isInviata ? rec.getMatricolaVenditore() : rec.getMatricolaAcquirente();
+            String nomeAltraPersona = dao.getNominativoUtente(matricolaAltraPersona);
+            String label = isInviata ? "Recensione a: " : "Recensione da: ";
+            
+            JLabel lblUtente = new JLabel(label + (nomeAltraPersona != null ? nomeAltraPersona : "Utente"));
+            lblUtente.setFont(new Font("Verdana", Font.ITALIC, 12));
+            lblUtente.setForeground(new Color(100, 100, 100));
+            footerPanel.add(lblUtente);
+
+            // Aggiungi matricola
+            JLabel lblMatricola = new JLabel("(" + matricolaAltraPersona + ")");
+            lblMatricola.setFont(new Font("Verdana", Font.PLAIN, 11));
+            lblMatricola.setForeground(new Color(120, 120, 120));
+            footerPanel.add(lblMatricola);
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero nome utente: " + e.getMessage());
+        }
+
+        card.add(headerPanel, BorderLayout.NORTH);
+        card.add(centralPanel, BorderLayout.CENTER);
+        card.add(footerPanel, BorderLayout.SOUTH);
+
+        return card;
+    }
+
+    private JPanel creaPannelloStelle(int punteggio) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
+        panel.setBackground(Color.WHITE);
+
+        // Carica entrambe le icone
+        ImageIcon starIconPiena = new ImageIcon(getClass().getResource("/icons/icons8-stella-32.png"));
+        ImageIcon starIconVuota = new ImageIcon(getClass().getResource("/icons/icons8-stella-vuota-32.png"));
+
+        // Ridimensiona entrambe le icone
+        Image imgPiena = starIconPiena.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        Image imgVuota = starIconVuota.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+
+        ImageIcon stellaPienaRidimensionata = new ImageIcon(imgPiena);
+        ImageIcon stellaVuotaRidimensionata = new ImageIcon(imgVuota);
+
+        // Crea 5 stelle
+        for (int i = 0; i < 5; i++) {
+            JLabel lblStella = new JLabel();
+            if (i < punteggio) {
+                lblStella.setIcon(stellaPienaRidimensionata);
+            } else {
+                lblStella.setIcon(stellaVuotaRidimensionata);
+            }
+            panel.add(lblStella);
+        }
+
+        return panel;
+    }
 }
 
 

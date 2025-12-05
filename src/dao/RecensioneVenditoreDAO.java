@@ -79,5 +79,26 @@ public class RecensioneVenditoreDAO {
             return null;
         }
     }
+    
+    // Ottiene il titolo dell'annuncio associato a un'offerta
+   public String getTitoloAnnuncioDaOfferta(int idOfferta) throws SQLException {
+       String query = "SELECT a.Titolo " +
+                      "FROM Annuncio a " +
+                      "JOIN Offerta o ON a.idAnnuncio = o.idAnnuncio " +
+                      "WHERE o.idOfferta = ?";
+       
+       try (Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query)) {
+           
+           pstmt.setInt(1, idOfferta);
+           ResultSet rs = pstmt.executeQuery();
+           
+           if (rs.next()) {
+               return rs.getString("Titolo");
+           }
+           
+           return null;
+       }
+   }
 }
 
