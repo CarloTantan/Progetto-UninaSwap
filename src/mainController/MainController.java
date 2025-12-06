@@ -29,7 +29,7 @@ public class MainController {
 	protected RegistrazioneDAO Registrazione;
 	protected ReportDAO Report;
 	protected StoricoOfferteDAO StoricoOfferte; 
-	protected TransazioniDAO Transazioni;
+	protected TransazioniDAO Transazioni; 
 	
 	
 	public MainController(ListaAnnunciDAO ListaA, LoginDAO Login) {
