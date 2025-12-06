@@ -11,6 +11,7 @@ import dao.InserimentoAnnunciDAO;
 import entity.Oggetto_entity;
 import entity.Utente_entity;
 import enumerations.FasciaOraria;
+import mainController.MainController;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -38,7 +39,7 @@ public class AnnuncioScambio extends JFrame {
 	private String modalitaConsegna;
 	private FasciaOraria fasciaOraria;
 	private ArrayList<String> percorsiImmagini;	
-
+//	private MainController controller; 
 	/**
 	 * Launch the application.
 	 */

@@ -4,15 +4,18 @@ import java.sql.SQLException;
 
 import dao.*;
 import entity.*;
+import enumerations.*; 
 
 public class MainController {
 	protected LoginDAO LoginDAO; 
 	protected RegistrazioneDAO RegistrazioneDAO;
 	protected Utente_entity User; 
+	protected InserimentoAnnunciDAO InsertAnnunciDAO; 
 	
 	public MainController() {
 		this.LoginDAO = new LoginDAO();           
 	    this.RegistrazioneDAO = new RegistrazioneDAO();
+        this.InsertAnnunciDAO = InsertAnnunciDAO;
 	}
 	
 	//Effettua Login
@@ -88,5 +91,29 @@ public class MainController {
 	}
 	
 	
-	
+	//Inserimento Annuncio Scambio
+//	public String InserimentoAnnuncioScambio(String titolo, String descrizione, String modalitaConsegna, FasciaOraria fasciaOraria, String oggettoRichiesto, String matricolaVenditore, int idOggetto) {
+//		if (titolo == null || titolo.trim().isEmpty() ||
+//	        descrizione == null || descrizione.trim().isEmpty() ||
+//	        modalitaConsegna == null || modalitaConsegna.trim().isEmpty() ||
+//	        fasciaOraria == null ||
+//	        oggettoRichiesto == null || oggettoRichiesto.trim().isEmpty() ||
+//	        matricolaVenditore == null || matricolaVenditore.trim().isEmpty()
+//	        ) {
+//		        
+//		        return "Tutti i campi sono obbligatori";
+//		    }
+//		if (!matricolaVenditore.matches("[0-9]{10}")) {
+//	        return "La matricola deve contenere 10 cifre numeriche";
+//	    }
+//		
+//		boolean AnnuncioPubblicato = InserimentoAnnunciDAO.inserisciAnnuncioScambio(titolo, descrizione, modalitaConsegna, fasciaOraria, oggettoRichiesto, matricolaVenditore, idOggetto);
+//		
+//		if(!AnnuncioPubblicato) {
+//			return "Impossibile pubblicare l'annuncio"; 
+//		}
+//		
+//		return "Annuncio di Scambio inserito correttamnete";
+//		
+//	}
 }
