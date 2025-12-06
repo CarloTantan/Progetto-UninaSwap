@@ -340,7 +340,7 @@ public class Report extends JFrame {
         
         PiePlot plot = (PiePlot) grafico.getPlot();
         plot.setSectionPaint("Regalo (" + offerteRegalo + ")", new Color(209, 56, 56)); // Rosso
-        plot.setSectionPaint("Scambio (" + offerteScambio + ")", new Color(108, 67, 232)); // Arancione
+        plot.setSectionPaint("Scambio (" + offerteScambio + ")", new Color(108, 67, 232)); // Viola
         plot.setSectionPaint("Vendita (" + offerteVendita + ")", new Color(56, 209, 97)); // Verde        
         
         ChartPanel chartPanel = new ChartPanel(grafico);

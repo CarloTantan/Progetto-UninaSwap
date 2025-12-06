@@ -336,7 +336,6 @@ public class ListaAnnunci extends JFrame {
                         VisualizzaRecensioniVenditore frameRecensioni = 
                             new VisualizzaRecensioniVenditore(UtenteLoggato, matricolaVenditore);
                         frameRecensioni.setVisible(true);
-                        frameRecensioni.setLocationRelativeTo(ListaAnnunci.this);
                     }
                 });
                 
@@ -523,15 +522,12 @@ public class ListaAnnunci extends JFrame {
             if (tipologia.equals("Scambio")) {
                 OffertaScambio offertaScambioFrame = new OffertaScambio(UtenteLoggato, idAnnuncio);
                 offertaScambioFrame.setVisible(true);
-                offertaScambioFrame.setLocationRelativeTo(null);
             } else if (tipologia.equals("Vendita")) {
                 OffertaVendita offertaVenditaFrame = new OffertaVendita(UtenteLoggato, idAnnuncio);
                 offertaVenditaFrame.setVisible(true);
-                offertaVenditaFrame.setLocationRelativeTo(null);
             } else if (tipologia.equals("Regalo")) {
                 OffertaRegalo offertaRegaloFrame = new OffertaRegalo(UtenteLoggato, idAnnuncio);
                 offertaRegaloFrame.setVisible(true);
-                offertaRegaloFrame.setLocationRelativeTo(null);
             }
         }
     }
