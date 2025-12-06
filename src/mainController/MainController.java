@@ -16,8 +16,20 @@ import dao.StoricoOfferteDAO;
 import dao.TransazioniDAO;
 
 public class MainController {
-	private ListaAnnunciDAO ListaA; 
-	private LoginDAO Login; 
+	protected Annunci_OfferteDAO Annunci_Offerte; 
+	protected FotoAnnuncioDAO FotoAnnuncio;
+	protected InserimentoAnnunciDAO InsertAnnuncio;
+	protected InserimentoRecensioneDAO InsertRecensione; 
+	protected ListaAnnunciDAO ListaA; 
+	protected ListaRecensioniDao ListaR; 
+	protected LoginDAO Login; 
+	protected OffertaDAO Offerta; 
+	protected OggettoDAO Oggetto; 
+	protected RecensioneVenditoreDAO RecensioneV; 
+	protected RegistrazioneDAO Registrazione;
+	protected ReportDAO Report;
+	protected StoricoOfferteDAO StoricoOfferte; 
+	protected TransazioniDAO Transazioni;
 	
 	
 	public MainController(ListaAnnunciDAO ListaA, LoginDAO Login) {
