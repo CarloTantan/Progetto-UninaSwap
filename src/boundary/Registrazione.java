@@ -2,11 +2,13 @@ package boundary;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.RegistrazioneDAO;
+import mainController.MainController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,7 +42,7 @@ public class Registrazione extends JFrame {
 	private JPasswordField textFieldPassword;
 	private JTextField textFieldTelefono;
 	private JPasswordField textFieldConfermaPassword;
-
+	private MainController controller; 
 	/**
 	 * Launch the application.
 	 */
@@ -60,7 +62,7 @@ public class Registrazione extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Registrazione() {
+	public Registrazione(MainController controller) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Registrazione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Registrazione");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -99,7 +101,7 @@ public class Registrazione extends JFrame {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		    	dispose();
-		    	Homepage homepageFrame = new Homepage();
+		    	Homepage homepageFrame = new Homepage(controller);
 		    	homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		        homepageFrame.setVisible(true);
 		    }
@@ -291,30 +293,24 @@ public class Registrazione extends JFrame {
 		String telefono = textFieldTelefono.getText().trim();
 		String email = textFieldEmail.getText().trim();
         String password = new String(textFieldPassword.getPassword());
+        String confermaPassword = new String(textFieldConfermaPassword.getPassword());
         
-        RegistrazioneDAO registrazioneDAO = new RegistrazioneDAO();
-        boolean registrazione = registrazioneDAO.effettuaRegistrazione(nome, cognome, matricola, telefono, email, password);
+        String registrazione = controller.EffettuaRegistrazione(nome, cognome, matricola, telefono, email, password, confermaPassword);
         
-        if (registrazione) {
-            JOptionPane.showMessageDialog(this, 
-                "Registrazione effettuata con successo!", 
-                "Successo", 
-                JOptionPane.INFORMATION_MESSAGE);
+        if (registrazione.equals("Registrazione effettuata con successo")) {
+            JOptionPane.showMessageDialog(this, registrazione, "Successo", JOptionPane.INFORMATION_MESSAGE);
             
             this.dispose();
-            Homepage homepageFrame = new Homepage();
+            Homepage homepageFrame = new Homepage(controller);
             homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-			homepageFrame.setVisible(true);
+            homepageFrame.setVisible(true);
             
         } else {
-            JOptionPane.showMessageDialog(this, 
-                "Email o matricola già in uso.", 
-                "Errore Registrazione", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, registrazione,"Impossibile effettuare la Registrazione", JOptionPane.ERROR_MESSAGE);
 
             textFieldPassword.setText("");
             textFieldConfermaPassword.setText("");
         }
+
 	}
-	
 }

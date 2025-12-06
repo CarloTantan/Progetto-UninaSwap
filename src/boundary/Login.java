@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.LoginDAO;
 import entity.Utente_entity;
+import mainController.MainController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,7 +38,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JPasswordField textFieldPassword;
 	private JTextField textFieldMatricola;
-	private LoginDAO loginDAO;
+	private MainController controller; 
 
 	/**
 	 * Launch the application.
@@ -59,9 +60,10 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public Login(MainController Controller) {
+		this.controller = Controller; 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
-		loginDAO = new LoginDAO();
+		
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -101,7 +103,7 @@ public class Login extends JFrame {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		    	dispose();
-		    	Homepage homepageFrame = new Homepage();
+		    	Homepage homepageFrame = new Homepage(controller);
 		    	homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		        homepageFrame.setVisible(true);
 		    }
@@ -232,17 +234,16 @@ public class Login extends JFrame {
             return;
         }
         
-        // Verifica login usando il DAO
-        try {
-        	boolean loginValido = loginDAO.verificaLogin(matricola, password);
+        // Verifica login usando il Controller
+        	String loginValido = controller.EffettuaLogin(matricola, password);
         	
-        	if (loginValido) {
+        	if (loginValido.equals("Login effettuato con successo")) {
                 JOptionPane.showMessageDialog(this, 
                     "Login effettuato con successo!", 
                     "Successo", 
                     JOptionPane.INFORMATION_MESSAGE);
                 
-                Utente_entity UtenteLoggato = loginDAO.getUtente(matricola);
+                Utente_entity UtenteLoggato = controller.getUser();
                 
                 // Apri l'interfaccia area utente
                 this.dispose(); // Chiudi la finestra di login
@@ -256,15 +257,6 @@ public class Login extends JFrame {
                     JOptionPane.ERROR_MESSAGE);
 
                 textFieldPassword.setText("");// Pulisci il campo password
-            }
-        } catch (SQLException e) {
-        	 JOptionPane.showMessageDialog(this, 
-        			"Errore nell'autenticazione: " + 
-        			e.getMessage(), 
-        			"Errore", 
-        			JOptionPane.ERROR_MESSAGE);
-        }
-        
-        
+            }   
 	}
 }

@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import mainController.MainController;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -27,7 +30,7 @@ public class Homepage extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private MainController controller; 
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +51,7 @@ public class Homepage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Homepage() {
+	public Homepage(MainController controller) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Homepage.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Homepage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
