@@ -9,6 +9,8 @@ import dao.ListaAnnunciDAO;
 import dao.RecensioneVenditoreDAO;
 import entity.*;
 import enumerations.StatoAnnuncio;
+import mainController.MainController;
+
 import java.awt.event.*;
 import java.io.File;
 import java.sql.SQLException;
@@ -20,10 +22,12 @@ public class ListaAnnunci extends JFrame {
     private Utente_entity UtenteLoggato;
     private JComboBox<String> comboBoxTipologia;
     private JComboBox<String> comboBoxCategoria;
+    private MainController controller;
 
-    public ListaAnnunci(Utente_entity UtenteLoggato) {
+    public ListaAnnunci(Utente_entity UtenteLoggato, MainController controller) {
 
             this.UtenteLoggato = UtenteLoggato;
+            this.controller = controller;
 
             setTitle("Lista Annunci");
             setIconImage(Toolkit.getDefaultToolkit().getImage(
@@ -51,7 +55,7 @@ public class ListaAnnunci extends JFrame {
             btnUndo.setFocusPainted(false);
             btnUndo.addActionListener(e -> {
                 setVisible(false);
-                AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
+                AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
                 areaUtenteFrame.setVisible(true);
             });
 
@@ -520,13 +524,13 @@ public class ListaAnnunci extends JFrame {
             setVisible(false);
 
             if (tipologia.equals("Scambio")) {
-                OffertaScambio offertaScambioFrame = new OffertaScambio(UtenteLoggato, idAnnuncio);
+                OffertaScambio offertaScambioFrame = new OffertaScambio(UtenteLoggato, idAnnuncio, controller);
                 offertaScambioFrame.setVisible(true);
             } else if (tipologia.equals("Vendita")) {
-                OffertaVendita offertaVenditaFrame = new OffertaVendita(UtenteLoggato, idAnnuncio);
+                OffertaVendita offertaVenditaFrame = new OffertaVendita(UtenteLoggato, idAnnuncio, controller);
                 offertaVenditaFrame.setVisible(true);
             } else if (tipologia.equals("Regalo")) {
-                OffertaRegalo offertaRegaloFrame = new OffertaRegalo(UtenteLoggato, idAnnuncio);
+                OffertaRegalo offertaRegaloFrame = new OffertaRegalo(UtenteLoggato, idAnnuncio, controller);
                 offertaRegaloFrame.setVisible(true);
             }
         }

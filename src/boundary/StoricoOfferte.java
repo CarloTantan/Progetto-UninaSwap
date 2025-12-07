@@ -18,6 +18,7 @@ import dao.TransazioniDAO;
 import entity.Offerta_entity;
 import entity.Transazione_entity;
 import entity.Utente_entity;
+import mainController.MainController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -49,6 +50,7 @@ public class StoricoOfferte extends JFrame {
 	private JComboBox<String> comboBoxStato;
 	private JComboBox<String> comboBoxTipologia;
 	private ArrayList<Offerta_entity> offerteCaricate;
+	private MainController controller;
 
 	/**
 	 * Launch the application.
@@ -69,8 +71,9 @@ public class StoricoOfferte extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StoricoOfferte(Utente_entity UtenteLoggato) {
+	public StoricoOfferte(Utente_entity UtenteLoggato, MainController controller) {
 		this.UtenteLoggato = UtenteLoggato;
+		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				StoricoOfferte.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -100,7 +103,7 @@ public class StoricoOfferte extends JFrame {
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(e -> {
 			setVisible(false);
-			AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
+			AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
 			AreaUtenteFrame.setVisible(true);
 		});
 		btnUndo.setBackground(new Color(45, 134, 192));
@@ -462,17 +465,17 @@ public class StoricoOfferte extends JFrame {
 			String tipologia = offerta.getTipologiaOfferta();
 			
 			if (tipologia.equalsIgnoreCase("Regalo")) {
-				OffertaRegalo frame = new OffertaRegalo(UtenteLoggato, idAnnuncio);
+				OffertaRegalo frame = new OffertaRegalo(UtenteLoggato, idAnnuncio, controller);
 				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
 				frame.setVisible(true);
 				this.setVisible(false);
 			} else if (tipologia.equalsIgnoreCase("Scambio")) {
-				OffertaScambio frame = new OffertaScambio(UtenteLoggato, idAnnuncio);
+				OffertaScambio frame = new OffertaScambio(UtenteLoggato, idAnnuncio, controller);
 				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
 				frame.setVisible(true);
 				this.setVisible(false);
 			} else if (tipologia.equalsIgnoreCase("Vendita")) {
-				OffertaVendita frame = new OffertaVendita(UtenteLoggato, idAnnuncio);
+				OffertaVendita frame = new OffertaVendita(UtenteLoggato, idAnnuncio, controller);
 				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
 				frame.setVisible(true);
 				this.setVisible(false);

@@ -19,6 +19,7 @@ import dao.RecensioneVenditoreDAO;
 import entity.AnnuncioVendita_entity;
 import entity.Recensione_entity;
 import entity.Utente_entity;
+import mainController.MainController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -52,6 +53,7 @@ public class ListaRecensioni extends JFrame {
     private Utente_entity UtenteLoggato;
     private JPanel panelRecensioni;
     private JLabel lblContatore;
+    private MainController controller;
 	/**
 	 * Launch the application.
 	 */
@@ -72,8 +74,9 @@ public class ListaRecensioni extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ListaRecensioni(Utente_entity UtenteLoggato) {
+	public ListaRecensioni(Utente_entity UtenteLoggato, MainController controller) {
         this.UtenteLoggato = UtenteLoggato;
+        this.controller = controller;
         
         setIconImage(Toolkit.getDefaultToolkit().getImage(
                 ListaRecensioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -125,7 +128,7 @@ public class ListaRecensioni extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
+                AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
                 AreaUtenteFrame.setVisible(true);
             }
         });

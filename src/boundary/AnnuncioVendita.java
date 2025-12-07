@@ -11,12 +11,19 @@ import dao.InserimentoAnnunciDAO;
 import entity.Oggetto_entity;
 import entity.Utente_entity;
 import enumerations.FasciaOraria;
+import mainController.MainController;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -41,6 +48,7 @@ public class AnnuncioVendita extends JFrame {
 	private String modalitaConsegna;
 	private FasciaOraria fasciaOraria;
 	private ArrayList<String> percorsiImmagini;
+	private MainController controller;
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +69,7 @@ public class AnnuncioVendita extends JFrame {
 	 * Create the frame.
 	 */
 	public AnnuncioVendita(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio, String titolo, String descrizione, String modalitaConsegna,
-            FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini) {
+            FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini, MainController controller) {
 		this.OggettoAnnuncio = OggettoAnnuncio;
 		this.UtenteLoggato = UtenteLoggato;
 		this.titolo = titolo;
@@ -69,67 +77,99 @@ public class AnnuncioVendita extends JFrame {
 		this.modalitaConsegna = modalitaConsegna;
 		this.fasciaOraria = fasciaOraria;
 		this.percorsiImmagini = percorsiImmagini;
+		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Vendita");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 686, 487);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setMinimumSize(new Dimension(800, 600));
+		
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		contentPane.setBackground(new Color(245, 247, 250));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, 672, 55);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Annuncio di vendita");
-		lblNewLabel.setBounds(227, 10, 230, 35);
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
-		panel.add(lblNewLabel);
+		// Header Panel
+		JPanel headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(45, 134, 192));
+		headerPanel.setPreferredSize(new Dimension(0, 80));
+		headerPanel.setLayout(new BorderLayout());
+		contentPane.add(headerPanel, BorderLayout.NORTH);
 		
 		JButton ButtonAnnulla = new JButton("");
 		ButtonAnnulla.setBackground(new Color(45, 134, 192));
-		ButtonAnnulla.setIcon(new ImageIcon("C:\\Users\\sabri\\Downloads\\icons8-annulla-3d-fluency-32.png"));
-		ButtonAnnulla.setBounds(0, 0, 51, 55);
-		panel.add(ButtonAnnulla);
+		ButtonAnnulla.setIcon(new ImageIcon(AnnuncioVendita.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		ButtonAnnulla.setFocusPainted(false);
 		ButtonAnnulla.setBorderPainted(false);
-
-		
+		ButtonAnnulla.setPreferredSize(new Dimension(60, 80));
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(UtenteLoggato, OggettoAnnuncio); 
+				Annuncio annuncioFrame = new Annuncio(UtenteLoggato, OggettoAnnuncio, controller); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
 		
+		JPanel leftPanel = new JPanel();
+		leftPanel.setBackground(new Color(45, 134, 192));
+		leftPanel.add(ButtonAnnulla);
+		headerPanel.add(leftPanel, BorderLayout.WEST);
+		
+		JLabel lblTitolo = new JLabel("Annuncio di vendita");
+		lblTitolo.setForeground(Color.WHITE);
+		lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
+		JPanel centerHeaderPanel = new JPanel();
+		centerHeaderPanel.setBackground(new Color(45, 134, 192));
+		centerHeaderPanel.setBorder(new EmptyBorder(25, 0, 0, 0));
+		centerHeaderPanel.add(lblTitolo);
+		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
+		
+		// Main Content Panel
+		JPanel mainPanel = new JPanel();
+		mainPanel.setBackground(new Color(245, 247, 250));
+		mainPanel.setBorder(new EmptyBorder(60, 100, 60, 100));
+		mainPanel.setLayout(new GridBagLayout());
+		contentPane.add(mainPanel, BorderLayout.CENTER);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(15, 15, 15, 15);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		
+		// Label Prezzo
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.WEST;
+		JLabel lblPrezzo = new JLabel("Prezzo (€)");
+		lblPrezzo.setFont(new Font("Verdana", Font.BOLD, 18));
+		mainPanel.add(lblPrezzo, gbc);
+		
+		// TextField Prezzo
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weightx = 1.0;
 		JTextField textFieldPrezzo = new JTextField();
-		textFieldPrezzo.setFont(new Font("Verdana", Font.BOLD, 16));
-		textFieldPrezzo.setForeground(new Color(255, 255, 255));
-		textFieldPrezzo.setBackground(new Color(0, 52, 102));
-		textFieldPrezzo.setBounds(321, 88, 112, 22);
-		contentPane.add(textFieldPrezzo);
+		textFieldPrezzo.setFont(new Font("Verdana", Font.PLAIN, 16));
+		textFieldPrezzo.setPreferredSize(new Dimension(300, 40));
+		mainPanel.add(textFieldPrezzo, gbc);
 		
-		JLabel lblNewLabel_1 = new JLabel("Prezzo (€)");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(219, 89, 92, 19);
-		contentPane.add(lblNewLabel_1);
-		
+		// Bottone Pubblica
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.weightx = 0;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.insets = new Insets(30, 15, 15, 15);
 		JButton ButtonPubblica = new JButton("Pubblica");
-		ButtonPubblica.setForeground(new Color(255, 255, 255));
+		ButtonPubblica.setForeground(Color.WHITE);
 		ButtonPubblica.setBackground(new Color(0, 52, 102));
-		ButtonPubblica.setFont(new Font("Verdana", Font.BOLD, 16));
-		ButtonPubblica.setBounds(266, 163, 123, 37);
-		contentPane.add(ButtonPubblica);
+		ButtonPubblica.setFont(new Font("Verdana", Font.BOLD, 18));
+		ButtonPubblica.setPreferredSize(new Dimension(200, 50));
         ButtonPubblica.setFocusPainted(false);
 		ButtonPubblica.setBorderPainted(false);
+		mainPanel.add(ButtonPubblica, gbc);
 		
 		ButtonPubblica.addActionListener(new ActionListener() {
 			@Override
@@ -153,7 +193,6 @@ public class AnnuncioVendita extends JFrame {
 						return;
 					}
 					
-					// Inserisci l'annuncio nel database
 					InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
 					int idAnnuncio = annuncioDAO.inserisciAnnuncioVendita(
 						titolo, 
@@ -165,7 +204,6 @@ public class AnnuncioVendita extends JFrame {
 						OggettoAnnuncio.getIdOggetto()
 					);
 					
-					// Inserisci le foto dell'annuncio
 					FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
 					for (String percorsoImg : percorsiImmagini) {
 						fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
@@ -176,9 +214,8 @@ public class AnnuncioVendita extends JFrame {
 						"Pubblicazione avvenuta con successo", 
 						"Annuncio pubblicato", 
 						JOptionPane.INFORMATION_MESSAGE);
-					AreaUtente utenteFrame = new AreaUtente(UtenteLoggato); 
+					AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller); 
 					utenteFrame.setVisible(true);
-					utenteFrame.setLocationRelativeTo(null);
 					
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, 
@@ -192,6 +229,16 @@ public class AnnuncioVendita extends JFrame {
 						JOptionPane.ERROR_MESSAGE);
 					ex.printStackTrace();
 				}
+			}
+		});
+		
+		// Hover effect
+		ButtonPubblica.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				ButtonPubblica.setBackground(new Color(0, 70, 140));
+			}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				ButtonPubblica.setBackground(new Color(0, 52, 102));
 			}
 		});
 	}

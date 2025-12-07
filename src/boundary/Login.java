@@ -247,7 +247,7 @@ public class Login extends JFrame {
                 
                 // Apri l'interfaccia area utente
                 this.dispose(); // Chiudi la finestra di login
-                AreaUtente areaUtente = new AreaUtente(UtenteLoggato);
+                AreaUtente areaUtente = new AreaUtente(UtenteLoggato, controller);
                 areaUtente.setVisible(true);
                 
             } else {

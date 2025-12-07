@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entity.Utente_entity;
+import mainController.MainController;
 
 import javax.swing.JButton;
 
@@ -60,7 +61,7 @@ public class AreaUtente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AreaUtente(Utente_entity UtenteLoggato) {
+	public AreaUtente(Utente_entity UtenteLoggato, MainController controller) {
 		this.UtenteLoggato = UtenteLoggato; // Assegna l'utente alla variabile di istanza
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AreaUtente.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("AreaUtente");
@@ -90,10 +91,7 @@ public class AreaUtente extends JFrame {
 		JButton btnUndo = new JButton("");
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				Login LoginFrame = new Login();
-				LoginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				LoginFrame.setVisible(true);
+				tornaAlLogin(controller);
 			}
 		});
 		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
@@ -147,9 +145,7 @@ public class AreaUtente extends JFrame {
 		
 		btnReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Report ReportFrame = new Report(UtenteLoggato);
-				ReportFrame.setVisible(true);
+				apriReport(UtenteLoggato, controller);
 			}
 		});
 		
@@ -204,9 +200,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaStoricoOfferte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(UtenteLoggato);
-				StoricoOfferteFrame.setVisible(true);
+				apriStoricoOfferte(UtenteLoggato, controller);
 				
 			}
 		});
@@ -217,9 +211,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-aggiungi-48.png");
 		btnInserisciRecensione.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(UtenteLoggato);
-				ListaTransazioniFrame.setVisible(true);
+				apriListaTransazioni(UtenteLoggato, controller);
 				
 			}
 		});
@@ -232,9 +224,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				AnnunciPubblicati OfferteRicevuteFrame = new AnnunciPubblicati(UtenteLoggato);
-				OfferteRicevuteFrame.setVisible(true);
+				apriAnnunciPubblicati(UtenteLoggato, controller);
 				
 			}
 		});
@@ -244,9 +234,7 @@ public class AreaUtente extends JFrame {
 		btnCreaAnnuncio = createStyledButton("Crea Annuncio", "/icons/icons8-aggiungi-48.png");
 		btnCreaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Oggetto OggettoFrame = new Oggetto(UtenteLoggato);
-				OggettoFrame.setVisible(true);
+				apriOggetto(UtenteLoggato, controller);
 				
 			}
 		});
@@ -259,9 +247,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaRecensioni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(UtenteLoggato);
-				ListaRecensioniFrame.setVisible(true);
+				apriListaRecensioni(UtenteLoggato, controller);
 				
 			}
 		});
@@ -272,9 +258,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
-				ListaAnnunciFrame.setVisible(true);
+				apriListaAnnunci(UtenteLoggato, controller);
 				
 			}
 		});
@@ -282,8 +266,6 @@ public class AreaUtente extends JFrame {
 		
 		
 	}
-	
-	
 	
 	private JButton createStyledButton(String text, String iconPath) {
 		JButton button = new JButton(text);
@@ -313,5 +295,59 @@ public class AreaUtente extends JFrame {
 		return button;
 	}
 	
+	private void tornaAlLogin(MainController controller) {
+		dispose();
+		Login LoginFrame = new Login(controller);
+		LoginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		LoginFrame.setVisible(true);
+	}
 	
+	private void apriReport(Utente_entity UtenteLoggato, MainController controller) {
+		dispose();
+		Report ReportFrame = new Report(UtenteLoggato, controller);
+		ReportFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		ReportFrame.setVisible(true);
+	}
+	
+	private void apriStoricoOfferte(Utente_entity UtenteLoggato, MainController controller) {
+		dispose();
+		StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(UtenteLoggato, controller);
+		StoricoOfferteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		StoricoOfferteFrame.setVisible(true);
+	}
+	
+	private void apriListaTransazioni(Utente_entity UtenteLoggato, MainController controller) {
+		dispose();
+		ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(UtenteLoggato, controller);
+		ListaTransazioniFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
+		ListaTransazioniFrame.setVisible(true);
+	}
+	
+	private void apriAnnunciPubblicati(Utente_entity UtenteLoggato, MainController controller) {
+		dispose();
+		AnnunciPubblicati AnnunciPubblicatiFrame = new AnnunciPubblicati(UtenteLoggato, controller);
+		AnnunciPubblicatiFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
+		AnnunciPubblicatiFrame.setVisible(true);
+	}
+	
+	private void apriOggetto(Utente_entity UtenteLoggato, MainController controller) {
+		dispose();
+		Oggetto OggettoFrame = new Oggetto(UtenteLoggato, controller);
+		OggettoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
+		OggettoFrame.setVisible(true);
+	}
+	
+	private void apriListaRecensioni(Utente_entity UtenteLoggato, MainController controller) {
+		dispose();
+		ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(UtenteLoggato, controller);
+		ListaRecensioniFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
+		ListaRecensioniFrame.setVisible(true);
+	}
+	
+	private void apriListaAnnunci(Utente_entity UtenteLoggato, MainController controller) {
+		dispose();
+		ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+		ListaAnnunciFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
+		ListaAnnunciFrame.setVisible(true);
+	}
 }

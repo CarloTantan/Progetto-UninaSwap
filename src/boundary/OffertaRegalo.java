@@ -11,6 +11,7 @@ import dao.OffertaDAO;
 import entity.Annuncio_entity;
 import entity.OffertaRegalo_entity;
 import entity.Utente_entity;
+import mainController.MainController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -44,7 +45,8 @@ public class OffertaRegalo extends JFrame {
 	private JTextArea textAreaMessaggioMotivazionale;
 	private int IdOffertaDaModificare = -1;
 	private boolean isModificaMode = false;
-	private JButton btnConferma; 
+	private JButton btnConferma;
+	private MainController controller;
 	
 	/**
 	 * Launch the application.
@@ -65,9 +67,10 @@ public class OffertaRegalo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaRegalo(Utente_entity UtenteLoggato, int IdAnnuncioScelto) {
+	public OffertaRegalo(Utente_entity UtenteLoggato, int IdAnnuncioScelto, MainController controller) {
 		this.IdAnnuncioScelto = IdAnnuncioScelto;
 		this.UtenteLoggato = UtenteLoggato;
+		this.controller = controller;
 		offertaDAO = new OffertaDAO();
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -93,7 +96,7 @@ public class OffertaRegalo extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
+				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
 				ListaAnnunciFrame.setVisible(true);
 			}
 		});
@@ -237,7 +240,7 @@ public class OffertaRegalo extends JFrame {
 				String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
 				JOptionPane.showMessageDialog(null, messaggio, null, JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato);
+				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
 				ListaAnnunciFrame.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(this, 

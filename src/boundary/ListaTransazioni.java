@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import dao.TransazioniDAO;
 import entity.Transazione_entity;
 import entity.Utente_entity;
+import mainController.MainController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,6 +36,7 @@ public class ListaTransazioni extends JFrame {
     private DefaultTableModel modelTabella;
     private Utente_entity UtenteLoggato;
     private ArrayList<Transazione_entity> ListaTransazioni;
+    private MainController controller;
 
     /**
      * Launch the application.
@@ -55,8 +57,9 @@ public class ListaTransazioni extends JFrame {
     /**
      * Create the frame.
      */
-    public ListaTransazioni(Utente_entity UtenteLoggato) {
+    public ListaTransazioni(Utente_entity UtenteLoggato, MainController controller) {
     	this.UtenteLoggato = UtenteLoggato;
+    	this.controller = controller;
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(ListaTransazioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -252,7 +255,8 @@ public class ListaTransazioni extends JFrame {
             UtenteLoggato,
             transazioneSelezionata.getMatricolaAcquirente(),
             transazioneSelezionata.getMatricolaVenditore(),
-            transazioneSelezionata.getIdOfferta()
+            transazioneSelezionata.getIdOfferta(),
+            controller
         );
         recensioneFrame.setVisible(true);
         
@@ -261,7 +265,7 @@ public class ListaTransazioni extends JFrame {
     //torna all'area utente
     private void tornaAreaUtente() {
         this.dispose();
-        AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
+        AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
         areaUtenteFrame.setVisible(true);
         
     }

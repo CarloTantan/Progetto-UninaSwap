@@ -12,6 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import entity.Oggetto_entity;
 import entity.Utente_entity;
 import enumerations.FasciaOraria;
+import mainController.MainController;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -25,7 +26,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -36,6 +40,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
+import java.awt.BorderLayout;
 import java.awt.Button;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
@@ -58,6 +63,7 @@ public class Annuncio extends JFrame {
 	private DefaultListModel<String> listModelFoto;
 	private String percorsoImg;
 	private JList<String> listFoto;
+	private MainController controller;
 
 	/**
 	 * Launch the application.
@@ -79,150 +85,118 @@ public class Annuncio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Annuncio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio) {
+	public Annuncio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio, MainController controller) {
 		this.OggettoAnnuncio = OggettoAnnuncio;
 		this.UtenteLoggato = UtenteLoggato;
+		this.controller = controller;
 		this.PercorsiImmagini = new ArrayList<>();
 		this.listModelFoto = new DefaultListModel<>();
 		
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		 
-		setBounds(100, 100, 548, 638);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setMinimumSize(new Dimension(900, 700));
 		
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(null);
+		contentPane.setBackground(new Color(245, 247, 250));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPane.setLayout(new BorderLayout());
+		setContentPane(contentPane);
 		
-		setContentPane(contentPane); 
-		
-		JTextField textfieldTitolo = new JTextField();
-		textfieldTitolo.setFont(new Font("Verdana", Font.PLAIN, 16));
-		textfieldTitolo.setForeground(new Color(255, 255, 255));
-		textfieldTitolo.setBackground(new Color(0, 52, 102));
-		textfieldTitolo.setBounds(251, 198, 203, 22);
-		contentPane.add(textfieldTitolo);
-		
-		JTextField textAreaModConsegna = new JTextField();
-		textAreaModConsegna.setFont(new Font("Verdana", Font.PLAIN, 14));
-		textAreaModConsegna.setForeground(new Color(255, 255, 255));
-		textAreaModConsegna.setBackground(new Color(0, 52, 102));
-		textAreaModConsegna.setBounds(251, 399, 203, 22);
-		contentPane.add(textAreaModConsegna);
-		
-		JLabel lblNewLabel = new JLabel("Titolo");
-		lblNewLabel.setForeground(new Color(0, 0, 0));
-		lblNewLabel.setBackground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel.setBounds(36, 194, 179, 28);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Descrizione");
-		lblNewLabel_1.setBackground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(36, 266, 170, 28);
-		contentPane.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Fascia Oraria");
-		lblNewLabel_2.setBackground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(36, 350, 135, 13);
-		contentPane.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Modalità di consegna");
-		lblNewLabel_3.setBackground(new Color(255, 255, 255));
-		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_3.setBounds(36, 398, 179, 22);
-		contentPane.add(lblNewLabel_3);
-	
-		
-		JButton JRegalo = new JButton("Regalo");
-		JRegalo.setHorizontalAlignment(SwingConstants.LEFT);
-		JRegalo.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/—Pngtree—gift icon_7390276.png")));
-		JRegalo.setForeground(new Color(255, 255, 255));
-		JRegalo.setBackground(new Color(0, 52, 102));
-		JRegalo.setFont(new Font("Verdana", Font.BOLD, 16));
-		JRegalo.setBounds(195, 514, 151, 56);
-		contentPane.add(JRegalo);
-		JRegalo.setFocusPainted(false);
-		JRegalo.setBorderPainted(false);
-		
-		JButton JVendita = new JButton("Vendita");
-		JVendita.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-sale-32.png")));
-		JVendita.setHorizontalAlignment(SwingConstants.LEFT);
-		JVendita.setForeground(new Color(255, 255, 255));
-		JVendita.setBackground(new Color(0, 52, 102));
-		JVendita.setFont(new Font("Verdana", Font.BOLD, 16));
-		JVendita.setBounds(356, 514, 145, 56);
-		contentPane.add(JVendita);
-		JVendita.setFocusPainted(false);
-		JVendita.setBorderPainted(false);
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(45, 134, 192));
-		panel.setBounds(0, 0, 536, 58);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		// Header Panel
+		JPanel headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(45, 134, 192));
+		headerPanel.setPreferredSize(new Dimension(0, 80));
+		headerPanel.setLayout(new BorderLayout());
+		contentPane.add(headerPanel, BorderLayout.NORTH);
 		
 		JButton ButtonAnnulla = new JButton("");
-		ButtonAnnulla.setBounds(0, 0, 46, 58);
-		panel.add(ButtonAnnulla);
 		ButtonAnnulla.setBackground(new Color(45, 134, 192));
 		ButtonAnnulla.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		ButtonAnnulla.setFocusPainted(false);
 		ButtonAnnulla.setBorderPainted(false);
-		
-		
+		ButtonAnnulla.setPreferredSize(new Dimension(60, 80));
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				AreaUtente utenteFrame = new AreaUtente(UtenteLoggato); 
+				AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller); 
 				utenteFrame.setVisible(true);
 			}
-		}); 
+		});
 		
-		JLabel lblNewLabel_6 = new JLabel("Annuncio");
-		lblNewLabel_6.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel_6.setBounds(234, 0, 100, 58);
-		panel.add(lblNewLabel_6);
+		JPanel leftPanel = new JPanel();
+		leftPanel.setBackground(new Color(45, 134, 192));
+		leftPanel.add(ButtonAnnulla);
+		headerPanel.add(leftPanel, BorderLayout.WEST);
 		
-		// Lista per visualizzare le foto caricate
-		listFoto = new JList<>(listModelFoto);
-		listFoto.setFont(new Font("Verdana", Font.PLAIN, 10));
-		JScrollPane scrollPaneFoto = new JScrollPane(listFoto);
-		scrollPaneFoto.setBounds(251, 77, 203, 77);
-		contentPane.add(scrollPaneFoto);
+		JLabel lblTitolo = new JLabel("Crea il tuo annuncio");
+		lblTitolo.setForeground(Color.WHITE);
+		lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
+		JPanel centerHeaderPanel = new JPanel();
+		centerHeaderPanel.setBackground(new Color(45, 134, 192));
+		centerHeaderPanel.setBorder(new EmptyBorder(25, 0, 0, 0));
+		centerHeaderPanel.add(lblTitolo);
+		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
 		
+		// Main Content Panel
+		JPanel mainPanel = new JPanel();
+		mainPanel.setBackground(new Color(245, 247, 250));
+		mainPanel.setBorder(new EmptyBorder(40, 80, 40, 80));
+		mainPanel.setLayout(new GridBagLayout());
+		contentPane.add(mainPanel, BorderLayout.CENTER);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		
+		// Sezione Caricamento Foto
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.WEST;
+		JLabel lblFoto = new JLabel("Foto dell'oggetto");
+		lblFoto.setFont(new Font("Verdana", Font.BOLD, 16));
+		mainPanel.add(lblFoto, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.weightx = 1.0;
 		JButton ButtonImgOggetto = new JButton("Carica immagine");
-		ButtonImgOggetto.setForeground(new Color(255, 255, 255));
+		ButtonImgOggetto.setForeground(Color.WHITE);
 		ButtonImgOggetto.setBackground(new Color(0, 52, 102));
-		ButtonImgOggetto.setHorizontalAlignment(SwingConstants.LEFT);
+		ButtonImgOggetto.setFont(new Font("Verdana", Font.BOLD, 14));
+		ButtonImgOggetto.setFocusPainted(false);
+		ButtonImgOggetto.setBorderPainted(false);
+		ButtonImgOggetto.setPreferredSize(new Dimension(200, 40));
 		ButtonImgOggetto.addActionListener(new ActionListener() {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
-				caricaImmagini(); // Chiama il metodo caricaImg()
+				caricaImmagini();
 		        }
 		});
+		mainPanel.add(ButtonImgOggetto, gbc);
 		
+		// Lista foto
+		listFoto = new JList<>(listModelFoto);
+		listFoto.setFont(new Font("Verdana", Font.PLAIN, 12));
+		JScrollPane scrollPaneFoto = new JScrollPane(listFoto);
+		scrollPaneFoto.setPreferredSize(new Dimension(300, 80));
 		
-		ButtonImgOggetto.setFont(new Font("Tahoma", Font.BOLD, 16));
-		ButtonImgOggetto.setBounds(21, 77, 194, 36);
-		contentPane.add(ButtonImgOggetto);
-		ButtonImgOggetto.setFocusPainted(false);
-		ButtonImgOggetto.setBorderPainted(false);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		mainPanel.add(scrollPaneFoto, gbc);
 		
-		// Pulsante per rimuovere foto selezionata
-		JButton ButtonRimuoviFoto = new JButton("Rimuovi");
-		ButtonRimuoviFoto.setForeground(new Color(255, 255, 255));
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		JButton ButtonRimuoviFoto = new JButton("Rimuovi foto selezionata");
+		ButtonRimuoviFoto.setForeground(Color.WHITE);
 		ButtonRimuoviFoto.setBackground(new Color(0, 52, 102));
-		ButtonRimuoviFoto.setFont(new Font("Tahoma", Font.BOLD, 12));
-		ButtonRimuoviFoto.setBounds(21, 124, 194, 30);
+		ButtonRimuoviFoto.setFont(new Font("Verdana", Font.PLAIN, 12));
 		ButtonRimuoviFoto.setFocusPainted(false);
 		ButtonRimuoviFoto.setBorderPainted(false);
-		contentPane.add(ButtonRimuoviFoto);
-		
 		ButtonRimuoviFoto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -233,141 +207,218 @@ public class Annuncio extends JFrame {
 				}
 			}
 		});
+		mainPanel.add(ButtonRimuoviFoto, gbc);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(251, 242, 203, 77);
-		contentPane.add(scrollPane);
+		// Titolo
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.weightx = 0;
+		JLabel lblTitoloAnnuncio = new JLabel("Titolo");
+		lblTitoloAnnuncio.setFont(new Font("Verdana", Font.BOLD, 16));
+		mainPanel.add(lblTitoloAnnuncio, gbc);
 		
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		gbc.weightx = 1.0;
+		JTextField textfieldTitolo = new JTextField();
+		textfieldTitolo.setFont(new Font("Verdana", Font.PLAIN, 14));
+		textfieldTitolo.setPreferredSize(new Dimension(300, 35));
+		mainPanel.add(textfieldTitolo, gbc);
+		
+		// Descrizione
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.weightx = 0;
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		JLabel lblDescrizione = new JLabel("Descrizione");
+		lblDescrizione.setFont(new Font("Verdana", Font.BOLD, 16));
+		mainPanel.add(lblDescrizione, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		gbc.weightx = 1.0;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weighty = 0.5;
 		JTextArea textAreaDescrizione = new JTextArea();
-		textAreaDescrizione.setForeground(new Color(255, 255, 255));
-		textAreaDescrizione.setBackground(new Color(0, 52, 102));
-		textAreaDescrizione.setFont(new Font("Verdana", Font.PLAIN, 16));
-		textAreaDescrizione.setLineWrap(true);  
+		textAreaDescrizione.setFont(new Font("Verdana", Font.PLAIN, 14));
+		textAreaDescrizione.setLineWrap(true);
 		textAreaDescrizione.setWrapStyleWord(true);
 		textAreaDescrizione.setRows(4);
-		textAreaDescrizione.setColumns(20);
-		scrollPane.setViewportView(textAreaDescrizione);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane scrollPane = new JScrollPane(textAreaDescrizione);
+		scrollPane.setPreferredSize(new Dimension(300, 100));
+		mainPanel.add(scrollPane, gbc);
 		
-		String[] categorie= {"Seleziona una categoria", "Libri", "Cancelleria", "Vestiti", "Elettronica", "Musica", "Giochi", "Sport", "Casa", "Altro"};
+		// Fascia Oraria
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		gbc.weightx = 0;
+		gbc.weighty = 0;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.anchor = GridBagConstraints.WEST;
+		JLabel lblFasciaOraria = new JLabel("Fascia Oraria");
+		lblFasciaOraria.setFont(new Font("Verdana", Font.BOLD, 16));
+		mainPanel.add(lblFasciaOraria, gbc);
 		
+		gbc.gridx = 1;
+		gbc.gridy = 5;
+		gbc.weightx = 1.0;
 		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:00", "10:00 - 12:00","12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00", "20:00 - 22:00"};
-		JComboBox comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
-		comboBoxFasciaOraria.setForeground(new Color(255, 255, 255));
-		comboBoxFasciaOraria.setBackground(new Color(0, 52, 102));
-		comboBoxFasciaOraria.setFont(new Font("Verdana", Font.BOLD, 16));
-		comboBoxFasciaOraria.setBounds(251, 347, 203, 22);
-		contentPane.add(comboBoxFasciaOraria);
+		JComboBox<String> comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
+		comboBoxFasciaOraria.setFont(new Font("Verdana", Font.PLAIN, 14));
+		comboBoxFasciaOraria.setPreferredSize(new Dimension(300, 35));
+		mainPanel.add(comboBoxFasciaOraria, gbc);
+		
+		// Modalità di consegna
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		gbc.weightx = 0;
+		JLabel lblModConsegna = new JLabel("Modalità di consegna");
+		lblModConsegna.setFont(new Font("Verdana", Font.BOLD, 16));
+		mainPanel.add(lblModConsegna, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 6;
+		gbc.weightx = 1.0;
+		JTextField textAreaModConsegna = new JTextField();
+		textAreaModConsegna.setFont(new Font("Verdana", Font.PLAIN, 14));
+		textAreaModConsegna.setPreferredSize(new Dimension(300, 35));
+		mainPanel.add(textAreaModConsegna, gbc);
+		
+		// Panel bottoni azione
+		gbc.gridx = 0;
+		gbc.gridy = 7;
+		gbc.gridwidth = 2;
+		gbc.insets = new Insets(30, 10, 10, 10);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(new Color(245, 247, 250));
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
 		
 		JButton JScambio = new JButton("Scambio");
 		JScambio.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-exchange-32.png")));
-		JScambio.setHorizontalAlignment(SwingConstants.LEFT);
-		JScambio.setForeground(new Color(255, 255, 255));
-		JScambio.setToolTipText("");
+		JScambio.setForeground(Color.WHITE);
 		JScambio.setBackground(new Color(0, 52, 102));
 		JScambio.setFont(new Font("Verdana", Font.BOLD, 16));
-		JScambio.setBounds(36, 514, 151, 56);
-		contentPane.add(JScambio);
+		JScambio.setPreferredSize(new Dimension(180, 50));
 		JScambio.setFocusPainted(false);
 		JScambio.setBorderPainted(false);
-
+		
+		JButton JRegalo = new JButton("Regalo");
+		JRegalo.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/—Pngtree—gift icon_7390276.png")));
+		JRegalo.setForeground(Color.WHITE);
+		JRegalo.setBackground(new Color(0, 52, 102));
+		JRegalo.setFont(new Font("Verdana", Font.BOLD, 16));
+		JRegalo.setPreferredSize(new Dimension(180, 50));
+		JRegalo.setFocusPainted(false);
+		JRegalo.setBorderPainted(false);
+		
+		JButton JVendita = new JButton("Vendita");
+		JVendita.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-sale-32.png")));
+		JVendita.setForeground(Color.WHITE);
+		JVendita.setBackground(new Color(0, 52, 102));
+		JVendita.setFont(new Font("Verdana", Font.BOLD, 16));
+		JVendita.setPreferredSize(new Dimension(180, 50));
+		JVendita.setFocusPainted(false);
+		JVendita.setBorderPainted(false);
+		
+		buttonPanel.add(JScambio);
+		buttonPanel.add(JRegalo);
+		buttonPanel.add(JVendita);
+		mainPanel.add(buttonPanel, gbc);
+		
 		// Validazione e navigazione comune
-				ActionListener validazioneComune = new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if (!validaCampi(textfieldTitolo, textAreaDescrizione, textAreaModConsegna, comboBoxFasciaOraria)) {
-							return;
-						}
-						
-						// Recupera la fascia oraria selezionata
-						String fasciaSelezionata = (String) comboBoxFasciaOraria.getSelectedItem();
-						FasciaOraria fasciaOraria = FasciaOraria.fromLabel(fasciaSelezionata);
-						
-						// Determina quale pulsante è stato premuto
-						JButton sourceButton = (JButton) e.getSource();
-						setVisible(false);
-						
-						if (sourceButton == JScambio) {
-							AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(
-								UtenteLoggato, OggettoAnnuncio,
-								textfieldTitolo.getText().trim(),
-								textAreaDescrizione.getText().trim(),
-								textAreaModConsegna.getText().trim(),
-								fasciaOraria,
-								PercorsiImmagini
-							);
-							annuncioScambioFrame.setVisible(true);
-							annuncioScambioFrame.setLocationRelativeTo(null);
-						} else if (sourceButton == JRegalo) {
-							AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(
-								UtenteLoggato, OggettoAnnuncio,
-								textfieldTitolo.getText().trim(),
-								textAreaDescrizione.getText().trim(),
-								textAreaModConsegna.getText().trim(),
-								fasciaOraria,
-								PercorsiImmagini
-							);
-							annuncioRegaloFrame.setVisible(true);
-							annuncioRegaloFrame.setLocationRelativeTo(null);
-						} else if (sourceButton == JVendita) {
-							AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(
-								UtenteLoggato, OggettoAnnuncio,
-								textfieldTitolo.getText().trim(),
-								textAreaDescrizione.getText().trim(),
-								textAreaModConsegna.getText().trim(),
-								fasciaOraria,
-								PercorsiImmagini
-							);
-							annuncioVenditaFrame.setVisible(true);
-							annuncioVenditaFrame.setLocationRelativeTo(null);
-						}
-					}
-				};
+		ActionListener validazioneComune = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!validaCampi(textfieldTitolo, textAreaDescrizione, textAreaModConsegna, comboBoxFasciaOraria)) {
+					return;
+				}
 				
-				JScambio.addActionListener(validazioneComune);
-				JRegalo.addActionListener(validazioneComune);
-				JVendita.addActionListener(validazioneComune);
+				String fasciaSelezionata = (String) comboBoxFasciaOraria.getSelectedItem();
+				FasciaOraria fasciaOraria = FasciaOraria.fromLabel(fasciaSelezionata);
+				
+				JButton sourceButton = (JButton) e.getSource();
+				setVisible(false);
+				
+				if (sourceButton == JScambio) {
+					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(
+						UtenteLoggato, OggettoAnnuncio,
+						textfieldTitolo.getText().trim(),
+						textAreaDescrizione.getText().trim(),
+						textAreaModConsegna.getText().trim(),
+						fasciaOraria,
+						PercorsiImmagini,
+						controller
+					);
+					annuncioScambioFrame.setVisible(true);
+				} else if (sourceButton == JRegalo) {
+					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(
+						UtenteLoggato, OggettoAnnuncio,
+						textfieldTitolo.getText().trim(),
+						textAreaDescrizione.getText().trim(),
+						textAreaModConsegna.getText().trim(),
+						fasciaOraria,
+						PercorsiImmagini,
+						controller
+					);
+					annuncioRegaloFrame.setVisible(true);
+				} else if (sourceButton == JVendita) {
+					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(
+						UtenteLoggato, OggettoAnnuncio,
+						textfieldTitolo.getText().trim(),
+						textAreaDescrizione.getText().trim(),
+						textAreaModConsegna.getText().trim(),
+						fasciaOraria,
+						PercorsiImmagini,
+						controller
+					);
+					annuncioVenditaFrame.setVisible(true);
+				}
 			}
-			
-			private void caricaImmagini() {
-				JFileChooser scegliImg = new JFileChooser();
-		        scegliImg.setDialogTitle("Seleziona immagini");
-		        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
-		        scegliImg.setMultiSelectionEnabled(true); // Abilita selezione multipla
+		};
+		
+		JScambio.addActionListener(validazioneComune);
+		JRegalo.addActionListener(validazioneComune);
+		JVendita.addActionListener(validazioneComune);
+	}
+	
+	private void caricaImmagini() {
+		JFileChooser scegliImg = new JFileChooser();
+        scegliImg.setDialogTitle("Seleziona immagini");
+        scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
+        scegliImg.setMultiSelectionEnabled(true);
 
-		        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-		        	java.io.File[] files = scegliImg.getSelectedFiles();
-		        	for (java.io.File file : files) {
-		        		String percorso = file.getAbsolutePath();
-		        		PercorsiImmagini.add(percorso);
-		        		listModelFoto.addElement(file.getName());
-		        	}
-		        }
-			}
-			
-			private boolean validaCampi(JTextField titolo, JTextArea descrizione, 
-			                           JTextField modConsegna, JComboBox<String> fasciaOraria) {
-				if (titolo.getText().trim().isEmpty() || 
-					descrizione.getText().trim().isEmpty() || 
-					modConsegna.getText().trim().isEmpty() || 
-					PercorsiImmagini.isEmpty()) {
-					JOptionPane.showMessageDialog(null, 
-						"Tutti i campi sono obbligatori e devi caricare almeno una foto", 
-						"Campi mancanti", 
-						JOptionPane.WARNING_MESSAGE);
-					return false;
-				}
-				
-				String fasciaSelezionata = (String) fasciaOraria.getSelectedItem();
-				if (fasciaSelezionata == null || fasciaSelezionata.equals("Seleziona una fascia oraria")) {
-					JOptionPane.showMessageDialog(null, 
-						"Seleziona una fascia oraria valida", 
-						"Fascia oraria non valida", 
-						JOptionPane.WARNING_MESSAGE);
-					return false;
-				}
-				
-				return true;
-			}
+        if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        	java.io.File[] files = scegliImg.getSelectedFiles();
+        	for (java.io.File file : files) {
+        		String percorso = file.getAbsolutePath();
+        		PercorsiImmagini.add(percorso);
+        		listModelFoto.addElement(file.getName());
+        	}
+        }
+	}
+	
+	private boolean validaCampi(JTextField titolo, JTextArea descrizione, 
+	                           JTextField modConsegna, JComboBox<String> fasciaOraria) {
+		if (titolo.getText().trim().isEmpty() || 
+			descrizione.getText().trim().isEmpty() || 
+			modConsegna.getText().trim().isEmpty() || 
+			PercorsiImmagini.isEmpty()) {
+			JOptionPane.showMessageDialog(null, 
+				"Tutti i campi sono obbligatori e devi caricare almeno una foto", 
+				"Campi mancanti", 
+				JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
+		
+		String fasciaSelezionata = (String) fasciaOraria.getSelectedItem();
+		if (fasciaSelezionata == null || fasciaSelezionata.equals("Seleziona una fascia oraria")) {
+			JOptionPane.showMessageDialog(null, 
+				"Seleziona una fascia oraria valida", 
+				"Fascia oraria non valida", 
+				JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		
+		return true;
+	}
+}

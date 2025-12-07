@@ -36,6 +36,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import dao.ReportDAO;
 import entity.Utente_entity;
+import mainController.MainController;
 
 public class Report extends JFrame {
 
@@ -52,9 +53,11 @@ public class Report extends JFrame {
     private int offertaScambioAccettata;
     private int offerteVenditaAccettata;
     private String[] prezzi;
+    private MainController controller;
 
-    public Report(Utente_entity UtenteLoggato) {
+    public Report(Utente_entity UtenteLoggato, MainController controller) {
         this.UtenteLoggato = UtenteLoggato;
+        this.controller = controller;
         setIconImage(Toolkit.getDefaultToolkit().getImage(Report.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
         setTitle("Report");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -84,7 +87,7 @@ public class Report extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
+                AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
                 areaUtenteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 areaUtenteFrame.setVisible(true);
             }

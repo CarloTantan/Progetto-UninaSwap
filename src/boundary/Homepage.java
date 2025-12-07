@@ -38,7 +38,9 @@ public class Homepage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Homepage frame = new Homepage();
+					MainController controller = new MainController();
+					
+					Homepage frame = new Homepage(controller);
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Apri a schermo intero
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -52,6 +54,7 @@ public class Homepage extends JFrame {
 	 * Create the frame.
 	 */
 	public Homepage(MainController controller) {
+		this.controller = controller;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Homepage.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Homepage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -169,13 +172,13 @@ public class Homepage extends JFrame {
 	
 	public void apriRegistrazione() {
 		dispose();
-		Registrazione registrazioneFrame = new Registrazione();
+		Registrazione registrazioneFrame = new Registrazione(controller);
 		registrazioneFrame.setVisible(true);
 	}
 	
 	public void apriLogin() {
 		dispose();
-		Login loginFrame= new Login();
+		Login loginFrame= new Login(controller);
 		loginFrame.setVisible(true);
 	}
 }

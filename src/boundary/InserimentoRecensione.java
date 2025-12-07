@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.InserimentoRecensioneDAO;
 import entity.Utente_entity;
+import mainController.MainController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -43,6 +44,7 @@ public class InserimentoRecensione extends JFrame {
 	private JComboBox<String> comboBoxPunteggi;
     private JTextArea textAreaCommento;
     private InserimentoRecensioneDAO recensioneDAO;
+    private MainController controller;
 
 	/**
 	 * Launch the application.
@@ -63,11 +65,12 @@ public class InserimentoRecensione extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InserimentoRecensione(Utente_entity UtenteLoggato, String matricolaAcquirente, String matricolaVenditore, int idOfferta) {
+	public InserimentoRecensione(Utente_entity UtenteLoggato, String matricolaAcquirente, String matricolaVenditore, int idOfferta, MainController controller) {
 	    this.UtenteLoggato = UtenteLoggato;
 	    this.matricolaAcquirente = matricolaAcquirente;
 	    this.matricolaVenditore = matricolaVenditore;
 	    this.idOfferta = idOfferta;
+	    this.controller = controller;
 	    
 		setIconImage(Toolkit.getDefaultToolkit().getImage(InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Scrivi la tua recensione");
@@ -316,7 +319,7 @@ public class InserimentoRecensione extends JFrame {
 	
 	private void tornaAreaUtente() {
 		this.dispose();
-		AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato);
+		AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
 		areaUtenteFrame.setVisible(true);
 	}
 }

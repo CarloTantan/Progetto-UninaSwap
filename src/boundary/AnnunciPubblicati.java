@@ -15,6 +15,7 @@ import entity.Annuncio_entity;
 import entity.Offerta_entity;
 import entity.Transazione_entity;
 import entity.Utente_entity;
+import mainController.MainController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -56,6 +57,7 @@ public class AnnunciPubblicati extends JFrame {
     private JPanel panelBottoni;
     private JPanel panelBottoniOfferte;
     private JLabel lblTitolo;
+    private MainController controller;
 	    
 	/**
 	 * Launch the application.
@@ -77,9 +79,10 @@ public class AnnunciPubblicati extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AnnunciPubblicati(Utente_entity UtenteLoggato) {
+	public AnnunciPubblicati(Utente_entity UtenteLoggato, MainController controller) {
 	    this.UtenteLoggato = UtenteLoggato;
 	    this.listaAnnunci = new ArrayList<>();
+	    this.controller = controller;
 	    
 	    setIconImage(Toolkit.getDefaultToolkit().getImage(AnnunciPubblicati.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 	    setTitle("Annunci Pubblicati");
@@ -106,7 +109,7 @@ public class AnnunciPubblicati extends JFrame {
 	    btnUndo.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	            dispose();
-	            AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato);
+	            AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
 	            AreaUtenteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	            AreaUtenteFrame.setVisible(true);
 	        }
