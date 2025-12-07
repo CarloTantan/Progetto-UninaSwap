@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entity.Annuncio_entity;
+import entity.OffertaVendita_entity;
+import entity.OffertaRegalo_entity;
+import entity.OffertaScambio_entity;
 import entity.Offerta_entity;
 import enumerations.FasciaOraria;
 import enumerations.StatoAnnuncio;
@@ -67,19 +70,11 @@ public class Annunci_OfferteDAO {
 	    return Annunci;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	public ArrayList<Offerta_entity> getOfferte(int IdAnnuncio) throws SQLException {
 	    ArrayList<Offerta_entity> Offerte = new ArrayList<>();
 	    String query = "SELECT * " +
-                "FROM Offerta  " +
-                "WHERE IdAnnuncio = ? AND Stato = 'In Attesa' ";
+	                "FROM Offerta  " +
+	                "WHERE IdAnnuncio = ? AND Stato = 'In Attesa' ";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    Connection conn = null;
@@ -91,15 +86,39 @@ public class Annunci_OfferteDAO {
 	        rs = pstmt.executeQuery();
 	        
 	        while (rs.next()) {
-	        	Offerta_entity offerte = new Offerta_entity(
-	            	rs.getInt("IdOfferta"),	
-	                rs.getString("Stato"), 
-	                rs.getString("MatricolaAcquirente"),
-	                rs.getInt("IdAnnuncio"),	
-	                rs.getString("Tipologia")
-	                
-	        			);
-	        	Offerte.add(offerte);
+	            String tipologia = rs.getString("Tipologia");
+	            Offerta_entity offerta;
+	            
+	            if (tipologia.equalsIgnoreCase("Vendita")) {
+	                offerta = new OffertaVendita_entity(
+	                    rs.getInt("IdOfferta"),
+	                    rs.getString("Stato"),
+	                    rs.getString("MatricolaAcquirente"),
+	                    rs.getInt("IdAnnuncio"),
+	                    rs.getFloat("ImportoProposto"),
+	                    tipologia
+	                );
+	            } else if (tipologia.equalsIgnoreCase("Scambio")) {
+	                offerta = new OffertaScambio_entity(
+	                    rs.getInt("IdOfferta"),
+	                    rs.getString("Stato"),
+	                    rs.getString("MatricolaAcquirente"),
+	                    rs.getInt("IdAnnuncio"),
+	                    rs.getString("OggettoProposto"),
+	                    tipologia
+	                );
+	            } else { // Regalo
+	                offerta = new OffertaRegalo_entity(
+	                    rs.getInt("IdOfferta"),
+	                    rs.getString("Stato"),
+	                    rs.getString("MatricolaAcquirente"),
+	                    rs.getInt("IdAnnuncio"),
+	                    rs.getString("MessaggioMotivazionale"),
+	                    tipologia
+	                );
+	            }
+	            
+	            Offerte.add(offerta);
 	        }
 	    } finally {
 	        if(rs != null) rs.close();
@@ -108,7 +127,6 @@ public class Annunci_OfferteDAO {
 	    }
 	    
 	    return Offerte;
-	
 	}
 	
 	public boolean accettaOfferta(int idOfferta) throws SQLException {

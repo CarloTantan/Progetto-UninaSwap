@@ -6,12 +6,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.Annunci_OfferteDAO;
 import dao.ListaAnnunciDAO;
+import dao.RecensioneVenditoreDAO;
 import entity.Annuncio_entity;
+import entity.OffertaRegalo_entity;
+import entity.OffertaScambio_entity;
+import entity.OffertaVendita_entity;
 import entity.Offerta_entity;
 import entity.Transazione_entity;
 import entity.Utente_entity;
@@ -19,18 +25,23 @@ import mainController.MainController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -38,26 +49,20 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
+import java.awt.FlowLayout;
 
 public class AnnunciPubblicati extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private Utente_entity UtenteLoggato;
-    private JTable tabellaAnnunci;
-    private JTable tabellaOfferta;
+    private MainController controller;
     private ArrayList<Annuncio_entity> listaAnnunci;
     private ArrayList<Offerta_entity> listaOfferte;
-    private JScrollPane scrollPaneAnnunci;
-    private JScrollPane scrollPaneOfferte;
-    private JButton btnVisualizzaOfferte;
-    private JButton btnTornaAnnunci;
-    private JButton btnAccetta;
-    private JButton btnRifiuta;
-    private JPanel panelBottoni;
-    private JPanel panelBottoniOfferte;
+    private JPanel panelAnnunci;
+    private JPanel panelOfferte;
     private JLabel lblTitolo;
-    private MainController controller;
+    private Annuncio_entity annuncioCorrente;
 	    
 	/**
 	 * Launch the application.
@@ -80,283 +85,98 @@ public class AnnunciPubblicati extends JFrame {
 	 * Create the frame.
 	 */
 	public AnnunciPubblicati(Utente_entity UtenteLoggato, MainController controller) {
-	    this.UtenteLoggato = UtenteLoggato;
-	    this.listaAnnunci = new ArrayList<>();
-	    this.controller = controller;
-	    
-	    setIconImage(Toolkit.getDefaultToolkit().getImage(AnnunciPubblicati.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
-	    setTitle("Annunci Pubblicati");
-	    setBackground(new Color(255, 255, 255));
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    setMinimumSize(new Dimension(1200, 600));
-	    
-	    contentPane = new JPanel();
-	    contentPane.setBackground(new Color(255, 255, 255));
-	    contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	    setContentPane(contentPane);
-	    contentPane.setLayout(new BorderLayout());
-	    
-	    // Panel header
-	    JPanel panelHeader = new JPanel();
-	    panelHeader.setBackground(new Color(45, 134, 192));
-	    panelHeader.setPreferredSize(new Dimension(0, 80));
-	    contentPane.add(panelHeader, BorderLayout.NORTH);
-	    panelHeader.setLayout(new BorderLayout());
-	    
-	    JButton btnUndo = new JButton("");
-	    btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
-	    btnUndo.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            dispose();
-	            AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
-	            AreaUtenteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	            AreaUtenteFrame.setVisible(true);
-	        }
-	    });
-	    btnUndo.setBackground(new Color(45, 134, 192));
-	    btnUndo.setIcon(new ImageIcon(
-	        AnnunciPubblicati.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
-	    btnUndo.setPreferredSize(new Dimension(95, 80));
-	    btnUndo.setFocusPainted(false);
-	    btnUndo.setBorderPainted(false);
-	    panelHeader.add(btnUndo, BorderLayout.WEST);
-	    
-	    btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
-	        public void mouseEntered(java.awt.event.MouseEvent evt) {
-	            btnUndo.setBackground(new Color(65, 154, 212));
-	        }
-	        public void mouseExited(java.awt.event.MouseEvent evt) {
-	            btnUndo.setBackground(new Color(45, 134, 192));
-	        }
-	    });
-	    
-	    JLabel lblTitolo = new JLabel("Annunci Pubblicati");
-	    lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
-	    lblTitolo.setForeground(Color.WHITE);
-	    lblTitolo.setHorizontalAlignment(JLabel.CENTER);
-	    panelHeader.add(lblTitolo, BorderLayout.CENTER);
-	    
-	    // Rendi lblTitolo accessibile ai metodi (aggiungi come variabile di istanza)
-	    this.lblTitolo = lblTitolo;
-	    
-	    // Panel centrale con CardLayout per switchare tra tabelle
-	    JPanel panelCentrale = new JPanel();
-	    panelCentrale.setBackground(Color.WHITE);
-	    panelCentrale.setLayout(new CardLayout());
-	    panelCentrale.setBorder(new EmptyBorder(10, 10, 10, 10));
-	    contentPane.add(panelCentrale, BorderLayout.CENTER);
-	    
-	    // ===== CARD 1: ANNUNCI =====
-	    JPanel cardAnnunci = new JPanel(new BorderLayout(10, 10));
-	    cardAnnunci.setBackground(Color.WHITE);
-	    
-	    // Tabella Annunci
-	    DefaultTableModel modelTabellaAnnunci = new DefaultTableModel(
-	            new Object[][]{},
-	            new String[]{"Titolo", "Descrizione", "Fascia Oraria", "Modalità Consegna",
-	                "Stato", "Data", "Categoria"}
-	        ) {
-	            @Override
-	            public boolean isCellEditable(int row, int column) {
-	                return false;
-	            }
-	        };
-	        
-	    tabellaAnnunci = new JTable(modelTabellaAnnunci);
-	    tabellaAnnunci.setBackground(Color.WHITE);
-	    tabellaAnnunci.setFont(new Font("Verdana", Font.PLAIN, 12));
-	    tabellaAnnunci.setRowHeight(30);
-	    tabellaAnnunci.getTableHeader().setReorderingAllowed(false);
-	    tabellaAnnunci.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 12));
-	    
-	    scrollPaneAnnunci = new JScrollPane(tabellaAnnunci);
-	    cardAnnunci.add(scrollPaneAnnunci, BorderLayout.CENTER);
-	    
-	    // ===== CARD 2: OFFERTE =====
-	    JPanel cardOfferte = new JPanel(new BorderLayout(10, 10));
-	    cardOfferte.setBackground(Color.WHITE);
-	    
-	    // Tabella Offerte
-	    DefaultTableModel modelTabellaOfferte = new DefaultTableModel(
-	            new Object[][]{},
-	            new String[]{"Stato", "Matricola Acquirente", "Tipologia"}
-	        ) {
-	            @Override
-	            public boolean isCellEditable(int row, int column) {
-	                return false;
-	            }
-	        };
-	        
-	    tabellaOfferta = new JTable(modelTabellaOfferte);
-	    tabellaOfferta.setBackground(Color.WHITE);
-	    tabellaOfferta.setFont(new Font("Verdana", Font.PLAIN, 12));
-	    tabellaOfferta.setRowHeight(30);
-	    tabellaOfferta.getTableHeader().setReorderingAllowed(false);
-	    tabellaOfferta.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 12));
-	    
-	    scrollPaneOfferte = new JScrollPane(tabellaOfferta);
-	    cardOfferte.add(scrollPaneOfferte, BorderLayout.CENTER);
-	    
-	    // Aggiungi le card al CardLayout
-	    panelCentrale.add(cardAnnunci, "ANNUNCI");
-	    panelCentrale.add(cardOfferte, "OFFERTE");
-	    
-	    // Panel contenitore per i bottoni (entrambe le viste)
-	    JPanel panelBottoniContainer = new JPanel();
-	    panelBottoniContainer.setBackground(Color.WHITE);
-	    panelBottoniContainer.setPreferredSize(new Dimension(0, 80));
-	    panelBottoniContainer.setLayout(new CardLayout());
-	    contentPane.add(panelBottoniContainer, BorderLayout.SOUTH);
-	    
-	    // Panel bottoni per annunci
-	    panelBottoni = new JPanel();
-	    panelBottoni.setBackground(Color.WHITE);
-	    panelBottoni.setLayout(new GridBagLayout());
-	    
-	    GridBagConstraints gbc = new GridBagConstraints();
-	    gbc.insets = new Insets(10, 10, 10, 10);
-	    
-	    btnVisualizzaOfferte = new JButton("Visualizza Offerte");
-	    btnVisualizzaOfferte.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            SelezionaAnnuncio();
-	        }
-	    });
-	    btnVisualizzaOfferte.setFont(new Font("Verdana", Font.BOLD, 16));
-	    btnVisualizzaOfferte.setBackground(new Color(0, 52, 101));
-	    btnVisualizzaOfferte.setForeground(new Color(255, 255, 255));
-	    btnVisualizzaOfferte.setPreferredSize(new Dimension(250, 50));
-	    btnVisualizzaOfferte.setFocusPainted(false);
-	    btnVisualizzaOfferte.setBorderPainted(false);
-	    gbc.gridx = 0;
-	    gbc.gridy = 0;
-	    panelBottoni.add(btnVisualizzaOfferte, gbc);
-	    
-	    btnVisualizzaOfferte.addMouseListener(new java.awt.event.MouseAdapter() {
-	        public void mouseEntered(java.awt.event.MouseEvent evt) {
-	            btnVisualizzaOfferte.setBackground(new Color(0, 70, 140));
-	        }
-	        public void mouseExited(java.awt.event.MouseEvent evt) {
-	            btnVisualizzaOfferte.setBackground(new Color(0, 52, 101));
-	        }
-	    });
-	    
-	    // Panel bottoni per offerte
-	    panelBottoniOfferte = new JPanel();
-	    panelBottoniOfferte.setBackground(Color.WHITE);
-	    panelBottoniOfferte.setLayout(new GridBagLayout());
-	    
-	    GridBagConstraints gbcOfferte = new GridBagConstraints();
-	    gbcOfferte.insets = new Insets(10, 10, 10, 10);
-	    
-	    btnAccetta = new JButton("Accetta");
-	    btnAccetta.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            accettaOfferta();
-	        }
-	    });
-	    btnAccetta.setFont(new Font("Verdana", Font.BOLD, 16));
-	    btnAccetta.setBackground(new Color(0, 52, 101));
-	    btnAccetta.setForeground(new Color(255, 255, 255));
-	    btnAccetta.setPreferredSize(new Dimension(150, 50));
-	    btnAccetta.setFocusPainted(false);
-	    btnAccetta.setBorderPainted(false);
-	    gbcOfferte.gridx = 0;
-	    gbcOfferte.gridy = 0;
-	    panelBottoniOfferte.add(btnAccetta, gbcOfferte);
-	    
-	    btnAccetta.addMouseListener(new java.awt.event.MouseAdapter() {
-	        public void mouseEntered(java.awt.event.MouseEvent evt) {
-	            btnAccetta.setBackground(new Color(0, 70, 140));
-	        }
-	        public void mouseExited(java.awt.event.MouseEvent evt) {
-	            btnAccetta.setBackground(new Color(0, 52, 101));
-	        }
-	    });
-	    
-	    btnTornaAnnunci = new JButton("Torna agli Annunci");
-	    btnTornaAnnunci.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            mostraAnnunci();
-	        }
-	    });
-	    btnTornaAnnunci.setFont(new Font("Verdana", Font.BOLD, 16));
-	    btnTornaAnnunci.setBackground(new Color(0, 52, 101));
-	    btnTornaAnnunci.setForeground(new Color(255, 255, 255));
-	    btnTornaAnnunci.setPreferredSize(new Dimension(230, 50));
-	    btnTornaAnnunci.setFocusPainted(false);
-	    btnTornaAnnunci.setBorderPainted(false);
-	    gbcOfferte.gridx = 1;
-	    gbcOfferte.gridy = 0;
-	    panelBottoniOfferte.add(btnTornaAnnunci, gbcOfferte);
-	    
-	    btnTornaAnnunci.addMouseListener(new java.awt.event.MouseAdapter() {
-	        public void mouseEntered(java.awt.event.MouseEvent evt) {
-	            btnTornaAnnunci.setBackground(new Color(0, 70, 140));
-	        }
-	        public void mouseExited(java.awt.event.MouseEvent evt) {
-	            btnTornaAnnunci.setBackground(new Color(0, 52, 101));
-	        }
-	    });
-
-	    btnRifiuta = new JButton("Rifiuta");
-	    btnRifiuta.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            rifiutaOfferta();
-	        }
-	    });
-	    btnRifiuta.setForeground(Color.WHITE);
-	    btnRifiuta.setFont(new Font("Verdana", Font.BOLD, 16));
-	    btnRifiuta.setBackground(new Color(0, 52, 101));
-	    btnRifiuta.setPreferredSize(new Dimension(150, 50));
-	    btnRifiuta.setFocusPainted(false);
-	    btnRifiuta.setBorderPainted(false);
-	    gbcOfferte.gridx = 2;
-	    gbcOfferte.gridy = 0;
-	    panelBottoniOfferte.add(btnRifiuta, gbcOfferte);
-	    
-	    btnRifiuta.addMouseListener(new java.awt.event.MouseAdapter() {
-	        public void mouseEntered(java.awt.event.MouseEvent evt) {
-	            btnRifiuta.setBackground(new Color(0, 70, 140));
-	        }
-	        public void mouseExited(java.awt.event.MouseEvent evt) {
-	            btnRifiuta.setBackground(new Color(0, 52, 101));
-	        }
-	    });
-	    
-	    // Aggiungi i panel bottoni al CardLayout
-	    panelBottoniContainer.add(panelBottoni, "BOTTONI_ANNUNCI");
-	    panelBottoniContainer.add(panelBottoniOfferte, "BOTTONI_OFFERTE");
-	    
-	    // Carica i dati
-	    caricaAnnunci();
-	    
-
-	}
-	
-	private void caricaAnnunci() {
-		String matricola = UtenteLoggato.getMatricola();
-	    try {
-	    	Annunci_OfferteDAO selectAnnunci = new Annunci_OfferteDAO();
-	    	listaAnnunci = selectAnnunci.getAnnunci(matricola);
-
-	        DefaultTableModel model = (DefaultTableModel) tabellaAnnunci.getModel();
-	        model.setRowCount(0);
-	        
-	        for (Annuncio_entity A : listaAnnunci) {
-                model.addRow(new Object[]{
-                    A.getTitolo(),
-                    A.getDescrizione(),
-                    A.getFasciaOraria(),
-                    A.getModalitàConsegna(),
-                    A.getStatoAnnuncio(),
-                    A.getDataPubblicazione(),
-                    A.getTipologiaCategoria()
-                });
+        this.UtenteLoggato = UtenteLoggato;
+        this.listaAnnunci = new ArrayList<>();
+        this.controller = controller;
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(
+            AnnunciPubblicati.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+        setTitle("Annunci Pubblicati");
+        setBackground(new Color(255, 255, 255));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(1200, 600));
+        
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(245, 247, 250));
+        contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+        setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout());
+        
+        // ===== HEADER =====
+        JPanel panelHeader = new JPanel();
+        panelHeader.setBackground(new Color(45, 134, 192));
+        panelHeader.setPreferredSize(new Dimension(0, 80));
+        panelHeader.setBorder(new EmptyBorder(10, 20, 10, 20));
+        contentPane.add(panelHeader, BorderLayout.NORTH);
+        panelHeader.setLayout(new BorderLayout());
+        
+        JButton btnUndo = new JButton(new ImageIcon(
+            AnnunciPubblicati.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+        btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
+        btnUndo.addActionListener(e -> {
+            dispose();
+            AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+            AreaUtenteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            AreaUtenteFrame.setVisible(true);
+        });
+        btnUndo.setBackground(new Color(45, 134, 192));
+        btnUndo.setBorderPainted(false);
+        btnUndo.setFocusPainted(false);
+        panelHeader.add(btnUndo, BorderLayout.WEST);
+        
+        btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUndo.setBackground(new Color(65, 154, 212));
             }
-
-	    } catch (SQLException e) {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnUndo.setBackground(new Color(45, 134, 192));
+            }
+        });
+        
+        lblTitolo = new JLabel("I Tuoi Annunci Pubblicati", SwingConstants.CENTER);
+        lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
+        lblTitolo.setForeground(Color.WHITE);
+        panelHeader.add(lblTitolo, BorderLayout.CENTER);
+        
+        // ===== PANEL CENTRALE CON CARDLAYOUT =====
+        JPanel panelCentrale = new JPanel(new CardLayout());
+        panelCentrale.setBackground(Color.WHITE);
+        contentPane.add(panelCentrale, BorderLayout.CENTER);
+        
+        // Card Annunci
+        panelAnnunci = new JPanel();
+        panelAnnunci.setLayout(new BoxLayout(panelAnnunci, BoxLayout.Y_AXIS));
+        panelAnnunci.setBackground(Color.WHITE);
+        panelAnnunci.setBorder(new EmptyBorder(20, 30, 20, 30));
+        
+        JScrollPane scrollPaneAnnunci = new JScrollPane(panelAnnunci);
+        scrollPaneAnnunci.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPaneAnnunci.setBorder(null);
+        
+        // Card Offerte
+        panelOfferte = new JPanel();
+        panelOfferte.setLayout(new BoxLayout(panelOfferte, BoxLayout.Y_AXIS));
+        panelOfferte.setBackground(Color.WHITE);
+        panelOfferte.setBorder(new EmptyBorder(20, 30, 20, 30));
+        
+        JScrollPane scrollPaneOfferte = new JScrollPane(panelOfferte);
+        scrollPaneOfferte.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPaneOfferte.setBorder(null);
+        
+        panelCentrale.add(scrollPaneAnnunci, "ANNUNCI");
+        panelCentrale.add(scrollPaneOfferte, "OFFERTE");
+        
+        caricaAnnunci();
+    }
+    
+    private void caricaAnnunci() {
+        String matricola = UtenteLoggato.getMatricola();
+        try {
+            Annunci_OfferteDAO selectAnnunci = new Annunci_OfferteDAO();
+            listaAnnunci = selectAnnunci.getAnnunci(matricola);
+            mostraAnnunci();
+        } catch (SQLException e) {
             System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,
@@ -365,57 +185,184 @@ public class AnnunciPubblicati extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
-	
-	private void SelezionaAnnuncio() {
-        int selectedRow = tabellaAnnunci.getSelectedRow();
+    
+    private void mostraAnnunci() {
+        panelAnnunci.removeAll();
+        lblTitolo.setText("I Tuoi Annunci Pubblicati");
         
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this,
-                "Seleziona un annuncio dalla tabella!",
-                "Nessuna selezione",
-                JOptionPane.WARNING_MESSAGE);
-            return;
+        if (listaAnnunci.isEmpty()) {
+            JLabel lblNoAnnunci = new JLabel("Non hai ancora pubblicato annunci");
+            lblNoAnnunci.setFont(new Font("Verdana", Font.ITALIC, 16));
+            lblNoAnnunci.setForeground(Color.GRAY);
+            lblNoAnnunci.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panelAnnunci.add(Box.createVerticalStrut(100));
+            panelAnnunci.add(lblNoAnnunci);
+        } else {
+            for (Annuncio_entity annuncio : listaAnnunci) {
+                panelAnnunci.add(creaCardAnnuncio(annuncio));
+                panelAnnunci.add(Box.createVerticalStrut(15));
+            }
         }
         
-        Annuncio_entity AnnuncioSelezionato = listaAnnunci.get(selectedRow);
+        CardLayout cl = (CardLayout) ((JPanel) contentPane.getComponent(1)).getLayout();
+        cl.show((JPanel) contentPane.getComponent(1), "ANNUNCI");
         
-        if (!AnnuncioSelezionato.getVisualizzaOfferte()) {
-            JOptionPane.showMessageDialog(this,
-                "Non ci sono offerte per questo annuncio",
-                "Nessuna offerta",
-                JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        
-        caricaOfferte(AnnuncioSelezionato.getIdAnnuncio());
+        panelAnnunci.revalidate();
+        panelAnnunci.repaint();
     }
-	
-	private void caricaOfferte(int IdAnnuncio) {
-	    try {
-	    	Annunci_OfferteDAO selectOfferte = new Annunci_OfferteDAO();
-	    	listaOfferte = selectOfferte.getOfferte(IdAnnuncio);
-
-	        DefaultTableModel model = (DefaultTableModel) tabellaOfferta.getModel();
-	        model.setRowCount(0);
-
-	        for (Offerta_entity O : listaOfferte) {
-	            model.addRow(new Object[]{
-	                O.getStatoOfferta(),
-	                O.getMatricolaAcquirente(),
-	                O.getTipologiaOfferta()
-	            });
-	        }
-	        
-	        mostraOfferte();
-
-	        if (listaOfferte.isEmpty()) {
+    
+    private JPanel creaCardAnnuncio(Annuncio_entity annuncio) {
+        JPanel card = new JPanel(new BorderLayout(15, 15));
+        card.setBackground(Color.WHITE);
+        card.setBorder(new CompoundBorder(
+            new LineBorder(new Color(200, 200, 200), 1, true),
+            new EmptyBorder(20, 20, 20, 20)
+        ));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 280));
+        
+        // ===== PANNELLO SINISTRO =====
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setBackground(Color.WHITE);
+        
+        // Titolo
+        JLabel lblTitoloAnnuncio = new JLabel(annuncio.getTitolo());
+        lblTitoloAnnuncio.setFont(new Font("Verdana", Font.BOLD, 16));
+        lblTitoloAnnuncio.setAlignmentX(Component.LEFT_ALIGNMENT);
+        leftPanel.add(lblTitoloAnnuncio);
+        leftPanel.add(Box.createVerticalStrut(10));
+        
+        // Descrizione completa
+        JLabel lblDescrizione = new JLabel("<html><div style='width:500px;'>" + 
+            annuncio.getDescrizione() + "</div></html>");
+        lblDescrizione.setFont(new Font("Verdana", Font.PLAIN, 12));
+        lblDescrizione.setForeground(new Color(80, 80, 80));
+        lblDescrizione.setAlignmentX(Component.LEFT_ALIGNMENT);
+        leftPanel.add(lblDescrizione);
+        leftPanel.add(Box.createVerticalStrut(12));
+        
+        // Info aggiuntive
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.WHITE);
+        infoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        JLabel lblCategoria = new JLabel("Categoria: " + annuncio.getTipologiaCategoria().toString());
+        lblCategoria.setFont(new Font("Verdana", Font.PLAIN, 11));
+        lblCategoria.setForeground(new Color(100, 100, 100));
+        lblCategoria.setAlignmentX(Component.LEFT_ALIGNMENT);
+        infoPanel.add(lblCategoria);
+        
+        JLabel lblModalita = new JLabel("Modalità di Consegna: " + annuncio.getModalitàConsegna());
+        lblModalita.setFont(new Font("Verdana", Font.PLAIN, 11));
+        lblModalita.setForeground(new Color(100, 100, 100));
+        lblModalita.setAlignmentX(Component.LEFT_ALIGNMENT);
+        infoPanel.add(lblModalita);
+        
+        JLabel lblFascia = new JLabel("Fascia oraria: " + annuncio.getFasciaOraria());
+        lblFascia.setFont(new Font("Verdana", Font.PLAIN, 11));
+        lblFascia.setForeground(new Color(100, 100, 100));
+        lblFascia.setAlignmentX(Component.LEFT_ALIGNMENT);
+        infoPanel.add(lblFascia);
+        
+        JLabel lblData = new JLabel("Pubblicato il: " + annuncio.getDataPubblicazione().toString());
+        lblData.setFont(new Font("Verdana", Font.PLAIN, 11));
+        lblData.setForeground(new Color(100, 100, 100));
+        lblData.setAlignmentX(Component.LEFT_ALIGNMENT);
+        infoPanel.add(lblData);
+        
+        leftPanel.add(infoPanel);
+        
+        // ===== PANNELLO DESTRO =====
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.setBackground(Color.WHITE);
+        rightPanel.setBorder(new EmptyBorder(0, 20, 0, 0));
+        
+        // Badge Stato
+        JLabel lblStato = new JLabel(annuncio.getStatoAnnuncio().toString());
+        lblStato.setFont(new Font("Verdana", Font.BOLD, 13));
+        lblStato.setForeground(Color.WHITE);
+        lblStato.setOpaque(true);
+        lblStato.setBorder(new EmptyBorder(8, 15, 8, 15));
+        lblStato.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        Color coloreStato = annuncio.getStatoAnnuncio().toString().equalsIgnoreCase("Attivo")
+            ? new Color(40, 167, 69)
+            : new Color(108, 117, 125);
+        lblStato.setBackground(coloreStato);
+        
+        rightPanel.add(lblStato);
+        rightPanel.add(Box.createVerticalStrut(15));
+        
+        // Indicatore offerte
+        if (annuncio.getVisualizzaOfferte()) {
+            JPanel offerteIndicator = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            offerteIndicator.setBackground(Color.WHITE);
+            offerteIndicator.setMaximumSize(new Dimension(200, 30));
+            
+            JLabel lblTestoOfferte = new JLabel("Nuove offerte");
+            lblTestoOfferte.setFont(new Font("Verdana", Font.BOLD, 12));
+            lblTestoOfferte.setForeground(new Color(255, 193, 7));
+            
+            offerteIndicator.add(lblTestoOfferte);
+            
+            rightPanel.add(offerteIndicator);
+            rightPanel.add(Box.createVerticalStrut(10));
+        }
+        
+        // Bottone Visualizza Offerte
+        JButton btnVisualizzaOfferte = new JButton("Visualizza Offerte");
+        btnVisualizzaOfferte.setFont(new Font("Verdana", Font.BOLD, 12));
+        btnVisualizzaOfferte.setBackground(new Color(0, 52, 101));
+        btnVisualizzaOfferte.setForeground(Color.WHITE);
+        btnVisualizzaOfferte.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnVisualizzaOfferte.setMaximumSize(new Dimension(180, 40));
+        btnVisualizzaOfferte.setFocusPainted(false);
+        btnVisualizzaOfferte.setBorderPainted(false);
+        btnVisualizzaOfferte.setEnabled(annuncio.getVisualizzaOfferte());
+        
+        if (!annuncio.getVisualizzaOfferte()) {
+            btnVisualizzaOfferte.setBackground(Color.GRAY);
+            btnVisualizzaOfferte.setText("Nessuna offerta");
+        } else {
+            btnVisualizzaOfferte.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnVisualizzaOfferte.setBackground(new Color(0, 70, 140));
+                }
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnVisualizzaOfferte.setBackground(new Color(0, 52, 101));
+                }
+            });
+        }
+        
+        btnVisualizzaOfferte.addActionListener(e -> {
+            annuncioCorrente = annuncio;
+            caricaOfferte(annuncio.getIdAnnuncio());
+        });
+        
+        rightPanel.add(btnVisualizzaOfferte);
+        
+        card.add(leftPanel, BorderLayout.CENTER);
+        card.add(rightPanel, BorderLayout.EAST);
+        
+        return card;
+    }
+    
+    private void caricaOfferte(int IdAnnuncio) {
+        try {
+            Annunci_OfferteDAO selectOfferte = new Annunci_OfferteDAO();
+            listaOfferte = selectOfferte.getOfferte(IdAnnuncio);
+            mostraOfferte();
+            
+            if (listaOfferte.isEmpty()) {
                 JOptionPane.showMessageDialog(this,
                     "Nessuna offerta trovata",
                     "Informazione",
                     JOptionPane.INFORMATION_MESSAGE);
+                mostraAnnunci();
             }
-
-	    } catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Errore durante il caricamento delle offerte: " + e.getMessage());
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,
@@ -424,49 +371,260 @@ public class AnnunciPubblicati extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
-	
-	private void mostraOfferte() {
-	    // Cambia il titolo
-	    lblTitolo.setText("Offerte Ricevute");
-	    
-	    CardLayout clCentro = (CardLayout) ((JPanel) contentPane.getComponent(1)).getLayout();
-	    clCentro.show((JPanel) contentPane.getComponent(1), "OFFERTE");
-	    
-	    CardLayout clBottoni = (CardLayout) ((JPanel) contentPane.getComponent(2)).getLayout();
-	    clBottoni.show((JPanel) contentPane.getComponent(2), "BOTTONI_OFFERTE");
-	}
-
-	private void mostraAnnunci() {
-	    // Ripristina il titolo originale
-	    lblTitolo.setText("Annunci Pubblicati");
-	    
-	    CardLayout clCentro = (CardLayout) ((JPanel) contentPane.getComponent(1)).getLayout();
-	    clCentro.show((JPanel) contentPane.getComponent(1), "ANNUNCI");
-	    
-	    CardLayout clBottoni = (CardLayout) ((JPanel) contentPane.getComponent(2)).getLayout();
-	    clBottoni.show((JPanel) contentPane.getComponent(2), "BOTTONI_ANNUNCI");
-	}
-
-    private void accettaOfferta() {
-        int selectedRow = tabellaOfferta.getSelectedRow();
+    
+    private void mostraOfferte() {
+        panelOfferte.removeAll();
+        lblTitolo.setText("Offerte Ricevute");
         
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this,
-                "Seleziona un'offerta dalla tabella!",
-                "Nessuna selezione",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        Offerta_entity offertaSelezionata = listaOfferte.get(selectedRow);
-        
-        int conferma = JOptionPane.showConfirmDialog(this,
-                "Sei sicuro di voler accettare questa offerta?\n" +
-                "L'annuncio verrà chiuso e tutte le altre offerte verranno rifiutate.",
-                "Conferma accettazione",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
+        if (listaOfferte.isEmpty()) {
+            JLabel lblNoOfferte = new JLabel("Nessuna offerta in attesa");
+            lblNoOfferte.setFont(new Font("Verdana", Font.ITALIC, 16));
+            lblNoOfferte.setForeground(Color.GRAY);
+            lblNoOfferte.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panelOfferte.add(Box.createVerticalStrut(100));
+            panelOfferte.add(lblNoOfferte);
+        } else {
+            // Pannello info annuncio corrente
+            JPanel infoAnnuncioPanel = creaInfoAnnuncioCorrente();
+            infoAnnuncioPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            panelOfferte.add(infoAnnuncioPanel);
+            panelOfferte.add(Box.createVerticalStrut(20));
             
+            for (Offerta_entity offerta : listaOfferte) {
+                try {
+                    panelOfferte.add(creaCardOfferta(offerta));
+                    panelOfferte.add(Box.createVerticalStrut(15));
+                } catch (SQLException e) {
+                    System.err.println("Errore creazione card offerta: " + e.getMessage());
+                }
+            }
+        }
+        
+        CardLayout cl = (CardLayout) ((JPanel) contentPane.getComponent(1)).getLayout();
+        cl.show((JPanel) contentPane.getComponent(1), "OFFERTE");
+        
+        panelOfferte.revalidate();
+        panelOfferte.repaint();
+    }
+    
+    private JPanel creaInfoAnnuncioCorrente() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(new Color(240, 248, 255));
+        panel.setBorder(new CompoundBorder(
+            new LineBorder(new Color(0, 123, 255), 2, true),
+            new EmptyBorder(15, 20, 15, 20)
+        ));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
+        
+        JLabel lblTitolo = new JLabel("Annuncio: " + annuncioCorrente.getTitolo());
+        lblTitolo.setFont(new Font("Verdana", Font.BOLD, 14));
+        lblTitolo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(lblTitolo);
+        panel.add(Box.createVerticalStrut(5));
+        
+        JLabel lblDescrizione = new JLabel("<html>" + annuncioCorrente.getDescrizione() + "</html>");
+        lblDescrizione.setFont(new Font("Verdana", Font.PLAIN, 12));
+        lblDescrizione.setForeground(new Color(80, 80, 80));
+        lblDescrizione.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(lblDescrizione);
+        
+        JButton btnTornaAnnunci = new JButton("Torna agli Annunci");
+        btnTornaAnnunci.setFont(new Font("Verdana", Font.BOLD, 11));
+        btnTornaAnnunci.setBackground(new Color(108, 117, 125));
+        btnTornaAnnunci.setForeground(Color.WHITE);
+        btnTornaAnnunci.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnTornaAnnunci.setMaximumSize(new Dimension(180, 30));
+        btnTornaAnnunci.setFocusPainted(false);
+        btnTornaAnnunci.setBorderPainted(false);
+        btnTornaAnnunci.addActionListener(e -> mostraAnnunci());
+        
+        btnTornaAnnunci.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTornaAnnunci.setBackground(new Color(90, 98, 104));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTornaAnnunci.setBackground(new Color(108, 117, 125));
+            }
+        });
+        
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(btnTornaAnnunci);
+        
+        return panel;
+    }
+    
+    private JPanel creaCardOfferta(Offerta_entity offerta) throws SQLException {
+        JPanel card = new JPanel(new BorderLayout(15, 15));
+        card.setBackground(Color.WHITE);
+        card.setBorder(new CompoundBorder(
+            new LineBorder(new Color(200, 200, 200), 1, true),
+            new EmptyBorder(20, 20, 20, 20)
+        ));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 180));
+        
+        // ===== PANNELLO SINISTRO =====
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setBackground(Color.WHITE);
+        
+        // Badge Tipologia
+        JLabel lblTipologia = new JLabel(offerta.getTipologiaOfferta());
+        lblTipologia.setFont(new Font("Verdana", Font.BOLD, 12));
+        lblTipologia.setForeground(Color.WHITE);
+        lblTipologia.setOpaque(true);
+        lblTipologia.setBorder(new EmptyBorder(5, 10, 5, 10));
+        lblTipologia.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        Color coloreTipologia = switch(offerta.getTipologiaOfferta().toLowerCase()) {
+            case "vendita" -> new Color(56, 209, 97);
+            case "scambio" -> new Color(108, 67, 232);
+            case "regalo" -> new Color(209, 56, 56);
+            default -> new Color(108, 117, 125);
+        };
+        lblTipologia.setBackground(coloreTipologia);
+        
+        leftPanel.add(lblTipologia);
+        leftPanel.add(Box.createVerticalStrut(12));
+        
+        // Info acquirente
+        JPanel acquistentePanel = creaInfoAcquirente(offerta.getMatricolaAcquirente());
+        acquistentePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        leftPanel.add(acquistentePanel);
+        leftPanel.add(Box.createVerticalStrut(10));
+        
+        // Dettaglio offerta in base alla tipologia
+        JPanel dettaglioPanel = new JPanel();
+        dettaglioPanel.setLayout(new BoxLayout(dettaglioPanel, BoxLayout.Y_AXIS));
+        dettaglioPanel.setBackground(Color.WHITE);
+        dettaglioPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        String tipologia = offerta.getTipologiaOfferta().toLowerCase();
+        
+        if (tipologia.equals("vendita") && offerta instanceof OffertaVendita_entity) {
+            OffertaVendita_entity offertaVendita = (OffertaVendita_entity) offerta;
+            JLabel lblImporto = new JLabel("Importo proposto: €" + 
+                String.format("%.2f", offertaVendita.getImportoProposto()));
+            lblImporto.setFont(new Font("Verdana", Font.BOLD, 13));
+            lblImporto.setForeground(new Color(40, 167, 69));
+            lblImporto.setAlignmentX(Component.LEFT_ALIGNMENT);
+            dettaglioPanel.add(lblImporto);
+        }
+        
+        if (tipologia.equals("scambio") && offerta instanceof OffertaScambio_entity) {
+            OffertaScambio_entity offertaScambio = (OffertaScambio_entity) offerta;
+            if (offertaScambio.getOggettoProposto() != null && 
+                !offertaScambio.getOggettoProposto().isEmpty()) {
+                JLabel lblOggetto = new JLabel("Oggetto proposto: " + 
+                    offertaScambio.getOggettoProposto());
+                lblOggetto.setFont(new Font("Verdana", Font.PLAIN, 12));
+                lblOggetto.setForeground(new Color(80, 80, 80));
+                lblOggetto.setAlignmentX(Component.LEFT_ALIGNMENT);
+                dettaglioPanel.add(lblOggetto);
+            }
+        }
+        
+        if (tipologia.equals("regalo") && offerta instanceof OffertaRegalo_entity) {
+            OffertaRegalo_entity offertaRegalo = (OffertaRegalo_entity) offerta;
+            if (offertaRegalo.getMessaggioMotivazionale() != null && 
+                !offertaRegalo.getMessaggioMotivazionale().isEmpty()) {
+                JLabel lblMessaggio = new JLabel("<html><i>\"" + 
+                    offertaRegalo.getMessaggioMotivazionale() + "\"</i></html>");
+                lblMessaggio.setFont(new Font("Verdana", Font.ITALIC, 11));
+                lblMessaggio.setForeground(new Color(100, 100, 100));
+                lblMessaggio.setAlignmentX(Component.LEFT_ALIGNMENT);
+                dettaglioPanel.add(lblMessaggio);
+            }
+        }
+        
+        leftPanel.add(dettaglioPanel);
+        
+        // ===== PANNELLO DESTRO =====
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.setBackground(Color.WHITE);
+        rightPanel.setBorder(new EmptyBorder(0, 20, 0, 0));
+        
+        // Bottoni azione
+        JButton btnAccetta = new JButton("Accetta");
+        btnAccetta.setFont(new Font("Verdana", Font.BOLD, 12));
+        btnAccetta.setBackground(new Color(40, 167, 69));
+        btnAccetta.setForeground(Color.WHITE);
+        btnAccetta.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnAccetta.setMaximumSize(new Dimension(140, 40));
+        btnAccetta.setFocusPainted(false);
+        btnAccetta.setBorderPainted(false);
+        btnAccetta.addActionListener(e -> accettaOfferta(offerta));
+        
+        btnAccetta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAccetta.setBackground(new Color(33, 136, 56));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAccetta.setBackground(new Color(40, 167, 69));
+            }
+        });
+        
+        JButton btnRifiuta = new JButton("Rifiuta");
+        btnRifiuta.setFont(new Font("Verdana", Font.BOLD, 12));
+        btnRifiuta.setBackground(new Color(220, 53, 69));
+        btnRifiuta.setForeground(Color.WHITE);
+        btnRifiuta.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnRifiuta.setMaximumSize(new Dimension(140, 40));
+        btnRifiuta.setFocusPainted(false);
+        btnRifiuta.setBorderPainted(false);
+        btnRifiuta.addActionListener(e -> rifiutaOfferta(offerta));
+        
+        btnRifiuta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRifiuta.setBackground(new Color(200, 35, 51));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRifiuta.setBackground(new Color(220, 53, 69));
+            }
+        });
+        
+        rightPanel.add(btnAccetta);
+        rightPanel.add(Box.createVerticalStrut(10));
+        rightPanel.add(btnRifiuta);
+        
+        card.add(leftPanel, BorderLayout.CENTER);
+        card.add(rightPanel, BorderLayout.EAST);
+        
+        return card;
+    }
+    
+    private JPanel creaInfoAcquirente(String matricolaAcquirente) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        panel.setBackground(Color.WHITE);
+        
+        try {
+            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+            String nominativo = dao.getNominativoUtente(matricolaAcquirente);
+            
+            JLabel lblAcquirente = new JLabel("<html><b>Acquirente:</b> " + 
+                (nominativo != null ? nominativo : "N/D") + "</html>");
+            lblAcquirente.setFont(new Font("Verdana", Font.PLAIN, 13));
+            lblAcquirente.setForeground(new Color(60, 60, 60));
+            panel.add(lblAcquirente);
+            
+        } catch (Exception e) {
+            JLabel lblErrore = new JLabel("Acquirente: N/D");
+            lblErrore.setFont(new Font("Verdana", Font.PLAIN, 12));
+            panel.add(lblErrore);
+        }
+        
+        return panel;
+    }
+    
+    private void accettaOfferta(Offerta_entity offertaSelezionata) {
+        int conferma = JOptionPane.showConfirmDialog(this,
+            "Sei sicuro di voler accettare questa offerta?\n" +
+            "L'annuncio verrà chiuso e tutte le altre offerte verranno rifiutate.",
+            "Conferma accettazione",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        
         if (conferma != JOptionPane.YES_OPTION) {
             return;
         }
@@ -500,20 +658,8 @@ public class AnnunciPubblicati extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void rifiutaOfferta() {
-        int selectedRow = tabellaOfferta.getSelectedRow();
-        
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this,
-                "Seleziona un'offerta dalla tabella!",
-                "Nessuna selezione",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        Offerta_entity offertaSelezionata = listaOfferte.get(selectedRow);
-        
+    
+    private void rifiutaOfferta(Offerta_entity offertaSelezionata) {
         int conferma = JOptionPane.showConfirmDialog(this,
             "Sei sicuro di voler rifiutare questa offerta?",
             "Conferma rifiuto",
@@ -534,9 +680,7 @@ public class AnnunciPubblicati extends JFrame {
                     "Offerta rifiutata",
                     JOptionPane.INFORMATION_MESSAGE);
                 
-                listaOfferte.remove(selectedRow);
-                DefaultTableModel model = (DefaultTableModel) tabellaOfferta.getModel();
-                model.removeRow(selectedRow);
+                caricaOfferte(annuncioCorrente.getIdAnnuncio());
                 
                 if (listaOfferte.isEmpty()) {
                     JOptionPane.showMessageDialog(this,
