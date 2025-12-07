@@ -1,5 +1,6 @@
 package mainController;
 
+import java.util.List;
 import java.sql.SQLException;
 
 import dao.*;
@@ -10,12 +11,15 @@ public class MainController {
 	protected LoginDAO LoginDAO; 
 	protected RegistrazioneDAO RegistrazioneDAO;
 	protected Utente_entity User; 
-	protected InserimentoAnnunciDAO InsertAnnunciDAO; 
-	
+	protected InserimentoAnnunciDAO InsertAnnunciDAO;  
+	    protected FotoAnnuncioDAO FotoAnnuncioDAO; 
+	    protected OffertaDAO OffertaDAO;
 	public MainController() {
 		this.LoginDAO = new LoginDAO();           
 	    this.RegistrazioneDAO = new RegistrazioneDAO();
-        this.InsertAnnunciDAO = InsertAnnunciDAO;
+        this.InsertAnnunciDAO =  new InserimentoAnnunciDAO();
+        this.FotoAnnuncioDAO = new FotoAnnuncioDAO(); 
+        this.OffertaDAO = new OffertaDAO();
 	}
 	
 	//Effettua Login
@@ -92,28 +96,556 @@ public class MainController {
 	
 	
 	//Inserimento Annuncio Scambio
-//	public String InserimentoAnnuncioScambio(String titolo, String descrizione, String modalitaConsegna, FasciaOraria fasciaOraria, String oggettoRichiesto, String matricolaVenditore, int idOggetto) {
-//		if (titolo == null || titolo.trim().isEmpty() ||
-//	        descrizione == null || descrizione.trim().isEmpty() ||
-//	        modalitaConsegna == null || modalitaConsegna.trim().isEmpty() ||
-//	        fasciaOraria == null ||
-//	        oggettoRichiesto == null || oggettoRichiesto.trim().isEmpty() ||
-//	        matricolaVenditore == null || matricolaVenditore.trim().isEmpty()
-//	        ) {
-//		        
-//		        return "Tutti i campi sono obbligatori";
-//		    }
-//		if (!matricolaVenditore.matches("[0-9]{10}")) {
-//	        return "La matricola deve contenere 10 cifre numeriche";
-//	    }
-//		
-//		boolean AnnuncioPubblicato = InserimentoAnnunciDAO.inserisciAnnuncioScambio(titolo, descrizione, modalitaConsegna, fasciaOraria, oggettoRichiesto, matricolaVenditore, idOggetto);
-//		
-//		if(!AnnuncioPubblicato) {
-//			return "Impossibile pubblicare l'annuncio"; 
-//		}
-//		
-//		return "Annuncio di Scambio inserito correttamnete";
-//		
-//	}
+				public String InserimentoAnnuncioScambio(
+					    String titolo,
+					    String descrizione,
+					    String modalitaConsegna,
+					    FasciaOraria fasciaOraria,
+					    String oggettoRichiesto,
+					    String matricolaVenditore,
+					    int idOggetto,
+					    List<String> percorsiImmagini) {
+
+					    // Validazione campi obbligatori
+					    if (titolo == null || titolo.trim().isEmpty() ||
+					        descrizione == null || descrizione.trim().isEmpty() ||
+					        modalitaConsegna == null || modalitaConsegna.trim().isEmpty() ||
+					        fasciaOraria == null ||
+					        oggettoRichiesto == null || oggettoRichiesto.trim().isEmpty() ||
+					        matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
+
+					        return "Tutti i campi sono obbligatori";
+					    }
+
+					    // Validazione matricola
+					    if (!matricolaVenditore.matches("[0-9]{10}")) {
+					        return "La matricola deve contenere 10 cifre numeriche";
+					    }
+
+					    // Validazione immagini
+					    if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
+					        return "Devi inserire almeno una foto";
+					    }
+
+					    try {
+					        // Inserisci l'annuncio
+					        InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
+					        int idAnnuncio = annuncioDAO.inserisciAnnuncioScambio(
+					            titolo,
+					            descrizione,
+					            modalitaConsegna,
+					            fasciaOraria,
+					            oggettoRichiesto,
+					            matricolaVenditore,
+					            idOggetto
+					        );
+
+					        // Controlla se l'inserimento è riuscito
+					        if (idAnnuncio <= 0) {
+					            return "Impossibile pubblicare l'annuncio";
+					        }
+
+					        // Inserisci le foto
+					        FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
+					        for (String percorsoImg : percorsiImmagini) {
+					            int idFoto = fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
+					            if (idFoto <= 0) {
+					                return "Errore durante l'inserimento delle foto";
+					            }
+					        }
+
+					        return "Annuncio pubblicato con successo";
+
+					    } catch (SQLException e) {
+return "Errore durante la pubblicazione: " + e.getMessage();
+
+					    }
+					}
+				
+				
+				public String InserimentoAnnuncioVendita(
+					    String titolo,
+					    String descrizione,
+					    String modalitaConsegna,
+					    FasciaOraria fasciaOraria,
+					    float prezzo,
+					    String matricolaVenditore,
+					    int idOggetto,
+					    List<String> percorsiImmagini) {
+
+					    // Validazione campi obbligatori
+					    if (titolo == null || titolo.trim().isEmpty() ||
+					        descrizione == null || descrizione.trim().isEmpty() ||
+					        modalitaConsegna == null || modalitaConsegna.trim().isEmpty() ||
+					        fasciaOraria == null ||
+					        prezzo <= 0 ||  // CORRETTO: float si controlla così
+					        matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
+
+					        return "Tutti i campi sono obbligatori e il prezzo deve essere maggiore di zero";
+					    }
+
+					    // Validazione matricola
+					    if (!matricolaVenditore.matches("[0-9]{10}")) {
+					        return "La matricola deve contenere 10 cifre numeriche";
+					    }
+
+					    // Validazione immagini
+					    if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
+					        return "Devi inserire almeno una foto";
+					    }
+
+					    try {
+					        // Inserisci l'annuncio
+					        InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
+					        int idAnnuncio = annuncioDAO.inserisciAnnuncioVendita(
+					            titolo,
+					            descrizione,
+					            modalitaConsegna,
+					            fasciaOraria,
+					            prezzo,
+					            matricolaVenditore,
+					            idOggetto
+					        );
+
+					        // Controlla se l'inserimento è riuscito
+					        if (idAnnuncio <= 0) {
+					            return "Impossibile pubblicare l'annuncio";
+					        }
+
+					        // Inserisci le foto
+					        FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
+					        for (String percorsoImg : percorsiImmagini) {
+					            int idFoto = fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
+					            if (idFoto <= 0) {
+					                return "Errore durante l'inserimento delle foto";
+					            }
+					        }
+
+					        return "Annuncio pubblicato con successo";
+
+					    } catch (SQLException e) {
+					        return "Errore durante la pubblicazione: " + e.getMessage();
+					    }
+					}
+
+
+
+				public String InserimentoAnnuncioRegalo(
+					    String titolo,
+					    String descrizione,
+					    String modalitaConsegna,
+					    FasciaOraria fasciaOraria,
+					    String motivoCessione,
+					    String matricolaVenditore,
+					    int idOggetto,
+					    List<String> percorsiImmagini) {
+
+					    // Validazione campi obbligatori
+					    if (titolo == null || titolo.trim().isEmpty() ||
+					        descrizione == null || descrizione.trim().isEmpty() ||
+					        modalitaConsegna == null || modalitaConsegna.trim().isEmpty() ||
+					        fasciaOraria == null ||
+					        		motivoCessione == null || motivoCessione.trim().isEmpty() ||  
+					        matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
+
+					        return "Tutti i campi sono obbligatori e il prezzo deve essere maggiore di zero";
+					    }
+
+					    // Validazione matricola
+					    if (!matricolaVenditore.matches("[0-9]{10}")) {
+					        return "La matricola deve contenere 10 cifre numeriche";
+					    }
+
+					    // Validazione immagini
+					    if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
+					        return "Devi inserire almeno una foto";
+					    }
+
+					    try {
+					        // Inserisci l'annuncio
+					        InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
+					        int idAnnuncio = annuncioDAO.inserisciAnnuncioRegalo(
+					            titolo,
+					            descrizione,
+					            modalitaConsegna,
+					            fasciaOraria,
+					            motivoCessione,
+					            matricolaVenditore,
+					            idOggetto
+					        );
+
+					        // Controlla se l'inserimento è riuscito
+					        if (idAnnuncio <= 0) {
+					            return "Impossibile pubblicare l'annuncio";
+					        }
+
+					        // Inserisci le foto
+					        FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
+					        for (String percorsoImg : percorsiImmagini) {
+					            int idFoto = fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
+					            if (idFoto <= 0) {
+					                return "Errore durante l'inserimento delle foto";
+					            }
+					        }
+
+					        return "Annuncio pubblicato con successo";
+
+					    } catch (SQLException e) {
+					        return "Errore durante la pubblicazione: " + e.getMessage();
+					    }
+					}
+
+
+				// Metodo per inviare una nuova offerta regalo
+				public String InviaOffertaRegalo(
+				    String messaggioMotivazionale,
+				    String matricolaAcquirente,
+				    int idAnnuncio) {
+				    
+				    // Validazione campi obbligatori
+				    if (messaggioMotivazionale == null || messaggioMotivazionale.trim().isEmpty()) {
+				        return "Il messaggio motivazionale è obbligatorio";
+				    }
+				    
+				    if (matricolaAcquirente == null || matricolaAcquirente.trim().isEmpty()) {
+				        return "La matricola dell'acquirente è obbligatoria";
+				    }
+				    
+				    // Validazione matricola
+				    if (!matricolaAcquirente.matches("[0-9]{10}")) {
+				        return "La matricola deve contenere 10 cifre numeriche";
+				    }
+				    
+				    // Validazione ID annuncio
+				    if (idAnnuncio <= 0) {
+				        return "ID annuncio non valido";
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        boolean offertaInviata = offertaDAO.inserimentoOffertaRegalo(
+				            messaggioMotivazionale,
+				            matricolaAcquirente,
+				            idAnnuncio
+				        );
+				        
+				        if (!offertaInviata) {
+				            return "Impossibile inviare l'offerta";
+				        }
+				        
+				        return "Offerta inviata con successo";
+				        
+				    } catch (SQLException e) {
+				        return "Errore durante l'invio dell'offerta: " + e.getMessage();
+				    }
+				}
+
+				// Metodo per aggiornare un'offerta regalo esistente
+				public String AggiornaOffertaRegalo(
+				    String messaggioMotivazionale,
+				    String matricolaAcquirente,
+				    int idAnnuncio,
+				    int idOfferta) {
+				    
+				    // Validazione campi obbligatori
+				    if (messaggioMotivazionale == null || messaggioMotivazionale.trim().isEmpty()) {
+				        return "Il messaggio motivazionale è obbligatorio";
+				    }
+				    
+				    if (matricolaAcquirente == null || matricolaAcquirente.trim().isEmpty()) {
+				        return "La matricola dell'acquirente è obbligatoria";
+				    }
+				    
+				    // Validazione matricola
+				    if (!matricolaAcquirente.matches("[0-9]{10}")) {
+				        return "La matricola deve contenere 10 cifre numeriche";
+				    }
+				    
+				    // Validazione ID
+				    if (idAnnuncio <= 0 || idOfferta <= 0) {
+				        return "ID annuncio o offerta non validi";
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        boolean offertaAggiornata = offertaDAO.aggiornaOffertaRegalo(
+				            messaggioMotivazionale,
+				            matricolaAcquirente,
+				            idAnnuncio,
+				            idOfferta
+				        );
+				        
+				        if (!offertaAggiornata) {
+				            return "Impossibile aggiornare l'offerta";
+				        }
+				        
+				        return "Offerta aggiornata con successo";
+				        
+				    } catch (SQLException e) {
+				        return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
+				    }
+				}
+
+				// Metodo per caricare un'offerta esistente
+				public OffertaRegalo_entity CaricaOfferta(int idOfferta) {
+				    // Validazione ID
+				    if (idOfferta <= 0) {
+				        return null;
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        return offertaDAO.caricaOfferta(idOfferta);
+				        
+				    } catch (SQLException e) {
+				        System.err.println("Errore nel caricamento dell'offerta: " + e.getMessage());
+				        e.printStackTrace();
+				        return null;
+				    }
+				}
+
+
+
+
+
+				// 1️⃣ Metodo per INVIARE una nuova offerta di scambio
+				public String InviaOffertaScambio(  // ✅ Nome corretto
+				    String oggettoProposto,
+				    String matricolaAcquirente,
+				    int idAnnuncio) {
+				    
+				    // Validazione campi obbligatori
+				    if (oggettoProposto == null || oggettoProposto.trim().isEmpty()) {
+				        return "L'oggetto proposto è obbligatorio";
+				    }
+				    
+				    if (matricolaAcquirente == null || matricolaAcquirente.trim().isEmpty()) {
+				        return "La matricola dell'acquirente è obbligatoria";
+				    }
+				    
+				    // Validazione matricola
+				    if (!matricolaAcquirente.matches("[0-9]{10}")) {
+				        return "La matricola deve contenere 10 cifre numeriche";
+				    }
+				    
+				    // Validazione ID annuncio
+				    if (idAnnuncio <= 0) {
+				        return "ID annuncio non valido";
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        boolean offertaInviata = offertaDAO.inserimentoOffertaScambio(
+				            oggettoProposto,
+				            matricolaAcquirente,
+				            idAnnuncio
+				        );
+				        
+				        if (!offertaInviata) {
+				            return "Impossibile inviare l'offerta";
+				        }
+				        
+				        return "Offerta inviata con successo";
+				        
+				    } catch (SQLException e) {
+				        return "Errore durante l'invio dell'offerta: " + e.getMessage();
+				    }
+				}
+
+				// 2️⃣ Metodo per AGGIORNARE un'offerta di scambio esistente
+				public String AggiornaOffertaScambio(
+				    String oggettoProposto,
+				    String matricolaAcquirente,
+				    int idAnnuncio,
+				    int idOfferta) {
+				    
+				    // Validazione campi obbligatori
+				    if (oggettoProposto == null || oggettoProposto.trim().isEmpty()) {
+				        return "L'oggetto proposto è obbligatorio";
+				    }
+				    
+				    if (matricolaAcquirente == null || matricolaAcquirente.trim().isEmpty()) {
+				        return "La matricola dell'acquirente è obbligatoria";
+				    }
+				    
+				    // Validazione matricola
+				    if (!matricolaAcquirente.matches("[0-9]{10}")) {
+				        return "La matricola deve contenere 10 cifre numeriche";
+				    }
+				    
+				    // Validazione ID
+				    if (idAnnuncio <= 0 || idOfferta <= 0) {
+				        return "ID annuncio o offerta non validi";
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        boolean offertaAggiornata = offertaDAO.aggiornaOffertaScambio(
+				            oggettoProposto,
+				            matricolaAcquirente,
+				            idAnnuncio,
+				            idOfferta
+				        );
+				        
+				        if (!offertaAggiornata) {
+				            return "Impossibile aggiornare l'offerta";
+				        }
+				        
+				        return "Offerta aggiornata con successo";
+				        
+				    } catch (SQLException e) {
+				        return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
+				    }
+				}
+
+				// 3️⃣ Metodo per CARICARE un'offerta di scambio esistente (per modifica)
+				public OffertaScambio_entity CaricaOffertaScambio(int idOfferta) {
+				    // Validazione ID
+				    if (idOfferta <= 0) {
+				        return null;
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        return offertaDAO.caricaOffertaScambio(idOfferta);
+				        
+				    } catch (SQLException e) {
+				        System.err.println("Errore nel caricamento dell'offerta: " + e.getMessage());
+				        e.printStackTrace();
+				        return null;
+				    }
+				}
+				// Metodo per inviare una nuova offerta di vendita
+				public String InviaOffertaVendita(
+				    float importoProposto,
+				    String matricolaAcquirente,
+				    int idAnnuncio) {
+				    
+				    // Validazione importo
+				    if (importoProposto <= 0) {
+				        return "L'importo proposto deve essere maggiore di zero";
+				    }
+				    
+				    // Validazione matricola
+				    if (matricolaAcquirente == null || matricolaAcquirente.trim().isEmpty()) {
+				        return "La matricola dell'acquirente è obbligatoria";
+				    }
+				    
+				    if (!matricolaAcquirente.matches("[0-9]{10}")) {
+				        return "La matricola deve contenere 10 cifre numeriche";
+				    }
+				    
+				    // Validazione ID annuncio
+				    if (idAnnuncio <= 0) {
+				        return "ID annuncio non valido";
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        boolean offertaInviata = offertaDAO.inserimentoOffertaVendita(
+				            importoProposto,
+				            matricolaAcquirente,
+				            idAnnuncio
+				        );
+				        
+				        if (!offertaInviata) {
+				            return "Impossibile inviare l'offerta";
+				        }
+				        
+				        return "Offerta inviata con successo";
+				        
+				    } catch (SQLException e) {
+				        return "Errore durante l'invio dell'offerta: " + e.getMessage();
+				    }
+				}
+
+				// Metodo per aggiornare un'offerta di vendita esistente
+				public String AggiornaOffertaVendita(
+				    float importoProposto,
+				    String matricolaAcquirente,
+				    int idAnnuncio,
+				    int idOfferta) {
+				    
+				    // Validazione importo
+				    if (importoProposto <= 0) {
+				        return "L'importo proposto deve essere maggiore di zero";
+				    }
+				    
+				    // Validazione matricola
+				    if (matricolaAcquirente == null || matricolaAcquirente.trim().isEmpty()) {
+				        return "La matricola dell'acquirente è obbligatoria";
+				    }
+				    
+				    if (!matricolaAcquirente.matches("[0-9]{10}")) {
+				        return "La matricola deve contenere 10 cifre numeriche";
+				    }
+				    
+				    // Validazione ID
+				    if (idAnnuncio <= 0 || idOfferta <= 0) {
+				        return "ID annuncio o offerta non validi";
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        boolean offertaAggiornata = offertaDAO.aggiornaOffertaVendita(
+				            importoProposto,
+				            matricolaAcquirente,
+				            idAnnuncio,
+				            idOfferta
+				        );
+				        
+				        if (!offertaAggiornata) {
+				            return "Impossibile aggiornare l'offerta";
+				        }
+				        
+				        return "Offerta aggiornata con successo";
+				        
+				    } catch (SQLException e) {
+				        return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
+				    }
+				}
+
+				// Metodo per caricare un'offerta di vendita esistente
+				public OffertaVendita_entity CaricaOffertaVendita(int idOfferta) {
+				    // Validazione ID
+				    if (idOfferta <= 0) {
+				        return null;
+				    }
+				    
+				    try {
+				        OffertaDAO offertaDAO = new OffertaDAO();
+				        return offertaDAO.caricaOffertaVendita(idOfferta);
+				        
+				    } catch (SQLException e) {
+				        System.err.println("Errore nel caricamento dell'offerta: " + e.getMessage());
+				        e.printStackTrace();
+				        return null;
+				    }
+				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Toolkit;
 
@@ -47,6 +48,7 @@ public class AnnuncioScambio extends JFrame {
 	private FasciaOraria fasciaOraria;
 	private ArrayList<String> percorsiImmagini;	
 	private MainController controller;
+	private JTextField textAreaOggettoRichiesto;
 	
 	/**
 	 * Launch the application.
@@ -182,48 +184,7 @@ public class AnnuncioScambio extends JFrame {
 		ButtonPubblica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (textAreaOggettoRichiesto.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(null, 
-						"Il campo oggetto richiesto è obbligatorio", 
-						"Campo mancante", 
-						JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				try {
-					String oggettoRichiesto = textAreaOggettoRichiesto.getText().trim();
-					
-					InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
-					int idAnnuncio = annuncioDAO.inserisciAnnuncioScambio(
-						titolo, 
-						descrizione, 
-						modalitaConsegna, 
-						fasciaOraria, 
-						oggettoRichiesto, 
-						UtenteLoggato.getMatricola(), 
-						OggettoAnnuncio.getIdOggetto()
-					);
-					
-					FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
-					for (String percorsoImg : percorsiImmagini) {
-						fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
-					}
-					
-					setVisible(false);
-					JOptionPane.showMessageDialog(null, 
-						"Pubblicazione avvenuta con successo", 
-						"Annuncio pubblicato", 
-						JOptionPane.INFORMATION_MESSAGE);
-					AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller); 
-					utenteFrame.setVisible(true);
-					
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, 
-						"Errore durante la pubblicazione: " + ex.getMessage(), 
-						"Errore Database", 
-						JOptionPane.ERROR_MESSAGE);
-					ex.printStackTrace();
-				}
+				CaricaAnnuncioScambio();
 			}
 		});
 		
@@ -237,4 +198,43 @@ public class AnnuncioScambio extends JFrame {
 			}
 		});
 	}
+	
+	
+	
+	
+	
+	public void CaricaAnnuncioScambio() {
+	    // Recupera i dati dall'interfaccia
+	    String oggettoRichiesto = textAreaOggettoRichiesto.getText().trim();
+	    
+	    // Chiama il controller (che farà TUTTE le validazioni)
+	    String risultato = controller.InserimentoAnnuncioScambio(
+	        titolo,
+	        descrizione,
+	        modalitaConsegna,
+	        fasciaOraria,
+	        oggettoRichiesto,
+	        UtenteLoggato.getMatricola(),
+	        OggettoAnnuncio.getIdOggetto(),
+	        percorsiImmagini
+	    );
+	    
+	    // Gestisce il risultato
+	    if (risultato.equals("Annuncio pubblicato con successo")) {
+	        setVisible(false);
+	        JOptionPane.showMessageDialog(this,
+	            "Pubblicazione avvenuta con successo",
+	            "Annuncio pubblicato",
+	            JOptionPane.INFORMATION_MESSAGE);
+	        
+	        AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller);
+	        utenteFrame.setVisible(true);
+	    } else {
+	        // Mostra l'errore restituito dal controller
+	        JOptionPane.showMessageDialog(this,
+	            risultato,
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}	
 }

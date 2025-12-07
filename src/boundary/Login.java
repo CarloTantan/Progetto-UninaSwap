@@ -199,14 +199,7 @@ public class Login extends JFrame {
 		btnAccedi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if (textFieldMatricola.getText().trim().isEmpty() ||
-						textFieldPassword.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else {
 					effettuaLogin();
-				
-				}
 			}
 		});
 		
@@ -225,14 +218,6 @@ public class Login extends JFrame {
         String matricola = textFieldMatricola.getText().trim();
         String password = new String(textFieldPassword.getPassword());
         
-        // Validazione base
-        if (matricola.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "Inserisci matricola e password", 
-                "Errore", 
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         
         // Verifica login usando il Controller
         	String loginValido = controller.EffettuaLogin(matricola, password);
@@ -246,7 +231,7 @@ public class Login extends JFrame {
                 Utente_entity UtenteLoggato = controller.getUser();
                 
                 // Apri l'interfaccia area utente
-                this.dispose(); // Chiudi la finestra di login
+                dispose(); // Chiudi la finestra di login
                 AreaUtente areaUtente = new AreaUtente(UtenteLoggato, controller);
                 areaUtente.setVisible(true);
                 

@@ -206,72 +206,66 @@ public class OffertaRegalo extends JFrame {
 	}
 	
 	public void inviaOffertaRegalo() {
-		String MessaggioMotivazionale = textAreaMessaggioMotivazionale.getText().trim();
-		
-		if (MessaggioMotivazionale.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
-					"Inserisci una motivazione.", 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		String MatricolaAcquirente = UtenteLoggato.getMatricola();
-		
-		try {
-			boolean OffertaValida;
-			
-			if (isModificaMode) {
-				OffertaValida = offertaDAO.aggiornaOffertaRegalo(
-					MessaggioMotivazionale, 
-					MatricolaAcquirente, 
-					IdAnnuncioScelto, 
-					IdOffertaDaModificare
-				);
-			} else {
-				OffertaValida = offertaDAO.inserimentoOffertaRegalo(
-					MessaggioMotivazionale, 
-					MatricolaAcquirente, 
-					IdAnnuncioScelto
-				);
-			}
-			
-			if (OffertaValida) {
-				String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
-				JOptionPane.showMessageDialog(null, messaggio, null, JOptionPane.INFORMATION_MESSAGE);
-				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
-				ListaAnnunciFrame.setVisible(true);
-			} else {
-				JOptionPane.showMessageDialog(this, 
-						"Problema nell'operazione", 
-						"Errore", 
-						JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, 
-					"Errore nell'operazione: " + e.getMessage(), 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
+	    // Recupera i dati dall'interfaccia
+	    String messaggioMotivazionale = textAreaMessaggioMotivazionale.getText().trim();
+	    String matricolaAcquirente = UtenteLoggato.getMatricola();
+	    
+	    String risultato;
+	    
+	    if (isModificaMode) {
+	        // Aggiorna offerta esistente
+	        risultato = controller.AggiornaOffertaRegalo(
+	            messaggioMotivazionale,
+	            matricolaAcquirente,
+	            IdAnnuncioScelto,
+	            IdOffertaDaModificare
+	        );
+	    } else {
+	        // Inserisci nuova offerta
+	        risultato = controller.InviaOffertaRegalo(
+	            messaggioMotivazionale,
+	            matricolaAcquirente,
+	            IdAnnuncioScelto
+	        );
+	    }
+	    
+	    // Gestisce il risultato
+	    if (risultato.equals("Offerta inviata con successo") || 
+	        risultato.equals("Offerta aggiornata con successo")) {
+	        
+	        String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
+	        JOptionPane.showMessageDialog(this, 
+	            messaggio, 
+	            "Successo", 
+	            JOptionPane.INFORMATION_MESSAGE);
+	        
+	        setVisible(false);
+	        ListaAnnunci listaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+	        listaAnnunciFrame.setVisible(true);
+	    } else {
+	        // Mostra l'errore restituito dal controller
+	        JOptionPane.showMessageDialog(this,
+	            risultato,
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
 	}
-	
+
 	public void caricaOffertaPerModifica(int idOfferta) {
-		try {
-			OffertaRegalo_entity offerta = offertaDAO.caricaOfferta(idOfferta);
-			
-			if (offerta != null) {
-				textAreaMessaggioMotivazionale.setText(offerta.getMessaggioMotivazionale());
-				IdOffertaDaModificare = idOfferta;
-				isModificaMode = true;
-				btnConferma.setText("Aggiorna");
-			} else {
-				JOptionPane.showMessageDialog(this, "Offerta non trovata", "Errore", JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, "Errore nel caricamento: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-			ex.printStackTrace();
-		}
+	    // Chiama il controller per caricare l'offerta
+	    OffertaRegalo_entity offerta = controller.CaricaOfferta(idOfferta);
+	    
+	    if (offerta != null) {
+	        // Popola l'interfaccia con i dati dell'offerta
+	        textAreaMessaggioMotivazionale.setText(offerta.getMessaggioMotivazionale());
+	        IdOffertaDaModificare = idOfferta;
+	        isModificaMode = true;
+	        btnConferma.setText("Aggiorna");
+	    } else {
+	        JOptionPane.showMessageDialog(this, 
+	            "Offerta non trovata o errore nel caricamento", 
+	            "Errore", 
+	            JOptionPane.ERROR_MESSAGE);
+	    }
 	}
 }

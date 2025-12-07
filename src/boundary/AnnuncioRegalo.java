@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import java.awt.Toolkit;
 
 public class AnnuncioRegalo extends JFrame {
@@ -47,7 +49,7 @@ public class AnnuncioRegalo extends JFrame {
 	private FasciaOraria fasciaOraria;
 	private ArrayList<String> percorsiImmagini;
 	private MainController controller;
-
+	private JTextField textAreaMotivoCessione;
 	/**
 	 * Launch the application.
 	 */
@@ -234,5 +236,53 @@ public class AnnuncioRegalo extends JFrame {
 				ButtonPubblica.setBackground(new Color(0, 52, 102));
 			}
 		});
+	
+
+	
 	}
+
+	public void CaricaAnnuncioRegalo() {
+	    // Recupera i dati dall'interfaccia
+	    String motivoCessione = textAreaMotivoCessione.getText().trim();
+	    
+	    // Chiama il controller (che farà TUTTE le validazioni)
+	    String risultato = controller.InserimentoAnnuncioRegalo(
+	        titolo,
+	        descrizione,
+	        modalitaConsegna,
+	        fasciaOraria,
+	        motivoCessione,
+	        UtenteLoggato.getMatricola(),
+	        OggettoAnnuncio.getIdOggetto(),
+	        percorsiImmagini
+	    );
+	    
+	    // Gestisce il risultato
+	    if (risultato.equals("Annuncio pubblicato con successo")) {
+	        setVisible(false);
+	        JOptionPane.showMessageDialog(this,
+	            "Pubblicazione avvenuta con successo",
+	            "Annuncio pubblicato",
+	            JOptionPane.INFORMATION_MESSAGE);
+	        
+	        AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller);
+	        utenteFrame.setVisible(true);
+	    } else {
+	        // Mostra l'errore restituito dal controller
+	        JOptionPane.showMessageDialog(this,
+	            risultato,
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

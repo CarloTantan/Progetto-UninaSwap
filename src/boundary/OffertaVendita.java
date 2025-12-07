@@ -192,87 +192,77 @@ public class OffertaVendita extends JFrame {
 			}
 		});
 	}
-	
 	public void inviaOffertaVendita() {
-		String ImportoPropostoString = textFieldImportoProposto.getText().trim();
-		
-		if (ImportoPropostoString.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
-					"Inserisci un importo.", 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		String MatricolaAcquirente = UtenteLoggato.getMatricola();
-		
-		try {
-			float ImportoProposto = Float.parseFloat(textFieldImportoProposto.getText().trim());
-			
-			boolean OffertaValida;
-			
-			if (isModificaMode) {
-				OffertaValida = offertaDAO.aggiornaOffertaVendita(
-					ImportoProposto, 
-					MatricolaAcquirente, 
-					IdAnnuncioScelto, 
-					IdOffertaDaModificare
-				);
-			} else {
-				OffertaValida = offertaDAO.inserimentoOffertaVendita(
-					ImportoProposto, 
-					MatricolaAcquirente, 
-					IdAnnuncioScelto
-				);
-			}
-			
-			if (OffertaValida) {
-				String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
-				JOptionPane.showMessageDialog(null, messaggio, null, JOptionPane.INFORMATION_MESSAGE);
-				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
-				ListaAnnunciFrame.setVisible(true);
-			} else {
-				JOptionPane.showMessageDialog(this, 
-						"Problema nell'operazione", 
-						"Errore", 
-						JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this, 
-					"L'importo deve essere un numero valido.", 
-					"Errore Input", 
-					JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, 
-					"Errore nell'operazione: " + e.getMessage(), 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
+	    // Recupera i dati dall'interfaccia
+	    String importoPropostoString = textFieldImportoProposto.getText().trim();
+	    String matricolaAcquirente = UtenteLoggato.getMatricola();
+	    
+	    try {
+	        // Converti l'importo in float
+	        float importoProposto = Float.parseFloat(importoPropostoString);
+	        
+	        String risultato;
+	        
+	        if (isModificaMode) {
+	            // Aggiorna offerta esistente
+	            risultato = controller.AggiornaOffertaVendita(
+	                importoProposto,
+	                matricolaAcquirente,
+	                IdAnnuncioScelto,
+	                IdOffertaDaModificare
+	            );
+	        } else {
+	            // Inserisci nuova offerta
+	            risultato = controller.InviaOffertaVendita(
+	                importoProposto,
+	                matricolaAcquirente,
+	                IdAnnuncioScelto
+	            );
+	        }
+	        
+	        // Gestisce il risultato
+	        if (risultato.equals("Offerta inviata con successo") || 
+	            risultato.equals("Offerta aggiornata con successo")) {
+	            
+	            String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
+	            JOptionPane.showMessageDialog(this, 
+	                messaggio, 
+	                "Successo", 
+	                JOptionPane.INFORMATION_MESSAGE);
+	            
+	            setVisible(false);
+	            ListaAnnunci listaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+	            listaAnnunciFrame.setVisible(true);
+	        } else {
+	            // Mostra l'errore restituito dal controller
+	            JOptionPane.showMessageDialog(this,
+	                risultato,
+	                "Errore",
+	                JOptionPane.ERROR_MESSAGE);
+	        }
+	        
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(this,
+	            "L'importo deve essere un numero valido",
+	            "Errore Input",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
 	}
-	
+
 	public void caricaOffertaPerModifica(int idOfferta) {
-		try {
-			OffertaVendita_entity offerta = offertaDAO.caricaOffertaVendita(idOfferta);
-			
-			if (offerta != null) {
-				textFieldImportoProposto.setText(String.valueOf(offerta.getImportoProposto()));
-				IdOffertaDaModificare = idOfferta;
-				isModificaMode = true;
-				btnConferma.setText("Aggiorna");
-			} else {
-				JOptionPane.showMessageDialog(this, 
-					"Offerta non trovata", 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, 
-				"Errore nel caricamento: " + ex.getMessage(), 
-				"Errore", 
-				JOptionPane.ERROR_MESSAGE);
-			ex.printStackTrace();
-		}
-	}
-}
+	    // Chiama il controller per caricare l'offerta
+	    OffertaVendita_entity offerta = controller.CaricaOffertaVendita(idOfferta);
+	    
+	    if (offerta != null) {
+	        // Popola l'interfaccia con i dati dell'offerta
+	        textFieldImportoProposto.setText(String.valueOf(offerta.getImportoProposto()));
+	        IdOffertaDaModificare = idOfferta;
+	        isModificaMode = true;
+	        btnConferma.setText("Aggiorna");
+	    } else {
+	        JOptionPane.showMessageDialog(this, 
+	            "Offerta non trovata o errore nel caricamento", 
+	            "Errore", 
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}}

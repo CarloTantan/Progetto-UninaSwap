@@ -194,80 +194,67 @@ public class OffertaScambio extends JFrame {
 			}
 		});
 	}
-	
 	public void inviaOffertaScambio() {
-		String OggettoProposto = textFieldOggettoProposto.getText().trim();
-		
-		if (OggettoProposto.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
-					"Inserisci un oggetto che vuoi proporre.", 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		String MatricolaAcquirente = UtenteLoggato.getMatricola();
-		
-		try {
-			boolean OffertaValida;
-			
-			if (isModificaMode) {
-				OffertaValida = offertaDAO.aggiornaOffertaScambio(
-					OggettoProposto, 
-					MatricolaAcquirente, 
-					IdAnnuncioScelto, 
-					IdOffertaDaModificare
-				);
-			} else {
-				OffertaValida = offertaDAO.inserimentoOffertaScambio(
-					OggettoProposto, 
-					MatricolaAcquirente, 
-					IdAnnuncioScelto
-				);
-			}
-			
-			if (OffertaValida) {
-				String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
-				JOptionPane.showMessageDialog(null, messaggio, null, JOptionPane.INFORMATION_MESSAGE);
-				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
-				ListaAnnunciFrame.setVisible(true);
-			} else {
-				JOptionPane.showMessageDialog(this, 
-						"Problema nell'operazione", 
-						"Errore", 
-						JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, 
-					"Errore nell'operazione: " + e.getMessage(), 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
+	    // Recupera i dati dall'interfaccia
+	    String oggettoProposto = textFieldOggettoProposto.getText().trim();
+	    String matricolaAcquirente = UtenteLoggato.getMatricola();
+	    
+	    String risultato;
+	    
+	    if (isModificaMode) {
+	        // Aggiorna offerta esistente
+	        risultato = controller.AggiornaOffertaScambio(
+	            oggettoProposto,
+	            matricolaAcquirente,
+	            IdAnnuncioScelto,
+	            IdOffertaDaModificare
+	        );
+	    } else {
+	        // Inserisci nuova offerta
+	        risultato = controller.InviaOffertaScambio(  // ✅ CORRETTO
+	            oggettoProposto,
+	            matricolaAcquirente,
+	            IdAnnuncioScelto
+	        );
+	    }
+	    
+	    // Gestisce il risultato
+	    if (risultato.equals("Offerta inviata con successo") || 
+	        risultato.equals("Offerta aggiornata con successo")) {
+	        
+	        String messaggio = isModificaMode ? "Offerta aggiornata" : "Offerta inviata";
+	        JOptionPane.showMessageDialog(this, 
+	            messaggio, 
+	            "Successo", 
+	            JOptionPane.INFORMATION_MESSAGE);
+	        
+	        setVisible(false);
+	        ListaAnnunci listaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+	        listaAnnunciFrame.setVisible(true);
+	    } else {
+	        // Mostra l'errore restituito dal controller
+	        JOptionPane.showMessageDialog(this,
+	            risultato,
+	            "Errore",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
 	}
-	
+
 	public void caricaOffertaPerModifica(int idOfferta) {
-		try {
-			OffertaScambio_entity offerta = offertaDAO.caricaOffertaScambio(idOfferta);
-			
-			if (offerta != null) {
-				textFieldOggettoProposto.setText(offerta.getOggettoProposto());
-				IdOffertaDaModificare = idOfferta;
-				isModificaMode = true;
-				btnConferma.setText("Aggiorna");
-			} else {
-				JOptionPane.showMessageDialog(this, 
-					"Offerta non trovata", 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-			}
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, 
-				"Errore nel caricamento: " + ex.getMessage(), 
-				"Errore", 
-				JOptionPane.ERROR_MESSAGE);
-			ex.printStackTrace();
-		}
+	    // Chiama il controller per caricare l'offerta
+	    OffertaScambio_entity offerta = controller.CaricaOffertaScambio(idOfferta);
+	    
+	    if (offerta != null) {
+	        // Popola l'interfaccia con i dati dell'offerta
+	        textFieldOggettoProposto.setText(offerta.getOggettoProposto());
+	        IdOffertaDaModificare = idOfferta;
+	        isModificaMode = true;
+	        btnConferma.setText("Aggiorna");
+	    } else {
+	        JOptionPane.showMessageDialog(this, 
+	            "Offerta non trovata o errore nel caricamento", 
+	            "Errore", 
+	            JOptionPane.ERROR_MESSAGE);
+	    }
 	}
 }

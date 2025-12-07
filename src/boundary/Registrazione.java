@@ -260,19 +260,8 @@ public class Registrazione extends JFrame {
 		btnRegistrati.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (textFieldNome.getText().trim().isEmpty() ||
-			            textFieldCognome.getText().trim().isEmpty() ||
-			            textFieldMatricola.getText().trim().isEmpty() ||
-			            textFieldEmail.getText().trim().isEmpty() ||
-			            textFieldPassword.getText().trim().isEmpty() ||
-			            textFieldTelefono.getText().trim().isEmpty() ||
-			            textFieldConfermaPassword.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Tutti i campi sono obbligatori", "Campi mancanti", JOptionPane.WARNING_MESSAGE);
-				} else if (!textFieldPassword.getText().equals(textFieldConfermaPassword.getText())) {
-					JOptionPane.showMessageDialog(null, "Le password non corrispondono", "Errore di conferma password", JOptionPane.WARNING_MESSAGE);
-				} else {
 					registrazioneUtente();
-				}
+				
 			}
 		});
 		

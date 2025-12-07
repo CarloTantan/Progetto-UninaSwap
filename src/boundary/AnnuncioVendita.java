@@ -49,6 +49,7 @@ public class AnnuncioVendita extends JFrame {
 	private FasciaOraria fasciaOraria;
 	private ArrayList<String> percorsiImmagini;
 	private MainController controller;
+	private JTextField textFieldPrezzo;
 	/**
 	 * Launch the application.
 	 */
@@ -174,61 +175,7 @@ public class AnnuncioVendita extends JFrame {
 		ButtonPubblica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (textFieldPrezzo.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(null, 
-						"Il campo prezzo è obbligatorio", 
-						"Campo mancante", 
-						JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				try {
-					float prezzo = Float.parseFloat(textFieldPrezzo.getText().trim());
-					
-					if (prezzo <= 0) {
-						JOptionPane.showMessageDialog(null, 
-							"Il prezzo deve essere maggiore di zero", 
-							"Prezzo non valido", 
-							JOptionPane.WARNING_MESSAGE);
-						return;
-					}
-					
-					InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
-					int idAnnuncio = annuncioDAO.inserisciAnnuncioVendita(
-						titolo, 
-						descrizione, 
-						modalitaConsegna, 
-						fasciaOraria, 
-						prezzo, 
-						UtenteLoggato.getMatricola(), 
-						OggettoAnnuncio.getIdOggetto()
-					);
-					
-					FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
-					for (String percorsoImg : percorsiImmagini) {
-						fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
-					}
-					
-					setVisible(false);
-					JOptionPane.showMessageDialog(null, 
-						"Pubblicazione avvenuta con successo", 
-						"Annuncio pubblicato", 
-						JOptionPane.INFORMATION_MESSAGE);
-					AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller); 
-					utenteFrame.setVisible(true);
-					
-				} catch (NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, 
-						"Inserisci un prezzo valido", 
-						"Formato non valido", 
-						JOptionPane.ERROR_MESSAGE);
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, 
-						"Errore durante la pubblicazione: " + ex.getMessage(), 
-						"Errore Database", 
-						JOptionPane.ERROR_MESSAGE);
-					ex.printStackTrace();
-				}
+				CaricaAnnuncioVendita();
 			}
 		});
 		
@@ -242,4 +189,62 @@ public class AnnuncioVendita extends JFrame {
 			}
 		});
 	}
+
+
+
+
+
+	public void CaricaAnnuncioVendita() {
+	    // Recupera il prezzo come stringa
+	    String prezzoStr = textFieldPrezzo.getText().trim();
+	    
+	    try {
+	        // Converti il prezzo in float
+	        float prezzo = Float.parseFloat(prezzoStr);
+	        
+	        // Chiama il controller (che restituisce String, non int!)
+	        String risultato = controller.InserimentoAnnuncioVendita(
+	            titolo,
+	            descrizione,
+	            modalitaConsegna,
+	            fasciaOraria,
+	            prezzo,
+	            UtenteLoggato.getMatricola(),
+	            OggettoAnnuncio.getIdOggetto(),
+	            percorsiImmagini  // Mancava la virgola
+	        );
+	        
+	        // Gestisce il risultato
+	        if (risultato.equals("Annuncio pubblicato con successo")) {
+	            setVisible(false);
+	            JOptionPane.showMessageDialog(this,
+	                "Pubblicazione avvenuta con successo",
+	                "Annuncio pubblicato",
+	                JOptionPane.INFORMATION_MESSAGE);
+	            
+	            AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller);
+	            utenteFrame.setVisible(true);
+	        } else {
+	            // Mostra l'errore restituito dal controller
+	            JOptionPane.showMessageDialog(this,
+	                risultato,
+	                "Errore",
+	                JOptionPane.ERROR_MESSAGE);
+	        }
+	        
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(this,
+	            "Inserisci un prezzo valido",
+	            "Formato non valido",
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+
+
+
+
+
+
+
+
 }
