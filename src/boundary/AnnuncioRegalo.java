@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 import dao.FotoAnnuncioDAO;
 import dao.InserimentoAnnunciDAO;
 import entity.Oggetto_entity;
-import entity.Utente_entity;
 import enumerations.FasciaOraria;
 import mainController.MainController;
 
@@ -41,7 +40,6 @@ public class AnnuncioRegalo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private Oggetto_entity OggettoAnnuncio;
 	private String titolo;
 	private String descrizione;
@@ -69,10 +67,9 @@ public class AnnuncioRegalo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioRegalo(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio, String titolo, String descrizione, String modalitaConsegna,
+	public AnnuncioRegalo(Oggetto_entity OggettoAnnuncio, String titolo, String descrizione, String modalitaConsegna,
             FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini, MainController controller) {
 		this.OggettoAnnuncio = OggettoAnnuncio;
-		this.UtenteLoggato = UtenteLoggato;
 		this.titolo = titolo;
 		this.descrizione = descrizione;
 		this.modalitaConsegna = modalitaConsegna;
@@ -109,7 +106,7 @@ public class AnnuncioRegalo extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(UtenteLoggato,OggettoAnnuncio, controller); 
+				Annuncio annuncioFrame = new Annuncio(OggettoAnnuncio, controller); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
@@ -200,7 +197,7 @@ public class AnnuncioRegalo extends JFrame {
 						modalitaConsegna, 
 						fasciaOraria, 
 						motivoCessione, 
-						UtenteLoggato.getMatricola(), 
+						controller.getMatricolaUtenteLoggato(), 
 						OggettoAnnuncio.getIdOggetto()
 					);
 					
@@ -214,7 +211,7 @@ public class AnnuncioRegalo extends JFrame {
 						"Pubblicazione avvenuta con successo", 
 						"Annuncio pubblicato", 
 						JOptionPane.INFORMATION_MESSAGE);
-					AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller); 
+					AreaUtente utenteFrame = new AreaUtente(controller); 
 					utenteFrame.setVisible(true);
 					
 				} catch (SQLException ex) {
@@ -252,7 +249,7 @@ public class AnnuncioRegalo extends JFrame {
 	        modalitaConsegna,
 	        fasciaOraria,
 	        motivoCessione,
-	        UtenteLoggato.getMatricola(),
+	        controller.getMatricolaUtenteLoggato(),
 	        OggettoAnnuncio.getIdOggetto(),
 	        percorsiImmagini
 	    );
@@ -265,7 +262,7 @@ public class AnnuncioRegalo extends JFrame {
 	            "Annuncio pubblicato",
 	            JOptionPane.INFORMATION_MESSAGE);
 	        
-	        AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller);
+	        AreaUtente utenteFrame = new AreaUtente(controller);
 	        utenteFrame.setVisible(true);
 	    } else {
 	        // Mostra l'errore restituito dal controller
