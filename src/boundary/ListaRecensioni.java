@@ -235,170 +235,149 @@ public class ListaRecensioni extends JFrame {
         mainContainer.add(scrollPane, BorderLayout.CENTER);
     }
 
-    private void GetRecensioniInviate() {
-        String matricola = controller.getMatricolaUtenteLoggato();
-        try {
-            // Pulisci il pannello
-            panelRecensioni.removeAll();
+	// ==================== MODIFICHE AL BOUNDARY ListaRecensioni ====================
 
-            ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
-            RecensioneVenditoreDAO recensioneDAO = new RecensioneVenditoreDAO();
-            ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniInviate(matricola);
+	// Sostituisci i metodi GetRecensioniInviate() e GetRecensioniRicevute() con questi:
 
-            // Aggiorna contatore
-            lblContatore.setText("Recensioni inviate: " + Recensioni.size());
+	private void GetRecensioniInviate() {
+	    // Pulisci il pannello
+	    panelRecensioni.removeAll();
+	    
+	    // Carica le recensioni tramite il controller
+	    ArrayList<Recensione_entity> recensioni = controller.caricaRecensioniInviate();
+	    
+	    // Aggiorna contatore
+	    lblContatore.setText("Recensioni inviate: " + recensioni.size());
+	    
+	    if (recensioni.isEmpty()) {
+	        JLabel lblNoRecensioni = new JLabel("Non hai ancora inviato recensioni");
+	        lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
+	        lblNoRecensioni.setForeground(Color.GRAY);
+	        lblNoRecensioni.setAlignmentX(Component.CENTER_ALIGNMENT);
+	        panelRecensioni.add(Box.createVerticalStrut(50));
+	        panelRecensioni.add(lblNoRecensioni);
+	    } else {
+	        for (Recensione_entity r : recensioni) {
+	            panelRecensioni.add(creaCardRecensione(r, true));
+	            panelRecensioni.add(Box.createVerticalStrut(15));
+	        }
+	    }
+	    
+	    panelRecensioni.revalidate();
+	    panelRecensioni.repaint();
+	}
 
-            if (Recensioni.isEmpty()) {
-                JLabel lblNoRecensioni = new JLabel("Non hai ancora inviato recensioni");
-                lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
-                lblNoRecensioni.setForeground(Color.GRAY);
-                lblNoRecensioni.setAlignmentX(Component.CENTER_ALIGNMENT);
-                panelRecensioni.add(Box.createVerticalStrut(50));
-                panelRecensioni.add(lblNoRecensioni);
-            } else {
-                for (Recensione_entity R : Recensioni) {
-                    panelRecensioni.add(creaCardRecensione(R, recensioneDAO, true));
-                    panelRecensioni.add(Box.createVerticalStrut(15));
-                }
-            }
+	private void GetRecensioniRicevute() {
+	    // Pulisci il pannello
+	    panelRecensioni.removeAll();
+	    
+	    // Carica le recensioni tramite il controller
+	    ArrayList<Recensione_entity> recensioni = controller.caricaRecensioniRicevute();
+	    
+	    // Calcola valutazione media per l'utente loggato
+	    String matricola = controller.getMatricolaUtenteLoggato();
+	    double valutazioneMedia = controller.getValutazioneMediaVenditore(matricola);
+	    
+	    // Aggiorna contatore
+	    lblContatore.setText("Recensioni ricevute: " + recensioni.size() + 
+	                         ", Valutazione media: " + String.format("%.2f", valutazioneMedia));
+	    
+	    if (recensioni.isEmpty()) {
+	        JLabel lblNoRecensioni = new JLabel("Non hai ancora ricevuto recensioni");
+	        lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
+	        lblNoRecensioni.setForeground(Color.GRAY);
+	        lblNoRecensioni.setAlignmentX(Component.CENTER_ALIGNMENT);
+	        panelRecensioni.add(Box.createVerticalStrut(50));
+	        panelRecensioni.add(lblNoRecensioni);
+	    } else {
+	        for (Recensione_entity r : recensioni) {
+	            panelRecensioni.add(creaCardRecensione(r, false));
+	            panelRecensioni.add(Box.createVerticalStrut(15));
+	        }
+	    }
+	    
+	    panelRecensioni.revalidate();
+	    panelRecensioni.repaint();
+	}
 
-            panelRecensioni.revalidate();
-            panelRecensioni.repaint();
+	// Modifica il metodo creaCardRecensione per rimuovere il parametro RecensioneVenditoreDAO:
 
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                    "Errore nel caricamento dei dati: " + e.getMessage(),
-                    "Errore",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
+	private JPanel creaCardRecensione(Recensione_entity rec, boolean isInviata) {
+	    JPanel card = new JPanel();
+	    card.setLayout(new BorderLayout(10, 10));
+	    card.setBackground(Color.WHITE);
+	    card.setBorder(new CompoundBorder(
+	            new LineBorder(new Color(200, 200, 200), 1, true),
+	            new EmptyBorder(15, 15, 15, 15)));
+	    card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
 
-    private void GetRecensioniRicevute() {
-        String matricola = controller.getMatricolaUtenteLoggato();
-        try {
-            // Pulisci il pannello
-            panelRecensioni.removeAll();
+	    // ============ HEADER (stelle + data) ============
+	    JPanel headerPanel = new JPanel(new BorderLayout());
+	    headerPanel.setBackground(Color.WHITE);
 
-            ListaRecensioniDao selectRecensioni = new ListaRecensioniDao();
-            RecensioneVenditoreDAO recensioneDAO = new RecensioneVenditoreDAO();
-            ArrayList<Recensione_entity> Recensioni = selectRecensioni.VisualizzaRecensioniRicevute(matricola);
+	    // Stelle
+	    JPanel panelStelle = creaPannelloStelle(rec.getPunteggio());
 
-            // Aggiorna contatore
-            lblContatore.setText("Recensioni ricevute: " + Recensioni.size() +", Valutazione media: " + String.format("%.2f", recensioneDAO.getValutazioneMedia(matricola)));
+	    // Data
+	    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	    JLabel lblData = new JLabel(sdf.format(rec.getData()));
+	    lblData.setFont(new Font("Verdana", Font.PLAIN, 12));
+	    lblData.setForeground(Color.GRAY);
 
-            if (Recensioni.isEmpty()) {
-                JLabel lblNoRecensioni = new JLabel("Non hai ancora ricevuto recensioni");
-                lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
-                lblNoRecensioni.setForeground(Color.GRAY);
-                lblNoRecensioni.setAlignmentX(Component.CENTER_ALIGNMENT);
-                panelRecensioni.add(Box.createVerticalStrut(50));
-                panelRecensioni.add(lblNoRecensioni);
-            } else {
-                for (Recensione_entity R : Recensioni) {
-                    panelRecensioni.add(creaCardRecensione(R, recensioneDAO, false));
-                    panelRecensioni.add(Box.createVerticalStrut(15));
-                }
-            }
+	    headerPanel.add(panelStelle, BorderLayout.WEST);
+	    headerPanel.add(lblData, BorderLayout.EAST);
 
-            panelRecensioni.revalidate();
-            panelRecensioni.repaint();
+	    // ============ PANNELLO CENTRALE (titolo annuncio + commento) ============
+	    JPanel centralPanel = new JPanel();
+	    centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
+	    centralPanel.setBackground(Color.WHITE);
 
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento delle Recensioni: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                    "Errore nel caricamento dei dati: " + e.getMessage(),
-                    "Errore",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
+	    // Titolo annuncio tramite controller
+	    String titoloAnnuncio = controller.getTitoloAnnuncioDaOfferta(rec.getIdOfferta());
+	    if (titoloAnnuncio != null) {
+	        JLabel lblTitoloAnnuncio = new JLabel("Annuncio: " + titoloAnnuncio);
+	        lblTitoloAnnuncio.setFont(new Font("Verdana", Font.BOLD, 13));
+	        lblTitoloAnnuncio.setForeground(new Color(0, 52, 104));
+	        lblTitoloAnnuncio.setBorder(new EmptyBorder(0, 0, 8, 0));
+	        centralPanel.add(lblTitoloAnnuncio);
+	    }
 
-    private JPanel creaCardRecensione(Recensione_entity rec, RecensioneVenditoreDAO dao, boolean isInviata) {
-        JPanel card = new JPanel();
-        card.setLayout(new BorderLayout(10, 10));
-        card.setBackground(Color.WHITE);
-        card.setBorder(new CompoundBorder(
-                new LineBorder(new Color(200, 200, 200), 1, true),
-                new EmptyBorder(15, 15, 15, 15)));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
+	    // Commento
+	    JTextArea txtCommento = new JTextArea(rec.getCommento() != null ? rec.getCommento() : "Nessun commento");
+	    txtCommento.setFont(new Font("Verdana", Font.PLAIN, 13));
+	    txtCommento.setForeground(Color.DARK_GRAY);
+	    txtCommento.setLineWrap(true);
+	    txtCommento.setWrapStyleWord(true);
+	    txtCommento.setEditable(false);
+	    txtCommento.setOpaque(false);
+	    txtCommento.setBorder(new EmptyBorder(5, 0, 10, 0));
+	    centralPanel.add(txtCommento);
 
-        // ============ HEADER (stelle + data) ============
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(Color.WHITE);
+	    // ============ FOOTER (nome utente + matricola) ============
+	    JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
+	    footerPanel.setBackground(Color.WHITE);
 
-        // Stelle
-        JPanel panelStelle = creaPannelloStelle(rec.getPunteggio());
+	    String matricolaAltraPersona = isInviata ? rec.getMatricolaVenditore() : rec.getMatricolaAcquirente();
+	    String nomeAltraPersona = controller.getNominativoUtente(matricolaAltraPersona);
+	    String label = isInviata ? "Recensione a: " : "Recensione da: ";
+	    
+	    JLabel lblUtente = new JLabel(label + (nomeAltraPersona != null ? nomeAltraPersona : "Utente"));
+	    lblUtente.setFont(new Font("Verdana", Font.ITALIC, 12));
+	    lblUtente.setForeground(new Color(100, 100, 100));
+	    footerPanel.add(lblUtente);
 
-        // Data
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        JLabel lblData = new JLabel(sdf.format(rec.getData()));
-        lblData.setFont(new Font("Verdana", Font.PLAIN, 12));
-        lblData.setForeground(Color.GRAY);
+	    // Aggiungi matricola
+	    JLabel lblMatricola = new JLabel("(" + matricolaAltraPersona + ")");
+	    lblMatricola.setFont(new Font("Verdana", Font.PLAIN, 11));
+	    lblMatricola.setForeground(new Color(120, 120, 120));
+	    footerPanel.add(lblMatricola);
 
-        headerPanel.add(panelStelle, BorderLayout.WEST);
-        headerPanel.add(lblData, BorderLayout.EAST);
+	    card.add(headerPanel, BorderLayout.NORTH);
+	    card.add(centralPanel, BorderLayout.CENTER);
+	    card.add(footerPanel, BorderLayout.SOUTH);
 
-        // ============ PANNELLO CENTRALE (titolo annuncio + commento) ============
-        JPanel centralPanel = new JPanel();
-        centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
-        centralPanel.setBackground(Color.WHITE);
-
-        // Titolo annuncio
-        try {
-            String titoloAnnuncio = dao.getTitoloAnnuncioDaOfferta(rec.getIdOfferta());
-            if (titoloAnnuncio != null) {
-                JLabel lblTitoloAnnuncio = new JLabel("Annuncio: " + titoloAnnuncio);
-                lblTitoloAnnuncio.setFont(new Font("Verdana", Font.BOLD, 13));
-                lblTitoloAnnuncio.setForeground(new Color(0, 52, 104));
-                lblTitoloAnnuncio.setBorder(new EmptyBorder(0, 0, 8, 0));
-                centralPanel.add(lblTitoloAnnuncio);
-            }
-        } catch (SQLException e) {
-            System.err.println("Errore nel recupero titolo annuncio: " + e.getMessage());
-        }
-
-        // Commento
-        JTextArea txtCommento = new JTextArea(rec.getCommento() != null ? rec.getCommento() : "Nessun commento");
-        txtCommento.setFont(new Font("Verdana", Font.PLAIN, 13));
-        txtCommento.setForeground(Color.DARK_GRAY);
-        txtCommento.setLineWrap(true);
-        txtCommento.setWrapStyleWord(true);
-        txtCommento.setEditable(false);
-        txtCommento.setOpaque(false);
-        txtCommento.setBorder(new EmptyBorder(5, 0, 10, 0));
-        centralPanel.add(txtCommento);
-
-        // ============ FOOTER (nome utente + matricola) ============
-        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
-        footerPanel.setBackground(Color.WHITE);
-
-        try {
-            String matricolaAltraPersona = isInviata ? rec.getMatricolaVenditore() : rec.getMatricolaAcquirente();
-            String nomeAltraPersona = dao.getNominativoUtente(matricolaAltraPersona);
-            String label = isInviata ? "Recensione a: " : "Recensione da: ";
-            
-            JLabel lblUtente = new JLabel(label + (nomeAltraPersona != null ? nomeAltraPersona : "Utente"));
-            lblUtente.setFont(new Font("Verdana", Font.ITALIC, 12));
-            lblUtente.setForeground(new Color(100, 100, 100));
-            footerPanel.add(lblUtente);
-
-            // Aggiungi matricola
-            JLabel lblMatricola = new JLabel("(" + matricolaAltraPersona + ")");
-            lblMatricola.setFont(new Font("Verdana", Font.PLAIN, 11));
-            lblMatricola.setForeground(new Color(120, 120, 120));
-            footerPanel.add(lblMatricola);
-        } catch (SQLException e) {
-            System.err.println("Errore nel recupero nome utente: " + e.getMessage());
-        }
-
-        card.add(headerPanel, BorderLayout.NORTH);
-        card.add(centralPanel, BorderLayout.CENTER);
-        card.add(footerPanel, BorderLayout.SOUTH);
-
-        return card;
-    }
+	    return card;
+	}
 
     private JPanel creaPannelloStelle(int punteggio) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));

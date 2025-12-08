@@ -2,6 +2,12 @@ package mainController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import java.awt.Image;
+import java.io.File;
 import java.sql.SQLException;
 
 import dao.*;
@@ -15,6 +21,9 @@ public class MainController {
 	protected InserimentoAnnunciDAO InsertAnnunciDAO;  
 	    protected FotoAnnuncioDAO FotoAnnuncioDAO; 
 	    protected OffertaDAO OffertaDAO;
+	    protected ArrayList<AnnuncioVendita_entity> annunciVenditaCaricati;
+	    protected ArrayList<AnnuncioScambio_entity> annunciScambioCaricati;
+	    protected ArrayList<AnnuncioRegalo_entity> annunciRegaloCaricati;
 
 	    protected Oggetto_entity OggettoAnnuncio;
 	    protected String titoloAnnuncio;
@@ -60,6 +69,239 @@ public class MainController {
 	        return "Impossibile connettersi al database: " + e.getMessage();
 	    }
 	}
+	
+	
+	
+
+			    // Altri metodi e variabili
+
+			    public String verificaOfferta(int idAnnuncio, String matricolaVenditore, StatoAnnuncio stato, String tipologia) {
+			        try {
+			            // Verifica se l'annuncio è chiuso
+			            if (stato == StatoAnnuncio.Chiuso) {
+			                return "Annuncio chiuso, non è possibile fare un'offerta.";
+			            }
+
+			            // Verifica se l'utente sta tentando di fare un'offerta sul proprio annuncio
+			            if (matricolaVenditore.equals(User.getMatricola())) {
+			                return "Non puoi fare un'offerta sul tuo annuncio.";
+			            }
+
+			            // Qui potresti aggiungere altre logiche per verificare l'annuncio nel database, ad esempio:
+			            // AnnuncioEntity annuncio = annuncioDAO.getAnnuncio(idAnnuncio);
+			            // if (annuncio == null) {
+			            //     return "Annuncio non trovato.";
+			            // }
+
+			            return null;  // Restituisci null se tutto è valido
+
+			        } catch (Exception e) {
+			            // Gestione di altre eccezioni generiche
+			            return "Si è verificato un errore: " + e.getMessage();
+			        }
+			    }
+			
+
+	
+			    public String caricaAnnunci(String tipologia, String categoria, String testoRicerca) {
+			        try {
+			            ListaAnnunciDAO dao = new ListaAnnunciDAO();
+			            int count = 0;
+			            boolean ricercaAttiva = !testoRicerca.isEmpty();
+
+			            if (tipologia.equals("Vendita")) {
+			                if (ricercaAttiva) {
+			                    annunciVenditaCaricati = dao.cercaAnnunciVendita(testoRicerca, categoria);
+			                } else {
+			                    annunciVenditaCaricati = categoria.equals("Seleziona una categoria") 
+			                        ? dao.getAnnunciVendita() 
+			                        : dao.getAnnunciVenditaCategoria(categoria);
+			                }
+			                count = annunciVenditaCaricati.size();
+			                
+			            } else if (tipologia.equals("Scambio")) {
+			                if (ricercaAttiva) {
+			                    annunciScambioCaricati = dao.cercaAnnunciScambio(testoRicerca, categoria);
+			                } else {
+			                    annunciScambioCaricati = categoria.equals("Seleziona una categoria") 
+			                        ? dao.getAnnunciScambio() 
+			                        : dao.getAnnunciScambioCategoria(categoria);
+			                }
+			                count = annunciScambioCaricati.size();
+			                
+			            } else if (tipologia.equals("Regalo")) {
+			                if (ricercaAttiva) {
+			                    annunciRegaloCaricati = dao.cercaAnnunciRegalo(testoRicerca, categoria);
+			                } else {
+			                    annunciRegaloCaricati = categoria.equals("Seleziona una categoria") 
+			                        ? dao.getAnnunciRegalo() 
+			                        : dao.getAnnunciRegaloCategoria(categoria);
+			                }
+			                count = annunciRegaloCaricati.size();
+			            }
+
+			            String messaggio = ricercaAttiva 
+			                ? "Trovati " + count + " Annunci per \"" + testoRicerca + "\""
+			                : "Caricati " + count + " Annunci";
+			                
+			            return messaggio;
+
+			        } catch (SQLException e) {
+			            System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+			            e.printStackTrace();
+			            return "ERRORE: Errore nel caricamento dei dati: " + e.getMessage();
+			        }
+			    }
+
+			    /**
+			     * Restituisce gli annunci di vendita precedentemente caricati
+			     */
+			    public ArrayList<AnnuncioVendita_entity> getAnnunciVenditaCaricati() {
+			        return annunciVenditaCaricati != null ? annunciVenditaCaricati : new ArrayList<>();
+			    }
+
+			    /**
+			     * Restituisce gli annunci di scambio precedentemente caricati
+			     */
+			    public ArrayList<AnnuncioScambio_entity> getAnnunciScambioCaricati() {
+			        return annunciScambioCaricati != null ? annunciScambioCaricati : new ArrayList<>();
+			    }
+
+			    /**
+			     * Restituisce gli annunci di regalo precedentemente caricati
+			     */
+			    public ArrayList<AnnuncioRegalo_entity> getAnnunciRegaloCaricati() {
+			        return annunciRegaloCaricati != null ? annunciRegaloCaricati : new ArrayList<>();
+			    }
+
+			   
+			    public String getNominativoVenditore(String matricolaVenditore) {
+			        try {
+			            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+			            return dao.getNominativoUtente(matricolaVenditore);
+			        } catch (SQLException e) {
+			            System.err.println("Errore nel caricamento nominativo venditore: " + e.getMessage());
+			            return null;
+			        }
+			    }
+
+			   
+			    public double getValutazioneMediaVenditore(String matricolaVenditore) {
+			        try {
+			            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+			            return dao.getValutazioneMedia(matricolaVenditore);
+			        } catch (SQLException e) {
+			            System.err.println("Errore nel caricamento valutazione venditore: " + e.getMessage());
+			            return 0.0;
+			        }
+			    }
+
+			    public int getNumeroRecensioniVenditore(String matricolaVenditore) {
+			        try {
+			            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+			            return dao.getNumeroRecensioni(matricolaVenditore);
+			        } catch (SQLException e) {
+			            System.err.println("Errore nel caricamento numero recensioni: " + e.getMessage());
+			            return 0;
+			        }
+			    }
+
+			  
+			    public ArrayList<String> getFotoAnnuncio(int idAnnuncio) {
+			        try {
+			            FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
+			            return fotoDAO.getFotoByAnnuncio(idAnnuncio);
+			        } catch (SQLException e) {
+			            System.err.println("Errore nel caricamento delle foto: " + e.getMessage());
+			            return null;
+			        }
+			    }
+
+			   
+			    public ImageIcon caricaImmagine(String percorso, int larghezza, int altezza) {
+			        File file = new File(percorso);
+			        
+			        if (file.exists()) {
+			            ImageIcon originalIcon = new ImageIcon(percorso);
+			            Image scaledImage = originalIcon.getImage().getScaledInstance(
+			                larghezza, altezza, Image.SCALE_SMOOTH
+			            );
+			            return new ImageIcon(scaledImage);
+			        }
+			        
+			        return null;
+			    }
+	
+	
+	
+	
+	
+	
+			    public ArrayList<Recensione_entity> caricaRecensioniInviate() {
+			        try {
+			            String matricola = getMatricolaUtenteLoggato();
+			            if (matricola == null) {
+			                return new ArrayList<>();
+			            }
+			            
+			            ListaRecensioniDao dao = new ListaRecensioniDao();
+			            return dao.VisualizzaRecensioniInviate(matricola);
+			            
+			        } catch (SQLException e) {
+			            System.err.println("Errore durante il caricamento delle recensioni inviate: " + e.getMessage());
+			            e.printStackTrace();
+			            return new ArrayList<>();
+			        }
+			    }
+
+			    
+			    public ArrayList<Recensione_entity> caricaRecensioniRicevute() {
+			        try {
+			            String matricola = getMatricolaUtenteLoggato();
+			            if (matricola == null) {
+			                return new ArrayList<>();
+			            }
+			            
+			            ListaRecensioniDao dao = new ListaRecensioniDao();
+			            return dao.VisualizzaRecensioniRicevute(matricola);
+			            
+			        } catch (SQLException e) {
+			            System.err.println("Errore durante il caricamento delle recensioni ricevute: " + e.getMessage());
+			            e.printStackTrace();
+			            return new ArrayList<>();
+			        }
+			    }
+
+			   
+			    public String getTitoloAnnuncioDaOfferta(int idOfferta) {
+			        try {
+			            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+			            return dao.getTitoloAnnuncioDaOfferta(idOfferta);
+			        } catch (SQLException e) {
+			            System.err.println("Errore nel recupero titolo annuncio: " + e.getMessage());
+			            return null;
+			        }
+			    }
+
+			    
+			    public String getNominativoUtente(String matricola) {
+			        try {
+			            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+			            return dao.getNominativoUtente(matricola);
+			        } catch (SQLException e) {
+			            System.err.println("Errore nel recupero nominativo utente: " + e.getMessage());
+			            return null;
+			        }
+			    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public Utente_entity getUser() {
         return User;
