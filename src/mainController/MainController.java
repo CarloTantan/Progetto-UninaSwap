@@ -52,6 +52,70 @@ public class MainController {
 	public Utente_entity getUser() {
         return User;
     } 
+
+//Metodi per user loggato
+	public String getMatricolaUtenteLoggato() {
+	    if (User != null) {
+	        return User.getMatricola();
+	    }
+	    return null;
+	}
+	
+	public String getNominativoUtenteLoggato() {
+	    if (User != null) {
+	        return User.getNominativo();
+	    }
+	    return null;
+	}
+	
+	public String getEmailUtenteLoggato() {
+	    if (User != null) {
+	        return User.getEmail();
+	    }
+	    return null;
+	}
+	
+	public String getNumeroTelefonoUtenteLoggato() {
+	    if (User != null) {
+	        return User.getNumeroTelefono();
+	    }
+	    return null;
+	}
+	
+	public int getNumeroOfferteProposteUtenteLoggato() {
+	    if (User != null) {
+	        return User.getNumeroOfferteProposte();
+	    }
+	    return 0;
+	}
+	
+	public int getNumeroOggettiAcquistatiUtenteLoggato() {
+	    if (User != null) {
+	        return User.getNumeroOggettiAcquistati();
+	    }
+	    return 0;
+	}
+	
+	public int getNumeroAnnunciPubblicatiUtenteLoggato() {
+	    if (User != null) {
+	        return User.getNumeroAnnunciPubblicati();
+	    }
+	    return 0;
+	}
+	
+	public int getNumeroOggettiVendutiUtenteLoggato() {
+	    if (User != null) {
+	        return User.getNumeroOggettiVenduti();
+	    }
+	    return 0;
+	}
+	
+	public int getNumeroOfferteRicevuteUtenteLoggato() {
+	    if (User != null) {
+	        return User.getNumeroOfferteRicevute();
+	    }
+	    return 0;
+	}
 	
 	//Effettua Registrazione 
 	public String EffettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password, String confermaPassword) {

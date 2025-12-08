@@ -2,6 +2,7 @@ package boundary;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -37,7 +38,6 @@ public class AreaUtente extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnCreaAnnuncio;
-	private Utente_entity UtenteLoggato;
 	private JPanel headerPanel;
 	private JPanel buttonPanel;
 	
@@ -61,8 +61,7 @@ public class AreaUtente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AreaUtente(Utente_entity UtenteLoggato, MainController controller) {
-		this.UtenteLoggato = UtenteLoggato; // Assegna l'utente alla variabile di istanza
+	public AreaUtente(MainController controller) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AreaUtente.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("AreaUtente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,7 +144,7 @@ public class AreaUtente extends JFrame {
 		
 		btnReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriReport(UtenteLoggato, controller);
+				apriReport(controller);
 			}
 		});
 		
@@ -166,7 +165,7 @@ public class AreaUtente extends JFrame {
 		lblIconaUtente.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
 		rightPanel.add(lblIconaUtente);
 		
-		JLabel lblNomeUtente = new JLabel(UtenteLoggato.getNominativo());
+		JLabel lblNomeUtente = new JLabel(controller.getNominativoUtenteLoggato());
 		lblNomeUtente.setForeground(Color.WHITE);
 		lblNomeUtente.setFont(new Font("Verdana", Font.BOLD, 16));
 		rightPanel.add(lblNomeUtente);
@@ -200,7 +199,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaStoricoOfferte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriStoricoOfferte(UtenteLoggato, controller);
+				apriStoricoOfferte(controller);
 				
 			}
 		});
@@ -211,7 +210,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-aggiungi-48.png");
 		btnInserisciRecensione.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriListaTransazioni(UtenteLoggato, controller);
+				apriListaTransazioni(controller);
 				
 			}
 		});
@@ -224,7 +223,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriAnnunciPubblicati(UtenteLoggato, controller);
+				apriAnnunciPubblicati(controller);
 				
 			}
 		});
@@ -234,7 +233,7 @@ public class AreaUtente extends JFrame {
 		btnCreaAnnuncio = createStyledButton("Crea Annuncio", "/icons/icons8-aggiungi-48.png");
 		btnCreaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriOggetto(UtenteLoggato, controller);
+				apriOggetto(controller);
 				
 			}
 		});
@@ -247,7 +246,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaRecensioni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriListaRecensioni(UtenteLoggato, controller);
+				apriListaRecensioni(controller);
 				
 			}
 		});
@@ -258,7 +257,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriListaAnnunci(UtenteLoggato, controller);
+				apriListaAnnunci(controller);
 				
 			}
 		});
@@ -302,30 +301,30 @@ public class AreaUtente extends JFrame {
 		LoginFrame.setVisible(true);
 	}
 	
-	private void apriReport(Utente_entity UtenteLoggato, MainController controller) {
+	private void apriReport(MainController controller) {
 		dispose();
-		Report ReportFrame = new Report(UtenteLoggato, controller);
+		Report ReportFrame = new Report(controller);
 		ReportFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		ReportFrame.setVisible(true);
 	}
 	
-	private void apriStoricoOfferte(Utente_entity UtenteLoggato, MainController controller) {
+	private void apriStoricoOfferte(MainController controller) {
 		dispose();
-		StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(UtenteLoggato, controller);
+		StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(controller);
 		StoricoOfferteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		StoricoOfferteFrame.setVisible(true);
 	}
 	
-	private void apriListaTransazioni(Utente_entity UtenteLoggato, MainController controller) {
+	private void apriListaTransazioni(MainController controller) {
 		dispose();
-		ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(UtenteLoggato, controller);
+		ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(controller);
 		ListaTransazioniFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
 		ListaTransazioniFrame.setVisible(true);
 	}
 	
-	private void apriAnnunciPubblicati(Utente_entity UtenteLoggato, MainController controller) {
+	private void apriAnnunciPubblicati(MainController controller) {
 		dispose();
-		AnnunciPubblicati AnnunciPubblicatiFrame = new AnnunciPubblicati(UtenteLoggato, controller);
+		AnnunciPubblicati AnnunciPubblicatiFrame = new AnnunciPubblicati(controller);
 		AnnunciPubblicatiFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
 		AnnunciPubblicatiFrame.setVisible(true);
 	}

@@ -1,13 +1,10 @@
 package boundary;
 
-import java.awt.EventQueue;
-
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import entity.Utente_entity;
 import mainController.MainController;
 
 import javax.swing.JLabel;
@@ -19,7 +16,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 
@@ -228,11 +224,10 @@ public class Login extends JFrame {
                     "Successo", 
                     JOptionPane.INFORMATION_MESSAGE);
                 
-                Utente_entity UtenteLoggato = controller.getUser();
                 
                 // Apri l'interfaccia area utente
                 dispose(); // Chiudi la finestra di login
-                AreaUtente areaUtente = new AreaUtente(UtenteLoggato, controller);
+                AreaUtente areaUtente = new AreaUtente(controller);
                 areaUtente.setVisible(true);
                 
             } else {

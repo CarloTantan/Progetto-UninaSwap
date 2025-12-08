@@ -35,14 +35,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import dao.ReportDAO;
-import entity.Utente_entity;
 import mainController.MainController;
 
 public class Report extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private Utente_entity UtenteLoggato;
     private JTable tabellaOfferte;
     private JTable tabellaPrezzi;
     private int offerteTotali;
@@ -55,8 +53,7 @@ public class Report extends JFrame {
     private String[] prezzi;
     private MainController controller;
 
-    public Report(Utente_entity UtenteLoggato, MainController controller) {
-        this.UtenteLoggato = UtenteLoggato;
+    public Report(MainController controller) {
         this.controller = controller;
         setIconImage(Toolkit.getDefaultToolkit().getImage(Report.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
         setTitle("Report");
@@ -87,7 +84,7 @@ public class Report extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+                AreaUtente areaUtenteFrame = new AreaUtente(controller);
                 areaUtenteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 areaUtenteFrame.setVisible(true);
             }
@@ -135,7 +132,7 @@ public class Report extends JFrame {
         lblIconaUtente.setIcon(new ImageIcon(Report.class.getResource("/icons/icons8-utente-uomo-cerchiato-96.png")));
         rightPanel.add(lblIconaUtente);
         
-        JLabel lblNomeUtente = new JLabel(UtenteLoggato.getNominativo());
+        JLabel lblNomeUtente = new JLabel(controller.getNominativoUtenteLoggato());
         lblNomeUtente.setForeground(Color.WHITE);
         lblNomeUtente.setFont(new Font("Verdana", Font.BOLD, 16));
         rightPanel.add(lblNomeUtente);
@@ -417,7 +414,7 @@ public class Report extends JFrame {
     }
 
     private void caricaPrezzi() {
-        String matricola = UtenteLoggato.getMatricola();
+        String matricola = controller.getMatricolaUtenteLoggato();
         
         try {
             ReportDAO reportDAO = new ReportDAO();
@@ -434,7 +431,7 @@ public class Report extends JFrame {
     }
     
     private void caricaOfferte() {
-        String matricola = UtenteLoggato.getMatricola();
+        String matricola = controller.getMatricolaUtenteLoggato();
         
         try {
             ReportDAO reportDAO = new ReportDAO();

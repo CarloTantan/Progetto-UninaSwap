@@ -2,6 +2,7 @@ package boundary;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 import dao.FotoAnnuncioDAO;
 import dao.InserimentoAnnunciDAO;
 import entity.Oggetto_entity;
-import entity.Utente_entity;
 import enumerations.FasciaOraria;
 import mainController.MainController;
 
@@ -40,7 +40,6 @@ public class AnnuncioScambio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private Oggetto_entity OggettoAnnuncio;
 	private String titolo;
 	private String descrizione;
@@ -70,11 +69,10 @@ public class AnnuncioScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioScambio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio,
+	public AnnuncioScambio(Oggetto_entity OggettoAnnuncio,
             String titolo, String descrizione, String modalitaConsegna,
             FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini, MainController controller) {
 		this.OggettoAnnuncio = OggettoAnnuncio;
-		this.UtenteLoggato = UtenteLoggato;
 		this.titolo = titolo;
 		this.descrizione = descrizione;
 		this.modalitaConsegna = modalitaConsegna;
@@ -111,7 +109,7 @@ public class AnnuncioScambio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(UtenteLoggato, OggettoAnnuncio, controller); 
+				Annuncio annuncioFrame = new Annuncio(OggettoAnnuncio, controller); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
@@ -214,7 +212,7 @@ public class AnnuncioScambio extends JFrame {
 	        modalitaConsegna,
 	        fasciaOraria,
 	        oggettoRichiesto,
-	        UtenteLoggato.getMatricola(),
+	        controller.getMatricolaUtenteLoggato(),
 	        OggettoAnnuncio.getIdOggetto(),
 	        percorsiImmagini
 	    );
@@ -227,7 +225,7 @@ public class AnnuncioScambio extends JFrame {
 	            "Annuncio pubblicato",
 	            JOptionPane.INFORMATION_MESSAGE);
 	        
-	        AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller);
+	        AreaUtente utenteFrame = new AreaUtente(controller);
 	        utenteFrame.setVisible(true);
 	    } else {
 	        // Mostra l'errore restituito dal controller

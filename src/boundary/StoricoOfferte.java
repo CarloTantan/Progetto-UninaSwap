@@ -2,6 +2,7 @@ package boundary;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +18,6 @@ import dao.StoricoOfferteDAO;
 import dao.TransazioniDAO;
 import entity.Offerta_entity;
 import entity.Transazione_entity;
-import entity.Utente_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -45,7 +45,6 @@ public class StoricoOfferte extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private JPanel panelOfferte;
 	private JComboBox<String> comboBoxStato;
 	private JComboBox<String> comboBoxTipologia;
@@ -71,8 +70,7 @@ public class StoricoOfferte extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StoricoOfferte(Utente_entity UtenteLoggato, MainController controller) {
-		this.UtenteLoggato = UtenteLoggato;
+	public StoricoOfferte(MainController controller) {
 		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
@@ -103,7 +101,7 @@ public class StoricoOfferte extends JFrame {
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(e -> {
 			setVisible(false);
-			AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+			AreaUtente AreaUtenteFrame = new AreaUtente(controller);
 			AreaUtenteFrame.setVisible(true);
 		});
 		btnUndo.setBackground(new Color(45, 134, 192));
@@ -197,7 +195,7 @@ public class StoricoOfferte extends JFrame {
 	private void caricaOfferte() {
 		try {
 			StoricoOfferteDAO dao = new StoricoOfferteDAO();
-			offerteCaricate = dao.getOfferte(UtenteLoggato.getMatricola());
+			offerteCaricate = dao.getOfferte(controller.getMatricolaUtenteLoggato());
 			mostraOfferte(offerteCaricate);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -465,17 +463,17 @@ public class StoricoOfferte extends JFrame {
 			String tipologia = offerta.getTipologiaOfferta();
 			
 			if (tipologia.equalsIgnoreCase("Regalo")) {
-				OffertaRegalo frame = new OffertaRegalo(UtenteLoggato, idAnnuncio, controller);
+				OffertaRegalo frame = new OffertaRegalo(controller);
 				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
 				frame.setVisible(true);
 				this.setVisible(false);
 			} else if (tipologia.equalsIgnoreCase("Scambio")) {
-				OffertaScambio frame = new OffertaScambio(UtenteLoggato, idAnnuncio, controller);
+				OffertaScambio frame = new OffertaScambio(controller);
 				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
 				frame.setVisible(true);
 				this.setVisible(false);
 			} else if (tipologia.equalsIgnoreCase("Vendita")) {
-				OffertaVendita frame = new OffertaVendita(UtenteLoggato, idAnnuncio, controller);
+				OffertaVendita frame = new OffertaVendita(controller);
 				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
 				frame.setVisible(true);
 				this.setVisible(false);

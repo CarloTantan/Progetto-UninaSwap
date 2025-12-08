@@ -1,13 +1,10 @@
 package boundary;
 
-import java.awt.EventQueue;
-
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dao.RegistrazioneDAO;
 import mainController.MainController;
 
 import javax.swing.JLabel;

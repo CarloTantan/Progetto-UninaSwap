@@ -15,7 +15,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
