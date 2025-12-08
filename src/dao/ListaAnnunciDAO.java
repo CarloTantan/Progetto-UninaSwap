@@ -327,4 +327,220 @@ public class ListaAnnunciDAO { //lista AnnunciDAO
 	    return Annunci;
 	}
 	
+	// Ricerca per tutti i tipi di annunci
+	public ArrayList<Annuncio_entity> cercaAnnunci(String testoRicerca) throws SQLException {
+	    ArrayList<Annuncio_entity> Annunci = new ArrayList<>();
+	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+	                   "FROM Annuncio AS A " +
+	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+	                   "WHERE LOWER(A.Titolo) LIKE LOWER(?) OR LOWER(A.Descrizione) LIKE LOWER(?)";
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    Connection conn = null;
+	    
+	    try {
+	        conn = getConnection();
+	        pstmt = conn.prepareStatement(query);
+	        String searchPattern = "%" + testoRicerca + "%";
+	        pstmt.setString(1, searchPattern);
+	        pstmt.setString(2, searchPattern);
+	        rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            Annuncio_entity annunci = new Annuncio_entity(
+	                rs.getInt("IdAnnuncio"),	
+	                rs.getString("Titolo"), 
+	                rs.getString("Descrizione"),
+	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+	                rs.getString("ModalitàConsegna"), 
+	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+	                rs.getString("idOggetto"),
+	                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")),
+	                rs.getDate("DataPubblicazione"),
+	                rs.getString("MatricolaVenditore"),
+	                false
+	            );
+	            Annunci.add(annunci);
+	        }
+	    } finally {
+	        if(rs != null) rs.close();
+	        if(pstmt != null) pstmt.close();
+	        if(conn != null) conn.close();
+	    }
+	    
+	    return Annunci;
+	}
+
+	// Ricerca Vendita
+	public ArrayList<AnnuncioVendita_entity> cercaAnnunciVendita(String testoRicerca, String categoria) throws SQLException {
+	    ArrayList<AnnuncioVendita_entity> Annunci = new ArrayList<>();
+	    StringBuilder query = new StringBuilder(
+	        "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+	        "FROM Annuncio AS A " +
+	        "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+	        "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+	        "WHERE A.tipologia='Vendita' AND (LOWER(A.Titolo) LIKE LOWER(?) OR LOWER(A.Descrizione) LIKE LOWER(?))");
+	    
+	    if (categoria != null && !categoria.equals("Seleziona una categoria")) {
+	        query.append(" AND C.tipologia=?");
+	    }
+	    
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    Connection conn = null;
+	    
+	    try {
+	        conn = getConnection();
+	        pstmt = conn.prepareStatement(query.toString());
+	        String searchPattern = "%" + testoRicerca + "%";
+	        pstmt.setString(1, searchPattern);
+	        pstmt.setString(2, searchPattern);
+	        
+	        if (categoria != null && !categoria.equals("Seleziona una categoria")) {
+	            pstmt.setString(3, categoria);
+	        }
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            AnnuncioVendita_entity annunciV = new AnnuncioVendita_entity(
+	                rs.getInt("IdAnnuncio"),	
+	                rs.getString("Titolo"), 
+	                rs.getString("Descrizione"),
+	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+	                rs.getString("ModalitàConsegna"), 
+	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+	                rs.getString("idOggetto"),
+	                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")),
+	                rs.getDate("DataPubblicazione"),
+	                rs.getString("MatricolaVenditore"), 
+	                rs.getFloat("PrezzoVendita"),
+	                false
+	            );
+	            Annunci.add(annunciV);
+	        }
+	    } finally {
+	        if(rs != null) rs.close();
+	        if(pstmt != null) pstmt.close();
+	        if(conn != null) conn.close();
+	    }
+	    
+	    return Annunci;
+	}
+
+	// Ricerca Regalo
+	public ArrayList<AnnuncioRegalo_entity> cercaAnnunciRegalo(String testoRicerca, String categoria) throws SQLException {
+	    ArrayList<AnnuncioRegalo_entity> Annunci = new ArrayList<>();
+	    StringBuilder query = new StringBuilder(
+	        "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+	        "FROM Annuncio AS A " +
+	        "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+	        "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+	        "WHERE A.tipologia='Regalo' AND (LOWER(A.Titolo) LIKE LOWER(?) OR LOWER(A.Descrizione) LIKE LOWER(?))");
+	    
+	    if (categoria != null && !categoria.equals("Seleziona una categoria")) {
+	        query.append(" AND C.tipologia=?");
+	    }
+	    
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    Connection conn = null;
+	    
+	    try {
+	        conn = getConnection();
+	        pstmt = conn.prepareStatement(query.toString());
+	        String searchPattern = "%" + testoRicerca + "%";
+	        pstmt.setString(1, searchPattern);
+	        pstmt.setString(2, searchPattern);
+	        
+	        if (categoria != null && !categoria.equals("Seleziona una categoria")) {
+	            pstmt.setString(3, categoria);
+	        }
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            AnnuncioRegalo_entity annunciR = new AnnuncioRegalo_entity(
+	                rs.getInt("IdAnnuncio"),	
+	                rs.getString("Titolo"), 
+	                rs.getString("Descrizione"),
+	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+	                rs.getString("ModalitàConsegna"), 
+	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+	                rs.getString("idOggetto"),
+	                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")),
+	                rs.getDate("DataPubblicazione"),
+	                rs.getString("MatricolaVenditore"),
+	                rs.getString("MotivoCessione"),
+	                false
+	            );
+	            Annunci.add(annunciR);
+	        }
+	    } finally {
+	        if(rs != null) rs.close();
+	        if(pstmt != null) pstmt.close();
+	        if(conn != null) conn.close();
+	    }
+	    
+	    return Annunci;
+	}
+
+	// Ricerca Scambio
+	public ArrayList<AnnuncioScambio_entity> cercaAnnunciScambio(String testoRicerca, String categoria) throws SQLException {
+	    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
+	    StringBuilder query = new StringBuilder(
+	        "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
+	        "FROM Annuncio AS A " +
+	        "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
+	        "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
+	        "WHERE A.tipologia='Scambio' AND (LOWER(A.Titolo) LIKE LOWER(?) OR LOWER(A.Descrizione) LIKE LOWER(?))");
+	    
+	    if (categoria != null && !categoria.equals("Seleziona una categoria")) {
+	        query.append(" AND C.tipologia=?");
+	    }
+	    
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    Connection conn = null;
+	    
+	    try {
+	        conn = getConnection();
+	        pstmt = conn.prepareStatement(query.toString());
+	        String searchPattern = "%" + testoRicerca + "%";
+	        pstmt.setString(1, searchPattern);
+	        pstmt.setString(2, searchPattern);
+	        
+	        if (categoria != null && !categoria.equals("Seleziona una categoria")) {
+	            pstmt.setString(3, categoria);
+	        }
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            AnnuncioScambio_entity annunciS = new AnnuncioScambio_entity(
+	                rs.getInt("IdAnnuncio"),	
+	                rs.getString("Titolo"), 
+	                rs.getString("Descrizione"),
+	                FasciaOraria.fromLabel(rs.getString("FasciaOraria")),
+	                rs.getString("ModalitàConsegna"), 
+	                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
+	                rs.getString("idOggetto"),
+	                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")),
+	                rs.getDate("DataPubblicazione"),
+	                rs.getString("MatricolaVenditore"),
+	                rs.getString("OggettoRichiesto"),
+	                false
+	            );
+	            Annunci.add(annunciS);
+	        }
+	    } finally {
+	        if(rs != null) rs.close();
+	        if(pstmt != null) pstmt.close();
+	        if(conn != null) conn.close();
+	    }
+	    
+	    return Annunci;
+	}
+	
 }	

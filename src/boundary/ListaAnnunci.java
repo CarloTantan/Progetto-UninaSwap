@@ -23,117 +23,143 @@ public class ListaAnnunci extends JFrame {
     private JComboBox<String> comboBoxTipologia;
     private JComboBox<String> comboBoxCategoria;
     private MainController controller;
+    private JTextField txtRicerca;
 
     public ListaAnnunci(Utente_entity UtenteLoggato, MainController controller) {
 
-            this.UtenteLoggato = UtenteLoggato;
-            this.controller = controller;
+        this.UtenteLoggato = UtenteLoggato;
+        this.controller = controller;
 
-            setTitle("Lista Annunci");
-            setIconImage(Toolkit.getDefaultToolkit().getImage(
-                    ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setExtendedState(JFrame.MAXIMIZED_BOTH);
-            setMinimumSize(new Dimension(1000, 700));
+        setTitle("Lista Annunci");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(1000, 700));
 
-            JPanel mainPanel = new JPanel(new BorderLayout());
-            setContentPane(mainPanel);
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        setContentPane(mainPanel);
 
-            // ---------------- HEADER -----------------
-            JPanel header = new JPanel(new BorderLayout());
-            header.setBackground(new Color(45, 134, 192));
-            header.setBorder(new EmptyBorder(10, 20, 10, 20));
+        // ---------------- HEADER -----------------
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(new Color(45, 134, 192));
+        header.setBorder(new EmptyBorder(10, 20, 10, 20));
 
-            JLabel title = new JLabel("Lista Annunci", SwingConstants.CENTER);
-            title.setFont(new Font("Verdana", Font.BOLD, 24));
-            title.setForeground(Color.WHITE);
+        JLabel title = new JLabel("Lista Annunci", SwingConstants.CENTER);
+        title.setFont(new Font("Verdana", Font.BOLD, 24));
+        title.setForeground(Color.WHITE);
 
-            JButton btnUndo = new JButton(new ImageIcon(
-                    ListaAnnunci.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
-            btnUndo.setBackground(new Color(45, 134, 192));
-            btnUndo.setBorderPainted(false);
-            btnUndo.setFocusPainted(false);
-            btnUndo.addActionListener(e -> {
-                setVisible(false);
-                AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
-                areaUtenteFrame.setVisible(true);
-            });
+        JButton btnUndo = new JButton(new ImageIcon(
+                ListaAnnunci.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+        btnUndo.setBackground(new Color(45, 134, 192));
+        btnUndo.setBorderPainted(false);
+        btnUndo.setFocusPainted(false);
+        btnUndo.addActionListener(e -> {
+            setVisible(false);
+            AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+            areaUtenteFrame.setVisible(true);
+        });
 
-            header.add(btnUndo, BorderLayout.WEST);
-            header.add(title, BorderLayout.CENTER);
+        header.add(btnUndo, BorderLayout.WEST);
+        header.add(title, BorderLayout.CENTER);
 
-            mainPanel.add(header, BorderLayout.NORTH);
+        // ---------------- FILTRI -----------------
+        JPanel filtri = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
+        filtri.setBackground(Color.WHITE);
 
-            // ---------------- FILTRI -----------------
-            JPanel filtri = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
-            filtri.setBackground(Color.WHITE);
+        JLabel lblTipologia = new JLabel("Tipologia:");
+        lblTipologia.setFont(new Font("Verdana", Font.BOLD, 14));
 
-            JLabel lblTipologia = new JLabel("Tipologia:");
-            lblTipologia.setFont(new Font("Verdana", Font.BOLD, 14));
+        String[] tipologie = {"Seleziona una tipologia", "Vendita", "Scambio", "Regalo"};
+        comboBoxTipologia = new JComboBox<>(tipologie);
+        comboBoxTipologia.setFont(new Font("Verdana", Font.BOLD, 14));
+        comboBoxTipologia.setBackground(new Color(45, 134, 192));
+        comboBoxTipologia.setForeground(Color.WHITE);
 
-            String[] tipologie = {"Seleziona una tipologia", "Vendita", "Scambio", "Regalo"};
-            comboBoxTipologia = new JComboBox<>(tipologie);
-            comboBoxTipologia.setFont(new Font("Verdana", Font.BOLD, 14));
-            comboBoxTipologia.setBackground(new Color(45, 134, 192));
-            comboBoxTipologia.setForeground(Color.WHITE);
+        JLabel lblCategoria = new JLabel("Categoria:");
+        lblCategoria.setFont(new Font("Verdana", Font.BOLD, 14));
 
-            JLabel lblCategoria = new JLabel("Categoria:");
-            lblCategoria.setFont(new Font("Verdana", Font.BOLD, 14));
+        String[] categorie = {"Seleziona una categoria", "Libri", "Musica", "Sport",
+                "Cancelleria", "Vestiti", "Elettronica", "Giochi", "Casa", "Altro"};
 
-            String[] categorie = {"Seleziona una categoria", "Libri", "Musica", "Sport",
-                    "Cancelleria", "Vestiti", "Elettronica", "Giochi", "Casa", "Altro"};
+        comboBoxCategoria = new JComboBox<>(categorie);
+        comboBoxCategoria.setFont(new Font("Verdana", Font.BOLD, 14));
+        comboBoxCategoria.setBackground(new Color(45, 134, 192));
+        comboBoxCategoria.setForeground(Color.WHITE);
 
-            comboBoxCategoria = new JComboBox<>(categorie);
-            comboBoxCategoria.setFont(new Font("Verdana", Font.BOLD, 14));
-            comboBoxCategoria.setBackground(new Color(45, 134, 192));
-            comboBoxCategoria.setForeground(Color.WHITE);
+        JLabel lblRicerca = new JLabel("Cerca:");
+        lblRicerca.setFont(new Font("Verdana", Font.BOLD, 14));
+        
+        txtRicerca = new JTextField(20);
+        txtRicerca.setFont(new Font("Verdana", Font.PLAIN, 14));
 
-            JButton btnVisualizza = new JButton("Visualizza");
-            btnVisualizza.setFont(new Font("Verdana", Font.BOLD, 16));
-            btnVisualizza.setBackground(new Color(0, 52, 101));
-            btnVisualizza.setForeground(Color.WHITE);
-            btnVisualizza.setBorderPainted(false);
-            btnVisualizza.setFocusPainted(false);
-            btnVisualizza.addActionListener(e -> gestisciVisualizza());
+        JButton btnVisualizza = new JButton("Visualizza");
+        btnVisualizza.setFont(new Font("Verdana", Font.BOLD, 16));
+        btnVisualizza.setBackground(new Color(0, 52, 101));
+        btnVisualizza.setForeground(Color.WHITE);
+        btnVisualizza.setBorderPainted(false);
+        btnVisualizza.setFocusPainted(false);
+        btnVisualizza.addActionListener(e -> gestisciVisualizza());
 
-            filtri.add(lblTipologia);
-            filtri.add(comboBoxTipologia);
-            filtri.add(lblCategoria);
-            filtri.add(comboBoxCategoria);
-            filtri.add(btnVisualizza);
+        filtri.add(lblTipologia);
+        filtri.add(comboBoxTipologia);
+        filtri.add(lblCategoria);
+        filtri.add(comboBoxCategoria);
+        filtri.add(lblRicerca);
+        filtri.add(txtRicerca);
+        filtri.add(btnVisualizza);
 
-            // ---------------- CARDS (al centro) -----------------
-            panelCards = new JPanel(new GridLayout(0, 3, 15, 15));
-            panelCards.setBackground(Color.WHITE);
-            panelCards.setBorder(new EmptyBorder(20, 20, 20, 20));
+        // ---------------- PANEL TOP (Header + Filtri) -----------------
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(header, BorderLayout.NORTH);
+        topPanel.add(filtri, BorderLayout.CENTER);
 
-            // Panel contenitore che include cards E filtri
-            JPanel centerPanel = new JPanel(new BorderLayout());
-            centerPanel.add(panelCards, BorderLayout.CENTER);
-            centerPanel.add(filtri, BorderLayout.SOUTH);
+        mainPanel.add(topPanel, BorderLayout.NORTH);
 
-            JScrollPane scrollPane = new JScrollPane(centerPanel);
-            scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        // ---------------- CARDS (al centro) -----------------
+        panelCards = new JPanel(new GridLayout(0, 3, 15, 15));
+        panelCards.setBackground(Color.WHITE);
+        panelCards.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-            mainPanel.add(scrollPane, BorderLayout.CENTER);
-        }
+        JScrollPane scrollPane = new JScrollPane(panelCards);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+    }
 
         // -------------------- LOGICA -------------------
 
-        private void gestisciVisualizza() {
-            String t = (String) comboBoxTipologia.getSelectedItem();
-            String c = (String) comboBoxCategoria.getSelectedItem();
+    private void gestisciVisualizza() {
+        String t = (String) comboBoxTipologia.getSelectedItem();
+        String c = (String) comboBoxCategoria.getSelectedItem();
+        String ricerca = txtRicerca.getText().trim();
 
-            if (t.equals("Seleziona una tipologia")) {
-                JOptionPane.showMessageDialog(this, "Seleziona una tipologia!", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+        if (t.equals("Seleziona una tipologia")) {
+            JOptionPane.showMessageDialog(this, "Seleziona una tipologia!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-            try {
-                ListaAnnunciDAO dao = new ListaAnnunciDAO();
-                int count = 0;
+        try {
+            ListaAnnunciDAO dao = new ListaAnnunciDAO();
+            int count = 0;
 
+            // Se c'è testo nella ricerca, usa i metodi di ricerca
+            if (!ricerca.isEmpty()) {
+                if (t.equals("Vendita")) {
+                    ArrayList<AnnuncioVendita_entity> annunci = dao.cercaAnnunciVendita(ricerca, c);
+                    count = annunci.size();
+                    mostraAnnunciVendita(annunci);
+                } else if (t.equals("Scambio")) {
+                    ArrayList<AnnuncioScambio_entity> annunci = dao.cercaAnnunciScambio(ricerca, c);
+                    count = annunci.size();
+                    mostraAnnunciScambio(annunci);
+                } else if (t.equals("Regalo")) {
+                    ArrayList<AnnuncioRegalo_entity> annunci = dao.cercaAnnunciRegalo(ricerca, c);
+                    count = annunci.size();
+                    mostraAnnunciRegalo(annunci);
+                }
+            } else {
+                // Altrimenti usa i metodi normali (come prima)
                 if (t.equals("Vendita")) {
                     ArrayList<AnnuncioVendita_entity> annunci = c.equals("Seleziona una categoria") 
                         ? dao.getAnnunciVendita() 
@@ -153,21 +179,26 @@ public class ListaAnnunci extends JFrame {
                     count = annunci.size();
                     mostraAnnunciRegalo(annunci);
                 }
-
-                JOptionPane.showMessageDialog(this,
-                    "Caricati " + count + " Annunci",
-                    "Successo",
-                    JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (SQLException e) {
-                System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this,
-                    "Errore nel caricamento dei dati: " + e.getMessage(),
-                    "Errore",
-                    JOptionPane.ERROR_MESSAGE);
             }
+
+            String messaggioRisultati = ricerca.isEmpty() 
+                ? "Caricati " + count + " Annunci"
+                : "Trovati " + count + " Annunci per \"" + ricerca + "\"";
+                
+            JOptionPane.showMessageDialog(this,
+                messaggioRisultati,
+                "Successo",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento degli Annunci: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Errore nel caricamento dei dati: " + e.getMessage(),
+                "Errore",
+                JOptionPane.ERROR_MESSAGE);
         }
+    }
 
         // -------------------- VENDITA --------------------
 
