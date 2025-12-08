@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import entity.Oggetto_entity;
-import entity.Utente_entity;
 import enumerations.FasciaOraria;
 import mainController.MainController;
 
@@ -57,7 +56,6 @@ public class Annuncio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private Oggetto_entity OggettoAnnuncio;
 	private ArrayList<String> PercorsiImmagini; // Lista per memorizzare i percorsi delle immagini
 	private DefaultListModel<String> listModelFoto;
@@ -85,9 +83,8 @@ public class Annuncio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Annuncio(Utente_entity UtenteLoggato, Oggetto_entity OggettoAnnuncio, MainController controller) {
+	public Annuncio(Oggetto_entity OggettoAnnuncio, MainController controller) {
 		this.OggettoAnnuncio = OggettoAnnuncio;
-		this.UtenteLoggato = UtenteLoggato;
 		this.controller = controller;
 		this.PercorsiImmagini = new ArrayList<>();
 		this.listModelFoto = new DefaultListModel<>();
@@ -122,7 +119,7 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				AreaUtente utenteFrame = new AreaUtente(UtenteLoggato, controller); 
+				AreaUtente utenteFrame = new AreaUtente(controller); 
 				utenteFrame.setVisible(true);
 			}
 		});
@@ -341,7 +338,7 @@ public class Annuncio extends JFrame {
 				
 				if (sourceButton == JScambio) {
 					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(
-						UtenteLoggato, OggettoAnnuncio,
+						OggettoAnnuncio,
 						textfieldTitolo.getText().trim(),
 						textAreaDescrizione.getText().trim(),
 						textAreaModConsegna.getText().trim(),
@@ -352,7 +349,7 @@ public class Annuncio extends JFrame {
 					annuncioScambioFrame.setVisible(true);
 				} else if (sourceButton == JRegalo) {
 					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(
-						UtenteLoggato, OggettoAnnuncio,
+						OggettoAnnuncio,
 						textfieldTitolo.getText().trim(),
 						textAreaDescrizione.getText().trim(),
 						textAreaModConsegna.getText().trim(),
@@ -363,7 +360,7 @@ public class Annuncio extends JFrame {
 					annuncioRegaloFrame.setVisible(true);
 				} else if (sourceButton == JVendita) {
 					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(
-						UtenteLoggato, OggettoAnnuncio,
+						OggettoAnnuncio,
 						textfieldTitolo.getText().trim(),
 						textAreaDescrizione.getText().trim(),
 						textAreaModConsegna.getText().trim(),
