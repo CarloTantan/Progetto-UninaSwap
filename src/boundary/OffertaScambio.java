@@ -41,7 +41,6 @@ public class OffertaScambio extends JFrame {
 	private JPanel contentPane;
 	private Utente_entity UtenteLoggato;
 	private int IdAnnuncioScelto;
-	private OffertaDAO offertaDAO;
 	private JTextField textFieldOggettoProposto;
 	private int IdOffertaDaModificare = -1;
 	private boolean isModificaMode = false;
@@ -67,10 +66,7 @@ public class OffertaScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaScambio(Utente_entity UtenteLoggato, int IdAnnuncioScelto, MainController controller) {
-		this.UtenteLoggato = UtenteLoggato;
-		this.IdAnnuncioScelto = IdAnnuncioScelto;
-		offertaDAO = new OffertaDAO();
+	public OffertaScambio( MainController controller) {
 		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
