@@ -1,6 +1,5 @@
 package boundary;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,9 +7,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import dao.OggettoDAO;
-import entity.Oggetto_entity;
-import entity.Utente_entity;
 import enumerations.TipologiaCategoria;
 import mainController.MainController;
 
@@ -20,7 +16,6 @@ import javax.swing.JTextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,7 +24,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,7 +32,6 @@ public class Oggetto extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private JTextField textFieldNomeOggetto;
 	private JTextArea textAreaDescrizioneOggetto;
 	private JComboBox<String> comboBoxCategoria;
@@ -63,10 +56,9 @@ public class Oggetto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Oggetto(Utente_entity UtenteLoggato, MainController controller) {
+	public Oggetto(MainController controller) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Oggetto.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Inserimento Oggetto");
-		this.UtenteLoggato = UtenteLoggato;
 		this.controller = controller;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +83,7 @@ public class Oggetto extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+				AreaUtente AreaUtenteFrame = new AreaUtente(controller);
 				AreaUtenteFrame.setVisible(true);
 			}
 		});
@@ -222,50 +214,32 @@ public class Oggetto extends JFrame {
 	}
 	
 	public void inserisciOggetto() {
-		String nome = textFieldNomeOggetto.getText().trim();
-        String descrizione = textAreaDescrizioneOggetto.getText().trim();
-        String categoriaSelezionata = (String) comboBoxCategoria.getSelectedItem();
-        
-        if (nome.isEmpty() || descrizione.isEmpty()) {
-            JOptionPane.showMessageDialog(null, 
-                "Nome e descrizione sono obbligatori", 
-                "Campi mancanti", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        if (categoriaSelezionata == null || categoriaSelezionata.equals("Seleziona una categoria")) {
-            JOptionPane.showMessageDialog(null, 
-                "Seleziona una categoria valida", 
-                "Categoria non valida", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        try {
-            TipologiaCategoria categoria = TipologiaCategoria.fromNome(categoriaSelezionata);
-            int idCategoria = categoria.getId();
-            
-            OggettoDAO oggettoDAO = new OggettoDAO();
-            int idOggetto = oggettoDAO.inserisciOggetto(nome, descrizione, idCategoria);
-            
-            Oggetto_entity oggetto = new Oggetto_entity(idOggetto, nome, descrizione, idCategoria);
-            
-            setVisible(false);
-            Annuncio AnnuncioFrame = new Annuncio(UtenteLoggato, oggetto, controller);
-            AnnuncioFrame.setVisible(true);
-            
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(null, 
-                "Categoria non valida", 
-                "Errore", 
-                JOptionPane.ERROR_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, 
-                "Errore durante l'inserimento dell'oggetto: " + ex.getMessage(), 
-                "Errore Database", 
-                JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-    }
+	    // Recupera i valori dai campi
+	    String nome = textFieldNomeOggetto.getText().trim();
+	    String descrizione = textAreaDescrizioneOggetto.getText().trim();
+	    String categoriaSelezionata = (String) comboBoxCategoria.getSelectedItem();
+	    
+	    // Chiama il controller per inserire l'oggetto
+	    String risultato = controller.InserisciOggetto(nome, descrizione, categoriaSelezionata);
+	    
+	    // Gestisci il risultato
+	    if (risultato.equals("Oggetto inserito con successo")) {
+	        JOptionPane.showMessageDialog(null, 
+	            "Oggetto inserito con successo!", 
+	            "Successo", 
+	            JOptionPane.INFORMATION_MESSAGE);
+	        
+	        // Passa alla schermata successiva senza passare entità
+	        setVisible(false);
+	        Annuncio AnnuncioFrame = new Annuncio(controller);
+	        AnnuncioFrame.setVisible(true);
+	        
+	    } else {
+	        // Mostra l'errore restituito dal controller
+	        JOptionPane.showMessageDialog(null, 
+	            risultato, 
+	            "Errore", 
+	            JOptionPane.ERROR_MESSAGE);
+	    }
+	}
 }

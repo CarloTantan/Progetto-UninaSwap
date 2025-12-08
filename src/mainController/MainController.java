@@ -14,6 +14,8 @@ public class MainController {
 	protected InserimentoAnnunciDAO InsertAnnunciDAO;  
 	    protected FotoAnnuncioDAO FotoAnnuncioDAO; 
 	    protected OffertaDAO OffertaDAO;
+	    protected Oggetto_entity UltimoOggettoCreato;
+	    
 	public MainController() {
 		this.LoginDAO = new LoginDAO();           
 	    this.RegistrazioneDAO = new RegistrazioneDAO();
@@ -685,7 +687,50 @@ public class MainController {
 				    }
 				}
 
+				//Inserimento Oggetto
+				public String InserisciOggetto(String nome, String descrizione, String categoriaSelezionata) {
+				    // Validazione campi obbligatori
+				    if (nome == null || nome.trim().isEmpty()) {
+				        return "Il nome è obbligatorio";
+				    }
+				    
+				    if (descrizione == null || descrizione.trim().isEmpty()) {
+				        return "La descrizione è obbligatoria";
+				    }
+				    
+				    if (categoriaSelezionata == null || categoriaSelezionata.equals("Seleziona una categoria")) {
+				        return "Seleziona una categoria valida";
+				    }
+				    
+				    try {
+				        // Converti la categoria selezionata
+				        TipologiaCategoria categoria = TipologiaCategoria.fromNome(categoriaSelezionata);
+				        int idCategoria = categoria.getId();
+				        
+				        // Inserisci l'oggetto tramite DAO
+				        OggettoDAO oggettoDAO = new OggettoDAO();
+				        int idOggetto = oggettoDAO.inserisciOggetto(nome, descrizione, idCategoria);
+				        
+				        if (idOggetto <= 0) {
+				            return "Impossibile inserire l'oggetto";
+				        }
+				        
+				        // Salva l'oggetto creato per passarlo al prossimo step
+				        this.UltimoOggettoCreato = new Oggetto_entity(idOggetto, nome, descrizione, idCategoria);
+				        
+				        return "Oggetto inserito con successo";
+				        
+				    } catch (IllegalArgumentException ex) {
+				        return "Categoria non valida";
+				    } catch (SQLException ex) {
+				        return "Errore durante l'inserimento dell'oggetto: " + ex.getMessage();
+				    }
+				}
 
+				// Getter per l'ultimo oggetto creato
+				public Oggetto_entity getUltimoOggettoCreato() {
+				    return UltimoOggettoCreato;
+				}
 
 
 
