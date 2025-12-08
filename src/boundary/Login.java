@@ -2,11 +2,11 @@ package boundary;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dao.LoginDAO;
 import entity.Utente_entity;
 import mainController.MainController;
 

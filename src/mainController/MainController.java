@@ -95,7 +95,7 @@ public class MainController {
 	}
 	
 	
-	//Inserimento Annuncio Scambio
+//Inserimento Annuncio Scambio
 				public String InserimentoAnnuncioScambio(
 					    String titolo,
 					    String descrizione,
@@ -157,12 +157,12 @@ public class MainController {
 					        return "Annuncio pubblicato con successo";
 
 					    } catch (SQLException e) {
-return "Errore durante la pubblicazione: " + e.getMessage();
+					    	return "Errore durante la pubblicazione: " + e.getMessage();
 
 					    }
 					}
 				
-				
+//InserimentoAnnuncioVendita				
 				public String InserimentoAnnuncioVendita(
 					    String titolo,
 					    String descrizione,
@@ -229,7 +229,8 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 					}
 
 
-
+//InserimentoAnnuncioRegalo
+				
 				public String InserimentoAnnuncioRegalo(
 					    String titolo,
 					    String descrizione,
@@ -296,7 +297,7 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 					}
 
 
-				// Metodo per inviare una nuova offerta regalo
+//InvioOffertaRegalo
 				public String InviaOffertaRegalo(
 				    String messaggioMotivazionale,
 				    String matricolaAcquirente,
@@ -340,7 +341,7 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				    }
 				}
 
-				// Metodo per aggiornare un'offerta regalo esistente
+//Update offerta regalo
 				public String AggiornaOffertaRegalo(
 				    String messaggioMotivazionale,
 				    String matricolaAcquirente,
@@ -386,7 +387,7 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				    }
 				}
 
-				// Metodo per caricare un'offerta esistente
+//carica offerta esistenza
 				public OffertaRegalo_entity CaricaOfferta(int idOfferta) {
 				    // Validazione ID
 				    if (idOfferta <= 0) {
@@ -404,12 +405,8 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				    }
 				}
 
-
-
-
-
-				// 1️⃣ Metodo per INVIARE una nuova offerta di scambio
-				public String InviaOffertaScambio(  // ✅ Nome corretto
+//invia offerta scambio
+				public String InviaOffertaScambio( 
 				    String oggettoProposto,
 				    String matricolaAcquirente,
 				    int idAnnuncio) {
@@ -452,7 +449,7 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				    }
 				}
 
-				// 2️⃣ Metodo per AGGIORNARE un'offerta di scambio esistente
+//update offerta scambio 
 				public String AggiornaOffertaScambio(
 				    String oggettoProposto,
 				    String matricolaAcquirente,
@@ -498,7 +495,7 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				    }
 				}
 
-				// 3️⃣ Metodo per CARICARE un'offerta di scambio esistente (per modifica)
+//carica offerta scambio esistente 
 				public OffertaScambio_entity CaricaOffertaScambio(int idOfferta) {
 				    // Validazione ID
 				    if (idOfferta <= 0) {
@@ -515,7 +512,8 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				        return null;
 				    }
 				}
-				// Metodo per inviare una nuova offerta di vendita
+				
+//invia offerta vendita
 				public String InviaOffertaVendita(
 				    float importoProposto,
 				    String matricolaAcquirente,
@@ -559,7 +557,7 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				    }
 				}
 
-				// Metodo per aggiornare un'offerta di vendita esistente
+//update offerta vendita 
 				public String AggiornaOffertaVendita(
 				    float importoProposto,
 				    String matricolaAcquirente,
@@ -605,7 +603,7 @@ return "Errore durante la pubblicazione: " + e.getMessage();
 				    }
 				}
 
-				// Metodo per caricare un'offerta di vendita esistente
+//carica offerta vendita modificato
 				public OffertaVendita_entity CaricaOffertaVendita(int idOfferta) {
 				    // Validazione ID
 				    if (idOfferta <= 0) {
