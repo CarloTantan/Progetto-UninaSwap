@@ -1,15 +1,12 @@
 package boundary;
 
-
 import java.awt.EventQueue;
-
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import entity.Oggetto_entity;
 import enumerations.FasciaOraria;
 import mainController.MainController;
 
@@ -19,7 +16,6 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -27,68 +23,50 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.util.List;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-import java.awt.SystemColor;
 import java.awt.BorderLayout;
-import java.awt.Button;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import java.awt.Component;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
-import javax.swing.JTree;
 import java.awt.Toolkit;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
 public class Annuncio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Oggetto_entity OggettoAnnuncio;
-	private ArrayList<String> PercorsiImmagini; // Lista per memorizzare i percorsi delle immagini
-	private DefaultListModel<String> listModelFoto;
-	private String percorsoImg;
-	private JList<String> listFoto;
 	private MainController controller;
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Annuncio frame = new Annuncio();
-//					frame.setVisible(true);
-//					frame.setLocationRelativeTo(null);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private ArrayList<String> PercorsiImmagini;
+	private DefaultListModel<String> listModelFoto;
+	private JList<String> listFoto;
+	private JTextField textfieldTitolo;
+	private JTextArea textAreaDescrizione;
+	private JTextField textAreaModConsegna;
+	private JComboBox<String> comboBoxFasciaOraria;
 
 	/**
 	 * Create the frame.
 	 */
-	public Annuncio(Oggetto_entity OggettoAnnuncio, MainController controller) {
-		this.OggettoAnnuncio = OggettoAnnuncio;
+	public Annuncio(MainController controller) {
 		this.controller = controller;
 		this.PercorsiImmagini = new ArrayList<>();
 		this.listModelFoto = new DefaultListModel<>();
 		
+		// Verifica che ci sia un oggetto selezionato
+		if (controller.getOggettoAnnuncio() == null) {
+			JOptionPane.showMessageDialog(this,
+				"Errore: nessun oggetto selezionato per l'annuncio",
+				"Errore",
+				JOptionPane.ERROR_MESSAGE);
+			dispose();
+			return;
+		}
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
@@ -217,7 +195,7 @@ public class Annuncio extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 3;
 		gbc.weightx = 1.0;
-		JTextField textfieldTitolo = new JTextField();
+		textfieldTitolo = new JTextField();
 		textfieldTitolo.setFont(new Font("Verdana", Font.PLAIN, 14));
 		textfieldTitolo.setPreferredSize(new Dimension(300, 35));
 		mainPanel.add(textfieldTitolo, gbc);
@@ -236,7 +214,7 @@ public class Annuncio extends JFrame {
 		gbc.weightx = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weighty = 0.5;
-		JTextArea textAreaDescrizione = new JTextArea();
+		textAreaDescrizione = new JTextArea();
 		textAreaDescrizione.setFont(new Font("Verdana", Font.PLAIN, 14));
 		textAreaDescrizione.setLineWrap(true);
 		textAreaDescrizione.setWrapStyleWord(true);
@@ -260,7 +238,7 @@ public class Annuncio extends JFrame {
 		gbc.gridy = 5;
 		gbc.weightx = 1.0;
 		String[] fasciaOraria = {"Seleziona una fascia oraria", "8:00 - 10:00", "10:00 - 12:00","12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00", "20:00 - 22:00"};
-		JComboBox<String> comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
+		comboBoxFasciaOraria = new JComboBox<>(fasciaOraria);
 		comboBoxFasciaOraria.setFont(new Font("Verdana", Font.PLAIN, 14));
 		comboBoxFasciaOraria.setPreferredSize(new Dimension(300, 35));
 		mainPanel.add(comboBoxFasciaOraria, gbc);
@@ -276,7 +254,7 @@ public class Annuncio extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 6;
 		gbc.weightx = 1.0;
-		JTextField textAreaModConsegna = new JTextField();
+		textAreaModConsegna = new JTextField();
 		textAreaModConsegna.setFont(new Font("Verdana", Font.PLAIN, 14));
 		textAreaModConsegna.setPreferredSize(new Dimension(300, 35));
 		mainPanel.add(textAreaModConsegna, gbc);
@@ -322,60 +300,41 @@ public class Annuncio extends JFrame {
 		buttonPanel.add(JVendita);
 		mainPanel.add(buttonPanel, gbc);
 		
-		// Validazione e navigazione comune
-		ActionListener validazioneComune = new ActionListener() {
+		// ActionListener per bottone Scambio
+		JScambio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!validaCampi(textfieldTitolo, textAreaDescrizione, textAreaModConsegna, comboBoxFasciaOraria)) {
-					return;
-				}
-				
-				String fasciaSelezionata = (String) comboBoxFasciaOraria.getSelectedItem();
-				FasciaOraria fasciaOraria = FasciaOraria.fromLabel(fasciaSelezionata);
-				
-				JButton sourceButton = (JButton) e.getSource();
-				setVisible(false);
-				
-				if (sourceButton == JScambio) {
-					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(
-						OggettoAnnuncio,
-						textfieldTitolo.getText().trim(),
-						textAreaDescrizione.getText().trim(),
-						textAreaModConsegna.getText().trim(),
-						fasciaOraria,
-						PercorsiImmagini,
-						controller
-					);
+				if (validaEImpostaDati()) {
+					setVisible(false);
+					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(controller);
 					annuncioScambioFrame.setVisible(true);
-				} else if (sourceButton == JRegalo) {
-					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(
-						OggettoAnnuncio,
-						textfieldTitolo.getText().trim(),
-						textAreaDescrizione.getText().trim(),
-						textAreaModConsegna.getText().trim(),
-						fasciaOraria,
-						PercorsiImmagini,
-						controller
-					);
+				}
+			}
+		});
+		
+		// ActionListener per bottone Regalo
+		JRegalo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (validaEImpostaDati()) {
+					setVisible(false);
+					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(controller);
 					annuncioRegaloFrame.setVisible(true);
-				} else if (sourceButton == JVendita) {
-					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(
-						OggettoAnnuncio,
-						textfieldTitolo.getText().trim(),
-						textAreaDescrizione.getText().trim(),
-						textAreaModConsegna.getText().trim(),
-						fasciaOraria,
-						PercorsiImmagini,
-						controller
-					);
+				}
+			}
+		});
+		
+		// ActionListener per bottone Vendita
+		JVendita.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (validaEImpostaDati()) {
+					setVisible(false);
+					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(controller);
 					annuncioVenditaFrame.setVisible(true);
 				}
 			}
-		};
-		
-		JScambio.addActionListener(validazioneComune);
-		JRegalo.addActionListener(validazioneComune);
-		JVendita.addActionListener(validazioneComune);
+		});
 	}
 	
 	private void caricaImmagini() {
@@ -394,27 +353,38 @@ public class Annuncio extends JFrame {
         }
 	}
 	
-	private boolean validaCampi(JTextField titolo, JTextArea descrizione, 
-	                           JTextField modConsegna, JComboBox<String> fasciaOraria) {
-		if (titolo.getText().trim().isEmpty() || 
-			descrizione.getText().trim().isEmpty() || 
-			modConsegna.getText().trim().isEmpty() || 
+	private boolean validaEImpostaDati() {
+		// Valida i campi
+		if (textfieldTitolo.getText().trim().isEmpty() || 
+			textAreaDescrizione.getText().trim().isEmpty() || 
+			textAreaModConsegna.getText().trim().isEmpty() || 
 			PercorsiImmagini.isEmpty()) {
-			JOptionPane.showMessageDialog(null, 
+			JOptionPane.showMessageDialog(this, 
 				"Tutti i campi sono obbligatori e devi caricare almeno una foto", 
 				"Campi mancanti", 
 				JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		
-		String fasciaSelezionata = (String) fasciaOraria.getSelectedItem();
+		String fasciaSelezionata = (String) comboBoxFasciaOraria.getSelectedItem();
 		if (fasciaSelezionata == null || fasciaSelezionata.equals("Seleziona una fascia oraria")) {
-			JOptionPane.showMessageDialog(null, 
+			JOptionPane.showMessageDialog(this, 
 				"Seleziona una fascia oraria valida", 
 				"Fascia oraria non valida", 
 				JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
+		
+		// Se la validazione passa, imposta i dati nel controller
+		FasciaOraria fasciaOraria = FasciaOraria.fromLabel(fasciaSelezionata);
+		controller.impostaInformazioniAnnuncio(
+			controller.getOggettoAnnuncio(),
+			textfieldTitolo.getText().trim(),
+			textAreaDescrizione.getText().trim(),
+			textAreaModConsegna.getText().trim(),
+			fasciaOraria,
+			PercorsiImmagini
+		);
 		
 		return true;
 	}

@@ -2,16 +2,11 @@ package boundary;
 
 import java.awt.EventQueue;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import dao.FotoAnnuncioDAO;
-import dao.InserimentoAnnunciDAO;
-import entity.Oggetto_entity;
-import enumerations.FasciaOraria;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -27,12 +22,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Toolkit;
 
@@ -40,44 +32,13 @@ public class AnnuncioScambio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Oggetto_entity OggettoAnnuncio;
-	private String titolo;
-	private String descrizione;
-	private String modalitaConsegna;
-	private FasciaOraria fasciaOraria;
-	private ArrayList<String> percorsiImmagini;	
 	private MainController controller;
-	private JTextField textAreaOggettoRichiesto;
+	private JTextArea textAreaOggettoRichiesto;
 	
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AnnuncioScambio frame = new AnnuncioScambio();
-//					frame.setVisible(true);
-//					frame.setLocationRelativeTo(null);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioScambio(Oggetto_entity OggettoAnnuncio,
-            String titolo, String descrizione, String modalitaConsegna,
-            FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini, MainController controller) {
-		this.OggettoAnnuncio = OggettoAnnuncio;
-		this.titolo = titolo;
-		this.descrizione = descrizione;
-		this.modalitaConsegna = modalitaConsegna;
-		this.fasciaOraria = fasciaOraria;
-		this.percorsiImmagini = percorsiImmagini;		
+	public AnnuncioScambio(MainController controller) {
 		this.controller = controller;
 		
 		setTitle("Scambio");
@@ -109,7 +70,7 @@ public class AnnuncioScambio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(OggettoAnnuncio, controller); 
+				Annuncio annuncioFrame = new Annuncio(controller); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
@@ -153,7 +114,7 @@ public class AnnuncioScambio extends JFrame {
 		gbc.weightx = 1.0;
 		gbc.weighty = 0.5;
 		gbc.fill = GridBagConstraints.BOTH;
-		JTextArea textAreaOggettoRichiesto = new JTextArea();
+		textAreaOggettoRichiesto = new JTextArea();
 		textAreaOggettoRichiesto.setFont(new Font("Verdana", Font.PLAIN, 14));
 		textAreaOggettoRichiesto.setLineWrap(true);
 		textAreaOggettoRichiesto.setWrapStyleWord(true);
@@ -182,7 +143,7 @@ public class AnnuncioScambio extends JFrame {
 		ButtonPubblica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CaricaAnnuncioScambio();
+				pubblicaAnnuncioScambio();
 			}
 		});
 		
@@ -197,25 +158,12 @@ public class AnnuncioScambio extends JFrame {
 		});
 	}
 	
-	
-	
-	
-	
-	public void CaricaAnnuncioScambio() {
-	    // Recupera i dati dall'interfaccia
+	private void pubblicaAnnuncioScambio() {
+	    // Recupera l'oggetto richiesto dall'interfaccia
 	    String oggettoRichiesto = textAreaOggettoRichiesto.getText().trim();
 	    
-	    // Chiama il controller (che farà TUTTE le validazioni)
-	    String risultato = controller.InserimentoAnnuncioScambio(
-	        titolo,
-	        descrizione,
-	        modalitaConsegna,
-	        fasciaOraria,
-	        oggettoRichiesto,
-	        controller.getMatricolaUtenteLoggato(),
-	        OggettoAnnuncio.getIdOggetto(),
-	        percorsiImmagini
-	    );
+	    // Chiama il controller che gestisce tutto
+	    String risultato = controller.PubblicaAnnuncioScambio(oggettoRichiesto);
 	    
 	    // Gestisce il risultato
 	    if (risultato.equals("Annuncio pubblicato con successo")) {
@@ -234,5 +182,5 @@ public class AnnuncioScambio extends JFrame {
 	            "Errore",
 	            JOptionPane.ERROR_MESSAGE);
 	    }
-	}	
+	}
 }

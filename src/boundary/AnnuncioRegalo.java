@@ -7,10 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import dao.FotoAnnuncioDAO;
-import dao.InserimentoAnnunciDAO;
-import entity.Oggetto_entity;
-import enumerations.FasciaOraria;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -26,13 +22,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import java.awt.Toolkit;
 
@@ -40,42 +33,24 @@ public class AnnuncioRegalo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Oggetto_entity OggettoAnnuncio;
-	private String titolo;
-	private String descrizione;
-	private String modalitaConsegna;
-	private FasciaOraria fasciaOraria;
-	private ArrayList<String> percorsiImmagini;
 	private MainController controller;
-	private JTextField textAreaMotivoCessione;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AnnuncioRegalo frame = new AnnuncioRegalo();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private JTextArea textAreaMotivo;
 
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioRegalo(Oggetto_entity OggettoAnnuncio, String titolo, String descrizione, String modalitaConsegna,
-            FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini, MainController controller) {
-		this.OggettoAnnuncio = OggettoAnnuncio;
-		this.titolo = titolo;
-		this.descrizione = descrizione;
-		this.modalitaConsegna = modalitaConsegna;
-		this.fasciaOraria = fasciaOraria;
-		this.percorsiImmagini = percorsiImmagini;		
+	public AnnuncioRegalo(MainController controller) {
 		this.controller = controller;
+		
+		// Verifica che ci siano informazioni sull'annuncio nel controller
+		if (controller.getOggettoAnnuncio() == null) {
+			JOptionPane.showMessageDialog(this,
+				"Errore: nessun oggetto selezionato per l'annuncio",
+				"Errore",
+				JOptionPane.ERROR_MESSAGE);
+			dispose();
+			return;
+		}
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Regalo");
@@ -106,7 +81,7 @@ public class AnnuncioRegalo extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(OggettoAnnuncio, controller); 
+				Annuncio annuncioFrame = new Annuncio(controller); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
@@ -150,7 +125,7 @@ public class AnnuncioRegalo extends JFrame {
 		gbc.weightx = 1.0;
 		gbc.weighty = 0.5;
 		gbc.fill = GridBagConstraints.BOTH;
-		JTextArea textAreaMotivo = new JTextArea();
+		textAreaMotivo = new JTextArea();
 		textAreaMotivo.setFont(new Font("Verdana", Font.PLAIN, 14));
 		textAreaMotivo.setLineWrap(true);
 		textAreaMotivo.setWrapStyleWord(true);
@@ -179,48 +154,7 @@ public class AnnuncioRegalo extends JFrame {
 		ButtonPubblica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (textAreaMotivo.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(null, 
-						"Il campo motivo di cessione è obbligatorio", 
-						"Campo mancante", 
-						JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				try {
-					String motivoCessione = textAreaMotivo.getText().trim();
-					
-					InserimentoAnnunciDAO annuncioDAO = new InserimentoAnnunciDAO();
-					int idAnnuncio = annuncioDAO.inserisciAnnuncioRegalo(
-						titolo, 
-						descrizione, 
-						modalitaConsegna, 
-						fasciaOraria, 
-						motivoCessione, 
-						controller.getMatricolaUtenteLoggato(), 
-						OggettoAnnuncio.getIdOggetto()
-					);
-					
-					FotoAnnuncioDAO fotoDAO = new FotoAnnuncioDAO();
-					for (String percorsoImg : percorsiImmagini) {
-						fotoDAO.inserisciFoto(percorsoImg, idAnnuncio);
-					}
-					
-					setVisible(false);
-					JOptionPane.showMessageDialog(null, 
-						"Pubblicazione avvenuta con successo", 
-						"Annuncio pubblicato", 
-						JOptionPane.INFORMATION_MESSAGE);
-					AreaUtente utenteFrame = new AreaUtente(controller); 
-					utenteFrame.setVisible(true);
-					
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, 
-						"Errore durante la pubblicazione: " + ex.getMessage(), 
-						"Errore Database", 
-						JOptionPane.ERROR_MESSAGE);
-					ex.printStackTrace();
-				}
+				pubblicaAnnuncioRegalo();
 			}
 		});
 		
@@ -233,26 +167,14 @@ public class AnnuncioRegalo extends JFrame {
 				ButtonPubblica.setBackground(new Color(0, 52, 102));
 			}
 		});
-	
-
-	
 	}
 
-	public void CaricaAnnuncioRegalo() {
-	    // Recupera i dati dall'interfaccia
-	    String motivoCessione = textAreaMotivoCessione.getText().trim();
+	private void pubblicaAnnuncioRegalo() {
+	    // Recupera il motivo di cessione dall'interfaccia
+	    String motivoCessione = textAreaMotivo.getText().trim();
 	    
-	    // Chiama il controller (che farà TUTTE le validazioni)
-	    String risultato = controller.InserimentoAnnuncioRegalo(
-	        titolo,
-	        descrizione,
-	        modalitaConsegna,
-	        fasciaOraria,
-	        motivoCessione,
-	        controller.getMatricolaUtenteLoggato(),
-	        OggettoAnnuncio.getIdOggetto(),
-	        percorsiImmagini
-	    );
+	    // Chiama il controller che gestisce tutto
+	    String risultato = controller.PubblicaAnnuncioRegalo(motivoCessione);
 	    
 	    // Gestisce il risultato
 	    if (risultato.equals("Annuncio pubblicato con successo")) {
@@ -271,15 +193,5 @@ public class AnnuncioRegalo extends JFrame {
 	            "Errore",
 	            JOptionPane.ERROR_MESSAGE);
 	    }
-	}		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 }

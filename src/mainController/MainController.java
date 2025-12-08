@@ -1,5 +1,6 @@
 package mainController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
 
@@ -14,6 +15,13 @@ public class MainController {
 	protected InserimentoAnnunciDAO InsertAnnunciDAO;  
 	    protected FotoAnnuncioDAO FotoAnnuncioDAO; 
 	    protected OffertaDAO OffertaDAO;
+	    protected Oggetto_entity OggettoAnnuncio;
+	    protected String titoloAnnuncio;
+	    protected String descrizioneAnnuncio;
+	    protected String modalitaConsegnaAnnuncio;
+	    protected FasciaOraria fasciaOrariaAnnuncio;
+	    protected ArrayList<String> percorsiImmaginiAnnuncio;
+
 	public MainController() {
 		this.LoginDAO = new LoginDAO();           
 	    this.RegistrazioneDAO = new RegistrazioneDAO();
@@ -117,6 +125,40 @@ public class MainController {
 	    return 0;
 	}
 	
+	
+	
+	
+	// Metodo per impostare i dati dell'annuncio (da chiamare prima di aprire AnnuncioScambio)
+	public void impostaInformazioniAnnuncio(Oggetto_entity oggetto, String titolo, 
+	                                        String descrizione, String modalitaConsegna,
+	                                        FasciaOraria fasciaOraria, 
+	                                        ArrayList<String> percorsiImmagini) {
+	    this.OggettoAnnuncio = oggetto;
+	    this.titoloAnnuncio = titolo;
+	    this.descrizioneAnnuncio = descrizione;
+	    this.modalitaConsegnaAnnuncio = modalitaConsegna;
+	    this.fasciaOrariaAnnuncio = fasciaOraria;
+	    this.percorsiImmaginiAnnuncio = percorsiImmagini;
+	}
+
+	// Metodo per pubblicare l'annuncio di scambio
+	public String PubblicaAnnuncioScambio(String oggettoRichiesto) {
+	    return InserimentoAnnuncioScambio(
+	        titoloAnnuncio,
+	        descrizioneAnnuncio,
+	        modalitaConsegnaAnnuncio,
+	        fasciaOrariaAnnuncio,
+	        oggettoRichiesto,
+	        getMatricolaUtenteLoggato(),
+	        OggettoAnnuncio.getIdOggetto(),
+	        percorsiImmaginiAnnuncio
+	    );
+	}
+	
+	
+	
+	
+	
 	//Effettua Registrazione 
 	public String EffettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password, String confermaPassword) {
 	    
@@ -156,6 +198,10 @@ public class MainController {
 	    }
 	    
 	    return "Registrazione effettuata con successo"; 
+	}
+	// Nel MainController, aggiungi questo getter:
+	public Oggetto_entity getOggettoAnnuncio() {
+	    return OggettoAnnuncio;
 	}
 	
 	
@@ -684,7 +730,45 @@ public class MainController {
 				        return null;
 				    }
 				}
+				public String PubblicaAnnuncioVendita(String prezzoStr) {
+				    // Validazione del formato del prezzo
+				    if (prezzoStr == null || prezzoStr.trim().isEmpty()) {
+				        return "Il campo prezzo è obbligatorio";
+				    }
+				    
+				    float prezzo;
+				    try {
+				        prezzo = Float.parseFloat(prezzoStr);
+				    } catch (NumberFormatException e) {
+				        return "Inserisci un prezzo valido";
+				    }
+				    
+				    // Chiama il metodo esistente
+				    return InserimentoAnnuncioVendita(
+				        titoloAnnuncio,
+				        descrizioneAnnuncio,
+				        modalitaConsegnaAnnuncio,
+				        fasciaOrariaAnnuncio,
+				        prezzo,
+				        getMatricolaUtenteLoggato(),
+				        OggettoAnnuncio.getIdOggetto(),
+				        percorsiImmaginiAnnuncio
+				    );
+				}
 
+				// Metodo per pubblicare l'annuncio di regalo
+				public String PubblicaAnnuncioRegalo(String motivoCessione) {
+				    return InserimentoAnnuncioRegalo(
+				        titoloAnnuncio,
+				        descrizioneAnnuncio,
+				        modalitaConsegnaAnnuncio,
+				        fasciaOrariaAnnuncio,
+				        motivoCessione,
+				        getMatricolaUtenteLoggato(),
+				        OggettoAnnuncio.getIdOggetto(),
+				        percorsiImmaginiAnnuncio
+				    );
+				}
 
 
 

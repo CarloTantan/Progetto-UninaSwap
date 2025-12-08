@@ -6,10 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dao.FotoAnnuncioDAO;
-import dao.InserimentoAnnunciDAO;
-import entity.Oggetto_entity;
-import enumerations.FasciaOraria;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -25,13 +21,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import java.awt.Toolkit;
@@ -40,42 +32,24 @@ public class AnnuncioVendita extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Oggetto_entity OggettoAnnuncio;
-	private String titolo;
-	private String descrizione;
-	private String modalitaConsegna;
-	private FasciaOraria fasciaOraria;
-	private ArrayList<String> percorsiImmagini;
 	private MainController controller;
 	private JTextField textFieldPrezzo;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AnnuncioVendita frame = new AnnuncioVendita();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AnnuncioVendita(Oggetto_entity OggettoAnnuncio, String titolo, String descrizione, String modalitaConsegna,
-            FasciaOraria fasciaOraria, ArrayList<String> percorsiImmagini, MainController controller) {
-		this.OggettoAnnuncio = OggettoAnnuncio;
-		this.titolo = titolo;
-		this.descrizione = descrizione;
-		this.modalitaConsegna = modalitaConsegna;
-		this.fasciaOraria = fasciaOraria;
-		this.percorsiImmagini = percorsiImmagini;
+	public AnnuncioVendita(MainController controller) {
 		this.controller = controller;
+		
+		// Verifica che ci siano informazioni sull'annuncio nel controller
+		if (controller.getOggettoAnnuncio() == null) {
+			JOptionPane.showMessageDialog(this,
+				"Errore: nessun oggetto selezionato per l'annuncio",
+				"Errore",
+				JOptionPane.ERROR_MESSAGE);
+			dispose();
+			return;
+		}
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Vendita");
@@ -106,7 +80,7 @@ public class AnnuncioVendita extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(OggettoAnnuncio, controller); 
+				Annuncio annuncioFrame = new Annuncio(controller); 
 				annuncioFrame.setVisible(true);
 			}
 		}); 
@@ -148,7 +122,7 @@ public class AnnuncioVendita extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.weightx = 1.0;
-		JTextField textFieldPrezzo = new JTextField();
+		textFieldPrezzo = new JTextField();
 		textFieldPrezzo.setFont(new Font("Verdana", Font.PLAIN, 16));
 		textFieldPrezzo.setPreferredSize(new Dimension(300, 40));
 		mainPanel.add(textFieldPrezzo, gbc);
@@ -172,7 +146,7 @@ public class AnnuncioVendita extends JFrame {
 		ButtonPubblica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CaricaAnnuncioVendita();
+				pubblicaAnnuncioVendita();
 			}
 		});
 		
@@ -187,61 +161,29 @@ public class AnnuncioVendita extends JFrame {
 		});
 	}
 
-
-
-
-
-	public void CaricaAnnuncioVendita() {
+	private void pubblicaAnnuncioVendita() {
 	    // Recupera il prezzo come stringa
 	    String prezzoStr = textFieldPrezzo.getText().trim();
 	    
-	    try {
-	        // Converti il prezzo in float
-	        float prezzo = Float.parseFloat(prezzoStr);
-	        
-	        // Chiama il controller (che restituisce String, non int!)
-	        String risultato = controller.InserimentoAnnuncioVendita(
-	            titolo,
-	            descrizione,
-	            modalitaConsegna,
-	            fasciaOraria,
-	            prezzo,
-	            controller.getMatricolaUtenteLoggato(),
-	            OggettoAnnuncio.getIdOggetto(),
-	            percorsiImmagini  // Mancava la virgola
-	        );
-	        
-	        // Gestisce il risultato
-	        if (risultato.equals("Annuncio pubblicato con successo")) {
-	            setVisible(false);
-	            JOptionPane.showMessageDialog(this,
-	                "Pubblicazione avvenuta con successo",
-	                "Annuncio pubblicato",
-	                JOptionPane.INFORMATION_MESSAGE);
-	            
-	            AreaUtente utenteFrame = new AreaUtente(controller);
-	            utenteFrame.setVisible(true);
-	        } else {
-	            // Mostra l'errore restituito dal controller
-	            JOptionPane.showMessageDialog(this,
-	                risultato,
-	                "Errore",
-	                JOptionPane.ERROR_MESSAGE);
-	        }
-	        
-	    } catch (NumberFormatException ex) {
+	    // Chiama il controller che gestisce validazione e pubblicazione
+	    String risultato = controller.PubblicaAnnuncioVendita(prezzoStr);
+	    
+	    // Gestisce il risultato
+	    if (risultato.equals("Annuncio pubblicato con successo")) {
+	        setVisible(false);
 	        JOptionPane.showMessageDialog(this,
-	            "Inserisci un prezzo valido",
-	            "Formato non valido",
+	            "Pubblicazione avvenuta con successo",
+	            "Annuncio pubblicato",
+	            JOptionPane.INFORMATION_MESSAGE);
+	        
+	        AreaUtente utenteFrame = new AreaUtente(controller);
+	        utenteFrame.setVisible(true);
+	    } else {
+	        // Mostra l'errore restituito dal controller
+	        JOptionPane.showMessageDialog(this,
+	            risultato,
+	            "Errore",
 	            JOptionPane.ERROR_MESSAGE);
 	    }
 	}
-
-
-
-
-
-
-
-
 }
