@@ -554,13 +554,13 @@ public class ListaAnnunci extends JFrame {
             setVisible(false);
 
             if (tipologia.equals("Scambio")) {
-                OffertaScambio offertaScambioFrame = new OffertaScambio(UtenteLoggato, idAnnuncio, controller);
+                OffertaScambio offertaScambioFrame = new OffertaScambio(controller);
                 offertaScambioFrame.setVisible(true);
             } else if (tipologia.equals("Vendita")) {
-                OffertaVendita offertaVenditaFrame = new OffertaVendita(UtenteLoggato, idAnnuncio, controller);
+                OffertaVendita offertaVenditaFrame = new OffertaVendita(controller);
                 offertaVenditaFrame.setVisible(true);
             } else if (tipologia.equals("Regalo")) {
-                OffertaRegalo offertaRegaloFrame = new OffertaRegalo(idAnnuncio, controller);
+                OffertaRegalo offertaRegaloFrame = new OffertaRegalo(controller);
                 offertaRegaloFrame.setVisible(true);
             }
         }

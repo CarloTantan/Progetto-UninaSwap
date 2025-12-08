@@ -51,14 +51,15 @@ public class OffertaVendita extends JFrame {
 //					e.printStackTrace();
 //				}
 //			}
-//		});
+//		});Utente_entity UtenteLoggato, int IdAnnuncioScelto,this.UtenteLoggato = UtenteLoggato;
+	//this.IdAnnuncioScelto = IdAnnuncioScelto;
+	//offertaDAO = new OffertaDAO();
 //	}
 
 	/**
 	 * Create the frame.
 	 */
-	public OffertaVendita(int IdAnnuncioScelto, MainController controller) {
-		this.IdAnnuncioScelto = IdAnnuncioScelto;
+	public OffertaVendita( MainController controller) {
 		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));

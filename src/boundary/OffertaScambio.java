@@ -55,8 +55,8 @@ public class OffertaScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaScambio(int IdAnnuncioScelto, MainController controller) {
-		this.IdAnnuncioScelto = IdAnnuncioScelto;
+
+	public OffertaScambio( MainController controller) {
 		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));

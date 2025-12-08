@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import dao.OffertaDAO;
 import entity.OffertaRegalo_entity;
 import mainController.MainController;
 
@@ -35,7 +34,6 @@ public class OffertaRegalo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private int IdAnnuncioScelto;
-	private OffertaDAO offertaDAO;
 	private JTextArea textAreaMessaggioMotivazionale;
 	private int IdOffertaDaModificare = -1;
 	private boolean isModificaMode = false;
@@ -61,10 +59,9 @@ public class OffertaRegalo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaRegalo(int IdAnnuncioScelto, MainController controller) {
-		this.IdAnnuncioScelto = IdAnnuncioScelto;
+
+	public OffertaRegalo( MainController controller) {
 		this.controller = controller;
-		offertaDAO = new OffertaDAO();
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Regalo");

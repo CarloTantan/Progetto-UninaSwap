@@ -145,6 +145,7 @@ public class MainController {
 	    this.percorsiImmaginiAnnuncio = percorsiImmagini;
 	}
 
+	
 	// Metodo per pubblicare l'annuncio di scambio
 	public String PubblicaAnnuncioScambio(String oggettoRichiesto) {
 	    return InserimentoAnnuncioScambio(
@@ -157,9 +158,11 @@ public class MainController {
 	        OggettoAnnuncio.getIdOggetto(),
 	        percorsiImmaginiAnnuncio
 	    );
+	    
 	}
 	
 	
+
 	
 	
 	
