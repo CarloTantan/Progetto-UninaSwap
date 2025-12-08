@@ -1,6 +1,5 @@
 package boundary;
 
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
@@ -9,7 +8,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import dao.InserimentoRecensioneDAO;
-import entity.Utente_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -26,10 +24,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 
-import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -41,12 +36,10 @@ public class InserimentoRecensione extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private String matricolaVenditore;
 	private String matricolaAcquirente;
 	private int idOfferta;
 	private JTextArea textAreaCommento;
-	private InserimentoRecensioneDAO recensioneDAO;
 	private MainController controller;
 	private JLabel[] lblStelle = new JLabel[5];
 	private int punteggioSelezionato = 0;
@@ -73,8 +66,7 @@ public class InserimentoRecensione extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InserimentoRecensione(Utente_entity UtenteLoggato, String matricolaAcquirente, String matricolaVenditore, int idOfferta, MainController controller) {
-		this.UtenteLoggato = UtenteLoggato;
+	public InserimentoRecensione(String matricolaAcquirente, String matricolaVenditore, int idOfferta, MainController controller) {
 		this.matricolaAcquirente = matricolaAcquirente;
 		this.matricolaVenditore = matricolaVenditore;
 		this.idOfferta = idOfferta;
@@ -387,7 +379,7 @@ public class InserimentoRecensione extends JFrame {
 	
 	private void tornaAreaUtente() {
 		this.dispose();
-		AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+		AreaUtente areaUtenteFrame = new AreaUtente(controller);
 		areaUtenteFrame.setVisible(true);
 	}
 }

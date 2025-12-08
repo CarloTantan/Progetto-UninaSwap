@@ -1,13 +1,11 @@
 package boundary;
 
-import java.awt.EventQueue;
 
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import entity.Utente_entity;
 import mainController.MainController;
 
 import javax.swing.JButton;
@@ -23,13 +21,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 
@@ -38,8 +30,7 @@ public class AreaUtente extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnCreaAnnuncio;
-	private JPanel headerPanel;
-	private JPanel buttonPanel;
+
 	
 	/**
 	 * Launch the application.
@@ -329,23 +320,23 @@ public class AreaUtente extends JFrame {
 		AnnunciPubblicatiFrame.setVisible(true);
 	}
 	
-	private void apriOggetto(Utente_entity UtenteLoggato, MainController controller) {
+	private void apriOggetto(MainController controller) {
 		dispose();
-		Oggetto OggettoFrame = new Oggetto(UtenteLoggato, controller);
+		Oggetto OggettoFrame = new Oggetto(controller);
 		OggettoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
 		OggettoFrame.setVisible(true);
 	}
 	
-	private void apriListaRecensioni(Utente_entity UtenteLoggato, MainController controller) {
+	private void apriListaRecensioni(MainController controller) {
 		dispose();
-		ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(UtenteLoggato, controller);
+		ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(controller);
 		ListaRecensioniFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
 		ListaRecensioniFrame.setVisible(true);
 	}
 	
-	private void apriListaAnnunci(Utente_entity UtenteLoggato, MainController controller) {
+	private void apriListaAnnunci(MainController controller) {
 		dispose();
-		ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+		ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
 		ListaAnnunciFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
 		ListaAnnunciFrame.setVisible(true);
 	}

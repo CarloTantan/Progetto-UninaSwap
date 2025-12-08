@@ -50,7 +50,6 @@ public class ListaRecensioni extends JFrame {
 
 	private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private Utente_entity UtenteLoggato;
     private JPanel panelRecensioni;
     private JLabel lblContatore;
     private MainController controller;
@@ -74,8 +73,7 @@ public class ListaRecensioni extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ListaRecensioni(Utente_entity UtenteLoggato, MainController controller) {
-        this.UtenteLoggato = UtenteLoggato;
+	public ListaRecensioni(MainController controller) {
         this.controller = controller;
         
         setIconImage(Toolkit.getDefaultToolkit().getImage(
@@ -128,7 +126,7 @@ public class ListaRecensioni extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+                AreaUtente AreaUtenteFrame = new AreaUtente(controller);
                 AreaUtenteFrame.setVisible(true);
             }
         });
@@ -238,7 +236,7 @@ public class ListaRecensioni extends JFrame {
     }
 
     private void GetRecensioniInviate() {
-        String matricola = UtenteLoggato.getMatricola();
+        String matricola = controller.getMatricolaUtenteLoggato();
         try {
             // Pulisci il pannello
             panelRecensioni.removeAll();
@@ -278,7 +276,7 @@ public class ListaRecensioni extends JFrame {
     }
 
     private void GetRecensioniRicevute() {
-        String matricola = UtenteLoggato.getMatricola();
+        String matricola = controller.getMatricolaUtenteLoggato();
         try {
             // Pulisci il pannello
             panelRecensioni.removeAll();

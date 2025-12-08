@@ -1,15 +1,11 @@
 package boundary;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dao.OffertaDAO;
-import entity.Annuncio_entity;
 import entity.OffertaVendita_entity;
-import entity.Utente_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -28,7 +24,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -37,9 +32,7 @@ public class OffertaVendita extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldImportoProposto;
-	private Utente_entity UtenteLoggato;
 	private int IdAnnuncioScelto;
-	private OffertaDAO offertaDAO;
 	private int IdOffertaDaModificare = -1;
 	private boolean isModificaMode = false;
 	private JButton btnConferma;
@@ -64,10 +57,8 @@ public class OffertaVendita extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaVendita(Utente_entity UtenteLoggato, int IdAnnuncioScelto, MainController controller) {
-		this.UtenteLoggato = UtenteLoggato;
+	public OffertaVendita(int IdAnnuncioScelto, MainController controller) {
 		this.IdAnnuncioScelto = IdAnnuncioScelto;
-		offertaDAO = new OffertaDAO();
 		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaVendita.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -109,7 +100,7 @@ public class OffertaVendita extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
 				ListaAnnunciFrame.setVisible(true);
 			}
 		});
@@ -195,7 +186,7 @@ public class OffertaVendita extends JFrame {
 	public void inviaOffertaVendita() {
 	    // Recupera i dati dall'interfaccia
 	    String importoPropostoString = textFieldImportoProposto.getText().trim();
-	    String matricolaAcquirente = UtenteLoggato.getMatricola();
+	    String matricolaAcquirente = controller.getMatricolaUtenteLoggato();
 	    
 	    try {
 	        // Converti l'importo in float
@@ -231,7 +222,7 @@ public class OffertaVendita extends JFrame {
 	                JOptionPane.INFORMATION_MESSAGE);
 	            
 	            setVisible(false);
-	            ListaAnnunci listaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+	            ListaAnnunci listaAnnunciFrame = new ListaAnnunci(controller);
 	            listaAnnunciFrame.setVisible(true);
 	        } else {
 	            // Mostra l'errore restituito dal controller

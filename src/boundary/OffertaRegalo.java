@@ -1,6 +1,5 @@
 package boundary;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,9 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import dao.OffertaDAO;
-import entity.Annuncio_entity;
 import entity.OffertaRegalo_entity;
-import entity.Utente_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -28,10 +25,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -39,7 +34,6 @@ public class OffertaRegalo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private int IdAnnuncioScelto;
 	private OffertaDAO offertaDAO;
 	private JTextArea textAreaMessaggioMotivazionale;
@@ -67,9 +61,8 @@ public class OffertaRegalo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaRegalo(Utente_entity UtenteLoggato, int IdAnnuncioScelto, MainController controller) {
+	public OffertaRegalo(int IdAnnuncioScelto, MainController controller) {
 		this.IdAnnuncioScelto = IdAnnuncioScelto;
-		this.UtenteLoggato = UtenteLoggato;
 		this.controller = controller;
 		offertaDAO = new OffertaDAO();
 		
@@ -96,7 +89,7 @@ public class OffertaRegalo extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
 				ListaAnnunciFrame.setVisible(true);
 			}
 		});
@@ -208,7 +201,7 @@ public class OffertaRegalo extends JFrame {
 	public void inviaOffertaRegalo() {
 	    // Recupera i dati dall'interfaccia
 	    String messaggioMotivazionale = textAreaMessaggioMotivazionale.getText().trim();
-	    String matricolaAcquirente = UtenteLoggato.getMatricola();
+	    String matricolaAcquirente = controller.getMatricolaUtenteLoggato();
 	    
 	    String risultato;
 	    
@@ -240,7 +233,7 @@ public class OffertaRegalo extends JFrame {
 	            JOptionPane.INFORMATION_MESSAGE);
 	        
 	        setVisible(false);
-	        ListaAnnunci listaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+	        ListaAnnunci listaAnnunciFrame = new ListaAnnunci(controller);
 	        listaAnnunciFrame.setVisible(true);
 	    } else {
 	        // Mostra l'errore restituito dal controller

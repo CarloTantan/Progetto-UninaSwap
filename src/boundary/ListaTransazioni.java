@@ -1,21 +1,17 @@
 package boundary;
 
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
 import dao.RecensioneVenditoreDAO;
 import dao.TransazioniDAO;
 import entity.Transazione_entity;
-import entity.Utente_entity;
 import mainController.MainController;
 
 import javax.swing.JLabel;
@@ -42,7 +38,6 @@ public class ListaTransazioni extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JPanel panelTransazioni;
-    private Utente_entity UtenteLoggato;
     private ArrayList<Transazione_entity> ListaTransazioni;
     private MainController controller;
 
@@ -65,8 +60,7 @@ public class ListaTransazioni extends JFrame {
     /**
      * Create the frame.
      */
-    public ListaTransazioni(Utente_entity UtenteLoggato, MainController controller) {
-        this.UtenteLoggato = UtenteLoggato;
+    public ListaTransazioni(MainController controller) {
         this.controller = controller;
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,7 +154,7 @@ public class ListaTransazioni extends JFrame {
     private void caricaTransazioni() {
         try {
             TransazioniDAO TransazioniDao = new TransazioniDAO();
-            ListaTransazioni = TransazioniDao.getTransazioni(UtenteLoggato.getMatricola());
+            ListaTransazioni = TransazioniDao.getTransazioni(controller.getMatricolaUtenteLoggato());
 
             if (ListaTransazioni.isEmpty()) {
                 JLabel lblNoTransazioni = new JLabel("Non hai ancora completato transazioni");
@@ -320,7 +314,6 @@ public class ListaTransazioni extends JFrame {
     private void apriInserimentoRecensione(Transazione_entity transazione) {
         this.dispose();
         InserimentoRecensione recensioneFrame = new InserimentoRecensione(
-            UtenteLoggato,
             transazione.getMatricolaAcquirente(),
             transazione.getMatricolaVenditore(),
             transazione.getIdOfferta(),
@@ -331,7 +324,7 @@ public class ListaTransazioni extends JFrame {
     
     private void tornaAreaUtente() {
         this.dispose();
-        AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+        AreaUtente areaUtenteFrame = new AreaUtente(controller);
         areaUtenteFrame.setVisible(true);
     }
 }

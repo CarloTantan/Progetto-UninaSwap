@@ -1,26 +1,20 @@
 package boundary;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
 import dao.Annunci_OfferteDAO;
-import dao.ListaAnnunciDAO;
 import dao.RecensioneVenditoreDAO;
 import entity.Annuncio_entity;
 import entity.OffertaRegalo_entity;
 import entity.OffertaScambio_entity;
 import entity.OffertaVendita_entity;
 import entity.Offerta_entity;
-import entity.Transazione_entity;
-import entity.Utente_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -28,25 +22,18 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
@@ -55,7 +42,6 @@ public class AnnunciPubblicati extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private Utente_entity UtenteLoggato;
     private MainController controller;
     private ArrayList<Annuncio_entity> listaAnnunci;
     private ArrayList<Offerta_entity> listaOfferte;
@@ -84,8 +70,7 @@ public class AnnunciPubblicati extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AnnunciPubblicati(Utente_entity UtenteLoggato, MainController controller) {
-        this.UtenteLoggato = UtenteLoggato;
+	public AnnunciPubblicati(MainController controller) {
         this.listaAnnunci = new ArrayList<>();
         this.controller = controller;
         
@@ -116,7 +101,7 @@ public class AnnunciPubblicati extends JFrame {
         btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
         btnUndo.addActionListener(e -> {
             dispose();
-            AreaUtente AreaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+            AreaUtente AreaUtenteFrame = new AreaUtente(controller);
             AreaUtenteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             AreaUtenteFrame.setVisible(true);
         });
@@ -171,7 +156,7 @@ public class AnnunciPubblicati extends JFrame {
     }
     
     private void caricaAnnunci() {
-        String matricola = UtenteLoggato.getMatricola();
+        String matricola = controller.getMatricolaUtenteLoggato();
         try {
             Annunci_OfferteDAO selectAnnunci = new Annunci_OfferteDAO();
             listaAnnunci = selectAnnunci.getAnnunci(matricola);

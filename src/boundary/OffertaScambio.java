@@ -3,35 +3,25 @@ package boundary;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-import dao.OffertaDAO;
-import entity.Annuncio_entity;
-import entity.OffertaRegalo_entity;
+
 import entity.OffertaScambio_entity;
-import entity.Utente_entity;
 import mainController.MainController;
 
-import javax.swing.JTextArea;
 import java.awt.Toolkit;
 import javax.swing.JTextField;
 
@@ -39,9 +29,7 @@ public class OffertaScambio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Utente_entity UtenteLoggato;
 	private int IdAnnuncioScelto;
-	private OffertaDAO offertaDAO;
 	private JTextField textFieldOggettoProposto;
 	private int IdOffertaDaModificare = -1;
 	private boolean isModificaMode = false;
@@ -67,10 +55,8 @@ public class OffertaScambio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OffertaScambio(Utente_entity UtenteLoggato, int IdAnnuncioScelto, MainController controller) {
-		this.UtenteLoggato = UtenteLoggato;
+	public OffertaScambio(int IdAnnuncioScelto, MainController controller) {
 		this.IdAnnuncioScelto = IdAnnuncioScelto;
-		offertaDAO = new OffertaDAO();
 		this.controller = controller;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OffertaScambio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -111,7 +97,7 @@ public class OffertaScambio extends JFrame {
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+				ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
 				ListaAnnunciFrame.setVisible(true);
 			}
 		});
@@ -197,7 +183,7 @@ public class OffertaScambio extends JFrame {
 	public void inviaOffertaScambio() {
 	    // Recupera i dati dall'interfaccia
 	    String oggettoProposto = textFieldOggettoProposto.getText().trim();
-	    String matricolaAcquirente = UtenteLoggato.getMatricola();
+	    String matricolaAcquirente = controller.getMatricolaUtenteLoggato();
 	    
 	    String risultato;
 	    
@@ -229,7 +215,7 @@ public class OffertaScambio extends JFrame {
 	            JOptionPane.INFORMATION_MESSAGE);
 	        
 	        setVisible(false);
-	        ListaAnnunci listaAnnunciFrame = new ListaAnnunci(UtenteLoggato, controller);
+	        ListaAnnunci listaAnnunciFrame = new ListaAnnunci(controller);
 	        listaAnnunciFrame.setVisible(true);
 	    } else {
 	        // Mostra l'errore restituito dal controller

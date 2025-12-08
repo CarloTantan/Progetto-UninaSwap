@@ -25,9 +25,8 @@ public class ListaAnnunci extends JFrame {
     private MainController controller;
     private JTextField txtRicerca;
 
-    public ListaAnnunci(Utente_entity UtenteLoggato, MainController controller) {
+    public ListaAnnunci(MainController controller) {
 
-        this.UtenteLoggato = UtenteLoggato;
         this.controller = controller;
 
         setTitle("Lista Annunci");
@@ -55,7 +54,7 @@ public class ListaAnnunci extends JFrame {
         btnUndo.setFocusPainted(false);
         btnUndo.addActionListener(e -> {
             setVisible(false);
-            AreaUtente areaUtenteFrame = new AreaUtente(UtenteLoggato, controller);
+            AreaUtente areaUtenteFrame = new AreaUtente(controller);
             areaUtenteFrame.setVisible(true);
         });
 
@@ -561,7 +560,7 @@ public class ListaAnnunci extends JFrame {
                 OffertaVendita offertaVenditaFrame = new OffertaVendita(UtenteLoggato, idAnnuncio, controller);
                 offertaVenditaFrame.setVisible(true);
             } else if (tipologia.equals("Regalo")) {
-                OffertaRegalo offertaRegaloFrame = new OffertaRegalo(UtenteLoggato, idAnnuncio, controller);
+                OffertaRegalo offertaRegaloFrame = new OffertaRegalo(idAnnuncio, controller);
                 offertaRegaloFrame.setVisible(true);
             }
         }
