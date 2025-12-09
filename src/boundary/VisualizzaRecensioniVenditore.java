@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -30,14 +29,11 @@ import javax.swing.border.LineBorder;
 import dao.ListaRecensioniDao;
 import dao.RecensioneVenditoreDAO;
 import entity.Recensione_entity;
-import entity.Utente_entity;
 
 public class VisualizzaRecensioniVenditore extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
     private String matricolaVenditore;
-    private Utente_entity utenteLoggato;
     private JPanel panelRecensioni;
 
 //	/**
@@ -60,8 +56,7 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	 * Create the frame.
 	 */
 
-	    public VisualizzaRecensioniVenditore(Utente_entity utenteLoggato, String matricolaVenditore) {
-	        this.utenteLoggato = utenteLoggato;
+	    public VisualizzaRecensioniVenditore(String matricolaVenditore) {
 	        this.matricolaVenditore = matricolaVenditore;
 
 	        setTitle("Recensioni Venditore");

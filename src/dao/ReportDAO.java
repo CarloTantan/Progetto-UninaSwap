@@ -1,23 +1,12 @@
 package dao;
 
-import java.awt.Color;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import entity.Annuncio_entity;
-import entity.Offerta_entity;
-import entity.Recensione_entity;
-import enumerations.FasciaOraria;
-import enumerations.StatoAnnuncio;
-import enumerations.TipologiaCategoria;
 
 public class ReportDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";

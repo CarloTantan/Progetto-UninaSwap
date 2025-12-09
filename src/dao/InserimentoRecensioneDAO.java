@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class InserimentoRecensioneDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";

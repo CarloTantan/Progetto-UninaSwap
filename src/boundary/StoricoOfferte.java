@@ -1,23 +1,18 @@
 package boundary;
 
-import java.awt.EventQueue;
 
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
 import dao.RecensioneVenditoreDAO;
 import dao.StoricoOfferteDAO;
-import dao.TransazioniDAO;
 import entity.Offerta_entity;
-import entity.Transazione_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -32,10 +27,8 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
