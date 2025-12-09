@@ -9,8 +9,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import dao.RecensioneVenditoreDAO;
-import dao.TransazioniDAO;
 import entity.Transazione_entity;
 import mainController.MainController;
 
@@ -65,7 +63,7 @@ public class ListaTransazioni extends JFrame {
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(
-            ListaTransazioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+        ListaTransazioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
         setTitle("Lista Transazioni");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1100, 600));
@@ -91,7 +89,7 @@ public class ListaTransazioni extends JFrame {
         
         JButton btnUndo = new JButton("");
         btnUndo.setIcon(new ImageIcon(
-            ListaTransazioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+        ListaTransazioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
         btnUndo.setBackground(new Color(50, 132, 188));
         btnUndo.setPreferredSize(new Dimension(50, 50));
         btnUndo.setFocusPainted(false);
@@ -153,8 +151,7 @@ public class ListaTransazioni extends JFrame {
     
     private void caricaTransazioni() {
         try {
-            TransazioniDAO TransazioniDao = new TransazioniDAO();
-            ListaTransazioni = TransazioniDao.getTransazioni(controller.getMatricolaUtenteLoggato());
+        	ArrayList<Transazione_entity> listaTransazioni = controller.caricaTransazioni();
 
             if (ListaTransazioni.isEmpty()) {
                 JLabel lblNoTransazioni = new JLabel("Non hai ancora completato transazioni");
@@ -273,10 +270,9 @@ public class ListaTransazioni extends JFrame {
         panel.setBackground(Color.WHITE);
         
         try {
-            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
-            String nominativo = dao.getNominativoUtente(matricolaVenditore);
-            double media = dao.getValutazioneMedia(matricolaVenditore);
-            int numRecensioni = dao.getNumeroRecensioni(matricolaVenditore);
+            String nominativo = controller.getNominativoVenditore(matricolaVenditore);
+            double media = controller.getValutazioneMediaVenditore(matricolaVenditore);
+            int numRecensioni = controller.getNumeroRecensioniVenditore(matricolaVenditore);
             
             JLabel lblVenditore = new JLabel("<html><b>Venditore:</b> " + 
                 (nominativo != null ? nominativo : "N/D") + "</html>");
@@ -286,7 +282,7 @@ public class ListaTransazioni extends JFrame {
             
             if (numRecensioni > 0) {
                 ImageIcon iconaStella = new ImageIcon(
-                    ListaTransazioni.class.getResource("/icons/icons8-stella-32.png"));
+                ListaTransazioni.class.getResource("/icons/icons8-stella-32.png"));
                 Image imgScalata = iconaStella.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
                 JLabel lblStella = new JLabel(new ImageIcon(imgScalata));
                 panel.add(lblStella);
