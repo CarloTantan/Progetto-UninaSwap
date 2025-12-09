@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 import java.awt.Image;
 import java.io.File;
@@ -21,6 +20,7 @@ public class MainController {
     protected InserimentoAnnunciDAO InsertAnnunciDAO;  
     protected FotoAnnuncioDAO FotoAnnuncioDAO; 
     protected OffertaDAO OffertaDAO;
+    protected InserimentoRecensioneDAO InserimentoRecensioneDAO;
     protected ArrayList<AnnuncioVendita_entity> annunciVenditaCaricati;
     protected ArrayList<AnnuncioScambio_entity> annunciScambioCaricati;
     protected ArrayList<AnnuncioRegalo_entity> annunciRegaloCaricati;
@@ -40,6 +40,7 @@ public class MainController {
         this.InsertAnnunciDAO = new InserimentoAnnunciDAO();
         this.FotoAnnuncioDAO = new FotoAnnuncioDAO(); 
         this.OffertaDAO = new OffertaDAO();
+        this.InserimentoRecensioneDAO = new InserimentoRecensioneDAO();
     }
 
     // ==================== METODI LOGIN ====================
@@ -819,6 +820,97 @@ public class MainController {
             return null;
         }
     }
+    
+    public String inserisciRecensione(String matricolaRecensore, String matricolaRecensito, 
+            int idOfferta, int valutazione, String commento) {
+    	if (valutazione < 1 || valutazione > 5) {
+    		return "La valutazione deve essere tra 1 e 5";
+    	}
+
+    	if (commento == null || commento.trim().isEmpty()) {
+    		return "Il commento è obbligatorio";
+    	}
+
+    	try {
+    		// Verifica se esiste già una recensione
+    		if (InserimentoRecensioneDAO.esisteRecensione(idOfferta)) {
+    			return "Hai già inserito una recensione per questa transazione";
+    		}
+
+    		// Inserisci la recensione
+    		InserimentoRecensioneDAO.inserisciRecensione(
+    				matricolaRecensito, 
+    				matricolaRecensore, 
+    				valutazione, 
+    				commento, 
+    				idOfferta
+    				);
+
+    		return "Recensione inserita con successo";
+
+    	} catch (SQLException e) {
+    		return "Errore durante l'inserimento della recensione: " + e.getMessage();
+    	}
+    }
+
+    
+ // ==================== METODI TRANSAZIONI (ACCESSO AI DATI) ====================
+
+    private ArrayList<Transazione_entity> transazioniCaricate;
+
+    public int getNumeroTransazioni() {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null) {
+                return 0;
+            }
+            
+            TransazioniDAO dao = new TransazioniDAO();
+            transazioniCaricate = dao.getTransazioni(matricola);
+            return transazioniCaricate.size();
+            
+        } catch (Exception e) {
+            System.err.println("Errore durante il caricamento delle transazioni: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public String getTitoloAnnuncioTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getTitoloAnnuncio();
+        }
+        return "";
+    }
+
+    public String getMatricolaVenditoreTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getMatricolaVenditore();
+        }
+        return "";
+    }
+
+    public String getMatricolaAcquirenteTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getMatricolaAcquirente();
+        }
+        return "";
+    }
+
+    public int getIdOffertaTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getIdOfferta();
+        }
+        return -1;
+    }
+
+    public boolean hasRecensioneTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).hasRecensione();
+        }
+        return false;
+    }
+
 
     // ==================== METODI FOTO E IMMAGINI ====================
     

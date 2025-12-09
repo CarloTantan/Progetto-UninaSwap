@@ -9,7 +9,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import entity.Transazione_entity;
 import mainController.MainController;
 
 import javax.swing.JLabel;
@@ -20,7 +19,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.BorderLayout;
@@ -36,34 +34,14 @@ public class ListaTransazioni extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JPanel panelTransazioni;
-    private ArrayList<Transazione_entity> ListaTransazioni;
     private MainController controller;
 
-    /**
-     * Launch the application.
-     */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    ListaTransazioni frame = new ListaTransazioni();
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
-    /**
-     * Create the frame.
-     */
     public ListaTransazioni(MainController controller) {
         this.controller = controller;
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(
-        ListaTransazioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
+            ListaTransazioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
         setTitle("Lista Transazioni");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1100, 600));
@@ -89,7 +67,7 @@ public class ListaTransazioni extends JFrame {
         
         JButton btnUndo = new JButton("");
         btnUndo.setIcon(new ImageIcon(
-        ListaTransazioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
+            ListaTransazioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
         btnUndo.setBackground(new Color(50, 132, 188));
         btnUndo.setPreferredSize(new Dimension(50, 50));
         btnUndo.setFocusPainted(false);
@@ -151,9 +129,10 @@ public class ListaTransazioni extends JFrame {
     
     private void caricaTransazioni() {
         try {
-        	ArrayList<Transazione_entity> listaTransazioni = controller.caricaTransazioni();
+            // Chiedi al controller il numero di transazioni
+            int numeroTransazioni = controller.getNumeroTransazioni();
 
-            if (ListaTransazioni.isEmpty()) {
+            if (numeroTransazioni == 0) {
                 JLabel lblNoTransazioni = new JLabel("Non hai ancora completato transazioni");
                 lblNoTransazioni.setFont(new Font("Verdana", Font.ITALIC, 16));
                 lblNoTransazioni.setForeground(Color.GRAY);
@@ -161,8 +140,9 @@ public class ListaTransazioni extends JFrame {
                 panelTransazioni.add(Box.createVerticalStrut(100));
                 panelTransazioni.add(lblNoTransazioni);
             } else {
-                for (Transazione_entity t : ListaTransazioni) {
-                    panelTransazioni.add(creaCardTransazione(t));
+                // Itera attraverso le transazioni usando solo il controller
+                for (int i = 0; i < numeroTransazioni; i++) {
+                    panelTransazioni.add(creaCardTransazione(i));
                     panelTransazioni.add(Box.createVerticalStrut(15));
                 }
             }
@@ -179,7 +159,7 @@ public class ListaTransazioni extends JFrame {
         }
     }
     
-    private JPanel creaCardTransazione(Transazione_entity transazione) {
+    private JPanel creaCardTransazione(int index) {
         JPanel card = new JPanel(new BorderLayout(15, 15));
         card.setBackground(Color.WHITE);
         card.setBorder(new CompoundBorder(
@@ -188,13 +168,20 @@ public class ListaTransazioni extends JFrame {
         ));
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 180));
 
+        // Ottieni i dati della transazione dal controller
+        String titoloAnnuncio = controller.getTitoloAnnuncioTransazione(index);
+        String matricolaVenditore = controller.getMatricolaVenditoreTransazione(index);
+        String matricolaAcquirente = controller.getMatricolaAcquirenteTransazione(index);
+        int idOfferta = controller.getIdOffertaTransazione(index);
+        boolean hasRecensione = controller.hasRecensioneTransazione(index);
+
         // ============ PANNELLO SINISTRO (Info Transazione) ============
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         leftPanel.setBackground(Color.WHITE);
 
         // Titolo annuncio
-        JLabel lblTitolo = new JLabel(transazione.getTitoloAnnuncio());
+        JLabel lblTitolo = new JLabel(titoloAnnuncio);
         lblTitolo.setFont(new Font("Verdana", Font.BOLD, 16));
         lblTitolo.setForeground(new Color(0, 52, 104));
         lblTitolo.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -202,14 +189,14 @@ public class ListaTransazioni extends JFrame {
         leftPanel.add(Box.createVerticalStrut(10));
 
         // Info venditore con rating
-        JPanel venditorePanel = creaInfoVenditore(transazione.getMatricolaVenditore());
+        JPanel venditorePanel = creaInfoVenditore(matricolaVenditore);
         venditorePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftPanel.add(venditorePanel);
         leftPanel.add(Box.createVerticalStrut(8));
 
-        // Solo matricola venditore
+        // Matricola venditore
         JLabel lblMatricola = new JLabel(
-            "<html><b>Matricola Venditore:</b> " + transazione.getMatricolaVenditore() + "</html>");
+            "<html><b>Matricola Venditore:</b> " + matricolaVenditore + "</html>");
         lblMatricola.setFont(new Font("Verdana", Font.PLAIN, 12));
         lblMatricola.setForeground(new Color(100, 100, 100));
         lblMatricola.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -225,21 +212,21 @@ public class ListaTransazioni extends JFrame {
 
         // Pulsante recensione
         JButton btnRecensione = new JButton(
-            transazione.hasRecensione() ? "Recensione inserita" : "Inserisci Recensione");
+            hasRecensione ? "Recensione inserita" : "Inserisci Recensione");
         btnRecensione.setFont(new Font("Verdana", Font.BOLD, 13));
         btnRecensione.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnRecensione.setMaximumSize(new Dimension(200, 45));
         btnRecensione.setFocusPainted(false);
         btnRecensione.setBorderPainted(false);
         
-        if (transazione.hasRecensione()) {
-            // Recensione già inserita - bottone verde non cliccabile con testo bianco
+        if (hasRecensione) {
+            // Recensione già inserita
             btnRecensione.setBackground(new Color(32, 105, 61));
             btnRecensione.setForeground(Color.WHITE);
             btnRecensione.setEnabled(false);
             
         } else {
-            // Recensione da inserire - bottone blu cliccabile con testo bianco
+            // Recensione da inserire
             btnRecensione.setBackground(new Color(0, 52, 104));
             btnRecensione.setForeground(Color.WHITE);
             btnRecensione.setEnabled(true);
@@ -253,7 +240,8 @@ public class ListaTransazioni extends JFrame {
                 }
             });
             
-            btnRecensione.addActionListener(e -> apriInserimentoRecensione(transazione));
+            btnRecensione.addActionListener(e -> 
+                apriInserimentoRecensione(matricolaAcquirente, matricolaVenditore, idOfferta));
         }
         
         rightPanel.add(btnRecensione);
@@ -270,6 +258,7 @@ public class ListaTransazioni extends JFrame {
         panel.setBackground(Color.WHITE);
         
         try {
+            // Usa solo il controller per ottenere le informazioni
             String nominativo = controller.getNominativoVenditore(matricolaVenditore);
             double media = controller.getValutazioneMediaVenditore(matricolaVenditore);
             int numRecensioni = controller.getNumeroRecensioniVenditore(matricolaVenditore);
@@ -282,7 +271,7 @@ public class ListaTransazioni extends JFrame {
             
             if (numRecensioni > 0) {
                 ImageIcon iconaStella = new ImageIcon(
-                ListaTransazioni.class.getResource("/icons/icons8-stella-32.png"));
+                    ListaTransazioni.class.getResource("/icons/icons8-stella-32.png"));
                 Image imgScalata = iconaStella.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
                 JLabel lblStella = new JLabel(new ImageIcon(imgScalata));
                 panel.add(lblStella);
@@ -307,12 +296,14 @@ public class ListaTransazioni extends JFrame {
         return panel;
     }
     
-    private void apriInserimentoRecensione(Transazione_entity transazione) {
+    private void apriInserimentoRecensione(String matricolaAcquirente, 
+                                          String matricolaVenditore, 
+                                          int idOfferta) {
         this.dispose();
         InserimentoRecensione recensioneFrame = new InserimentoRecensione(
-            transazione.getMatricolaAcquirente(),
-            transazione.getMatricolaVenditore(),
-            transazione.getIdOfferta(),
+            matricolaAcquirente,
+            matricolaVenditore,
+            idOfferta,
             controller
         );
         recensioneFrame.setVisible(true);
