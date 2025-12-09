@@ -1007,6 +1007,7 @@ public class MainController {
         return 0;
     }
     
+<<<<<<< HEAD
     
     
     
@@ -1134,4 +1135,309 @@ public class MainController {
     
     
     
+=======
+ // ==================== METODI OFFERTE REGALO ====================
+
+    public String inviaOffertaRegalo(String messaggioMotivazionale, int idAnnuncio) {
+        // Validazione input
+        if (messaggioMotivazionale == null || messaggioMotivazionale.trim().isEmpty()) {
+            return "Il messaggio motivazionale è obbligatorio";
+        }
+        
+        String matricolaAcquirente = getMatricolaUtenteLoggato();
+        if (matricolaAcquirente == null) {
+            return "Errore: utente non loggato";
+        }
+        
+        if (idAnnuncio <= 0) {
+            return "ID annuncio non valido";
+        }
+        
+        // Logica di business tramite DAO
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            boolean offertaInviata = offertaDAO.inserimentoOffertaRegalo(
+                messaggioMotivazionale,
+                matricolaAcquirente,
+                idAnnuncio
+            );
+            
+            if (!offertaInviata) {
+                return "Impossibile inviare l'offerta";
+            }
+            
+            return "SUCCESS:Offerta inviata con successo";
+            
+        } catch (SQLException e) {
+            return "Errore durante l'invio dell'offerta: " + e.getMessage();
+        }
+    }
+
+    public String aggiornaOffertaRegalo(String messaggioMotivazionale, int idAnnuncio, int idOfferta) {
+        // Validazione input
+        if (messaggioMotivazionale == null || messaggioMotivazionale.trim().isEmpty()) {
+            return "Il messaggio motivazionale è obbligatorio";
+        }
+        
+        String matricolaAcquirente = getMatricolaUtenteLoggato();
+        if (matricolaAcquirente == null) {
+            return "Errore: utente non loggato";
+        }
+        
+        if (idAnnuncio <= 0 || idOfferta <= 0) {
+            return "ID annuncio o offerta non validi";
+        }
+        
+        // Logica di business tramite DAO
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            boolean offertaAggiornata = offertaDAO.aggiornaOffertaRegalo(
+                messaggioMotivazionale,
+                matricolaAcquirente,
+                idAnnuncio,
+                idOfferta
+            );
+            
+            if (!offertaAggiornata) {
+                return "Impossibile aggiornare l'offerta";
+            }
+            
+            return "SUCCESS:Offerta aggiornata con successo";
+            
+        } catch (SQLException e) {
+            return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
+        }
+    }
+
+    public String caricaOffertaRegaloPerModifica(int idOfferta) {
+        if (idOfferta <= 0) {
+            return "ID offerta non valido";
+        }
+        
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            OffertaRegalo_entity offerta = offertaDAO.caricaOfferta(idOfferta);
+            
+            if (offerta == null) {
+                return "Offerta non trovata";
+            }
+            
+            // Restituisce i dati nel formato SUCCESS:dato
+            return "SUCCESS:" + offerta.getMessaggioMotivazionale();
+            
+        } catch (SQLException e) {
+            return "Errore nel caricamento dell'offerta: " + e.getMessage();
+        }
+    }
+
+    // ==================== METODI OFFERTE SCAMBIO ====================
+
+    public String inviaOffertaScambio(String oggettoProposto, int idAnnuncio) {
+        // Validazione input
+        if (oggettoProposto == null || oggettoProposto.trim().isEmpty()) {
+            return "L'oggetto proposto è obbligatorio";
+        }
+        
+        String matricolaAcquirente = getMatricolaUtenteLoggato();
+        if (matricolaAcquirente == null) {
+            return "Errore: utente non loggato";
+        }
+        
+        if (idAnnuncio <= 0) {
+            return "ID annuncio non valido";
+        }
+        
+        // Logica di business tramite DAO
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            boolean offertaInviata = offertaDAO.inserimentoOffertaScambio(
+                oggettoProposto,
+                matricolaAcquirente,
+                idAnnuncio
+            );
+            
+            if (!offertaInviata) {
+                return "Impossibile inviare l'offerta";
+            }
+            
+            return "SUCCESS:Offerta inviata con successo";
+            
+        } catch (SQLException e) {
+            return "Errore durante l'invio dell'offerta: " + e.getMessage();
+        }
+    }
+
+    public String aggiornaOffertaScambio(String oggettoProposto, int idAnnuncio, int idOfferta) {
+        // Validazione input
+        if (oggettoProposto == null || oggettoProposto.trim().isEmpty()) {
+            return "L'oggetto proposto è obbligatorio";
+        }
+        
+        String matricolaAcquirente = getMatricolaUtenteLoggato();
+        if (matricolaAcquirente == null) {
+            return "Errore: utente non loggato";
+        }
+        
+        if (idAnnuncio <= 0 || idOfferta <= 0) {
+            return "ID annuncio o offerta non validi";
+        }
+        
+        // Logica di business tramite DAO
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            boolean offertaAggiornata = offertaDAO.aggiornaOffertaScambio(
+                oggettoProposto,
+                matricolaAcquirente,
+                idAnnuncio,
+                idOfferta
+            );
+            
+            if (!offertaAggiornata) {
+                return "Impossibile aggiornare l'offerta";
+            }
+            
+            return "SUCCESS:Offerta aggiornata con successo";
+            
+        } catch (SQLException e) {
+            return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
+        }
+    }
+
+    public String caricaOffertaScambioPerModifica(int idOfferta) {
+        if (idOfferta <= 0) {
+            return "ID offerta non valido";
+        }
+        
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            OffertaScambio_entity offerta = offertaDAO.caricaOffertaScambio(idOfferta);
+            
+            if (offerta == null) {
+                return "Offerta non trovata";
+            }
+            
+            // Restituisce i dati nel formato SUCCESS:dato
+            return "SUCCESS:" + offerta.getOggettoProposto();
+            
+        } catch (SQLException e) {
+            return "Errore nel caricamento dell'offerta: " + e.getMessage();
+        }
+    }
+
+    // ==================== METODI OFFERTE VENDITA ====================
+
+    public String inviaOffertaVendita(String importoPropostoString, int idAnnuncio) {
+        // Validazione input
+        if (importoPropostoString == null || importoPropostoString.trim().isEmpty()) {
+            return "L'importo proposto è obbligatorio";
+        }
+        
+        float importoProposto;
+        try {
+            importoProposto = Float.parseFloat(importoPropostoString);
+        } catch (NumberFormatException e) {
+            return "L'importo deve essere un numero valido";
+        }
+        
+        if (importoProposto <= 0) {
+            return "L'importo proposto deve essere maggiore di zero";
+        }
+        
+        String matricolaAcquirente = getMatricolaUtenteLoggato();
+        if (matricolaAcquirente == null) {
+            return "Errore: utente non loggato";
+        }
+        
+        if (idAnnuncio <= 0) {
+            return "ID annuncio non valido";
+        }
+        
+        // Logica di business tramite DAO
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            boolean offertaInviata = offertaDAO.inserimentoOffertaVendita(
+                importoProposto,
+                matricolaAcquirente,
+                idAnnuncio
+            );
+            
+            if (!offertaInviata) {
+                return "Impossibile inviare l'offerta";
+            }
+            
+            return "SUCCESS:Offerta inviata con successo";
+            
+        } catch (SQLException e) {
+            return "Errore durante l'invio dell'offerta: " + e.getMessage();
+        }
+    }
+
+    public String aggiornaOffertaVendita(String importoPropostoString, int idAnnuncio, int idOfferta) {
+        // Validazione input
+        if (importoPropostoString == null || importoPropostoString.trim().isEmpty()) {
+            return "L'importo proposto è obbligatorio";
+        }
+        
+        float importoProposto;
+        try {
+            importoProposto = Float.parseFloat(importoPropostoString);
+        } catch (NumberFormatException e) {
+            return "L'importo deve essere un numero valido";
+        }
+        
+        if (importoProposto <= 0) {
+            return "L'importo proposto deve essere maggiore di zero";
+        }
+        
+        String matricolaAcquirente = getMatricolaUtenteLoggato();
+        if (matricolaAcquirente == null) {
+            return "Errore: utente non loggato";
+        }
+        
+        if (idAnnuncio <= 0 || idOfferta <= 0) {
+            return "ID annuncio o offerta non validi";
+        }
+        
+        // Logica di business tramite DAO
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            boolean offertaAggiornata = offertaDAO.aggiornaOffertaVendita(
+                importoProposto,
+                matricolaAcquirente,
+                idAnnuncio,
+                idOfferta
+            );
+            
+            if (!offertaAggiornata) {
+                return "Impossibile aggiornare l'offerta";
+            }
+            
+            return "SUCCESS:Offerta aggiornata con successo";
+            
+        } catch (SQLException e) {
+            return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
+        }
+    }
+
+    public String caricaOffertaVenditaPerModifica(int idOfferta) {
+        if (idOfferta <= 0) {
+            return "ID offerta non valido";
+        }
+        
+        try {
+            OffertaDAO offertaDAO = new OffertaDAO();
+            OffertaVendita_entity offerta = offertaDAO.caricaOffertaVendita(idOfferta);
+            
+            if (offerta == null) {
+                return "Offerta non trovata";
+            }
+            
+            // Restituisce i dati nel formato SUCCESS:dato
+            return "SUCCESS:" + String.valueOf(offerta.getImportoProposto());
+            
+        } catch (SQLException e) {
+            return "Errore nel caricamento dell'offerta: " + e.getMessage();
+        }
+    }
+>>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 }

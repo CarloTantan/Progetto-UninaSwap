@@ -4,23 +4,17 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import dao.FotoAnnuncioDAO;
-import dao.ListaAnnunciDAO;
-import dao.RecensioneVenditoreDAO;
 import entity.*;
 import enumerations.StatoAnnuncio;
 import mainController.MainController;
 
 import java.awt.event.*;
-import java.io.File;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ListaAnnunci extends JFrame {
 
+	private static final long serialVersionUID = 1L;
     private JPanel panelCards;
-    private Utente_entity UtenteLoggato;
     private JComboBox<String> comboBoxTipologia;
     private JComboBox<String> comboBoxCategoria;
     private MainController controller;
@@ -29,7 +23,6 @@ public class ListaAnnunci extends JFrame {
     public ListaAnnunci(MainController controller) {
 
         this.controller = controller;
-        this.UtenteLoggato = controller.getUser();
 
         setTitle("Lista Annunci");
         setIconImage(Toolkit.getDefaultToolkit().getImage(ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -237,6 +230,8 @@ public class ListaAnnunci extends JFrame {
     // -------------------- CARD --------------------
 
     class AnnuncioCard extends JPanel {
+    	
+    	private static final long serialVersionUID = 1L;
 
         public AnnuncioCard(int id, String venditore, String titolo,
                             String descrizione, String extra, StatoAnnuncio stato,
@@ -343,7 +338,7 @@ public class ListaAnnunci extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 // Apri finestra recensioni
                 VisualizzaRecensioniVenditore frameRecensioni = 
-                    new VisualizzaRecensioniVenditore(UtenteLoggato, matricolaVenditore);
+                    new VisualizzaRecensioniVenditore(matricolaVenditore);
                 frameRecensioni.setVisible(true);
             }
         });
