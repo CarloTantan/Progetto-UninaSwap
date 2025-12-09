@@ -19,7 +19,6 @@ public class ListaAnnunci extends JFrame {
     private JComboBox<String> comboBoxCategoria;
     private MainController controller;
     private JTextField txtRicerca;
-    private MainController controller;
     public ListaAnnunci(MainController controller) {
 
         this.controller = controller;
