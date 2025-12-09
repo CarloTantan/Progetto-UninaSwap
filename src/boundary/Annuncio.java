@@ -54,8 +54,6 @@ public class Annuncio extends JFrame {
 	 */
 	public Annuncio(MainController controller) {
 		this.controller = controller;
-		this.PercorsiImmagini = new ArrayList<>();
-		this.listModelFoto = new DefaultListModel<>();
 		
 		// Verifica che ci sia un oggetto selezionato
 		if (controller.getOggettoAnnuncio() == null) {

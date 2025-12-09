@@ -1,7 +1,5 @@
 package boundary;
 
-
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,9 +8,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import dao.RecensioneVenditoreDAO;
-import dao.StoricoOfferteDAO;
-import entity.Offerta_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -27,7 +22,6 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Image;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -44,25 +38,6 @@ public class StoricoOfferte extends JFrame {
 	private ArrayList<Offerta_entity> offerteCaricate;
 	private MainController controller;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					StoricoOfferte frame = new StoricoOfferte();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
 	public StoricoOfferte(MainController controller) {
 		this.controller = controller;
 		
@@ -185,18 +160,12 @@ public class StoricoOfferte extends JFrame {
 		caricaOfferte();
 	}
 	
+	// ============ METODI PRIVATI - SOLO GESTIONE UI E CHIAMATE AL CONTROLLER ============
+	
 	private void caricaOfferte() {
-		try {
-			StoricoOfferteDAO dao = new StoricoOfferteDAO();
-			offerteCaricate = dao.getOfferte(controller.getMatricolaUtenteLoggato());
-			mostraOfferte(offerteCaricate);
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this,
-				"Errore nel caricamento delle offerte: " + e.getMessage(),
-				"Errore",
-				JOptionPane.ERROR_MESSAGE);
-		}
+		// Chiama SOLO il controller 
+		offerteCaricate = controller.caricaOfferteUtente();
+		mostraOfferte(offerteCaricate);
 	}
 	
 	private void applicaFiltri() {
@@ -233,12 +202,8 @@ public class StoricoOfferte extends JFrame {
 			panelOfferte.add(lblNoOfferte);
 		} else {
 			for (Offerta_entity offerta : offerte) {
-				try {
-					panelOfferte.add(creaCardOfferta(offerta));
-					panelOfferte.add(Box.createVerticalStrut(15));
-				} catch (SQLException e) {
-					System.err.println("Errore creazione card: " + e.getMessage());
-				}
+				panelOfferte.add(creaCardOfferta(offerta));
+				panelOfferte.add(Box.createVerticalStrut(15));
 			}
 		}
 		
@@ -246,7 +211,7 @@ public class StoricoOfferte extends JFrame {
 		panelOfferte.repaint();
 	}
 	
-	private JPanel creaCardOfferta(Offerta_entity offerta) throws SQLException {
+	private JPanel creaCardOfferta(Offerta_entity offerta) {
 		JPanel card = new JPanel(new BorderLayout(15, 15));
 		card.setBackground(Color.WHITE);
 		card.setBorder(new CompoundBorder(
@@ -281,9 +246,8 @@ public class StoricoOfferte extends JFrame {
 		leftPanel.add(tipologiaPanel);
 		leftPanel.add(Box.createVerticalStrut(10));
 		
-		// Dettagli dell'offerta
-		StoricoOfferteDAO dao = new StoricoOfferteDAO();
-		String dettaglioOfferta = dao.getDettaglioOfferta(offerta.getIdOfferta());
+		// Dettagli dell'offerta tramite controller 
+		String dettaglioOfferta = controller.getDettaglioOfferta(offerta.getIdOfferta());
 		
 		if (dettaglioOfferta != null && !dettaglioOfferta.isEmpty()) {
 			String labelDettaglio = switch(offerta.getTipologiaOfferta().toLowerCase()) {
@@ -300,8 +264,8 @@ public class StoricoOfferte extends JFrame {
 			leftPanel.add(Box.createVerticalStrut(8));
 		}
 		
-		// Info annuncio e venditore
-		String titoloAnnuncio = dao.getTitoloAnnuncio(offerta.getIdOfferta());
+		// Info annuncio tramite controller
+		String titoloAnnuncio = controller.getTitoloAnnuncioOfferta(offerta.getIdOfferta());
 		if (titoloAnnuncio != null) {
 			JLabel lblAnnuncio = new JLabel("<html><b>Annuncio:</b> " + titoloAnnuncio + "</html>");
 			lblAnnuncio.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -311,8 +275,9 @@ public class StoricoOfferte extends JFrame {
 			leftPanel.add(Box.createVerticalStrut(5));
 		}
 		
-		// Info venditore con rating
-		JPanel venditorePanel = creaInfoVenditore(offerta.getMatricolaAcquirente());
+		// Info venditore con rating tramite controller
+		String matricolaVenditore = controller.getMatricolaVenditoreOfferta(offerta.getIdOfferta());
+		JPanel venditorePanel = creaInfoVenditore(matricolaVenditore);
 		venditorePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		leftPanel.add(venditorePanel);
 		
@@ -406,76 +371,69 @@ public class StoricoOfferte extends JFrame {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		panel.setBackground(Color.WHITE);
 		
-		try {
-			RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
-			String nominativo = dao.getNominativoUtente(matricolaVenditore);
-			double media = dao.getValutazioneMedia(matricolaVenditore);
-			int numRecensioni = dao.getNumeroRecensioni(matricolaVenditore);
-			
-			JLabel lblVenditore = new JLabel("<html><b>Venditore:</b> " + 
-				(nominativo != null ? nominativo : "N/D") + "</html>");
-			lblVenditore.setFont(new Font("Verdana", Font.PLAIN, 12));
-			lblVenditore.setForeground(new Color(80, 80, 80));
-			panel.add(lblVenditore);
-			
-			if (numRecensioni > 0) {
-				ImageIcon iconaStella = new ImageIcon(
-					StoricoOfferte.class.getResource("/icons/icons8-stella-32.png"));
-				Image imgScalata = iconaStella.getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
-				JLabel lblStella = new JLabel(new ImageIcon(imgScalata));
-				panel.add(lblStella);
-				
-				JLabel lblRating = new JLabel(String.format("%.1f", media));
-				lblRating.setFont(new Font("Verdana", Font.PLAIN, 11));
-				lblRating.setForeground(new Color(100, 100, 100));
-				panel.add(lblRating);
-			}
-			
-		} catch (Exception e) {
+		if (matricolaVenditore == null) {
 			JLabel lblErrore = new JLabel("Venditore: N/D");
 			lblErrore.setFont(new Font("Verdana", Font.PLAIN, 12));
 			panel.add(lblErrore);
+			return panel;
+		}
+		
+		// Usa il controller - 
+		String nominativo = controller.getNominativoUtente(matricolaVenditore);
+		double media = controller.getValutazioneMediaVenditore(matricolaVenditore);
+		int numRecensioni = controller.getNumeroRecensioniVenditore(matricolaVenditore);
+		
+		JLabel lblVenditore = new JLabel("<html><b>Venditore:</b> " + 
+			(nominativo != null ? nominativo : "N/D") + "</html>");
+		lblVenditore.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblVenditore.setForeground(new Color(80, 80, 80));
+		panel.add(lblVenditore);
+		
+		if (numRecensioni > 0) {
+			ImageIcon iconaStella = new ImageIcon(
+				StoricoOfferte.class.getResource("/icons/icons8-stella-32.png"));
+			Image imgScalata = iconaStella.getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
+			JLabel lblStella = new JLabel(new ImageIcon(imgScalata));
+			panel.add(lblStella);
+			
+			JLabel lblRating = new JLabel(String.format("%.1f", media));
+			lblRating.setFont(new Font("Verdana", Font.PLAIN, 11));
+			lblRating.setForeground(new Color(100, 100, 100));
+			panel.add(lblRating);
 		}
 		
 		return panel;
 	}
 	
 	private void modificaOfferta(Offerta_entity offerta) {
-		try {
-			StoricoOfferteDAO dao = new StoricoOfferteDAO();
-			int idAnnuncio = dao.getIdAnnuncioFromOfferta(offerta.getIdOfferta());
-			
-			if (idAnnuncio == -1) {
-				JOptionPane.showMessageDialog(this, 
-					"Annuncio non trovato", 
-					"Errore", 
-					JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			
-			String tipologia = offerta.getTipologiaOfferta();
-			
-			if (tipologia.equalsIgnoreCase("Regalo")) {
-				OffertaRegalo frame = new OffertaRegalo(controller);
-				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
-				frame.setVisible(true);
-				this.setVisible(false);
-			} else if (tipologia.equalsIgnoreCase("Scambio")) {
-				OffertaScambio frame = new OffertaScambio(controller);
-				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
-				frame.setVisible(true);
-				this.setVisible(false);
-			} else if (tipologia.equalsIgnoreCase("Vendita")) {
-				OffertaVendita frame = new OffertaVendita(controller);
-				frame.caricaOffertaPerModifica(offerta.getIdOfferta());
-				frame.setVisible(true);
-				this.setVisible(false);
-			}
-		} catch (SQLException ex) {
+		// Usa il controller
+		int idAnnuncio = controller.getIdAnnuncioDaOfferta(offerta.getIdOfferta());
+		
+		if (idAnnuncio == -1) {
 			JOptionPane.showMessageDialog(this, 
-				"Errore: " + ex.getMessage(), 
+				"Annuncio non trovato", 
 				"Errore", 
 				JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		String tipologia = offerta.getTipologiaOfferta();
+		
+		if (tipologia.equalsIgnoreCase("Regalo")) {
+			OffertaRegalo frame = new OffertaRegalo(controller);
+			frame.caricaOffertaPerModifica(offerta.getIdOfferta());
+			frame.setVisible(true);
+			this.setVisible(false);
+		} else if (tipologia.equalsIgnoreCase("Scambio")) {
+			OffertaScambio frame = new OffertaScambio(controller);
+			frame.caricaOffertaPerModifica(offerta.getIdOfferta());
+			frame.setVisible(true);
+			this.setVisible(false);
+		} else if (tipologia.equalsIgnoreCase("Vendita")) {
+			OffertaVendita frame = new OffertaVendita(controller);
+			frame.caricaOffertaPerModifica(offerta.getIdOfferta());
+			frame.setVisible(true);
+			this.setVisible(false);
 		}
 	}
 	
@@ -487,30 +445,20 @@ public class StoricoOfferte extends JFrame {
 			JOptionPane.WARNING_MESSAGE);
 		
 		if (scelta == JOptionPane.YES_OPTION) {
-			try {
-				StoricoOfferteDAO dao = new StoricoOfferteDAO();
-				boolean eliminato = dao.DeleteOfferte(offerta.getIdOfferta());
-				
-				if (eliminato) {
-					JOptionPane.showMessageDialog(this,
-						"Offerta ritirata con successo",
-						"Successo",
-						JOptionPane.INFORMATION_MESSAGE);
-					caricaOfferte();
-				}
-			} catch (SQLException e) {
-				String errorMessage = e.getMessage();
-				if (errorMessage != null && errorMessage.contains("Impossibile ritirare un'offerta accettata")) {
-					JOptionPane.showMessageDialog(this,
-						"Non puoi ritirare un'offerta già accettata",
-						"Operazione non consentita",
-						JOptionPane.WARNING_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this,
-						"Errore nell'eliminazione: " + e.getMessage(),
-						"Errore",
-						JOptionPane.ERROR_MESSAGE);
-				}
+			// Usa il controller
+			String risultato = controller.ritiraOfferta(offerta.getIdOfferta());
+			
+			if (risultato.equals("Offerta ritirata con successo")) {
+				JOptionPane.showMessageDialog(this,
+					risultato,
+					"Successo",
+					JOptionPane.INFORMATION_MESSAGE);
+				caricaOfferte(); // Ricarica la lista
+			} else {
+				JOptionPane.showMessageDialog(this,
+					risultato,
+					"Errore",
+					JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

@@ -11,13 +11,11 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -34,7 +32,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-import dao.ReportDAO;
 import mainController.MainController;
 
 public class Report extends JFrame {
@@ -414,45 +411,20 @@ public class Report extends JFrame {
     }
 
     private void caricaPrezzi() {
-        String matricola = controller.getMatricolaUtenteLoggato();
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            prezzi = reportDAO.getPrezziAnnunci(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento dei prezzi: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                "Errore nel caricamento dei prezzi: " + e.getMessage(),
-                "Errore",
-                JOptionPane.ERROR_MESSAGE);
-        }
+    	prezzi = controller.caricaPrezziAnnunci();
     }
     
+    
     private void caricaOfferte() {
-        String matricola = controller.getMatricolaUtenteLoggato();
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
+    	offerteTotali = controller.getOfferteTotali();
+    	offerteRegalo = controller.getOfferteRegalo();
+    	offerteScambio = controller.getOfferteScambio();
+    	offerteVendita = controller.getOfferteVendita();
+    	offerteRegaloAccettata = controller.getOfferteRegaloAccettate();
+    	offertaScambioAccettata = controller.getOfferteScambioAccettate();
+    	offerteVenditaAccettata = controller.getOfferteVenditaAccettate();
             
-            offerteTotali = reportDAO.VisualizzaOfferteTotali(matricola);
-            offerteRegalo = reportDAO.VisualizzaOfferteRegalo(matricola);
-            offerteScambio = reportDAO.VisualizzaOfferteScambio(matricola);
-            offerteVendita = reportDAO.VisualizzaOfferteVendita(matricola);
-            offerteRegaloAccettata = reportDAO.VisualizzaOfferteRegaloAccettata(matricola);
-            offertaScambioAccettata = reportDAO.VisualizzaOfferteScambioAccettata(matricola);
-            offerteVenditaAccettata = reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento delle offerte: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                "Errore nel caricamento delle offerte: " + e.getMessage(),
-                "Errore",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    }  
 }
 
 
