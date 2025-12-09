@@ -130,6 +130,8 @@ public class MainController {
             return new ArrayList<>();
         }
     }
+    
+    
 
     // ==================== METODI OFFERTE ====================
     
@@ -1007,14 +1009,6 @@ public class MainController {
         return 0;
     }
     
-<<<<<<< HEAD
-    
-    
-    
-    
-    
-    
-
     public ArrayList<Recensione_entity> caricaRecensioniVenditore(String matricolaVenditore) {
         try {
             if (matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
@@ -1114,28 +1108,6 @@ public class MainController {
        }
    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-=======
  // ==================== METODI OFFERTE REGALO ====================
 
     public String inviaOffertaRegalo(String messaggioMotivazionale, int idAnnuncio) {
@@ -1439,5 +1411,205 @@ public class MainController {
             return "Errore nel caricamento dell'offerta: " + e.getMessage();
         }
     }
->>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
+    
+ // ==================== METODI REPORT ====================
+
+    public String[] caricaPrezziAnnunci() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return new String[]{"Errore", "Errore", "Errore"};
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.getPrezziAnnunci(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento dei prezzi: " + e.getMessage());
+            e.printStackTrace();
+            return new String[]{
+                "Non Esiste Prezzo Minimo", 
+                "Non Esiste Prezzo Massimo", 
+                "Non Esiste Prezzo Medio"
+            };
+        }
+    }
+
+    public int getOfferteTotali() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteTotali(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte totali: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteRegalo() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteRegalo(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte regalo: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteScambio() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteScambio(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte scambio: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteVendita() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteVendita(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte vendita: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteRegaloAccettate() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteRegaloAccettata(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte regalo accettate: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteScambioAccettate() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteScambioAccettata(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte scambio accettate: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteVenditaAccettate() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte vendita accettate: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+ // ==================== METODI STORICO OFFERTE ====================
+
+    public String getTitoloAnnuncioOfferta(int idOfferta) {
+        if (idOfferta <= 0) {
+            return null;
+        }
+        
+        try {
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            return dao.getTitoloAnnuncio(idOfferta);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero titolo annuncio: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getMatricolaVenditoreOfferta(int idOfferta) {
+        if (idOfferta <= 0) {
+            return null;
+        }
+        
+        try {
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            return dao.getMatricolaVenditore(idOfferta);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero matricola venditore: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean isOffertaModificabile(int idOfferta) {
+        if (idOfferta <= 0) {
+            return false;
+        }
+        
+        try {
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            return dao.isOffertaModificabile(idOfferta);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore nella verifica modificabilità: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
