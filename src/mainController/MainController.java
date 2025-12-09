@@ -1006,4 +1006,132 @@ public class MainController {
         }
         return 0;
     }
+    
+    
+    
+    
+    
+    
+    
+
+    public ArrayList<Recensione_entity> caricaRecensioniVenditore(String matricolaVenditore) {
+        try {
+            if (matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
+                return new ArrayList<>();
+            }
+            
+            ListaRecensioniDao dao = new ListaRecensioniDao();
+            return dao.VisualizzaRecensioniRicevute(matricolaVenditore);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle recensioni del venditore: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   public ArrayList<Offerta_entity> caricaOfferteUtente() {
+       try {
+           String matricola = getMatricolaUtenteLoggato();
+           if (matricola == null) {
+               System.err.println("Nessun utente loggato");
+               return new ArrayList<>();
+           }
+           
+           StoricoOfferteDAO dao = new StoricoOfferteDAO();
+           return dao.getOfferte(matricola);
+           
+       } catch (Exception e) {
+           System.err.println("Errore durante il caricamento delle offerte: " + e.getMessage());
+           e.printStackTrace();
+           return new ArrayList<>();
+       }
+   }
+
+   public String getDettaglioOfferta(int idOfferta) {
+       if (idOfferta <= 0) {
+           return null;
+       }
+       
+       try {
+           StoricoOfferteDAO dao = new StoricoOfferteDAO();
+           return dao.getDettaglioOfferta(idOfferta);
+       } catch (SQLException e) {
+           System.err.println("Errore nel recupero dettaglio offerta: " + e.getMessage());
+           return null;
+       }
+   }
+
+   public int getIdAnnuncioDaOfferta(int idOfferta) {
+       if (idOfferta <= 0) {
+           return -1;
+       }
+       
+       try {
+           StoricoOfferteDAO dao = new StoricoOfferteDAO();
+           return dao.getIdAnnuncioFromOfferta(idOfferta);
+       } catch (SQLException e) {
+           System.err.println("Errore nel recupero ID annuncio: " + e.getMessage());
+           return -1;
+       }
+   }
+
+   public String ritiraOfferta(int idOfferta) {
+       if (idOfferta <= 0) {
+           return "ID offerta non valido";
+       }
+       
+       try {
+           StoricoOfferteDAO dao = new StoricoOfferteDAO();
+           boolean eliminato = dao.DeleteOfferte(idOfferta);
+           
+           if (eliminato) {
+               return "Offerta ritirata con successo";
+           } else {
+               return "Impossibile ritirare l'offerta";
+           }
+           
+       } catch (SQLException e) {
+           String errorMessage = e.getMessage();
+           
+           // Gestisci errori specifici
+           if (errorMessage != null && errorMessage.contains("Impossibile ritirare un'offerta accettata")) {
+               return "Non puoi ritirare un'offerta già accettata";
+           }
+           
+           return "Errore durante il ritiro dell'offerta: " + errorMessage;
+       }
+   }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
