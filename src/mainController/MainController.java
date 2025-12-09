@@ -1007,14 +1007,6 @@ public class MainController {
         return 0;
     }
     
-<<<<<<< HEAD
-    
-    
-    
-    
-    
-    
-
     public ArrayList<Recensione_entity> caricaRecensioniVenditore(String matricolaVenditore) {
         try {
             if (matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
@@ -1114,28 +1106,6 @@ public class MainController {
        }
    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-=======
  // ==================== METODI OFFERTE REGALO ====================
 
     public String inviaOffertaRegalo(String messaggioMotivazionale, int idAnnuncio) {
@@ -1439,5 +1409,4 @@ public class MainController {
             return "Errore nel caricamento dell'offerta: " + e.getMessage();
         }
     }
->>>>>>> branch 'master' of https://github.com/CarloTantan/Progetto-UninaSwap.git
 }
