@@ -31,7 +31,6 @@ public class MainController {
     protected String modalitaConsegnaAnnuncio;
     protected FasciaOraria fasciaOrariaAnnuncio;
     protected ArrayList<String> percorsiImmaginiAnnuncio;
-    private ArrayList<Transazione_entity> listaTransazioniCaricate;
 
     protected Oggetto_entity UltimoOggettoCreato;
 
