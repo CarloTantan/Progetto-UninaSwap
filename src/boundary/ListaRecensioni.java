@@ -40,26 +40,7 @@ public class ListaRecensioni extends JFrame {
     private JPanel panelRecensioni;
     private JLabel lblContatore;
     private MainController controller;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ListaRecensioni frame = new ListaRecensioni();
-//					frame.setVisible(true);
-//					frame.setLocationRelativeTo(null);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	/**
-	 * Create the frame.
-	 */
 	public ListaRecensioni(MainController controller) {
         this.controller = controller;
         
@@ -177,7 +158,7 @@ public class ListaRecensioni extends JFrame {
 
         btnRecensioniInviate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GetRecensioniInviate();
+                caricaRecensioniInviate();
             }
         });
 
@@ -204,7 +185,7 @@ public class ListaRecensioni extends JFrame {
 
         btnRecensioniRicevute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GetRecensioniRicevute();
+                caricaRecensioniRicevute();
             }
         });
 
@@ -222,11 +203,9 @@ public class ListaRecensioni extends JFrame {
         mainContainer.add(scrollPane, BorderLayout.CENTER);
     }
 
-	// ==================== MODIFICHE AL BOUNDARY ListaRecensioni ====================
+	// ============ METODI PRIVATI - SOLO GESTIONE UI E CHIAMATE AL CONTROLLER ============
 
-	// Sostituisci i metodi GetRecensioniInviate() e GetRecensioniRicevute() con questi:
-
-	private void GetRecensioniInviate() {
+	private void caricaRecensioniInviate() {
 	    // Pulisci il pannello
 	    panelRecensioni.removeAll();
 	    
@@ -254,14 +233,14 @@ public class ListaRecensioni extends JFrame {
 	    panelRecensioni.repaint();
 	}
 
-	private void GetRecensioniRicevute() {
+	private void caricaRecensioniRicevute() {
 	    // Pulisci il pannello
 	    panelRecensioni.removeAll();
 	    
 	    // Carica le recensioni tramite il controller
 	    ArrayList<Recensione_entity> recensioni = controller.caricaRecensioniRicevute();
 	    
-	    // Calcola valutazione media per l'utente loggato
+	    // Calcola valutazione media tramite controller
 	    String matricola = controller.getMatricolaUtenteLoggato();
 	    double valutazioneMedia = controller.getValutazioneMediaVenditore(matricola);
 	    
@@ -286,8 +265,6 @@ public class ListaRecensioni extends JFrame {
 	    panelRecensioni.revalidate();
 	    panelRecensioni.repaint();
 	}
-
-	// Modifica il metodo creaCardRecensione per rimuovere il parametro RecensioneVenditoreDAO:
 
 	private JPanel creaCardRecensione(Recensione_entity rec, boolean isInviata) {
 	    JPanel card = new JPanel();
@@ -319,7 +296,7 @@ public class ListaRecensioni extends JFrame {
 	    centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
 	    centralPanel.setBackground(Color.WHITE);
 
-	    // Titolo annuncio tramite controller
+	    // Titolo annuncio tramite controller 
 	    String titoloAnnuncio = controller.getTitoloAnnuncioDaOfferta(rec.getIdOfferta());
 	    if (titoloAnnuncio != null) {
 	        JLabel lblTitoloAnnuncio = new JLabel("Annuncio: " + titoloAnnuncio);
@@ -345,6 +322,8 @@ public class ListaRecensioni extends JFrame {
 	    footerPanel.setBackground(Color.WHITE);
 
 	    String matricolaAltraPersona = isInviata ? rec.getMatricolaVenditore() : rec.getMatricolaAcquirente();
+	    
+	    // Nome utente tramite controller
 	    String nomeAltraPersona = controller.getNominativoUtente(matricolaAltraPersona);
 	    String label = isInviata ? "Recensione a: " : "Recensione da: ";
 	    
@@ -395,6 +374,3 @@ public class ListaRecensioni extends JFrame {
         return panel;
     }
 }
-
-
-

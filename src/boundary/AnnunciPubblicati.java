@@ -8,13 +8,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import dao.Annunci_OfferteDAO;
-import dao.RecensioneVenditoreDAO;
-import entity.Annuncio_entity;
-import entity.OffertaRegalo_entity;
-import entity.OffertaScambio_entity;
-import entity.OffertaVendita_entity;
-import entity.Offerta_entity;
 import mainController.MainController;
 
 import java.awt.BorderLayout;
@@ -43,12 +36,9 @@ public class AnnunciPubblicati extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private MainController controller;
-    private ArrayList<Annuncio_entity> listaAnnunci;
-    private ArrayList<Offerta_entity> listaOfferte;
     private JPanel panelAnnunci;
     private JPanel panelOfferte;
     private JLabel lblTitolo;
-    private Annuncio_entity annuncioCorrente;
 	    
 	/**
 	 * Launch the application.
@@ -71,7 +61,6 @@ public class AnnunciPubblicati extends JFrame {
 	 * Create the frame.
 	 */
 	public AnnunciPubblicati(MainController controller) {
-        this.listaAnnunci = new ArrayList<>();
         this.controller = controller;
         
         setIconImage(Toolkit.getDefaultToolkit().getImage(

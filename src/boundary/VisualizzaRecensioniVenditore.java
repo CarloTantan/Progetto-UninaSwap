@@ -26,9 +26,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import dao.ListaRecensioniDao;
-import dao.RecensioneVenditoreDAO;
-import entity.Recensione_entity;
 
 public class VisualizzaRecensioniVenditore extends JFrame {
 
