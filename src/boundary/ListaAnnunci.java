@@ -15,7 +15,6 @@ public class ListaAnnunci extends JFrame {
 
 	private static final long serialVersionUID = 1L;
     private JPanel panelCards;
-    private Utente_entity UtenteLoggato;
     private JComboBox<String> comboBoxTipologia;
     private JComboBox<String> comboBoxCategoria;
     private MainController controller;
@@ -24,7 +23,6 @@ public class ListaAnnunci extends JFrame {
     public ListaAnnunci(MainController controller) {
 
         this.controller = controller;
-        this.UtenteLoggato = controller.getUser();
 
         setTitle("Lista Annunci");
         setIconImage(Toolkit.getDefaultToolkit().getImage(ListaAnnunci.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
