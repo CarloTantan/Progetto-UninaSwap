@@ -1564,6 +1564,43 @@ public class MainController {
     
  // ==================== METODI STORICO OFFERTE ====================
 
+    public int getNumeroOfferteUtente() {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        return offerte != null ? offerte.size() : 0;
+    }
+
+    public String getStatoOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getStatoOfferta();
+        }
+        return "";
+    }
+
+    public String getTipologiaOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getTipologiaOfferta();
+        }
+        return "";
+    }
+
+    public int getIdOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getIdOfferta();
+        }
+        return -1;
+    }
+
+    public int getIdAnnuncioOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getIdAnnuncio();
+        }
+        return -1;
+    }
+
     public String getTitoloAnnuncioOfferta(int idOfferta) {
         if (idOfferta <= 0) {
             return null;
