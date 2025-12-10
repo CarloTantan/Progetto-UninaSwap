@@ -497,12 +497,15 @@ public class ListaAnnunci extends JFrame {
         // Apri la finestra giusta in base alla tipologia
         if (tipologia.equals("Scambio")) {
             OffertaScambio offertaScambioFrame = new OffertaScambio(controller);
+            offertaScambioFrame.setIdAnnuncio(idAnnuncio);
             offertaScambioFrame.setVisible(true);
         } else if (tipologia.equals("Vendita")) {
             OffertaVendita offertaVenditaFrame = new OffertaVendita(controller);
+            offertaVenditaFrame.setIdAnnuncio(idAnnuncio);
             offertaVenditaFrame.setVisible(true);
         } else if (tipologia.equals("Regalo")) {
             OffertaRegalo offertaRegaloFrame = new OffertaRegalo(controller);
+            offertaRegaloFrame.setIdAnnuncio(idAnnuncio);
             offertaRegaloFrame.setVisible(true);
         }
     }

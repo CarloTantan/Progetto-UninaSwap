@@ -60,6 +60,8 @@ public class Registrazione extends JFrame {
 	 * Create the frame.
 	 */
 	public Registrazione(MainController controller) {
+		this.controller = controller;
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Registrazione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Registrazione");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

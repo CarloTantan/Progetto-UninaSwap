@@ -37,25 +37,6 @@ public class Oggetto extends JFrame {
 	private JComboBox<String> comboBoxCategoria;
 	private MainController controller;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Oggetto frame = new Oggetto();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Oggetto(MainController controller) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Oggetto.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Inserimento Oggetto");
@@ -82,7 +63,7 @@ public class Oggetto extends JFrame {
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				dispose();
 				AreaUtente AreaUtenteFrame = new AreaUtente(controller);
 				AreaUtenteFrame.setVisible(true);
 			}
@@ -213,30 +194,33 @@ public class Oggetto extends JFrame {
 		});
 	}
 	
-	public void inserisciOggetto() {
-	    // Recupera i valori dai campi
+	private void inserisciOggetto() {
+	    // Recupera i valori dai campi (responsabilità del Boundary)
 	    String nome = textFieldNomeOggetto.getText().trim();
 	    String descrizione = textAreaDescrizioneOggetto.getText().trim();
 	    String categoriaSelezionata = (String) comboBoxCategoria.getSelectedItem();
 	    
-	    // Chiama il controller per inserire l'oggetto
+	    // Chiama il controller per inserire l'oggetto (Control gestisce la logica)
 	    String risultato = controller.InserisciOggetto(nome, descrizione, categoriaSelezionata);
 	    
-	    // Gestisci il risultato
+	    // Gestisci il risultato (responsabilità del Boundary - mostrare feedback)
 	    if (risultato.equals("Oggetto inserito con successo")) {
-	        JOptionPane.showMessageDialog(null, 
+	        JOptionPane.showMessageDialog(this, 
 	            "Oggetto inserito con successo!", 
 	            "Successo", 
 	            JOptionPane.INFORMATION_MESSAGE);
 	        
-	        // Passa alla schermata successiva senza passare entità
-	        setVisible(false);
+	        // Imposta l'oggetto per l'annuncio
+	        controller.impostaOggettoPerAnnuncio(controller.getUltimoOggettoCreato());
+	       
+	        // Passa alla schermata successiva
+	        dispose();
 	        Annuncio AnnuncioFrame = new Annuncio(controller);
 	        AnnuncioFrame.setVisible(true);
 	        
 	    } else {
 	        // Mostra l'errore restituito dal controller
-	        JOptionPane.showMessageDialog(null, 
+	        JOptionPane.showMessageDialog(this, 
 	            risultato, 
 	            "Errore", 
 	            JOptionPane.ERROR_MESSAGE);

@@ -32,6 +32,7 @@ public class MainController {
     protected String modalitaConsegnaAnnuncio;
     protected FasciaOraria fasciaOrariaAnnuncio;
     protected ArrayList<String> percorsiImmaginiAnnuncio;
+    
 
     protected Oggetto_entity UltimoOggettoCreato;
 
@@ -90,9 +91,6 @@ public class MainController {
             return "Formato email non valido";
         }
         
-        if (!matricola.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
         
         if (!telefono.matches("[0-9]{10}")) {
             return "Il numero di telefono deve contenere 10 cifre";
@@ -162,9 +160,6 @@ public class MainController {
             return "La matricola dell'acquirente è obbligatoria";
         }
         
-        if (!matricolaAcquirente.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
         
         if (idAnnuncio <= 0) {
             return "ID annuncio non valido";
@@ -198,9 +193,6 @@ public class MainController {
             return "La matricola dell'acquirente è obbligatoria";
         }
         
-        if (!matricolaAcquirente.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
         
         if (idAnnuncio <= 0 || idOfferta <= 0) {
             return "ID annuncio o offerta non validi";
@@ -251,9 +243,6 @@ public class MainController {
             return "La matricola dell'acquirente è obbligatoria";
         }
         
-        if (!matricolaAcquirente.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
         
         if (idAnnuncio <= 0) {
             return "ID annuncio non valido";
@@ -287,9 +276,6 @@ public class MainController {
             return "La matricola dell'acquirente è obbligatoria";
         }
         
-        if (!matricolaAcquirente.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
         
         if (idAnnuncio <= 0 || idOfferta <= 0) {
             return "ID annuncio o offerta non validi";
@@ -340,9 +326,6 @@ public class MainController {
             return "La matricola dell'acquirente è obbligatoria";
         }
         
-        if (!matricolaAcquirente.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
         
         if (idAnnuncio <= 0) {
             return "ID annuncio non valido";
@@ -376,9 +359,6 @@ public class MainController {
             return "La matricola dell'acquirente è obbligatoria";
         }
         
-        if (!matricolaAcquirente.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
         
         if (idAnnuncio <= 0 || idOfferta <= 0) {
             return "ID annuncio o offerta non validi";
@@ -495,9 +475,6 @@ public class MainController {
             return "Tutti i campi sono obbligatori";
         }
 
-        if (!matricolaVenditore.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
 
         if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
             return "Devi inserire almeno una foto";
@@ -545,9 +522,6 @@ public class MainController {
             return "Tutti i campi sono obbligatori e il prezzo deve essere maggiore di zero";
         }
 
-        if (!matricolaVenditore.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
 
         if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
             return "Devi inserire almeno una foto";
@@ -595,9 +569,6 @@ public class MainController {
             return "Tutti i campi sono obbligatori e il prezzo deve essere maggiore di zero";
         }
 
-        if (!matricolaVenditore.matches("[0-9]{10}")) {
-            return "La matricola deve contenere 10 cifre numeriche";
-        }
 
         if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
             return "Devi inserire almeno una foto";
@@ -728,6 +699,10 @@ public class MainController {
         } catch (SQLException ex) {
             return "Errore durante l'inserimento dell'oggetto: " + ex.getMessage();
         }
+    }
+    
+    public void impostaOggettoPerAnnuncio(Oggetto_entity oggetto) {
+        this.OggettoAnnuncio = oggetto;
     }
 
     public Oggetto_entity getUltimoOggettoCreato() {
@@ -1879,20 +1854,21 @@ public class MainController {
     public String getFasciaOrariaAnnuncioPubblicato(int index) {
         try {
             String matricola = getMatricolaUtenteLoggato();
-            if (matricola == null || idsAnnunciCaricati == null || 
+            if (matricola == null || idsAnnunciCaricati == null ||  
                 index < 0 || index >= idsAnnunciCaricati.size()) {
                 return "";
             }
-            
+
             Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
             ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
-            
+
             if (index < annunci.size()) {
-                return annunci.get(index).getFasciaOraria();
+                FasciaOraria fasciaOraria = annunci.get(index).getFasciaOraria();
+                return fasciaOraria != null ? fasciaOraria.toString() : "";
             }
-            
+
             return "";
-            
+
         } catch (SQLException e) {
             System.err.println("Errore: " + e.getMessage());
             return "";
@@ -2192,5 +2168,44 @@ public class MainController {
             return "Errore durante il rifiuto: " + e.getMessage();
         }
     }
+    
+    
+ // ==================== METODI GESTIONE IMMAGINI ANNUNCIO ====================
+
+    public void inizializzaListaImmaginiAnnuncio() {
+        if (percorsiImmaginiAnnuncio == null) {
+            percorsiImmaginiAnnuncio = new ArrayList<>();
+        }
+    }
+
+    public void aggiungiImmagineAnnuncio(String percorso) {
+        if (percorsiImmaginiAnnuncio == null) {
+            percorsiImmaginiAnnuncio = new ArrayList<>();
+        }
+        percorsiImmaginiAnnuncio.add(percorso);
+    }
+
+    public void rimuoviImmagineAnnuncio(int index) {
+        if (percorsiImmaginiAnnuncio != null && index >= 0 && index < percorsiImmaginiAnnuncio.size()) {
+            percorsiImmaginiAnnuncio.remove(index);
+        }
+    }
+
+    public ArrayList<String> getPercorsiImmaginiAnnuncio() {
+        return percorsiImmaginiAnnuncio != null ? percorsiImmaginiAnnuncio : new ArrayList<>();
+    }
+
+    public int getNumeroImmaginiAnnuncio() {
+        return percorsiImmaginiAnnuncio != null ? percorsiImmaginiAnnuncio.size() : 0;
+    }
+
+    public String getNomeImmagineAnnuncio(int index) {
+        if (percorsiImmaginiAnnuncio != null && index >= 0 && index < percorsiImmaginiAnnuncio.size()) {
+            String percorso = percorsiImmaginiAnnuncio.get(index);
+            return new java.io.File(percorso).getName();
+        }
+        return "";
+    }
+
 
 }
