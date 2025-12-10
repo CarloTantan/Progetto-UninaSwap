@@ -1752,5 +1752,445 @@ public class MainController {
         if (matricolaVenditoreCorrente == null) return 0.0;
         return getValutazioneMediaVenditore(matricolaVenditoreCorrente);
     }
+    
+ //////////////////////Metodi di AnnunciPubblicati 
+ 
+ // ==================== METODI ANNUNCI PUBBLICATI ====================
+
+    private ArrayList<Integer> idsAnnunciCaricati;
+
+    public int getNumeroAnnunciPubblicati() {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null) {
+                return 0;
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            // Salva gli ID per accesso successivo
+            idsAnnunciCaricati = new ArrayList<>();
+            for (Annuncio_entity ann : annunci) {
+                idsAnnunciCaricati.add(ann.getIdAnnuncio());
+            }
+            
+            return annunci.size();
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento degli annunci: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public String getTitoloAnnuncioPubblicato(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getTitolo();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getDescrizioneAnnuncioPubblicato(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getDescrizione();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getCategoriaAnnuncioPubblicato(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getTipologiaCategoria().toString();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getModalitaConsegnaAnnuncioPubblicato(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getModalitàConsegna();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getFasciaOrariaAnnuncioPubblicato(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getFasciaOraria();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getDataPubblicazioneAnnuncio(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getDataPubblicazione().toString();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getStatoAnnuncioPubblicato(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getStatoAnnuncio().toString();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public boolean hasNuoveOfferteAnnuncio(int index) {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null || idsAnnunciCaricati == null || 
+                index < 0 || index >= idsAnnunciCaricati.size()) {
+                return false;
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
+            
+            if (index < annunci.size()) {
+                return annunci.get(index).getVisualizzaOfferte();
+            }
+            
+            return false;
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public int getIdAnnuncioPubblicato(int index) {
+        if (idsAnnunciCaricati != null && index >= 0 && index < idsAnnunciCaricati.size()) {
+            return idsAnnunciCaricati.get(index);
+        }
+        return -1;
+    }
+
+    // ==================== METODI OFFERTE RICEVUTE ====================
+
+    private ArrayList<Integer> idsOfferteCaricate;
+
+    public int getNumeroOfferteRicevute(int idAnnuncio) {
+        try {
+            if (idAnnuncio <= 0) {
+                return 0;
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
+            
+            // Salva gli ID per accesso successivo
+            idsOfferteCaricate = new ArrayList<>();
+            for (Offerta_entity off : offerte) {
+                idsOfferteCaricate.add(off.getIdOfferta());
+            }
+            
+            return offerte.size();
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle offerte: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public String getTipologiaOffertaRicevuta(int idAnnuncio, int index) {
+        try {
+            if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
+                index < 0 || index >= idsOfferteCaricate.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
+            
+            if (index < offerte.size()) {
+                return offerte.get(index).getTipologiaOfferta();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getMatricolaAcquirenteOfferta(int idAnnuncio, int index) {
+        try {
+            if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
+                index < 0 || index >= idsOfferteCaricate.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
+            
+            if (index < offerte.size()) {
+                return offerte.get(index).getMatricolaAcquirente();
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public int getIdOffertaRicevuta(int idAnnuncio, int index) {
+        try {
+            if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
+                index < 0 || index >= idsOfferteCaricate.size()) {
+                return -1;
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
+            
+            if (index < offerte.size()) {
+                return offerte.get(index).getIdOfferta();
+            }
+            
+            return -1;
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    public String getDettaglioOffertaVendita(int idAnnuncio, int index) {
+        try {
+            if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
+                index < 0 || index >= idsOfferteCaricate.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
+            
+            if (index < offerte.size()) {
+                Offerta_entity offerta = offerte.get(index);
+                if (offerta instanceof OffertaVendita_entity) {
+                    OffertaVendita_entity offertaVendita = (OffertaVendita_entity) offerta;
+                    return String.format("%.2f", offertaVendita.getImportoProposto());
+                }
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getDettaglioOffertaScambio(int idAnnuncio, int index) {
+        try {
+            if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
+                index < 0 || index >= idsOfferteCaricate.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
+            
+            if (index < offerte.size()) {
+                Offerta_entity offerta = offerte.get(index);
+                if (offerta instanceof OffertaScambio_entity) {
+                    OffertaScambio_entity offertaScambio = (OffertaScambio_entity) offerta;
+                    return offertaScambio.getOggettoProposto() != null ? 
+                           offertaScambio.getOggettoProposto() : "";
+                }
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String getDettaglioOffertaRegalo(int idAnnuncio, int index) {
+        try {
+            if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
+                index < 0 || index >= idsOfferteCaricate.size()) {
+                return "";
+            }
+            
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
+            
+            if (index < offerte.size()) {
+                Offerta_entity offerta = offerte.get(index);
+                if (offerta instanceof OffertaRegalo_entity) {
+                    OffertaRegalo_entity offertaRegalo = (OffertaRegalo_entity) offerta;
+                    return offertaRegalo.getMessaggioMotivazionale() != null ? 
+                           offertaRegalo.getMessaggioMotivazionale() : "";
+                }
+            }
+            
+            return "";
+            
+        } catch (SQLException e) {
+            System.err.println("Errore: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public String accettaOffertaRicevuta(int idOfferta) {
+        if (idOfferta <= 0) {
+            return "ID offerta non valido";
+        }
+        
+        try {
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            boolean successo = dao.accettaOfferta(idOfferta);
+            
+            if (successo) {
+                return "SUCCESS:Offerta accettata con successo";
+            } else {
+                return "Errore: offerta non trovata o già gestita";
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante l'accettazione dell'offerta: " + e.getMessage());
+            e.printStackTrace();
+            return "Errore durante l'accettazione: " + e.getMessage();
+        }
+    }
+
+    public String rifiutaOffertaRicevuta(int idOfferta) {
+        if (idOfferta <= 0) {
+            return "ID offerta non valido";
+        }
+        
+        try {
+            Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
+            boolean successo = dao.rifiutaOfferta(idOfferta);
+            
+            if (successo) {
+                return "SUCCESS:Offerta rifiutata con successo";
+            } else {
+                return "Errore: offerta non trovata o già gestita";
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il rifiuto dell'offerta: " + e.getMessage());
+            e.printStackTrace();
+            return "Errore durante il rifiuto: " + e.getMessage();
+        }
+    }
 
 }
