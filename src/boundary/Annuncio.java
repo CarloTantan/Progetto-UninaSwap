@@ -23,7 +23,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,8 +40,6 @@ public class Annuncio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MainController controller;
-	private ArrayList<String> PercorsiImmagini;
-	private DefaultListModel<String> listModelFoto;
 	private JList<String> listFoto;
 	private JTextField textfieldTitolo;
 	private JTextArea textAreaDescrizione;
@@ -54,6 +51,9 @@ public class Annuncio extends JFrame {
 	 */
 	public Annuncio(MainController controller) {
 		this.controller = controller;
+		
+        // Inizializza la lista immagini nel controller
+        controller.inizializzaListaImmaginiAnnuncio();
 		
 		// Verifica che ci sia un oggetto selezionato
 		if (controller.getOggettoAnnuncio() == null) {
@@ -151,15 +151,15 @@ public class Annuncio extends JFrame {
 		});
 		mainPanel.add(ButtonImgOggetto, gbc);
 		
-		// Lista foto
-		listFoto = new JList<>(listModelFoto);
-		listFoto.setFont(new Font("Verdana", Font.PLAIN, 12));
-		JScrollPane scrollPaneFoto = new JScrollPane(listFoto);
-		scrollPaneFoto.setPreferredSize(new Dimension(300, 80));
-		
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		mainPanel.add(scrollPaneFoto, gbc);
+        // Lista foto 
+        listFoto = new JList<>();
+        listFoto.setFont(new Font("Verdana", Font.PLAIN, 12));
+        JScrollPane scrollPaneFoto = new JScrollPane(listFoto);
+        scrollPaneFoto.setPreferredSize(new Dimension(300, 80));
+        
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        mainPanel.add(scrollPaneFoto, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 2;
@@ -170,14 +170,14 @@ public class Annuncio extends JFrame {
 		ButtonRimuoviFoto.setFocusPainted(false);
 		ButtonRimuoviFoto.setBorderPainted(false);
 		ButtonRimuoviFoto.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int selectedIndex = listFoto.getSelectedIndex();
-				if (selectedIndex != -1) {
-					PercorsiImmagini.remove(selectedIndex);
-					listModelFoto.remove(selectedIndex);
-				}
-			}
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        int selectedIndex = listFoto.getSelectedIndex();
+		        if (selectedIndex != -1) {
+		            controller.rimuoviImmagineAnnuncio(selectedIndex);
+		            aggiornaListaFoto();
+		        }
+		    }
 		});
 		mainPanel.add(ButtonRimuoviFoto, gbc);
 		
@@ -335,54 +335,66 @@ public class Annuncio extends JFrame {
 	}
 	
 	private void caricaImmagini() {
-		JFileChooser scegliImg = new JFileChooser();
+        JFileChooser scegliImg = new JFileChooser();
         scegliImg.setDialogTitle("Seleziona immagini");
         scegliImg.setFileFilter(new FileNameExtensionFilter("Tutte le immagini", "png", "jpg", "jpeg"));
         scegliImg.setMultiSelectionEnabled(true);
 
         if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-        	java.io.File[] files = scegliImg.getSelectedFiles();
-        	for (java.io.File file : files) {
-        		String percorso = file.getAbsolutePath();
-        		PercorsiImmagini.add(percorso);
-        		listModelFoto.addElement(file.getName());
-        	}
+            java.io.File[] files = scegliImg.getSelectedFiles();
+            for (java.io.File file : files) {
+                String percorso = file.getAbsolutePath();
+                // Aggiungi tramite controller
+                controller.aggiungiImmagineAnnuncio(percorso);
+            }
+            // Aggiorna la visualizzazione
+            aggiornaListaFoto();
         }
-	}
-	
-	private boolean validaEImpostaDati() {
-		// Valida i campi
-		if (textfieldTitolo.getText().trim().isEmpty() || 
-			textAreaDescrizione.getText().trim().isEmpty() || 
-			textAreaModConsegna.getText().trim().isEmpty() || 
-			PercorsiImmagini.isEmpty()) {
-			JOptionPane.showMessageDialog(this, 
-				"Tutti i campi sono obbligatori e devi caricare almeno una foto", 
-				"Campi mancanti", 
-				JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-		
-		String fasciaSelezionata = (String) comboBoxFasciaOraria.getSelectedItem();
-		if (fasciaSelezionata == null || fasciaSelezionata.equals("Seleziona una fascia oraria")) {
-			JOptionPane.showMessageDialog(this, 
-				"Seleziona una fascia oraria valida", 
-				"Fascia oraria non valida", 
-				JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-		
-		// Se la validazione passa, imposta i dati nel controller
-		FasciaOraria fasciaOraria = FasciaOraria.fromLabel(fasciaSelezionata);
-		controller.impostaInformazioniAnnuncio(
-			controller.getOggettoAnnuncio(),
-			textfieldTitolo.getText().trim(),
-			textAreaDescrizione.getText().trim(),
-			textAreaModConsegna.getText().trim(),
-			fasciaOraria,
-			PercorsiImmagini
-		);
-		
-		return true;
-	}
+    }
+    
+    private void aggiornaListaFoto() {
+        // Crea un nuovo modello dalla lista del controller
+        DefaultListModel<String> model = new DefaultListModel<>();
+        int numImmagini = controller.getNumeroImmaginiAnnuncio();
+        for (int i = 0; i < numImmagini; i++) {
+            model.addElement(controller.getNomeImmagineAnnuncio(i));
+        }
+        listFoto.setModel(model);
+    }
+    
+    private boolean validaEImpostaDati() {
+        // Valida i campi
+        if (textfieldTitolo.getText().trim().isEmpty() || 
+            textAreaDescrizione.getText().trim().isEmpty() || 
+            textAreaModConsegna.getText().trim().isEmpty() || 
+            controller.getNumeroImmaginiAnnuncio() == 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Tutti i campi sono obbligatori e devi caricare almeno una foto", 
+                "Campi mancanti", 
+                JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        String fasciaSelezionata = (String) comboBoxFasciaOraria.getSelectedItem();
+        if (fasciaSelezionata == null || fasciaSelezionata.equals("Seleziona una fascia oraria")) {
+            JOptionPane.showMessageDialog(this, 
+                "Seleziona una fascia oraria valida", 
+                "Fascia oraria non valida", 
+                JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        // Se la validazione passa, imposta i dati nel controller
+        FasciaOraria fasciaOraria = FasciaOraria.fromLabel(fasciaSelezionata);
+        controller.impostaInformazioniAnnuncio(
+            controller.getOggettoAnnuncio(),
+            textfieldTitolo.getText().trim(),
+            textAreaDescrizione.getText().trim(),
+            textAreaModConsegna.getText().trim(),
+            fasciaOraria,
+            controller.getPercorsiImmaginiAnnuncio()
+        );
+        
+        return true;
+    }
 }

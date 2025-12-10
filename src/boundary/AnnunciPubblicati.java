@@ -8,8 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import mainController.MainController;
-import entity.*;
-import dao.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,8 +24,6 @@ import javax.swing.JButton;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
@@ -126,13 +122,9 @@ public class AnnunciPubblicati extends JFrame {
         panelCentrale.add(scrollPaneAnnunci, "ANNUNCI");
         panelCentrale.add(scrollPaneOfferte, "OFFERTE");
         
-        caricaAnnunci();
+        mostraAnnunci();
     }
     
-	private void caricaAnnunci() {
-	    int numeroAnnunci = controller.getNumeroAnnunciPubblicati();
-	    mostraAnnunci();
-	}
 
 	private void mostraAnnunci() {
 	    panelAnnunci.removeAll();
@@ -304,10 +296,9 @@ public class AnnunciPubblicati extends JFrame {
 	}
     
 	private void caricaOfferte(int idAnnuncio) {
-	    int numeroOfferte = controller.getNumeroOfferteRicevute(idAnnuncio);
 	    mostraOfferte();
-	    
-	    if (numeroOfferte == 0) {
+
+	    if (controller.getNumeroOfferteRicevute(annuncioCorrenteId) == 0) {
 	        JOptionPane.showMessageDialog(this,
 	            "Nessuna offerta trovata",
 	            "Informazione",
@@ -369,18 +360,42 @@ public class AnnunciPubblicati extends JFrame {
 	    }
 	    
 	    if (indexAnnuncio >= 0) {
-	        JLabel lblTitolo = new JLabel(controller.getTitoloAnnuncioPubblicato(indexAnnuncio));
-	        lblTitolo.setFont(new Font("Verdana", Font.BOLD, 16));
+	        JLabel lblTitolo = new JLabel("Annuncio: " + controller.getTitoloAnnuncioPubblicato(indexAnnuncio));
+	        lblTitolo.setFont(new Font("Verdana", Font.BOLD, 14));
 	        lblTitolo.setAlignmentX(Component.LEFT_ALIGNMENT);
 	        panel.add(lblTitolo);
-	        panel.add(Box.createVerticalStrut(8));
+	        panel.add(Box.createVerticalStrut(5));
 	        
-	        JLabel lblInfo = new JLabel("Visualizzazione offerte ricevute per questo annuncio");
-	        lblInfo.setFont(new Font("Verdana", Font.PLAIN, 12));
-	        lblInfo.setForeground(new Color(80, 80, 80));
-	        lblInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
-	        panel.add(lblInfo);
+	        JLabel lblDescrizione = new JLabel("<html>" + controller.getDescrizioneAnnuncioPubblicato(indexAnnuncio) + "</html>");
+	        lblDescrizione.setFont(new Font("Verdana", Font.PLAIN, 12));
+	        lblDescrizione.setForeground(new Color(80, 80, 80));
+	        lblDescrizione.setAlignmentX(Component.LEFT_ALIGNMENT);
+	        panel.add(lblDescrizione);
 	    }
+	    
+	    // Aggiungi il bottone "Torna agli Annunci"
+	    panel.add(Box.createVerticalStrut(10));
+	    
+	    JButton btnTornaAnnunci = new JButton("Torna agli Annunci");
+	    btnTornaAnnunci.setFont(new Font("Verdana", Font.BOLD, 11));
+	    btnTornaAnnunci.setBackground(new Color(108, 117, 125));
+	    btnTornaAnnunci.setForeground(Color.WHITE);
+	    btnTornaAnnunci.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    btnTornaAnnunci.setMaximumSize(new Dimension(180, 30));
+	    btnTornaAnnunci.setFocusPainted(false);
+	    btnTornaAnnunci.setBorderPainted(false);
+	    btnTornaAnnunci.addActionListener(e -> mostraAnnunci());
+	    
+	    btnTornaAnnunci.addMouseListener(new java.awt.event.MouseAdapter() {
+	        public void mouseEntered(java.awt.event.MouseEvent evt) {
+	            btnTornaAnnunci.setBackground(new Color(90, 98, 104));
+	        }
+	        public void mouseExited(java.awt.event.MouseEvent evt) {
+	            btnTornaAnnunci.setBackground(new Color(108, 117, 125));
+	        }
+	    });
+	    
+	    panel.add(btnTornaAnnunci);
 	    
 	    return panel;
 	}
@@ -564,7 +579,6 @@ public class AnnunciPubblicati extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
             
             mostraAnnunci();
-            caricaAnnunci();
         } else {
             JOptionPane.showMessageDialog(this,
                 risultato,
@@ -601,7 +615,6 @@ public class AnnunciPubblicati extends JFrame {
                     "Informazione",
                     JOptionPane.INFORMATION_MESSAGE);
                 mostraAnnunci();
-                caricaAnnunci();
             }
             
         } else {
