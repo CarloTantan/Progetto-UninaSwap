@@ -35,8 +35,8 @@ public class StoricoOfferte extends JFrame {
 	private JPanel panelOfferte;
 	private JComboBox<String> comboBoxStato;
 	private JComboBox<String> comboBoxTipologia;
-	private ArrayList<Offerta_entity> offerteCaricate;
 	private MainController controller;
+	private ArrayList<Integer> indiciOfferteFiltrate;
 
 	public StoricoOfferte(MainController controller) {
 		this.controller = controller;
@@ -163,37 +163,45 @@ public class StoricoOfferte extends JFrame {
 	// ============ METODI PRIVATI - SOLO GESTIONE UI E CHIAMATE AL CONTROLLER ============
 	
 	private void caricaOfferte() {
-		// Chiama SOLO il controller 
-		offerteCaricate = controller.caricaOfferteUtente();
-		mostraOfferte(offerteCaricate);
+		// Carica tutte le offerte (mostra tutte senza filtri)
+		int numOfferte = controller.getNumeroOfferteUtente();
+		
+		indiciOfferteFiltrate = new ArrayList<>();
+		for (int i = 0; i < numOfferte; i++) {
+			indiciOfferteFiltrate.add(i);
+		}
+		
+		mostraOfferte();
 	}
 	
 	private void applicaFiltri() {
-		if (offerteCaricate == null) return;
-		
 		String statoSelezionato = (String) comboBoxStato.getSelectedItem();
 		String tipologiaSelezionata = (String) comboBoxTipologia.getSelectedItem();
 		
-		ArrayList<Offerta_entity> offerteFiltrate = new ArrayList<>();
+		int numOfferte = controller.getNumeroOfferteUtente();
+		indiciOfferteFiltrate = new ArrayList<>();
 		
-		for (Offerta_entity offerta : offerteCaricate) {
+		for (int i = 0; i < numOfferte; i++) {
+			String stato = controller.getStatoOffertaByIndex(i);
+			String tipologia = controller.getTipologiaOffertaByIndex(i);
+			
 			boolean matchStato = statoSelezionato.equals("Tutte") || 
-								 offerta.getStatoOfferta().equalsIgnoreCase(statoSelezionato);
+								 stato.equalsIgnoreCase(statoSelezionato);
 			boolean matchTipologia = tipologiaSelezionata.equals("Tutte") || 
-									 offerta.getTipologiaOfferta().equalsIgnoreCase(tipologiaSelezionata);
+									 tipologia.equalsIgnoreCase(tipologiaSelezionata);
 			
 			if (matchStato && matchTipologia) {
-				offerteFiltrate.add(offerta);
+				indiciOfferteFiltrate.add(i);
 			}
 		}
 		
-		mostraOfferte(offerteFiltrate);
+		mostraOfferte();
 	}
 	
-	private void mostraOfferte(ArrayList<Offerta_entity> offerte) {
+	private void mostraOfferte() {
 		panelOfferte.removeAll();
 		
-		if (offerte.isEmpty()) {
+		if (indiciOfferteFiltrate.isEmpty()) {
 			JLabel lblNoOfferte = new JLabel("Nessuna offerta trovata");
 			lblNoOfferte.setFont(new Font("Verdana", Font.ITALIC, 16));
 			lblNoOfferte.setForeground(Color.GRAY);
@@ -201,8 +209,8 @@ public class StoricoOfferte extends JFrame {
 			panelOfferte.add(Box.createVerticalStrut(100));
 			panelOfferte.add(lblNoOfferte);
 		} else {
-			for (Offerta_entity offerta : offerte) {
-				panelOfferte.add(creaCardOfferta(offerta));
+			for (int indice : indiciOfferteFiltrate) {
+				panelOfferte.add(creaCardOfferta(indice));
 				panelOfferte.add(Box.createVerticalStrut(15));
 			}
 		}
@@ -211,7 +219,12 @@ public class StoricoOfferte extends JFrame {
 		panelOfferte.repaint();
 	}
 	
-	private JPanel creaCardOfferta(Offerta_entity offerta) {
+	private JPanel creaCardOfferta(int indice) {
+		// Recupera i dati tramite controller
+		int idOfferta = controller.getIdOffertaByIndex(indice);
+		String tipologia = controller.getTipologiaOffertaByIndex(indice);
+		String stato = controller.getStatoOffertaByIndex(indice);
+		
 		JPanel card = new JPanel(new BorderLayout(15, 15));
 		card.setBackground(Color.WHITE);
 		card.setBorder(new CompoundBorder(
@@ -228,13 +241,13 @@ public class StoricoOfferte extends JFrame {
 		// Tipologia con badge
 		JPanel tipologiaPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		tipologiaPanel.setBackground(Color.WHITE);
-		JLabel lblTipologia = new JLabel(offerta.getTipologiaOfferta());
+		JLabel lblTipologia = new JLabel(tipologia);
 		lblTipologia.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblTipologia.setForeground(Color.WHITE);
 		lblTipologia.setOpaque(true);
 		lblTipologia.setBorder(new EmptyBorder(5, 10, 5, 10));
 		
-		Color coloreTipologia = switch(offerta.getTipologiaOfferta().toLowerCase()) {
+		Color coloreTipologia = switch(tipologia.toLowerCase()) {
 			case "vendita" -> new Color(56, 209, 97);
 			case "scambio" -> new Color(108, 67, 232);
 			case "regalo" -> new Color(209, 56, 56);
@@ -246,11 +259,11 @@ public class StoricoOfferte extends JFrame {
 		leftPanel.add(tipologiaPanel);
 		leftPanel.add(Box.createVerticalStrut(10));
 		
-		// Dettagli dell'offerta tramite controller 
-		String dettaglioOfferta = controller.getDettaglioOfferta(offerta.getIdOfferta());
+		// Dettagli dell'offerta tramite controller
+		String dettaglioOfferta = controller.getDettaglioOfferta(idOfferta);
 		
 		if (dettaglioOfferta != null && !dettaglioOfferta.isEmpty()) {
-			String labelDettaglio = switch(offerta.getTipologiaOfferta().toLowerCase()) {
+			String labelDettaglio = switch(tipologia.toLowerCase()) {
 				case "vendita" -> "Prezzo proposto:";
 				case "scambio" -> "Oggetto proposto:";
 				case "regalo" -> "Messaggio motivazionale:";
@@ -265,7 +278,7 @@ public class StoricoOfferte extends JFrame {
 		}
 		
 		// Info annuncio tramite controller
-		String titoloAnnuncio = controller.getTitoloAnnuncioOfferta(offerta.getIdOfferta());
+		String titoloAnnuncio = controller.getTitoloAnnuncioOfferta(idOfferta);
 		if (titoloAnnuncio != null) {
 			JLabel lblAnnuncio = new JLabel("<html><b>Annuncio:</b> " + titoloAnnuncio + "</html>");
 			lblAnnuncio.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -276,7 +289,7 @@ public class StoricoOfferte extends JFrame {
 		}
 		
 		// Info venditore con rating tramite controller
-		String matricolaVenditore = controller.getMatricolaVenditoreOfferta(offerta.getIdOfferta());
+		String matricolaVenditore = controller.getMatricolaVenditoreOfferta(idOfferta);
 		JPanel venditorePanel = creaInfoVenditore(matricolaVenditore);
 		venditorePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		leftPanel.add(venditorePanel);
@@ -288,14 +301,14 @@ public class StoricoOfferte extends JFrame {
 		rightPanel.setBorder(new EmptyBorder(0, 20, 0, 0));
 		
 		// Badge stato
-		JLabel lblStato = new JLabel(offerta.getStatoOfferta());
+		JLabel lblStato = new JLabel(stato);
 		lblStato.setFont(new Font("Verdana", Font.BOLD, 13));
 		lblStato.setForeground(Color.WHITE);
 		lblStato.setOpaque(true);
 		lblStato.setBorder(new EmptyBorder(8, 15, 8, 15));
 		lblStato.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		Color coloreStato = switch(offerta.getStatoOfferta().toLowerCase()) {
+		Color coloreStato = switch(stato.toLowerCase()) {
 			case "in attesa" -> new Color(255, 193, 7);
 			case "accettata" -> new Color(40, 167, 69);
 			case "rifiutata" -> new Color(220, 53, 69);
@@ -307,7 +320,7 @@ public class StoricoOfferte extends JFrame {
 		rightPanel.add(Box.createVerticalStrut(20));
 		
 		// Bottoni azione
-		boolean inAttesa = offerta.getStatoOfferta().equalsIgnoreCase("In Attesa");
+		boolean inAttesa = stato.equalsIgnoreCase("In Attesa");
 		
 		JButton btnModifica = new JButton("Modifica");
 		btnModifica.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -318,7 +331,7 @@ public class StoricoOfferte extends JFrame {
 		btnModifica.setFocusPainted(false);
 		btnModifica.setBorderPainted(false);
 		btnModifica.setEnabled(inAttesa);
-		btnModifica.addActionListener(e -> modificaOfferta(offerta));
+		btnModifica.addActionListener(e -> modificaOfferta(idOfferta, tipologia));
 		
 		if (!inAttesa) {
 			btnModifica.setBackground(Color.GRAY);
@@ -342,7 +355,7 @@ public class StoricoOfferte extends JFrame {
 		btnRitira.setFocusPainted(false);
 		btnRitira.setBorderPainted(false);
 		btnRitira.setEnabled(inAttesa);
-		btnRitira.addActionListener(e -> ritiraOfferta(offerta));
+		btnRitira.addActionListener(e -> ritiraOfferta(idOfferta));
 		
 		if (!inAttesa) {
 			btnRitira.setBackground(Color.GRAY);
@@ -378,7 +391,7 @@ public class StoricoOfferte extends JFrame {
 			return panel;
 		}
 		
-		// Usa il controller - 
+		// Usa il controller
 		String nominativo = controller.getNominativoUtente(matricolaVenditore);
 		double media = controller.getValutazioneMediaVenditore(matricolaVenditore);
 		int numRecensioni = controller.getNumeroRecensioniVenditore(matricolaVenditore);
@@ -405,9 +418,9 @@ public class StoricoOfferte extends JFrame {
 		return panel;
 	}
 	
-	private void modificaOfferta(Offerta_entity offerta) {
+	private void modificaOfferta(int idOfferta, String tipologia) {
 		// Usa il controller
-		int idAnnuncio = controller.getIdAnnuncioDaOfferta(offerta.getIdOfferta());
+		int idAnnuncio = controller.getIdAnnuncioDaOfferta(idOfferta);
 		
 		if (idAnnuncio == -1) {
 			JOptionPane.showMessageDialog(this, 
@@ -417,49 +430,48 @@ public class StoricoOfferte extends JFrame {
 			return;
 		}
 		
-		String tipologia = offerta.getTipologiaOfferta();
-		
 		if (tipologia.equalsIgnoreCase("Regalo")) {
 			OffertaRegalo frame = new OffertaRegalo(controller);
-			frame.caricaOffertaPerModifica(offerta.getIdOfferta());
+			frame.caricaOffertaPerModifica(idOfferta);
 			frame.setVisible(true);
 			this.setVisible(false);
 		} else if (tipologia.equalsIgnoreCase("Scambio")) {
 			OffertaScambio frame = new OffertaScambio(controller);
-			frame.caricaOffertaPerModifica(offerta.getIdOfferta());
+			frame.caricaOffertaPerModifica(idOfferta);
 			frame.setVisible(true);
 			this.setVisible(false);
 		} else if (tipologia.equalsIgnoreCase("Vendita")) {
 			OffertaVendita frame = new OffertaVendita(controller);
-			frame.caricaOffertaPerModifica(offerta.getIdOfferta());
+			frame.caricaOffertaPerModifica(idOfferta);
 			frame.setVisible(true);
 			this.setVisible(false);
 		}
 	}
 	
-	private void ritiraOfferta(Offerta_entity offerta) {
-		int scelta = JOptionPane.showConfirmDialog(this, 
-			"Vuoi davvero ritirare questa offerta?\nQuesta azione non può essere annullata.", 
-			"Conferma ritiro", 
-			JOptionPane.YES_NO_OPTION, 
-			JOptionPane.WARNING_MESSAGE);
-		
-		if (scelta == JOptionPane.YES_OPTION) {
-			// Usa il controller
-			String risultato = controller.ritiraOfferta(offerta.getIdOfferta());
-			
-			if (risultato.equals("Offerta ritirata con successo")) {
-				JOptionPane.showMessageDialog(this,
-					risultato,
-					"Successo",
-					JOptionPane.INFORMATION_MESSAGE);
-				caricaOfferte(); // Ricarica la lista
-			} else {
-				JOptionPane.showMessageDialog(this,
-					risultato,
-					"Errore",
-					JOptionPane.ERROR_MESSAGE);
-			}
-		}
+	private void ritiraOfferta(int idOfferta) {
+	    int scelta = JOptionPane.showConfirmDialog(this, 
+	        "Vuoi davvero ritirare questa offerta?\nQuesta azione non può essere annullata.", 
+	        "Conferma ritiro", 
+	        JOptionPane.YES_NO_OPTION, 
+	        JOptionPane.WARNING_MESSAGE);
+	    
+	    if (scelta == JOptionPane.YES_OPTION) {
+	        // Usa il controller
+	        String risultato = controller.ritiraOfferta(idOfferta);
+	        
+	        if (risultato.equals("Offerta ritirata con successo")) {
+	            JOptionPane.showMessageDialog(this,
+	                risultato,
+	                "Successo",
+	                JOptionPane.INFORMATION_MESSAGE);
+	            // Semplicemente ricarica le offerte
+	            caricaOfferte();
+	        } else {
+	            JOptionPane.showMessageDialog(this,
+	                risultato,
+	                "Errore",
+	                JOptionPane.ERROR_MESSAGE);
+	        }
+	    }
 	}
 }

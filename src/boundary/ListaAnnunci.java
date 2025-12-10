@@ -335,9 +335,12 @@ public class ListaAnnunci extends JFrame {
             
             @Override
             public void mouseClicked(MouseEvent e) {
+                // Imposta il venditore corrente nel controller
+                controller.impostaVenditorePerVisualizzazione(matricolaVenditore);
+                
                 // Apri finestra recensioni
                 VisualizzaRecensioniVenditore frameRecensioni = 
-                    new VisualizzaRecensioniVenditore(matricolaVenditore);
+                    new VisualizzaRecensioniVenditore(controller);
                 frameRecensioni.setVisible(true);
             }
         });

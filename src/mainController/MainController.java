@@ -24,6 +24,7 @@ public class MainController {
     protected ArrayList<AnnuncioVendita_entity> annunciVenditaCaricati;
     protected ArrayList<AnnuncioScambio_entity> annunciScambioCaricati;
     protected ArrayList<AnnuncioRegalo_entity> annunciRegaloCaricati;
+    private String matricolaVenditoreCorrente;
 
     protected Oggetto_entity OggettoAnnuncio;
     protected String titoloAnnuncio;
@@ -1564,6 +1565,43 @@ public class MainController {
     
  // ==================== METODI STORICO OFFERTE ====================
 
+    public int getNumeroOfferteUtente() {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        return offerte != null ? offerte.size() : 0;
+    }
+
+    public String getStatoOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getStatoOfferta();
+        }
+        return "";
+    }
+
+    public String getTipologiaOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getTipologiaOfferta();
+        }
+        return "";
+    }
+
+    public int getIdOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getIdOfferta();
+        }
+        return -1;
+    }
+
+    public int getIdAnnuncioOffertaByIndex(int index) {
+        ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
+        if (offerte != null && index >= 0 && index < offerte.size()) {
+            return offerte.get(index).getIdAnnuncio();
+        }
+        return -1;
+    }
+
     public String getTitoloAnnuncioOfferta(int idOfferta) {
         if (idOfferta <= 0) {
             return null;
@@ -1610,6 +1648,109 @@ public class MainController {
             e.printStackTrace();
             return false;
         }
+    }
+    
+ // ==================== METODI VISUALIZZA RECENSIONI VENDITORE ====================
+
+    // Metodi per accedere ai dati delle recensioni tramite indice
+    public int getIdRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getIdRecensione();
+        }
+        return -1;
+    }
+
+    public String getCommentoRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getCommento();
+        }
+        return "";
+    }
+
+    public int getPunteggioRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getPunteggio();
+        }
+        return 0;
+    }
+
+    public String getDataRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            return sdf.format(recensioni.get(index).getData());
+        }
+        return "";
+    }
+
+    public String getMatricolaAcquirenteRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getMatricolaAcquirente();
+        }
+        return "";
+    }
+
+    public int getIdOffertaRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getIdOfferta();
+        }
+        return -1;
+    }
+    
+    // ==================== METODI PER GESTIRE IL CONTESTO VISUALIZZAZIONE RECENSIONI ====================
+    
+    public void impostaVenditorePerVisualizzazione(String matricolaVenditore) {
+        this.matricolaVenditoreCorrente = matricolaVenditore;
+    }
+
+    public String getMatricolaVenditoreCorrente() {
+        return matricolaVenditoreCorrente;
+    }
+    
+    // Metodi per accedere ai dati delle recensioni del venditore corrente tramite indice
+    public int getPunteggioRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return 0;
+        return getPunteggioRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public String getDataRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return "";
+        return getDataRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public String getCommentoRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return "";
+        return getCommentoRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public int getIdOffertaRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return -1;
+        return getIdOffertaRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public String getMatricolaAcquirenteRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return "";
+        return getMatricolaAcquirenteRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public int getNumeroRecensioniVenditoreCorrente() {
+        if (matricolaVenditoreCorrente == null) return 0;
+        return getNumeroRecensioniVenditore(matricolaVenditoreCorrente);
+    }
+
+    public String getNominativoVenditoreCorrente() {
+        if (matricolaVenditoreCorrente == null) return null;
+        return getNominativoUtente(matricolaVenditoreCorrente);
+    }
+
+    public double getValutazioneMediaVenditoreCorrente() {
+        if (matricolaVenditoreCorrente == null) return 0.0;
+        return getValutazioneMediaVenditore(matricolaVenditoreCorrente);
     }
 
 }
