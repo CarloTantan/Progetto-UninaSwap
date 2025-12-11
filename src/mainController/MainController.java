@@ -75,7 +75,7 @@ public class MainController {
 
     // ==================== METODI REGISTRAZIONE ====================
     
-    public String EffettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password, String confermaPassword) throws SQLException {
+    public String EffettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password, String confermaPassword) {
         if (nome == null || nome.trim().isEmpty() ||
             cognome == null || cognome.trim().isEmpty() ||
             matricola == null || matricola.trim().isEmpty() ||
@@ -100,15 +100,22 @@ public class MainController {
             return "Le password non corrispondono";
         }
         
-        boolean registrazioneRiuscita = RegistrazioneDAO.effettuaRegistrazione(
-            nome, cognome, matricola, telefono, email, password
-        );
+        try {
+        	boolean registrazioneRiuscita = RegistrazioneDAO.effettuaRegistrazione(
+        			nome, cognome, matricola, telefono, email, password
+        			);
         
-        if (!registrazioneRiuscita) {
-            return "Impossibile effettuare la registrazione, Utente già registrato";
+        	
+        	if (!registrazioneRiuscita) {
+        		return "Impossibile effettuare la registrazione, Utente già registrato";
+        	}
+        
+        	return "Registrazione effettuata con successo";
+    	
+        } catch (SQLException e) {
+        	return "Impossibile effettuare la registrazione: " + e.getMessage();
+    
         }
-        
-        return "Registrazione effettuata con successo"; 
     }
 
     // ==================== METODI TRANSAZIONI ====================

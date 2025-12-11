@@ -188,6 +188,12 @@ public class OffertaRegalo extends JFrame {
             String dati = risultato.substring(8);
             textAreaMessaggioMotivazionale.setText(dati);
             
+            // Recupera l'ID annuncio dall'offerta
+            int idAnnuncio = controller.getIdAnnuncioDaOfferta(idOfferta);
+            if (idAnnuncio > 0) {
+                this.idAnnuncioScelto = idAnnuncio;
+            }
+            
             idOffertaDaModificare = idOfferta;
             isModificaMode = true;
             btnConferma.setText("Aggiorna");

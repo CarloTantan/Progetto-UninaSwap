@@ -16,7 +16,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -260,12 +259,8 @@ public class Registrazione extends JFrame {
 		btnRegistrati.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					try {
-						registrazioneUtente();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					registrazioneUtente();
+				
 			}
 		});
 		
@@ -279,7 +274,7 @@ public class Registrazione extends JFrame {
 		});
 	}
 	
-	private void registrazioneUtente() throws SQLException {
+	private void registrazioneUtente() {
 		String nome = textFieldNome.getText().trim();
 		String cognome = textFieldCognome.getText().trim();
 		String matricola = textFieldMatricola.getText().trim();
