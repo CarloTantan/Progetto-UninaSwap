@@ -1316,6 +1316,14 @@ public class MainController {
             return "SUCCESS:Offerta inviata con successo";
             
         } catch (SQLException e) {
+        	String errorMessage = e.getMessage();
+            
+            // Gestisci errori specifici
+            if (errorMessage != null && errorMessage.contains("Il prezzo proposto deve essere inferiore o uguale al prezzo di vendita")) {
+                return "Il prezzo proposto dev'essere inferiore o uguale al prezzo di vendita";
+            
+            }
+            
             return "Errore durante l'invio dell'offerta: " + e.getMessage();
         }
     }

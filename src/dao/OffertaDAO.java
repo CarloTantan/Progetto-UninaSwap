@@ -32,13 +32,7 @@ public class OffertaDAO {
 			pstmt.executeUpdate();
 			
 			return true;
-            
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante l'inserimento dell'offerta: " + e.getMessage());
-            e.printStackTrace();
-            return false;
-        }
+		}
 	}
 	
 	public boolean inserimentoOffertaScambio(String OggettoProposto, String MatricolaAcquirente, int IdAnnuncio) throws SQLException {
@@ -76,13 +70,7 @@ public class OffertaDAO {
 			pstmt.executeUpdate();
 			
 			return true;
-            
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante l'inserimento dell'offerta: " + e.getMessage());
-            e.printStackTrace();
-            return false;
-        }
+		}
 	}
 	
 	
@@ -101,10 +89,6 @@ public class OffertaDAO {
 	        pstmt.executeUpdate();
 	        return true;
 	        
-	    } catch (SQLException e) {
-	        System.err.println("Errore durante l'aggiornamento dell'offerta: " + e.getMessage());
-	        e.printStackTrace();
-	        return false;
 	    }
 	}
 
@@ -197,11 +181,6 @@ public class OffertaDAO {
 
 	        pstmt.executeUpdate();
 	        return true;
-
-	    } catch (SQLException e) {
-	        System.err.println("Errore durante l'aggiornamento dell'offerta: " + e.getMessage());
-	        e.printStackTrace();
-	        return false;
 	    }
 	}
 
@@ -219,11 +198,7 @@ public class OffertaDAO {
 	        pstmt.executeUpdate();
 	        return true;
 
-	    } catch (SQLException e) {
-	        System.err.println("Errore durante l'aggiornamento dell'offerta: " + e.getMessage());
-	        e.printStackTrace();
-	        return false;
-	    }
+	    } 
 	}
 	
 	
