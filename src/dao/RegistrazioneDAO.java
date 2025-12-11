@@ -14,7 +14,7 @@ public class RegistrazioneDAO {
         return DriverManager.getConnection(url, user, password);
     }
 	
-	 public boolean effettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password) {
+	 public boolean effettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password) throws SQLException {
 		 	String nominativo = nome + " " + cognome;
 	        String query = "INSERT INTO utente (nominativo, matricola, numerotelefono, email, password) VALUES (?, ?, ?, ?, ?)";
 	        
@@ -32,12 +32,7 @@ public class RegistrazioneDAO {
 	            pstmt.executeUpdate();
 	            
 	            return true;
-	            
-	            
-	        } catch (SQLException e) {
-	            System.err.println("Errore durante la registrazione: " + e.getMessage());
-	            e.printStackTrace();
-	            return false;
+
 	        }
 	 }
 

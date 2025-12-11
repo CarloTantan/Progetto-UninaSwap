@@ -28,11 +28,7 @@ public class LoginDAO {
 		            // Se trova almeno un risultato, il login è valido
 		            return rs.next();
 		            
-		        } catch (SQLException e) {
-		            System.err.println("Errore durante la verifica del login: " + e.getMessage());
-		            e.printStackTrace();
-		            return false;
-		        }
+		        } 
 		 }
 		 
 		 public Utente_entity getUtente(String matricola) {

@@ -75,7 +75,7 @@ public class MainController {
 
     // ==================== METODI REGISTRAZIONE ====================
     
-    public String EffettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password, String confermaPassword) {
+    public String EffettuaRegistrazione(String nome, String cognome, String matricola, String telefono, String email, String password, String confermaPassword) throws SQLException {
         if (nome == null || nome.trim().isEmpty() ||
             cognome == null || cognome.trim().isEmpty() ||
             matricola == null || matricola.trim().isEmpty() ||
@@ -1000,17 +1000,7 @@ public class MainController {
             return new ArrayList<>();
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
    public ArrayList<Offerta_entity> caricaOfferteUtente() {
        try {
            String matricola = getMatricolaUtenteLoggato();

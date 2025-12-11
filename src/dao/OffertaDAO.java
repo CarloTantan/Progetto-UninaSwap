@@ -50,11 +50,7 @@ public class OffertaDAO {
 			return true;
             
             
-        } catch (SQLException e) {
-            System.err.println("Errore durante l'inserimento dell'offerta: " + e.getMessage());
-            e.printStackTrace();
-            return false;
-        }
+        } 
 	}
 	
 	public boolean inserimentoOffertaRegalo(String MessaggioMotivazionale, String MatricolaAcquirente, int IdAnnuncio) throws SQLException {

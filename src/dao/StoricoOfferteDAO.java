@@ -51,9 +51,7 @@ public class StoricoOfferteDAO {
 			pstmt.setInt(1, IdOfferta);
 			int righeEliminate = pstmt.executeUpdate();
 			return righeEliminate > 0;
-		} catch (SQLException e) {
-			throw e;
-		}
+		} 
 	}
 	
 	public int getIdAnnuncioFromOfferta(int IdOfferta) throws SQLException {
