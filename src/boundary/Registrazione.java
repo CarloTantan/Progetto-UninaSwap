@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,21 +41,6 @@ public class Registrazione extends JFrame {
 	private JTextField textFieldTelefono;
 	private JPasswordField textFieldConfermaPassword;
 	private MainController controller; 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Registrazione frame = new Registrazione();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
@@ -76,25 +62,40 @@ public class Registrazione extends JFrame {
 		
 		// Pannello laterale sinistro
 		JPanel panelLaterale = new JPanel();
-		panelLaterale.setLayout(null);
 		panelLaterale.setBackground(new Color(46, 132, 191));
 		panelLaterale.setPreferredSize(new Dimension(350, 0));
+		panelLaterale.setLayout(new GridBagLayout());
 		contentPane.add(panelLaterale, BorderLayout.WEST);
-		
-		// Logo
-		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
-		lblLogo.setBounds(68, 200, 214, 218);
-		panelLaterale.add(lblLogo);
-		
+
+		GridBagConstraints gbcIndietro = new GridBagConstraints();
+		gbcIndietro.gridx = 0;
+		gbcIndietro.gridy = 0;
+		gbcIndietro.anchor = GridBagConstraints.NORTHWEST;
+		gbcIndietro.insets = new Insets(15, 15, 0, 0);
+		gbcIndietro.weightx = 1.0;
+		gbcIndietro.weighty = 0.0;
+
 		// Bottone indietro
 		JButton btnIndietro = new JButton("");
 		btnIndietro.setBackground(new Color(46, 132, 191));
 		btnIndietro.setIcon(new ImageIcon(Registrazione.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
-		btnIndietro.setBounds(15, 15, 50, 50);
+		btnIndietro.setPreferredSize(new Dimension(50, 50));
 		btnIndietro.setFocusPainted(false);
 		btnIndietro.setBorderPainted(false);
-		panelLaterale.add(btnIndietro);
+		panelLaterale.add(btnIndietro, gbcIndietro);
+
+		// Logo centrato nel pannello laterale
+		GridBagConstraints gbcLogo = new GridBagConstraints();
+		gbcLogo.gridx = 0;
+		gbcLogo.gridy = 1;
+		gbcLogo.anchor = GridBagConstraints.CENTER;
+		gbcLogo.weighty = 1.0; // Prende tutto lo spazio restante
+
+		JLabel lblLogo = new JLabel("");
+		ImageIcon iconaLogo = (new ImageIcon(Homepage.class.getResource("/icons/iconaUninaSwapGrande.png")));
+		Image Logo = iconaLogo.getImage().getScaledInstance(350, 325, Image.SCALE_SMOOTH);
+		lblLogo.setIcon(new ImageIcon(Logo));
+		panelLaterale.add(lblLogo, gbcLogo);
 		
 		btnIndietro.addActionListener(new ActionListener() {
 		    @Override
