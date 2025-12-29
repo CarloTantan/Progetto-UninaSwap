@@ -3,6 +3,7 @@ package boundary;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import mainController.MainController;
@@ -19,7 +20,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
@@ -30,7 +31,7 @@ public class OffertaVendita extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField textFieldImportoProposto;
+    private JTextArea textAreaImportoProposto;
     private JButton btnConferma;
     private MainController controller;
     private int idAnnuncioScelto;
@@ -121,16 +122,23 @@ public class OffertaVendita extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         panelCentrale.add(lblNewLabel_1, gbc);
         
-        // Campo Importo
-        textFieldImportoProposto = new JTextField();
-        textFieldImportoProposto.setFont(new Font("Verdana", Font.PLAIN, 16));
-        textFieldImportoProposto.setPreferredSize(new Dimension(280, 38));
-        textFieldImportoProposto.setColumns(10);
+        // TextArea Importo con ScrollPane
+        textAreaImportoProposto = new JTextArea();
+        textAreaImportoProposto.setFont(new Font("Verdana", Font.PLAIN, 16));
+        textAreaImportoProposto.setLineWrap(true);
+        textAreaImportoProposto.setWrapStyleWord(true);
+        textAreaImportoProposto.setRows(1);
+        
+        JScrollPane scrollPane = new JScrollPane(textAreaImportoProposto);
+        scrollPane.setPreferredSize(new Dimension(250, 40));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 10, 20, 10);
-        panelCentrale.add(textFieldImportoProposto, gbc);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.0;
+        panelCentrale.add(scrollPane, gbc);
         
         // Bottone Conferma
         btnConferma = new JButton("Conferma");
@@ -150,6 +158,9 @@ public class OffertaVendita extends JFrame {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
+        gbc.weighty = 0;
         panelCentrale.add(btnConferma, gbc);
         getRootPane().setDefaultButton(btnConferma);
         
@@ -175,7 +186,7 @@ public class OffertaVendita extends JFrame {
         if (risultato.startsWith("SUCCESS:")) {
             // Estrae i dati dal risultato
             String dati = risultato.substring(8);
-            textFieldImportoProposto.setText(dati);
+            textAreaImportoProposto.setText(dati);
             
             // Recupera l'ID annuncio dall'offerta
             int idAnnuncio = controller.getIdAnnuncioDaOfferta(idOfferta);
@@ -197,7 +208,7 @@ public class OffertaVendita extends JFrame {
     // ==================== GESTIONE EVENTI ====================
     
     private void confermaOfferta() {
-        String importoPropostoString = textFieldImportoProposto.getText().trim();
+        String importoPropostoString = textAreaImportoProposto.getText().trim();
         String risultato;
         
         if (isModificaMode) {

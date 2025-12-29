@@ -127,17 +127,17 @@ public class OffertaRegalo extends JFrame {
         textAreaMessaggioMotivazionale.setFont(new Font("Verdana", Font.PLAIN, 16));
         textAreaMessaggioMotivazionale.setLineWrap(true);
         textAreaMessaggioMotivazionale.setWrapStyleWord(true);
-        textAreaMessaggioMotivazionale.setRows(6);
+        textAreaMessaggioMotivazionale.setRows(3);
         
         JScrollPane scrollPane = new JScrollPane(textAreaMessaggioMotivazionale);
-        scrollPane.setPreferredSize(new Dimension(350, 150));
+        scrollPane.setPreferredSize(new Dimension(250, 60));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 10, 20, 10);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
-        gbc.weighty = 0.5;
+        gbc.weighty = 0.0;
         panelCentrale.add(scrollPane, gbc);
         
         // Bottone Conferma
