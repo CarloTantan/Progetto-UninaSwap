@@ -16,26 +16,29 @@ import enumerations.*;
 public class MainController {
     protected LoginDAO LoginDAO; 
     protected RegistrazioneDAO RegistrazioneDAO;
-    protected Utente_entity User; 
     protected InserimentoAnnunciDAO InsertAnnunciDAO;  
     protected FotoAnnuncioDAO FotoAnnuncioDAO; 
     protected OffertaDAO OffertaDAO;
     protected InserimentoRecensioneDAO InserimentoRecensioneDAO;
-    protected ArrayList<AnnuncioVendita_entity> annunciVenditaCaricati;
-    protected ArrayList<AnnuncioScambio_entity> annunciScambioCaricati;
-    protected ArrayList<AnnuncioRegalo_entity> annunciRegaloCaricati;
-    private String matricolaVenditoreCorrente;
-
+    
+    protected Utente_entity User; 
     protected Oggetto_entity OggettoAnnuncio;
+    protected Oggetto_entity UltimoOggettoCreato;
+    
     protected String titoloAnnuncio;
     protected String descrizioneAnnuncio;
     protected String modalitaConsegnaAnnuncio;
     protected FasciaOraria fasciaOrariaAnnuncio;
     protected ArrayList<String> percorsiImmaginiAnnuncio;
     
-
-    protected Oggetto_entity UltimoOggettoCreato;
-
+    protected ArrayList<AnnuncioVendita_entity> annunciVenditaCaricati;
+    protected ArrayList<AnnuncioScambio_entity> annunciScambioCaricati;
+    protected ArrayList<AnnuncioRegalo_entity> annunciRegaloCaricati;
+    private ArrayList<Integer> idsAnnunciCaricati;
+    private ArrayList<Integer> idsOfferteCaricate;
+    private ArrayList<Transazione_entity> transazioniCaricate;
+    private String matricolaVenditoreCorrente;
+    
     public MainController() {
         this.LoginDAO = new LoginDAO();           
         this.RegistrazioneDAO = new RegistrazioneDAO();
@@ -468,7 +471,7 @@ public class MainController {
             motivoCessione == null || motivoCessione.trim().isEmpty() ||
             matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
 
-            return "Tutti i campi sono obbligatori e il prezzo deve essere maggiore di zero";
+            return "Tutti i campi sono obbligatori";
         }
 
 
@@ -671,7 +674,7 @@ public class MainController {
             return "ID annuncio non valido";
         }
         
-        // Logica di business tramite DAO
+        // inserimento tramite DAO
         try {
             OffertaDAO offertaDAO = new OffertaDAO();
             boolean offertaInviata = offertaDAO.inserimentoOffertaRegalo(
@@ -690,7 +693,8 @@ public class MainController {
             return "Errore durante l'invio dell'offerta: " + e.getMessage();
         }
     }
-
+    
+    //aggiorna un'offerta regalo esistente
     public String aggiornaOffertaRegalo(String messaggioMotivazionale, int idAnnuncio, int idOfferta) {
         // Validazione input
         if (messaggioMotivazionale == null || messaggioMotivazionale.trim().isEmpty()) {
@@ -706,7 +710,7 @@ public class MainController {
             return "ID annuncio o offerta non validi";
         }
         
-        // Logica di business tramite DAO
+        // Aggiornamento tramite DAO
         try {
             OffertaDAO offertaDAO = new OffertaDAO();
             boolean offertaAggiornata = offertaDAO.aggiornaOffertaRegalo(
@@ -726,7 +730,8 @@ public class MainController {
             return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
         }
     }
-
+    
+    // carica i dati di un'offerta regalo per modificarla
     public String caricaOffertaRegaloPerModifica(int idOfferta) {
         if (idOfferta <= 0) {
             return "ID offerta non valido";
@@ -765,7 +770,7 @@ public class MainController {
             return "ID annuncio non valido";
         }
         
-        // Logica di business tramite DAO
+        // inserimento tramite DAO
         try {
             OffertaDAO offertaDAO = new OffertaDAO();
             boolean offertaInviata = offertaDAO.inserimentoOffertaScambio(
@@ -784,9 +789,10 @@ public class MainController {
             return "Errore durante l'invio dell'offerta: " + e.getMessage();
         }
     }
-
+    
+    //aggiorna un'offerta di scambio esistente
     public String aggiornaOffertaScambio(String oggettoProposto, int idAnnuncio, int idOfferta) {
-        // Validazione input
+        // validazione input
         if (oggettoProposto == null || oggettoProposto.trim().isEmpty()) {
             return "L'oggetto proposto è obbligatorio";
         }
@@ -800,7 +806,7 @@ public class MainController {
             return "ID annuncio o offerta non validi";
         }
         
-        // Logica di business tramite DAO
+        // aggiornamento tramite DAO
         try {
             OffertaDAO offertaDAO = new OffertaDAO();
             boolean offertaAggiornata = offertaDAO.aggiornaOffertaScambio(
@@ -820,7 +826,8 @@ public class MainController {
             return "Errore durante l'aggiornamento dell'offerta: " + e.getMessage();
         }
     }
-
+    
+    // carica i dati di un'offerta di scambio per modificarla
     public String caricaOffertaScambioPerModifica(int idOfferta) {
         if (idOfferta <= 0) {
             return "ID offerta non valido";
@@ -870,7 +877,7 @@ public class MainController {
             return "ID annuncio non valido";
         }
         
-        // Logica di business tramite DAO
+        // Inserimento tramite DAO
         try {
             OffertaDAO offertaDAO = new OffertaDAO();
             boolean offertaInviata = offertaDAO.inserimentoOffertaVendita(
@@ -888,7 +895,7 @@ public class MainController {
         } catch (SQLException e) {
         	String errorMessage = e.getMessage();
             
-            // Gestisci errori specifici
+            // gestione prezzo proposto superiore al prezzo di vendita
             if (errorMessage != null && errorMessage.contains("Il prezzo proposto deve essere inferiore o uguale al prezzo di vendita")) {
                 return "Il prezzo proposto dev'essere inferiore o uguale al prezzo di vendita";
             
@@ -898,8 +905,9 @@ public class MainController {
         }
     }
 
+    // aggiorna un'offerta di vendita esistente	
     public String aggiornaOffertaVendita(String importoPropostoString, int idAnnuncio, int idOfferta) {
-        // Validazione input
+        // validazione input
         if (importoPropostoString == null || importoPropostoString.trim().isEmpty()) {
             return "L'importo proposto è obbligatorio";
         }
@@ -924,7 +932,7 @@ public class MainController {
             return "ID annuncio o offerta non validi";
         }
         
-        // Logica di business tramite DAO
+        // Aggiornamento tramite DAO
         try {
             OffertaDAO offertaDAO = new OffertaDAO();
             boolean offertaAggiornata = offertaDAO.aggiornaOffertaVendita(
@@ -945,6 +953,7 @@ public class MainController {
         }
     }
 
+    // carica i dati di un'offerta di vendita per modificarla
     public String caricaOffertaVenditaPerModifica(int idOfferta) {
         if (idOfferta <= 0) {
             return "ID offerta non valido";
@@ -965,428 +974,29 @@ public class MainController {
             return "Errore nel caricamento dell'offerta: " + e.getMessage();
         }
     }
+
+    // ==================== METODI STORICO OFFERTE ====================
     
-    
-    // ==================== METODI TRANSAZIONI ====================
-    
-    public ArrayList<Transazione_entity> caricaTransazioni() {
+    //carica le offerte fatte dall'utente loggato
+    public ArrayList<Offerta_entity> caricaOfferteUtente() {
         try {
             String matricola = getMatricolaUtenteLoggato();
             if (matricola == null) {
+                System.err.println("Nessun utente loggato");
                 return new ArrayList<>();
             }
             
-            TransazioniDAO dao = new TransazioniDAO();
-            return dao.getTransazioni(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento delle transazioni: " + e.getMessage());
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
-    
-    
-
-
-
-    // ==================== METODI RECENSIONI ====================
-    
-
-
-    public ArrayList<Recensione_entity> caricaRecensioniInviate() {
-        try {
-            String matricola = getMatricolaUtenteLoggato();
-            if (matricola == null) {
-                return new ArrayList<>();
-            }
-            
-            ListaRecensioniDao dao = new ListaRecensioniDao();
-            return dao.VisualizzaRecensioniInviate(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento delle recensioni inviate: " + e.getMessage());
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
-
-    public ArrayList<Recensione_entity> caricaRecensioniRicevute() {
-        try {
-            String matricola = getMatricolaUtenteLoggato();
-            if (matricola == null) {
-                return new ArrayList<>();
-            }
-            
-            ListaRecensioniDao dao = new ListaRecensioniDao();
-            return dao.VisualizzaRecensioniRicevute(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento delle recensioni ricevute: " + e.getMessage());
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
-
-    public String getTitoloAnnuncioDaOfferta(int idOfferta) {
-        try {
-            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
-            return dao.getTitoloAnnuncioDaOfferta(idOfferta);
-        } catch (SQLException e) {
-            System.err.println("Errore nel recupero titolo annuncio: " + e.getMessage());
-            return null;
-        }
-    }
-
-    public String getNominativoUtente(String matricola) {
-        try {
-            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
-            return dao.getNominativoUtente(matricola);
-        } catch (SQLException e) {
-            System.err.println("Errore nel recupero nominativo utente: " + e.getMessage());
-            return null;
-        }
-    }
-    
-    public String inserisciRecensione(String matricolaRecensore, String matricolaRecensito, 
-            int idOfferta, int valutazione, String commento) {
-    	if (valutazione < 1 || valutazione > 5) {
-    		return "La valutazione deve essere tra 1 e 5";
-    	}
-
-    	if (commento == null || commento.trim().isEmpty()) {
-    		return "Il commento è obbligatorio";
-    	}
-
-    	try {
-    		// Verifica se esiste già una recensione
-    		if (InserimentoRecensioneDAO.esisteRecensione(idOfferta)) {
-    			return "Hai già inserito una recensione per questa transazione";
-    		}
-
-    		// Inserisci la recensione
-    		InserimentoRecensioneDAO.inserisciRecensione(
-    				matricolaRecensito, 
-    				matricolaRecensore, 
-    				valutazione, 
-    				commento, 
-    				idOfferta
-    				);
-
-    		return "Recensione inserita con successo";
-
-    	} catch (SQLException e) {
-    		return "Errore durante l'inserimento della recensione: " + e.getMessage();
-    	}
-    }
-
-    
- // ==================== METODI TRANSAZIONI (ACCESSO AI DATI) ====================
-
-    private ArrayList<Transazione_entity> transazioniCaricate;
-
-    public int getNumeroTransazioni() {
-        try {
-            String matricola = getMatricolaUtenteLoggato();
-            if (matricola == null) {
-                return 0;
-            }
-            
-            TransazioniDAO dao = new TransazioniDAO();
-            transazioniCaricate = dao.getTransazioni(matricola);
-            return transazioniCaricate.size();
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            return dao.getOfferte(matricola);
             
         } catch (Exception e) {
-            System.err.println("Errore durante il caricamento delle transazioni: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public String getTitoloAnnuncioTransazione(int index) {
-        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
-            return transazioniCaricate.get(index).getTitoloAnnuncio();
-        }
-        return "";
-    }
-
-    public String getMatricolaVenditoreTransazione(int index) {
-        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
-            return transazioniCaricate.get(index).getMatricolaVenditore();
-        }
-        return "";
-    }
-
-    public String getMatricolaAcquirenteTransazione(int index) {
-        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
-            return transazioniCaricate.get(index).getMatricolaAcquirente();
-        }
-        return "";
-    }
-
-    public int getIdOffertaTransazione(int index) {
-        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
-            return transazioniCaricate.get(index).getIdOfferta();
-        }
-        return -1;
-    }
-
-    public boolean hasRecensioneTransazione(int index) {
-        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
-            return transazioniCaricate.get(index).hasRecensione();
-        }
-        return false;
-    }
-
-
-    // ==================== METODI FOTO E IMMAGINI ====================
-    
-
-
-
-    
-    public ArrayList<Recensione_entity> caricaRecensioniVenditore(String matricolaVenditore) {
-        try {
-            if (matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
-                return new ArrayList<>();
-            }
-            
-            ListaRecensioniDao dao = new ListaRecensioniDao();
-            return dao.VisualizzaRecensioniRicevute(matricolaVenditore);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento delle recensioni del venditore: " + e.getMessage());
+            System.err.println("Errore durante il caricamento delle offerte: " + e.getMessage());
             e.printStackTrace();
             return new ArrayList<>();
         }
-    }
-
-   public ArrayList<Offerta_entity> caricaOfferteUtente() {
-       try {
-           String matricola = getMatricolaUtenteLoggato();
-           if (matricola == null) {
-               System.err.println("Nessun utente loggato");
-               return new ArrayList<>();
-           }
-           
-           StoricoOfferteDAO dao = new StoricoOfferteDAO();
-           return dao.getOfferte(matricola);
-           
-       } catch (Exception e) {
-           System.err.println("Errore durante il caricamento delle offerte: " + e.getMessage());
-           e.printStackTrace();
-           return new ArrayList<>();
-       }
-   }
-
-   public String getDettaglioOfferta(int idOfferta) {
-       if (idOfferta <= 0) {
-           return null;
-       }
-       
-       try {
-           StoricoOfferteDAO dao = new StoricoOfferteDAO();
-           return dao.getDettaglioOfferta(idOfferta);
-       } catch (SQLException e) {
-           System.err.println("Errore nel recupero dettaglio offerta: " + e.getMessage());
-           return null;
-       }
-   }
-
-   public int getIdAnnuncioDaOfferta(int idOfferta) {
-       if (idOfferta <= 0) {
-           return -1;
-       }
-       
-       try {
-           StoricoOfferteDAO dao = new StoricoOfferteDAO();
-           return dao.getIdAnnuncioFromOfferta(idOfferta);
-       } catch (SQLException e) {
-           System.err.println("Errore nel recupero ID annuncio: " + e.getMessage());
-           return -1;
-       }
-   }
-
-   public String ritiraOfferta(int idOfferta) {
-       if (idOfferta <= 0) {
-           return "ID offerta non valido";
-       }
-       
-       try {
-           StoricoOfferteDAO dao = new StoricoOfferteDAO();
-           boolean eliminato = dao.DeleteOfferte(idOfferta);
-           
-           if (eliminato) {
-               return "Offerta ritirata con successo";
-           } else {
-               return "Impossibile ritirare l'offerta";
-           }
-           
-       } catch (SQLException e) {
-           String errorMessage = e.getMessage();
-           
-           // Gestisci errori specifici
-           if (errorMessage != null && errorMessage.contains("Impossibile ritirare un'offerta accettata")) {
-               return "Non puoi ritirare un'offerta già accettata";
-           }
-           
-           return "Errore durante il ritiro dell'offerta: " + errorMessage;
-       }
-   }
-    
-    
- // ==================== METODI REPORT ====================
-
-    public String[] caricaPrezziAnnunci() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return new String[]{"Errore", "Errore", "Errore"};
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.getPrezziAnnunci(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento dei prezzi: " + e.getMessage());
-            e.printStackTrace();
-            return new String[]{
-                "Non Esiste Prezzo Minimo", 
-                "Non Esiste Prezzo Massimo", 
-                "Non Esiste Prezzo Medio"
-            };
-        }
-    }
-
-    public int getOfferteTotali() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.VisualizzaOfferteTotali(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento offerte totali: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int getOfferteRegalo() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.VisualizzaOfferteRegalo(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento offerte regalo: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int getOfferteScambio() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.VisualizzaOfferteScambio(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento offerte scambio: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int getOfferteVendita() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.VisualizzaOfferteVendita(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento offerte vendita: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int getOfferteRegaloAccettate() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.VisualizzaOfferteRegaloAccettata(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento offerte regalo accettate: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int getOfferteScambioAccettate() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.VisualizzaOfferteScambioAccettata(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento offerte scambio accettate: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int getOfferteVenditaAccettate() {
-        String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
-        
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            return reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
-            
-        } catch (SQLException e) {
-            System.err.println("Errore durante il caricamento offerte vendita accettate: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-    
- // ==================== METODI STORICO OFFERTE ====================
-
+    }    
+   
+    // metodi per accedere ai dati delle offerte caricate tramite indice
     public int getNumeroOfferteUtente() {
         ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
         return offerte != null ? offerte.size() : 0;
@@ -1423,7 +1033,22 @@ public class MainController {
         }
         return -1;
     }
-
+    
+    // metodi che recuperano dettagli aggiuntivi di un'offerta
+    public String getDettaglioOfferta(int idOfferta) {
+        if (idOfferta <= 0) {
+            return null;
+        }
+        
+        try {
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            return dao.getDettaglioOfferta(idOfferta);
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero dettaglio offerta: " + e.getMessage());
+            return null;
+        }
+    }
+    
     public String getTitoloAnnuncioOfferta(int idOfferta) {
         if (idOfferta <= 0) {
             return null;
@@ -1455,7 +1080,22 @@ public class MainController {
             return null;
         }
     }
-
+    
+    public int getIdAnnuncioDaOfferta(int idOfferta) {
+        if (idOfferta <= 0) {
+            return -1;
+        }
+        
+        try {
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            return dao.getIdAnnuncioFromOfferta(idOfferta);
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero ID annuncio: " + e.getMessage());
+            return -1;
+        }
+    }
+    
+    // verifica se un offerta può essere modificata
     public boolean isOffertaModificabile(int idOfferta) {
         if (idOfferta <= 0) {
             return false;
@@ -1472,115 +1112,37 @@ public class MainController {
         }
     }
     
- // ==================== METODI VISUALIZZA RECENSIONI VENDITORE ====================
-
-    // Metodi per accedere ai dati delle recensioni tramite indice
-    public int getIdRecensioneVenditore(String matricolaVenditore, int index) {
-        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
-        if (recensioni != null && index >= 0 && index < recensioni.size()) {
-            return recensioni.get(index).getIdRecensione();
+    // ritira (elimina) un'offerta fatta dall'utente loggato
+    public String ritiraOfferta(int idOfferta) {
+        if (idOfferta <= 0) {
+            return "ID offerta non valido";
         }
-        return -1;
-    }
-
-    public String getCommentoRecensioneVenditore(String matricolaVenditore, int index) {
-        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
-        if (recensioni != null && index >= 0 && index < recensioni.size()) {
-            return recensioni.get(index).getCommento();
+        
+        try {
+            StoricoOfferteDAO dao = new StoricoOfferteDAO();
+            boolean eliminato = dao.DeleteOfferte(idOfferta);
+            
+            if (eliminato) {
+                return "Offerta ritirata con successo";
+            } else {
+                return "Impossibile ritirare l'offerta";
+            }
+            
+        } catch (SQLException e) {
+            String errorMessage = e.getMessage();
+            
+            // gestione errore offerta accettata
+            if (errorMessage != null && errorMessage.contains("Impossibile ritirare un'offerta accettata")) {
+                return "Non puoi ritirare un'offerta già accettata";
+            }
+            
+            return "Errore durante il ritiro dell'offerta: " + errorMessage;
         }
-        return "";
-    }
-
-    public int getPunteggioRecensioneVenditore(String matricolaVenditore, int index) {
-        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
-        if (recensioni != null && index >= 0 && index < recensioni.size()) {
-            return recensioni.get(index).getPunteggio();
-        }
-        return 0;
-    }
-
-    public String getDataRecensioneVenditore(String matricolaVenditore, int index) {
-        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
-        if (recensioni != null && index >= 0 && index < recensioni.size()) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-            return sdf.format(recensioni.get(index).getData());
-        }
-        return "";
-    }
-
-    public String getMatricolaAcquirenteRecensioneVenditore(String matricolaVenditore, int index) {
-        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
-        if (recensioni != null && index >= 0 && index < recensioni.size()) {
-            return recensioni.get(index).getMatricolaAcquirente();
-        }
-        return "";
-    }
-
-    public int getIdOffertaRecensioneVenditore(String matricolaVenditore, int index) {
-        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
-        if (recensioni != null && index >= 0 && index < recensioni.size()) {
-            return recensioni.get(index).getIdOfferta();
-        }
-        return -1;
     }
     
-    // ==================== METODI PER GESTIRE IL CONTESTO VISUALIZZAZIONE RECENSIONI ====================
-    
-    public void impostaVenditorePerVisualizzazione(String matricolaVenditore) {
-        this.matricolaVenditoreCorrente = matricolaVenditore;
-    }
+    // ==================== METODI ANNUNCI PUBBLICATI ====================
 
-    public String getMatricolaVenditoreCorrente() {
-        return matricolaVenditoreCorrente;
-    }
-    
-    // Metodi per accedere ai dati delle recensioni del venditore corrente tramite indice
-    public int getPunteggioRecensioneVenditoreCorrente(int index) {
-        if (matricolaVenditoreCorrente == null) return 0;
-        return getPunteggioRecensioneVenditore(matricolaVenditoreCorrente, index);
-    }
-
-    public String getDataRecensioneVenditoreCorrente(int index) {
-        if (matricolaVenditoreCorrente == null) return "";
-        return getDataRecensioneVenditore(matricolaVenditoreCorrente, index);
-    }
-
-    public String getCommentoRecensioneVenditoreCorrente(int index) {
-        if (matricolaVenditoreCorrente == null) return "";
-        return getCommentoRecensioneVenditore(matricolaVenditoreCorrente, index);
-    }
-
-    public int getIdOffertaRecensioneVenditoreCorrente(int index) {
-        if (matricolaVenditoreCorrente == null) return -1;
-        return getIdOffertaRecensioneVenditore(matricolaVenditoreCorrente, index);
-    }
-
-    public String getMatricolaAcquirenteRecensioneVenditoreCorrente(int index) {
-        if (matricolaVenditoreCorrente == null) return "";
-        return getMatricolaAcquirenteRecensioneVenditore(matricolaVenditoreCorrente, index);
-    }
-
-    public int getNumeroRecensioniVenditoreCorrente() {
-        if (matricolaVenditoreCorrente == null) return 0;
-        return getNumeroRecensioniVenditore(matricolaVenditoreCorrente);
-    }
-
-    public String getNominativoVenditoreCorrente() {
-        if (matricolaVenditoreCorrente == null) return null;
-        return getNominativoUtente(matricolaVenditoreCorrente);
-    }
-
-    public double getValutazioneMediaVenditoreCorrente() {
-        if (matricolaVenditoreCorrente == null) return 0.0;
-        return getValutazioneMediaVenditore(matricolaVenditoreCorrente);
-    }
-    
- //////////////////////Metodi di AnnunciPubblicati 
- 
- // ==================== METODI ANNUNCI PUBBLICATI ====================
-
-    private ArrayList<Integer> idsAnnunciCaricati;
-
+    // carica tutti gli annunci pubblicati dall'utente loggato
     public int getNumeroAnnunciPubblicati() {
         try {
             String matricola = getMatricolaUtenteLoggato();
@@ -1591,7 +1153,7 @@ public class MainController {
             Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
             ArrayList<Annuncio_entity> annunci = dao.getAnnunci(matricola);
             
-            // Salva gli ID per accesso successivo
+            // Salva gli ID per uso successivo
             idsAnnunciCaricati = new ArrayList<>();
             for (Annuncio_entity ann : annunci) {
                 idsAnnunciCaricati.add(ann.getIdAnnuncio());
@@ -1606,6 +1168,7 @@ public class MainController {
         }
     }
 
+    // metodi per accedere ai dati degli annunci pubblicati tramite indice
     public String getTitoloAnnuncioPubblicato(int index) {
         try {
             String matricola = getMatricolaUtenteLoggato();
@@ -1798,10 +1361,7 @@ public class MainController {
         return -1;
     }
 
-    // ==================== METODI OFFERTE RICEVUTE ====================
-
-    private ArrayList<Integer> idsOfferteCaricate;
-
+    // carica le offerte ricevute per un annuncio
     public int getNumeroOfferteRicevute(int idAnnuncio) {
         try {
             if (idAnnuncio <= 0) {
@@ -1811,7 +1371,7 @@ public class MainController {
             Annunci_OfferteDAO dao = new Annunci_OfferteDAO();
             ArrayList<Offerta_entity> offerte = dao.getOfferte(idAnnuncio);
             
-            // Salva gli ID per accesso successivo
+            // Salva gli ID per uso successivo
             idsOfferteCaricate = new ArrayList<>();
             for (Offerta_entity off : offerte) {
                 idsOfferteCaricate.add(off.getIdOfferta());
@@ -1826,6 +1386,7 @@ public class MainController {
         }
     }
 
+    // metodi per accedere ai dati delle offerte ricevute tramite indice
     public String getTipologiaOffertaRicevuta(int idAnnuncio, int index) {
         try {
             if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
@@ -1892,6 +1453,7 @@ public class MainController {
         }
     }
 
+    // metodi per recuperare i dettagli delle offerte
     public String getDettaglioOffertaVendita(int idAnnuncio, int index) {
         try {
             if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
@@ -1972,6 +1534,7 @@ public class MainController {
         }
     }
 
+    // accetta un'offerta ricevuta, chiude l'annuncio e rifiuta tutte le altre
     public String accettaOffertaRicevuta(int idOfferta) {
         if (idOfferta <= 0) {
             return "ID offerta non valido";
@@ -1994,6 +1557,7 @@ public class MainController {
         }
     }
 
+    // rifiuta un'offerta ricevuta
     public String rifiutaOffertaRicevuta(int idOfferta) {
         if (idOfferta <= 0) {
             return "ID offerta non valido";
@@ -2016,7 +1580,449 @@ public class MainController {
         }
     }
     
+    // ==================== METODI LISTA TRANSAZIONI ====================
+    
+    // carica le transazioni completate dall'utente (offerte accettate)
+    public ArrayList<Transazione_entity> caricaTransazioni() {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null) {
+                return new ArrayList<>();
+            }
+            
+            TransazioniDAO dao = new TransazioniDAO();
+            return dao.getTransazioni(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle transazioni: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    // carica le transazioni e restituisce il conteggio
+    public int getNumeroTransazioni() {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null) {
+                return 0;
+            }
+            
+            TransazioniDAO dao = new TransazioniDAO();
+            transazioniCaricate = dao.getTransazioni(matricola);
+            return transazioniCaricate.size();
+            
+        } catch (Exception e) {
+            System.err.println("Errore durante il caricamento delle transazioni: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    // metpoi per accedere ai dati delle transazioni tramite indice
+    public String getTitoloAnnuncioTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getTitoloAnnuncio();
+        }
+        return "";
+    }
+
+    public String getMatricolaVenditoreTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getMatricolaVenditore();
+        }
+        return "";
+    }
+
+    public String getMatricolaAcquirenteTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getMatricolaAcquirente();
+        }
+        return "";
+    }
+
+    public int getIdOffertaTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).getIdOfferta();
+        }
+        return -1;
+    }
+
+    public boolean hasRecensioneTransazione(int index) {
+        if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
+            return transazioniCaricate.get(index).hasRecensione();
+        }
+        return false;
+    }
+
     
 
+    // ==================== METODI LISTA RECENSIONI E INSERIMENTO RECENSIONE ====================
+    
+
+    // carica le recensioni inviate dall'utente loggato
+    public ArrayList<Recensione_entity> caricaRecensioniInviate() {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null) {
+                return new ArrayList<>();
+            }
+            
+            ListaRecensioniDao dao = new ListaRecensioniDao();
+            return dao.VisualizzaRecensioniInviate(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle recensioni inviate: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    // carica le recensioni ricevute dall'utente loggato
+    public ArrayList<Recensione_entity> caricaRecensioniRicevute() {
+        try {
+            String matricola = getMatricolaUtenteLoggato();
+            if (matricola == null) {
+                return new ArrayList<>();
+            }
+            
+            ListaRecensioniDao dao = new ListaRecensioniDao();
+            return dao.VisualizzaRecensioniRicevute(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle recensioni ricevute: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    // recupera il titolo dell'annuncio associato ad un'offerta
+    public String getTitoloAnnuncioDaOfferta(int idOfferta) {
+        try {
+            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+            return dao.getTitoloAnnuncioDaOfferta(idOfferta);
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero titolo annuncio: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    // recupera il nominativo dell'utente dato la sua matricola
+    public String getNominativoUtente(String matricola) {
+        try {
+            RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
+            return dao.getNominativoUtente(matricola);
+        } catch (SQLException e) {
+            System.err.println("Errore nel recupero nominativo utente: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    // inserisce una nuova recensione nel sistema e verifica che non esista già una recensione per la stessa transazione
+    public String inserisciRecensione(String matricolaRecensore, String matricolaRecensito, 
+            int idOfferta, int valutazione, String commento) {
+    	// validazione punteggio
+    	if (valutazione < 1 || valutazione > 5) {
+    		return "La valutazione deve essere tra 1 e 5";
+    	}
+    	
+    	// validazione commento
+    	if (commento == null || commento.trim().isEmpty()) {
+    		return "Il commento è obbligatorio";
+    	}
+
+    	try {
+    		// Verifica se esiste già una recensione per la transazione tramite la DAO
+    		if (InserimentoRecensioneDAO.esisteRecensione(idOfferta)) {
+    			return "Hai già inserito una recensione per questa transazione";
+    		}
+
+    		// Inserisci la recensione tramite DAO
+    		InserimentoRecensioneDAO.inserisciRecensione(
+    				matricolaRecensito, 
+    				matricolaRecensore, 
+    				valutazione, 
+    				commento, 
+    				idOfferta
+    				);
+
+    		return "Recensione inserita con successo";
+
+    	} catch (SQLException e) {
+    		return "Errore durante l'inserimento della recensione: " + e.getMessage();
+    	}
+    }
+
+    // ==================== METODI VISUALIZZA RECENSIONI VENDITORE ====================    
+
+    // imposta il venditore di cui visualizzare le recensioni
+    public void impostaVenditorePerVisualizzazione(String matricolaVenditore) {
+        this.matricolaVenditoreCorrente = matricolaVenditore;
+    }
+
+    public String getMatricolaVenditoreCorrente() {
+        return matricolaVenditoreCorrente;
+    }
+    
+    // carica le recensioni di un venditore specifico
+    public ArrayList<Recensione_entity> caricaRecensioniVenditore(String matricolaVenditore) {
+        try {
+            if (matricolaVenditore == null || matricolaVenditore.trim().isEmpty()) {
+                return new ArrayList<>();
+            }
+            
+            ListaRecensioniDao dao = new ListaRecensioniDao();
+            return dao.VisualizzaRecensioniRicevute(matricolaVenditore);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento delle recensioni del venditore: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    // Metodi per accedere ai dati delle recensioni tramite indice
+    public int getIdRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getIdRecensione();
+        }
+        return -1;
+    }
+
+    public String getCommentoRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getCommento();
+        }
+        return "";
+    }
+
+    public int getPunteggioRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getPunteggio();
+        }
+        return 0;
+    }
+
+    public String getDataRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            return sdf.format(recensioni.get(index).getData());
+        }
+        return "";
+    }
+
+    public String getMatricolaAcquirenteRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getMatricolaAcquirente();
+        }
+        return "";
+    }
+
+    public int getIdOffertaRecensioneVenditore(String matricolaVenditore, int index) {
+        ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
+        if (recensioni != null && index >= 0 && index < recensioni.size()) {
+            return recensioni.get(index).getIdOfferta();
+        }
+        return -1;
+    }
+    
+    // Metodi per accedere ai dati delle recensioni del venditore corrente tramite indice
+    public int getPunteggioRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return 0;
+        return getPunteggioRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public String getDataRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return "";
+        return getDataRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public String getCommentoRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return "";
+        return getCommentoRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public int getIdOffertaRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return -1;
+        return getIdOffertaRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public String getMatricolaAcquirenteRecensioneVenditoreCorrente(int index) {
+        if (matricolaVenditoreCorrente == null) return "";
+        return getMatricolaAcquirenteRecensioneVenditore(matricolaVenditoreCorrente, index);
+    }
+
+    public int getNumeroRecensioniVenditoreCorrente() {
+        if (matricolaVenditoreCorrente == null) return 0;
+        return getNumeroRecensioniVenditore(matricolaVenditoreCorrente);
+    }
+
+    public String getNominativoVenditoreCorrente() {
+        if (matricolaVenditoreCorrente == null) return null;
+        return getNominativoUtente(matricolaVenditoreCorrente);
+    }
+
+    public double getValutazioneMediaVenditoreCorrente() {
+        if (matricolaVenditoreCorrente == null) return 0.0;
+        return getValutazioneMediaVenditore(matricolaVenditoreCorrente);
+    }
+    
+    
+    // ==================== METODI REPORT ====================
+
+    // carica i prezzi degli annunci di vendita dell'utente 
+    public String[] caricaPrezziAnnunci() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return new String[]{"Errore", "Errore", "Errore"};
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.getPrezziAnnunci(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento dei prezzi: " + e.getMessage());
+            e.printStackTrace();
+            return new String[]{
+                "Non Esiste Prezzo Minimo", 
+                "Non Esiste Prezzo Massimo", 
+                "Non Esiste Prezzo Medio"
+            };
+        }
+    }
+
+    // metodi per le statistiche delle offerte per i grafici
+    public int getOfferteTotali() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteTotali(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte totali: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteRegalo() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteRegalo(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte regalo: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteScambio() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteScambio(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte scambio: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteVendita() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteVendita(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte vendita: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteRegaloAccettate() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteRegaloAccettata(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte regalo accettate: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteScambioAccettate() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteScambioAccettata(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte scambio accettate: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getOfferteVenditaAccettate() {
+        String matricola = getMatricolaUtenteLoggato();
+        
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            return reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento offerte vendita accettate: " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 }
