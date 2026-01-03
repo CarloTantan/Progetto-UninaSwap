@@ -12,9 +12,7 @@ import entity.OffertaVendita_entity;
 import entity.OffertaRegalo_entity;
 import entity.OffertaScambio_entity;
 import entity.Offerta_entity;
-import enumerations.FasciaOraria;
-import enumerations.StatoAnnuncio;
-import enumerations.TipologiaCategoria;
+import enumerations.*;
 
 // Classe DAO per la gestione degli annunci e delle relative offerte
 // Permette di recuperare annunci di un venditore, visualizzare offerte ricevute
@@ -104,7 +102,7 @@ public class Annunci_OfferteDAO {
 	            if (tipologia.equalsIgnoreCase("Vendita")) {
 	                offerta = new OffertaVendita_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("Stato"),
+	                    StatoOfferta.fromLabel(rs.getString("Stato")),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getFloat("ImportoProposto"),
@@ -113,7 +111,7 @@ public class Annunci_OfferteDAO {
 	            } else if (tipologia.equalsIgnoreCase("Scambio")) {
 	                offerta = new OffertaScambio_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("Stato"),
+	                    StatoOfferta.fromLabel(rs.getString("Stato")),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getString("OggettoProposto"),
@@ -122,7 +120,7 @@ public class Annunci_OfferteDAO {
 	            } else {
 	                offerta = new OffertaRegalo_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("Stato"),
+	                    StatoOfferta.fromLabel(rs.getString("Stato")),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getString("MessaggioMotivazionale"),

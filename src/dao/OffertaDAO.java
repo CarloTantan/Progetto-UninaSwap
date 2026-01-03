@@ -10,6 +10,8 @@ import entity.OffertaRegalo_entity;
 import entity.OffertaScambio_entity;
 import entity.OffertaVendita_entity;
 
+import enumerations.*;
+
 // Classe DAO per la gestione delle offerte
 // permette di inserire, aggiornare e caricare offerte di varie tipologie
 public class OffertaDAO {
@@ -147,7 +149,7 @@ public class OffertaDAO {
 	            if (rs.next()) {
 	                return new OffertaRegalo_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("Stato"),
+	                    StatoOfferta.fromLabel(rs.getString("Stato")),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getString("MessaggioMotivazionale"),
@@ -173,7 +175,7 @@ public class OffertaDAO {
 	            if (rs.next()) {
 	                return new OffertaVendita_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("Stato"),
+	                    StatoOfferta.fromLabel(rs.getString("Stato")),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getFloat("ImportoProposto"),
@@ -199,7 +201,7 @@ public class OffertaDAO {
 	            if (rs.next()) {
 	                return new OffertaScambio_entity(
 	                    rs.getInt("IdOfferta"),
-	                    rs.getString("Stato"),
+	                    StatoOfferta.fromLabel(rs.getString("Stato")),
 	                    rs.getString("MatricolaAcquirente"),
 	                    rs.getInt("IdAnnuncio"),
 	                    rs.getString("OggettoProposto"),
