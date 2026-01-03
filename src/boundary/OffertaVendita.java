@@ -26,7 +26,17 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+/**
+ * Classe che rappresenta la finestra per creare o modificare un'offerta di vendita.
+ * Permette agli utenti di proporre un importo monetario per acquistare l'oggetto
+ * presente nell'annuncio selezionato.
+ * La finestra supporta sia la creazione di nuove offerte di vendita che la modifica
+ * di offerte esistenti.
+ */
 public class OffertaVendita extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -53,7 +63,7 @@ public class OffertaVendita extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout());
         
-        // ---------------- HEADER -----------------
+     //  HEADER : Pannello superiore con colore blu e titolo
         JPanel header = new JPanel();
         header.setBackground(new Color(45, 134, 192));
         header.setLayout(null);
@@ -68,8 +78,8 @@ public class OffertaVendita extends JFrame {
         header.add(lblNewLabel);
         
         // Posizionamento centrato del titolo
-        header.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
+        header.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
                 int headerWidth = header.getWidth();
                 lblNewLabel.setBounds((headerWidth - 300) / 2, 10, 300, 79);
             }
@@ -91,18 +101,18 @@ public class OffertaVendita extends JFrame {
         btnUndo.setBorderPainted(false); 
         header.add(btnUndo);
         
-        btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btnUndo.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 btnUndo.setBackground(new Color(66, 152, 211));
                 btnUndo.setContentAreaFilled(true);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 btnUndo.setBackground(new Color(45, 134, 192));
                 btnUndo.setContentAreaFilled(false);
             }
         });
         
-        // ---------------- PANNELLO CENTRALE CON GRIDBAGLAYOUT -----------------
+        //  PANNELLO CENTRALE :Pannello contenente il form per l'offerta di vendita
         JPanel panelCentrale = new JPanel();
         panelCentrale.setBackground(Color.WHITE);
         panelCentrale.setLayout(new GridBagLayout());
@@ -164,22 +174,22 @@ public class OffertaVendita extends JFrame {
         panelCentrale.add(btnConferma, gbc);
         getRootPane().setDefaultButton(btnConferma);
         
-        btnConferma.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btnConferma.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 btnConferma.setBackground(new Color(0, 70, 140));
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 btnConferma.setBackground(new Color(0, 52, 101));
             }
         });
     }
 
-    // ==================== METODI PUBBLICI PER CONFIGURAZIONE ====================
     
+    //Imposta l'ID dell'annuncio per cui si sta facendo l'offerta di vendita.
     public void setIdAnnuncio(int idAnnuncio) {
         this.idAnnuncioScelto = idAnnuncio;
     }
-    
+    //Carica i dati di un'offerta di vendita esistente per permetterne la modifica.
     public void caricaOffertaPerModifica(int idOfferta) {
         String risultato = controller.caricaOffertaVenditaPerModifica(idOfferta);
         
@@ -205,8 +215,8 @@ public class OffertaVendita extends JFrame {
         }
     }
 
-    // ==================== GESTIONE EVENTI ====================
-    
+
+    //Metodo che gestisce la conferma dell'offerta di vendita.
     private void confermaOfferta() {
         String importoPropostoString = textAreaImportoProposto.getText().trim();
         String risultato;

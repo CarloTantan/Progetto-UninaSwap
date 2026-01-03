@@ -26,7 +26,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
 import java.awt.Toolkit;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+/**
+ * Classe che rappresenta l'interfaccia grafica per la creazione di un annuncio di tipo "Vendita".
+ * Questa schermata viene mostrata dopo che l'utente ha compilato i dati generali dell'annuncio
+ * e ha scelto di vendere l'oggetto. Qui l'utente inserisce il prezzo di vendita.
+ */
 public class AnnuncioVendita extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -62,7 +68,7 @@ public class AnnuncioVendita extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
 		
-		// Header Panel
+		//  HEADER PANEL: Pannello superiore con sfondo blu
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(45, 134, 192));
 		headerPanel.setPreferredSize(new Dimension(0, 80));
@@ -98,7 +104,7 @@ public class AnnuncioVendita extends JFrame {
 		centerHeaderPanel.add(lblTitolo);
 		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
 		
-		// Main Content Panel
+	//  MAIN CONTENT PANEL : Pannello centrale che contiene il form
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(245, 247, 250));
 		mainPanel.setBorder(new EmptyBorder(60, 100, 60, 100));
@@ -109,7 +115,8 @@ public class AnnuncioVendita extends JFrame {
 		gbc.insets = new Insets(15, 15, 15, 15);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
-		// Label Prezzo
+		// SEZIONE PREZZO 
+		// Label per il campo "Prezzo"
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.anchor = GridBagConstraints.WEST;
@@ -126,7 +133,7 @@ public class AnnuncioVendita extends JFrame {
 		textFieldPrezzo.setPreferredSize(new Dimension(300, 40));
 		mainPanel.add(textFieldPrezzo, gbc);
 		
-		// Bottone Pubblica
+		// 	BOTTONE PUBBLICA 
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.weightx = 0;
@@ -148,18 +155,19 @@ public class AnnuncioVendita extends JFrame {
 				pubblicaAnnuncioVendita();
 			}
 		});
-		
-		// Hover effect
-		ButtonPubblica.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		// Effetto hover sul bottone (cambia colore quando il mouse passa sopra)
+		ButtonPubblica.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				ButtonPubblica.setBackground(new Color(0, 70, 140));
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				ButtonPubblica.setBackground(new Color(0, 52, 102));
 			}
 		});
 	}
-
+	/**
+	 * Metodo privato che gestisce la pubblicazione dell'annuncio di vendita.
+	 */
 	private void pubblicaAnnuncioVendita() {
 	    // Recupera il prezzo come stringa
 	    String prezzoStr = textFieldPrezzo.getText().trim();

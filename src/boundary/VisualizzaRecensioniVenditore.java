@@ -24,7 +24,12 @@ import javax.swing.border.LineBorder;
 
 import mainController.MainController;
 
-
+/**
+ * Classe che rappresenta la schermata per visualizzare tutte le recensioni
+ * ricevute da un venditore specifico. Mostra il nominativo del venditore,
+ * la valutazione media con il numero totale di recensioni, e una lista
+ * scrollabile di tutte le recensioni con relativi dettagli.
+ */
 public class VisualizzaRecensioniVenditore extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -94,6 +99,7 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	    // Carica i dati tramite controller
 	    caricaDati(lblNome, lblRating);
 	}
+//Carica le informazioni del venditore (nome, rating, numero recensioni)
 
 	private void caricaDati(JLabel lblNome, JLabel lblRating) {
 	    // Ottieni info venditore tramite controller
@@ -128,6 +134,9 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	        }
 	    }
 	}
+// Crea una card (pannello) che rappresenta visivamente una recensione con tutti i suoi dettagli
+	//punteggio in stelle, data, commento, annuncio relativo e informazioni sull'acquirente.
+	 
 
 	private JPanel creaCardRecensione(int index) {
 	    JPanel card = new JPanel();
@@ -161,7 +170,7 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 	    headerPanel.add(panelStelle, BorderLayout.WEST);
 	    headerPanel.add(lblData, BorderLayout.EAST);
 
-	    // ============ PANNELLO CENTRALE (titolo annuncio + commento) ============
+	    // PANNELLO CENTRALE 
 	    JPanel centralPanel = new JPanel();
 	    centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
 	    centralPanel.setBackground(Color.WHITE);
@@ -210,7 +219,7 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 
 	    return card;
 	}
-
+	//Crea un pannello con 5 stelle che rappresentano visivamente il punteggio della recensione.
 	private JPanel creaPannelloStelle(int punteggio) {
 	    JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
 	    panel.setBackground(Color.WHITE);

@@ -1,18 +1,14 @@
 package boundary;
 
 import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import mainController.MainController;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
@@ -22,28 +18,37 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-
 import javax.swing.JTextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
-
+import java.awt.Cursor;
+/**
+ * Classe che rappresenta l'interfaccia grafica per l'inserimento di una recensione.
+ * Permette all'acquirente di valutare il venditore con un punteggio da 1 a 5 stelle
+ * e di lasciare un commento testuale.
+ */
 public class InserimentoRecensione extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    
     private JPanel contentPane;
-    private String matricolaVenditore;
-    private String matricolaAcquirente;
-    private int idOfferta;
-    private JTextArea textAreaCommento;
+    private String matricolaVenditore;  
+    private String matricolaAcquirente; 
+    private int idOfferta;              
+    
+    
+    private JTextArea textAreaCommento; 
     private MainController controller;
-    private JLabel[] lblStelle = new JLabel[5];
-    private int punteggioSelezionato = 0;
-    private ImageIcon stellaPiena;
-    private ImageIcon stellaVuota;
-    private ImageIcon stellaHover;
+    
+    private JLabel[] lblStelle = new JLabel[5];  
+    private int punteggioSelezionato = 0;        
+    
+    private ImageIcon stellaPiena;  
+    private ImageIcon stellaVuota;  
+    private ImageIcon stellaHover;  
 
     public InserimentoRecensione(String matricolaAcquirente, String matricolaVenditore, 
                                  int idOfferta, MainController controller) {
@@ -51,35 +56,34 @@ public class InserimentoRecensione extends JFrame {
         this.matricolaVenditore = matricolaVenditore;
         this.idOfferta = idOfferta;
         this.controller = controller;
-        
-        // Carica le icone delle stelle
         caricaIconeStelle();
         
         setIconImage(Toolkit.getDefaultToolkit().getImage(
             InserimentoRecensione.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
         setTitle("Scrivi la tua recensione");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setMinimumSize(new Dimension(900, 650));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);  
+        setMinimumSize(new Dimension(900, 650));   
         
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-        contentPane.setBackground(new Color(245, 247, 250));
+        contentPane.setBackground(new Color(245, 247, 250));  
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
         
-        // ============ HEADER ============
+        // HEADER: Pannello header blu con titolo e pulsante indietro
         JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(new Color(50, 132, 188));
+        headerPanel.setBackground(new Color(50, 132, 188));  
         headerPanel.setPreferredSize(new Dimension(0, 100));
         headerPanel.setLayout(new BorderLayout(10, 0));
         contentPane.add(headerPanel, BorderLayout.NORTH);
         
-        // Pannello sinistro con pulsante back
+        // LEFT PANEL: Pannello sinistro con pulsante back
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(50, 132, 188));
         leftPanel.setPreferredSize(new Dimension(100, 100));
         leftPanel.setBorder(new EmptyBorder(25, 15, 0, 0));
+        
         
         JButton btnIndietro = new JButton("");
         btnIndietro.setIcon(new ImageIcon(
@@ -90,17 +94,19 @@ public class InserimentoRecensione extends JFrame {
         btnIndietro.setBorderPainted(false);
         btnIndietro.setContentAreaFilled(false);
         
-        btnIndietro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+       
+        btnIndietro.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 btnIndietro.setBackground(new Color(70, 152, 208));
                 btnIndietro.setContentAreaFilled(true);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 btnIndietro.setBackground(new Color(50, 132, 188));
                 btnIndietro.setContentAreaFilled(false);
             }
         });
         
+        // Azione del pulsante indietro: torna alla lista transazioni
         btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,7 +117,7 @@ public class InserimentoRecensione extends JFrame {
         leftPanel.add(btnIndietro);
         headerPanel.add(leftPanel, BorderLayout.WEST);
         
-        // Pannello centrale con titolo
+        
         JPanel centerPanel = new JPanel();
         centerPanel.setBackground(new Color(50, 132, 188));
         centerPanel.setBorder(new EmptyBorder(30, 0, 0, 0));
@@ -121,7 +127,7 @@ public class InserimentoRecensione extends JFrame {
         centerPanel.add(lblTitolo);
         headerPanel.add(centerPanel, BorderLayout.CENTER);
         
-        // ============ CONTAINER PRINCIPALE ============
+        // CONTAINER PRINCIPALE:  Pannello centrale bianco con tutti i componenti della recensione
         JPanel mainContainer = new JPanel();
         mainContainer.setBackground(Color.WHITE);
         mainContainer.setBorder(new EmptyBorder(50, 100, 50, 100));
@@ -132,7 +138,7 @@ public class InserimentoRecensione extends JFrame {
         gbc.insets = new Insets(20, 10, 20, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        // ============ SEZIONE PUNTEGGIO ============
+        //  SEZIONE PUNTEGGIO 
         JLabel lblPunteggio = new JLabel("Valuta la tua esperienza");
         lblPunteggio.setFont(new Font("Verdana", Font.BOLD, 18));
         lblPunteggio.setForeground(new Color(0, 52, 104));
@@ -142,13 +148,11 @@ public class InserimentoRecensione extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         mainContainer.add(lblPunteggio, gbc);
         
-        // Pannello stelle
         JPanel stellePanel = creaPannelloStelle();
         gbc.gridy = 1;
         gbc.insets = new Insets(10, 10, 30, 10);
         mainContainer.add(stellePanel, gbc);
         
-        // Label feedback punteggio
         JLabel lblFeedbackPunteggio = new JLabel("Seleziona un punteggio da 1 a 5 stelle");
         lblFeedbackPunteggio.setFont(new Font("Verdana", Font.ITALIC, 13));
         lblFeedbackPunteggio.setForeground(Color.GRAY);
@@ -156,7 +160,7 @@ public class InserimentoRecensione extends JFrame {
         gbc.insets = new Insets(0, 10, 30, 10);
         mainContainer.add(lblFeedbackPunteggio, gbc);
         
-        // ============ SEZIONE COMMENTO ============
+        //  SEZIONE COMMENTO 
         JLabel lblCommento = new JLabel("Racconta la tua esperienza");
         lblCommento.setFont(new Font("Verdana", Font.BOLD, 18));
         lblCommento.setForeground(new Color(0, 52, 104));
@@ -164,14 +168,14 @@ public class InserimentoRecensione extends JFrame {
         gbc.insets = new Insets(20, 10, 10, 10);
         mainContainer.add(lblCommento, gbc);
         
-        // TextArea Commento con ScrollPane
         textAreaCommento = new JTextArea();
         textAreaCommento.setForeground(new Color(0, 0, 0));
-        textAreaCommento.setWrapStyleWord(true);
-        textAreaCommento.setLineWrap(true);
+        textAreaCommento.setWrapStyleWord(true); 
+        textAreaCommento.setLineWrap(true);      
         textAreaCommento.setFont(new Font("Verdana", Font.PLAIN, 14));
         textAreaCommento.setRows(6);
         textAreaCommento.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
         
         JScrollPane scrollPane = new JScrollPane(textAreaCommento);
         scrollPane.setPreferredSize(new Dimension(600, 150));
@@ -185,22 +189,23 @@ public class InserimentoRecensione extends JFrame {
         gbc.insets = new Insets(10, 10, 30, 10);
         mainContainer.add(scrollPane, gbc);
         
-        // ============ BOTTONE INVIA ============
+        // BOTTONE INVIA: Pulsante per inviare la recensione
         JButton btnInvia = new JButton("Invia Recensione");
         btnInvia.setFocusPainted(false);
         btnInvia.setBorderPainted(false);
         btnInvia.setForeground(Color.WHITE);
-        btnInvia.setBackground(new Color(40, 167, 69));
+        btnInvia.setBackground(new Color(40, 167, 69));  
         btnInvia.setFont(new Font("Verdana", Font.BOLD, 16));
         btnInvia.setPreferredSize(new Dimension(250, 55));
         
-        btnInvia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnInvia.setBackground(new Color(33, 136, 56));
+        
+        btnInvia.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                btnInvia.setBackground(new Color(33, 136, 56));  
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnInvia.setBackground(new Color(40, 167, 69));
-            }
+            public void mouseExited(MouseEvent evt) {
+                btnInvia.setBackground(new Color(40, 167, 69));  
+                }
         });
         
         btnInvia.addActionListener(new ActionListener() {
@@ -218,21 +223,21 @@ public class InserimentoRecensione extends JFrame {
         mainContainer.add(btnInvia, gbc);
     }
     
-    private void caricaIconeStelle() {
+    
+     // Carica le icone delle stelle dalle risorse e le ridimensiona.
+     private void caricaIconeStelle() {
         try {
             ImageIcon iconaPiena = new ImageIcon(
                 InserimentoRecensione.class.getResource("/icons/icons8-stella-32.png"));
             ImageIcon iconaVuota = new ImageIcon(
                 InserimentoRecensione.class.getResource("/icons/icons8-stella-vuota-32.png"));
             
-            // Ridimensiona le icone
             Image imgPiena = iconaPiena.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH);
             Image imgVuota = iconaVuota.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH);
             
             stellaPiena = new ImageIcon(imgPiena);
             stellaVuota = new ImageIcon(imgVuota);
             
-            // Crea versione hover (leggermente più grande)
             Image imgHover = iconaPiena.getImage().getScaledInstance(52, 52, Image.SCALE_SMOOTH);
             stellaHover = new ImageIcon(imgHover);
             
@@ -241,27 +246,26 @@ public class InserimentoRecensione extends JFrame {
         }
     }
     
-    private JPanel creaPannelloStelle() {
+     // Crea il pannello contenente le 5 stelle cliccabili.
+     private JPanel creaPannelloStelle() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         panel.setBackground(Color.WHITE);
         
+        // Crea le 5 stelle
         for (int i = 0; i < 5; i++) {
             final int indice = i;
             lblStelle[i] = new JLabel(stellaVuota);
-            lblStelle[i].setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            lblStelle[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             
-            // Mouse listener per hover effect
             lblStelle[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     aggiornaStelle(indice + 1, true);
                 }
-                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     aggiornaStelle(punteggioSelezionato, false);
                 }
-                
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     punteggioSelezionato = indice + 1;
@@ -275,7 +279,9 @@ public class InserimentoRecensione extends JFrame {
         return panel;
     }
     
-    private void aggiornaStelle(int punteggio, boolean isHover) {
+    
+     // Aggiorna la visualizzazione delle stelle in base al punteggio.
+     private void aggiornaStelle(int punteggio, boolean isHover) {
         for (int i = 0; i < 5; i++) {
             if (i < punteggio) {
                 lblStelle[i].setIcon(isHover ? stellaHover : stellaPiena);
@@ -285,7 +291,9 @@ public class InserimentoRecensione extends JFrame {
         }
     }
     
+     // Valida i campi del form prima dell'invio.
     private boolean validaCampi() {
+        // Verifica che sia stato selezionato un punteggio
         if (punteggioSelezionato == 0) {
             JOptionPane.showMessageDialog(this,
                 "Seleziona un punteggio cliccando sulle stelle",
@@ -306,6 +314,9 @@ public class InserimentoRecensione extends JFrame {
         return true;
     }
     
+    
+    //  Gestisce l'invio della recensione.
+     
     private void inviaRecensione() {
         if (!validaCampi()) {
             return;
@@ -313,16 +324,14 @@ public class InserimentoRecensione extends JFrame {
         
         String commento = textAreaCommento.getText().trim();
         
-        // Usa SOLO il controller per inserire la recensione
         String risultato = controller.inserisciRecensione(
-            matricolaAcquirente,  // recensore (acquirente)
-            matricolaVenditore,   // recensito (venditore)
+            matricolaAcquirente,  
+            matricolaVenditore,   
             idOfferta,
             punteggioSelezionato,
             commento
         );
         
-        // Gestisci il risultato
         if (risultato.equals("Recensione inserita con successo")) {
             JOptionPane.showMessageDialog(this,
                 risultato,
@@ -330,7 +339,6 @@ public class InserimentoRecensione extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
             tornaListaTransazioni();
         } else {
-            // Mostra l'errore all'utente
             JOptionPane.showMessageDialog(this,
                 risultato,
                 "Errore",
@@ -338,6 +346,9 @@ public class InserimentoRecensione extends JFrame {
         }
     }
     
+    
+    //  Chiude la finestra corrente e apre la finestra ListaTransazioni.
+     
     private void tornaListaTransazioni() {
         this.dispose();
         ListaTransazioni listaTransazioniFrame = new ListaTransazioni(controller);

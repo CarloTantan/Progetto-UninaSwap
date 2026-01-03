@@ -33,6 +33,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import mainController.MainController;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+/**
+ * Classe che rappresenta la finestra di Report statistiche dell'utente.
+ * Visualizza statistiche dettagliate sulle offerte inviate e ricevute,
+ * incluse analisi sui prezzi e rappresentazioni grafiche dei dati.
+ * Utilizza la libreria JFreeChart per la generazione di grafici a torta e a barre.
+ */
 
 public class Report extends JFrame {
 
@@ -64,7 +73,7 @@ public class Report extends JFrame {
         contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
         
-        // ========== HEADER ==========
+        // HEADER: Pannello superiore con titolo, bottone indietro e informazioni utente
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(50, 132, 188));
         headerPanel.setPreferredSize(new Dimension(0, 100));
@@ -94,12 +103,12 @@ public class Report extends JFrame {
         btnUndo.setContentAreaFilled(false);
         
         // Effetto hover per il pulsante back
-        btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btnUndo.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 btnUndo.setBackground(new Color(70, 152, 208));
                 btnUndo.setContentAreaFilled(true);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 btnUndo.setBackground(new Color(50, 132, 188));
                 btnUndo.setContentAreaFilled(false);
             }
@@ -140,7 +149,7 @@ public class Report extends JFrame {
         caricaOfferte();
         caricaPrezzi();
         
-        // ========== CONTENUTO PRINCIPALE ==========
+        //  CONTENUTO PRINCIPALE CON SCROLL: Pannello principale scrollabile per contenere tutte le sezioni del report
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(new GridBagLayout());
@@ -313,7 +322,7 @@ public class Report extends JFrame {
         panel3.add(chart3, BorderLayout.CENTER);
         graficiPanel.add(panel3, gbcGrafici);
     }
-
+    //Crea un grafico a torta che rappresenta la distribuzione delle offerte inviate per tipologia.
     private ChartPanel creaGraficoOfferteTotali() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         
@@ -343,7 +352,7 @@ public class Report extends JFrame {
         ChartPanel chartPanel = new ChartPanel(grafico);
         return chartPanel;
     }
-    
+    // Crea un grafico a torta che rappresenta la distribuzione delle offerte accettate per tipologia
     private ChartPanel creaGraficoOfferteAccettate() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         
@@ -370,7 +379,7 @@ public class Report extends JFrame {
         ChartPanel chartPanel = new ChartPanel(grafico);
         return chartPanel;
     }
-    
+   // Crea un grafico a barre che rappresenta l'analisi dei prezzi degli annunci di vendita.
     private ChartPanel creaGraficoPrezzi() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
@@ -409,12 +418,12 @@ public class Report extends JFrame {
         ChartPanel chartPanel = new ChartPanel(grafico);
         return chartPanel;
     }
-
+    //Carica le statistiche sui prezzi degli annunci dal controller
     private void caricaPrezzi() {
     	prezzi = controller.caricaPrezziAnnunci();
     }
     
-    
+ //  Carica le statistiche sulle offerte dal controller.
     private void caricaOfferte() {
     	offerteTotali = controller.getOfferteTotali();
     	offerteRegalo = controller.getOfferteRegalo();

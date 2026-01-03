@@ -25,15 +25,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+/**
+ * Classe che rappresenta l'area utente principale dell'applicazione.
+ * Questa è la schermata "home" che viene mostrata dopo il login e contiene
+ * tutti i bottoni per accedere alle varie funzionalità del sistema:
+ **/
 public class AreaUtente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnCreaAnnuncio;
 	
-	/**
-	 * Create the frame.
-	 */
+	
 	public AreaUtente(MainController controller) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AreaUtente.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("AreaUtente");
@@ -46,8 +51,7 @@ public class AreaUtente extends JFrame {
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		// Header Panel
+		// HEADER PANEL: Pannello superiore contenente: bottone indietro, titolo, report, info utente	
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(50, 132, 188));
 		headerPanel.setPreferredSize(new Dimension(0, 100));
@@ -74,12 +78,12 @@ public class AreaUtente extends JFrame {
 		btnUndo.setContentAreaFilled(false);
 		
 		// Effetto hover per il pulsante back
-		btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnUndo.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				btnUndo.setBackground(new Color(70, 152, 208));
 				btnUndo.setContentAreaFilled(true);
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				btnUndo.setBackground(new Color(50, 132, 188));
 				btnUndo.setContentAreaFilled(false);
 			}
@@ -88,7 +92,7 @@ public class AreaUtente extends JFrame {
 		leftPanel.add(btnUndo);
 		headerPanel.add(leftPanel, BorderLayout.WEST);
 		
-		// Pannello centrale con titolo
+		// PANNELLO CENTRALE CON TITOLO 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(new Color(50, 132, 188));
 		centerPanel.setBorder(new EmptyBorder(30, 0, 0, 0));
@@ -98,7 +102,7 @@ public class AreaUtente extends JFrame {
 		centerPanel.add(lblTitle);
 		headerPanel.add(centerPanel, BorderLayout.CENTER);
 		
-		// Pannello destro con bottone report e info utente
+		// PANNELLO DESTRO CON BOTTONE REPORT E INFO UTENTE 
 		JPanel rightPanel = new JPanel();
 		rightPanel.setBackground(new Color(50, 132, 188));
 		rightPanel.setPreferredSize(new Dimension(500, 100));
@@ -122,11 +126,11 @@ public class AreaUtente extends JFrame {
 		});
 		
 		// Effetto hover per il bottone report
-		btnReport.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnReport.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				btnReport.setBackground(new Color(70, 152, 208));
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				btnReport.setBackground(new Color(50, 132, 188));
 			}
 		});
@@ -144,8 +148,7 @@ public class AreaUtente extends JFrame {
 		rightPanel.add(lblNomeUtente);
 		
 		headerPanel.add(rightPanel, BorderLayout.EAST);
-		
-		// Container principale per i pulsanti con padding
+		//  CONTAINER PRINCIPALE PER I PULSANTI 
 		JPanel mainContainer = new JPanel();
 		mainContainer.setBackground(new Color(245, 247, 250));
 		mainContainer.setBorder(new EmptyBorder(40, 80, 40, 80));
@@ -238,7 +241,8 @@ public class AreaUtente extends JFrame {
 		
 		
 	}
-	
+
+	 // Metodo helper per creare bottoni con uno stile uniforme
 	private JButton createStyledButton(String text, String iconPath) {
 		JButton button = new JButton(text);
 		try {
@@ -255,11 +259,11 @@ public class AreaUtente extends JFrame {
 		button.setMaximumSize(new Dimension(400, 140));
 		
 		// Aggiungi effetto hover
-		button.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		button.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				button.setBackground(new Color(0, 70, 140));
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				button.setBackground(new Color(0, 52, 104));
 			}
 		});
@@ -267,12 +271,18 @@ public class AreaUtente extends JFrame {
 		return button;
 	}
 	
+//	  Metodo che gestisce il ritorno alla schermata di login (logout).
+  
+	 
 	private void tornaAlLogin(MainController controller) {
 		dispose();
 		Login LoginFrame = new Login(controller);
 		LoginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		LoginFrame.setVisible(true);
 	}
+	
+	//  Metodo che apre la schermata dei report statistici dell'utente.
+	 
 	
 	private void apriReport(MainController controller) {
 		dispose();
@@ -281,13 +291,17 @@ public class AreaUtente extends JFrame {
 		ReportFrame.setVisible(true);
 	}
 	
-	private void apriStoricoOfferte(MainController controller) {
+	
+	 // Metodo che apre la schermata dello storico delle offerte effettuate.
+	 
+	 private void apriStoricoOfferte(MainController controller) {
 		dispose();
 		StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(controller);
 		StoricoOfferteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		StoricoOfferteFrame.setVisible(true);
 	}
-	
+	 //Metodo che apre la schermata della lista delle transazioni completate.
+	 
 	private void apriListaTransazioni(MainController controller) {
 		dispose();
 		ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(controller);
@@ -295,20 +309,24 @@ public class AreaUtente extends JFrame {
 		ListaTransazioniFrame.setVisible(true);
 	}
 	
+	//  Metodo che apre la schermata degli annunci pubblicati dall'utente.
+	 
+	
 	private void apriAnnunciPubblicati(MainController controller) {
 		dispose();
 		AnnunciPubblicati AnnunciPubblicatiFrame = new AnnunciPubblicati(controller);
 		AnnunciPubblicatiFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
 		AnnunciPubblicatiFrame.setVisible(true);
 	}
-	
+//Metodo che apre la schermata di creazione di un nuovo oggetto.
 	private void apriOggetto(MainController controller) {
 		dispose();
 		Oggetto OggettoFrame = new Oggetto(controller);
 		OggettoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
 		OggettoFrame.setVisible(true);
 	}
-	
+	 // Metodo che apre la schermata delle recensioni ricevute.
+	 
 	private void apriListaRecensioni(MainController controller) {
 		dispose();
 		ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(controller);
@@ -316,7 +334,8 @@ public class AreaUtente extends JFrame {
 		ListaRecensioniFrame.setVisible(true);
 	}
 	
-	private void apriListaAnnunci(MainController controller) {
+	//  Metodo che apre la schermata della lista di tutti gli annunci disponibili.
+	 private void apriListaAnnunci(MainController controller) {
 		dispose();
 		ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
 		ListaAnnunciFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		

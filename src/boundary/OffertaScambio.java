@@ -24,7 +24,16 @@ import javax.swing.border.EmptyBorder;
 import mainController.MainController;
 
 import java.awt.Toolkit;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+/**
+ * Classe che rappresenta la finestra per creare o modificare un'offerta di scambio.
+ * Permette agli utenti di proporre un oggetto in cambio di quello presente nell'annuncio.
+ * La finestra supporta sia la creazione di nuove offerte di scambio che la modifica
+ * di offerte esistenti.
+ */
 public class OffertaScambio extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -51,7 +60,7 @@ public class OffertaScambio extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout());
         
-        // ---------------- HEADER -----------------
+        // HEADER:Pannello superiore con colore blu e titolo 
         JPanel header = new JPanel();
         header.setBackground(new Color(45, 134, 192));
         header.setLayout(null);
@@ -66,8 +75,8 @@ public class OffertaScambio extends JFrame {
         header.add(lblOffertaScambio);
         
         // Posizionamento centrato del titolo
-        header.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
+        header.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
                 int headerWidth = header.getWidth();
                 lblOffertaScambio.setBounds((headerWidth - 300) / 2, 10, 300, 79);
             }
@@ -88,18 +97,18 @@ public class OffertaScambio extends JFrame {
         btnUndo.setBorderPainted(false);
         header.add(btnUndo);
         
-        btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btnUndo.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 btnUndo.setBackground(new Color(66, 152, 211));
                 btnUndo.setContentAreaFilled(true);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 btnUndo.setBackground(new Color(45, 134, 192));
                 btnUndo.setContentAreaFilled(false);
             }
         });
         
-        // ---------------- PANNELLO CENTRALE CON GRIDBAGLAYOUT -----------------
+        // PANNELLO CENTRALE : Pannello contenente il form per l'offerta di scambio
         JPanel panelCentrale = new JPanel();
         panelCentrale.setBackground(Color.WHITE);
         panelCentrale.setLayout(new GridBagLayout());
@@ -161,22 +170,22 @@ public class OffertaScambio extends JFrame {
         panelCentrale.add(btnConferma, gbc);
         getRootPane().setDefaultButton(btnConferma);
         
-        btnConferma.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btnConferma.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 btnConferma.setBackground(new Color(0, 70, 140));
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 btnConferma.setBackground(new Color(0, 52, 101));
             }
         });
     }
 
     // ==================== METODI PUBBLICI PER CONFIGURAZIONE ====================
-    
+   // Imposta l'ID dell'annuncio per cui si sta facendo l'offerta di scambio.
     public void setIdAnnuncio(int idAnnuncio) {
         this.idAnnuncioScelto = idAnnuncio;
     }
-    
+    //Carica i dati di un'offerta di scambio esistente per permetterne la modifica.
     public void caricaOffertaPerModifica(int idOfferta) {
         String risultato = controller.caricaOffertaScambioPerModifica(idOfferta);
         
@@ -202,8 +211,8 @@ public class OffertaScambio extends JFrame {
         }
     }
 
-    // ==================== GESTIONE EVENTI ====================
-    
+  
+  //  Metodo che gestisce la conferma dell'offerta di scambio.
     private void confermaOfferta() {
         String oggettoProposto = textAreaOggettoProposto.getText().trim();
         String risultato;

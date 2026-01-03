@@ -35,9 +35,16 @@ import javax.swing.JComboBox;
 import java.awt.Toolkit;
 import javax.swing.DefaultListModel;
 
+/**
+ * La classe rappresenta l'interfaccia grafica per la creazione di un annuncio.
+ * Questa schermata permette all'utente di inserire le informazioni base dell'annuncio
+ * come titolo, descrizione, foto, fascia oraria e modalità di consegna.
+ * Successivamente l'utente può scegliere il tipo di annuncio (Scambio, Regalo o Vendita).
+ */
 public class Annuncio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	// Pannello principale del frame
 	private JPanel contentPane;
 	private MainController controller;
 	private JList<String> listFoto;
@@ -46,9 +53,7 @@ public class Annuncio extends JFrame {
 	private JTextField textAreaModConsegna;
 	private JComboBox<String> comboBoxFasciaOraria;
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public Annuncio(MainController controller) {
 		this.controller = controller;
 		
@@ -64,7 +69,7 @@ public class Annuncio extends JFrame {
 			dispose();
 			return;
 		}
-		
+		// Frame principale 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Annuncio.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Crea la tua inserzione");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,13 +82,14 @@ public class Annuncio extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
 		
-		// Header Panel
+		// HEADER PANEL: Pannello header in alto con sfondo blu
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(45, 134, 192));
 		headerPanel.setPreferredSize(new Dimension(0, 80));
 		headerPanel.setLayout(new BorderLayout());
 		contentPane.add(headerPanel, BorderLayout.NORTH);
-		
+	
+		// Bottone Annulla 
 		JButton ButtonAnnulla = new JButton("");
 		ButtonAnnulla.setBackground(new Color(45, 134, 192));
 		ButtonAnnulla.setIcon(new ImageIcon(Annuncio.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
@@ -93,6 +99,7 @@ public class Annuncio extends JFrame {
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Chiude questa finestra e riapre l'area utente
 				setVisible(false); 
 				AreaUtente utenteFrame = new AreaUtente(controller); 
 				utenteFrame.setVisible(true);
@@ -113,7 +120,7 @@ public class Annuncio extends JFrame {
 		centerHeaderPanel.add(lblTitolo);
 		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
 		
-		// Main Content Panel
+		// MAIN CONTENT PANEL: Pannello principale che contiene tutti i campi del form
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(245, 247, 250));
 		mainPanel.setBorder(new EmptyBorder(40, 80, 40, 80));
@@ -124,7 +131,7 @@ public class Annuncio extends JFrame {
 		gbc.insets = new Insets(10, 10, 10, 10);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
-		// Sezione Caricamento Foto
+		// SEZIONE CARICAMENTO FOTO
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridwidth = 1;
@@ -181,7 +188,7 @@ public class Annuncio extends JFrame {
 		});
 		mainPanel.add(ButtonRimuoviFoto, gbc);
 		
-		// Titolo
+		// SEZIONE TITOLO 
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.weightx = 0;
@@ -197,7 +204,7 @@ public class Annuncio extends JFrame {
 		textfieldTitolo.setPreferredSize(new Dimension(300, 35));
 		mainPanel.add(textfieldTitolo, gbc);
 		
-		// Descrizione
+		// SEZIONE DESCRIZIONE
 		gbc.gridx = 0;
 		gbc.gridy = 4;
 		gbc.weightx = 0;
@@ -220,7 +227,7 @@ public class Annuncio extends JFrame {
 		scrollPane.setPreferredSize(new Dimension(300, 100));
 		mainPanel.add(scrollPane, gbc);
 		
-		// Fascia Oraria
+		// SEZIONE FASCIA ORARIA 
 		gbc.gridx = 0;
 		gbc.gridy = 5;
 		gbc.weightx = 0;
@@ -240,7 +247,7 @@ public class Annuncio extends JFrame {
 		comboBoxFasciaOraria.setPreferredSize(new Dimension(300, 35));
 		mainPanel.add(comboBoxFasciaOraria, gbc);
 		
-		// Modalità di consegna
+		// SEZIONE MODALITÀ DI CONSEGNA
 		gbc.gridx = 0;
 		gbc.gridy = 6;
 		gbc.weightx = 0;
@@ -256,7 +263,7 @@ public class Annuncio extends JFrame {
 		textAreaModConsegna.setPreferredSize(new Dimension(300, 35));
 		mainPanel.add(textAreaModConsegna, gbc);
 		
-		// Panel bottoni azione
+		// PANEL BOTTONI : Pannello che contiene i tre bottoni per il tipo di annuncio
 		gbc.gridx = 0;
 		gbc.gridy = 7;
 		gbc.gridwidth = 2;
@@ -296,8 +303,9 @@ public class Annuncio extends JFrame {
 		buttonPanel.add(JRegalo);
 		buttonPanel.add(JVendita);
 		mainPanel.add(buttonPanel, gbc);
+		//  ACTION LISTENERS  bottone Scambio  bottone Regalo  bottone Vendita
 		
-		// ActionListener per bottone Scambio
+		
 		JScambio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -309,7 +317,6 @@ public class Annuncio extends JFrame {
 			}
 		});
 		
-		// ActionListener per bottone Regalo
 		JRegalo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -321,7 +328,6 @@ public class Annuncio extends JFrame {
 			}
 		});
 		
-		// ActionListener per bottone Vendita
 		JVendita.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -334,6 +340,7 @@ public class Annuncio extends JFrame {
 		});
 	}
 	
+	 // Metodo privato che gestisce il caricamento delle immagini.
 	private void caricaImmagini() {
         JFileChooser scegliImg = new JFileChooser();
         scegliImg.setDialogTitle("Seleziona immagini");
@@ -351,7 +358,7 @@ public class Annuncio extends JFrame {
             aggiornaListaFoto();
         }
     }
-    
+	// Metodo privato che aggiorna la lista visuale delle foto caricate.
     private void aggiornaListaFoto() {
         // Crea un nuovo modello dalla lista del controller
         DefaultListModel<String> model = new DefaultListModel<>();
@@ -362,6 +369,9 @@ public class Annuncio extends JFrame {
         listFoto.setModel(model);
     }
     
+	 
+    
+ // Metodo privato che valida i dati inseriti dall'utente e li imposta nel controller.
     private boolean validaEImpostaDati() {
         // Valida i campi
         if (textfieldTitolo.getText().trim().isEmpty() || 

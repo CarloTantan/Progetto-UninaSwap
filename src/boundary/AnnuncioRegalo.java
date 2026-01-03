@@ -2,6 +2,8 @@ package boundary;
 
 
 import javax.swing.JFrame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -27,6 +29,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
 import java.awt.Toolkit;
+/**
+ * Classe che rappresenta l'interfaccia grafica per la creazione di un annuncio di tipo "Regalo".
+ * Questa schermata viene mostrata dopo che l'utente ha compilato i dati generali dell'annuncio
+ * e ha scelto di regalare l'oggetto. Qui l'utente inserisce il motivo della cessione.
+ */
 
 public class AnnuncioRegalo extends JFrame {
 
@@ -34,10 +41,7 @@ public class AnnuncioRegalo extends JFrame {
 	private JPanel contentPane;
 	private MainController controller;
 	private JTextArea textAreaMotivo;
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public AnnuncioRegalo(MainController controller) {
 		this.controller = controller;
 		
@@ -50,7 +54,7 @@ public class AnnuncioRegalo extends JFrame {
 			dispose();
 			return;
 		}
-		
+		// Frame principale 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AnnuncioRegalo.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("Regalo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +66,8 @@ public class AnnuncioRegalo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
-		
-		// Header Panel
+
+		// HEADER PANEL: Pannello header in alto con sfondo blu
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(45, 134, 192));
 		headerPanel.setPreferredSize(new Dimension(0, 80));
@@ -99,7 +103,7 @@ public class AnnuncioRegalo extends JFrame {
 		centerHeaderPanel.add(lblTitolo);
 		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
 		
-		// Main Content Panel
+		// MAIN CONTENT PANEL: Pannello principale che contiene tutti i campi del form
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(245, 247, 250));
 		mainPanel.setBorder(new EmptyBorder(60, 100, 60, 100));
@@ -110,7 +114,7 @@ public class AnnuncioRegalo extends JFrame {
 		gbc.insets = new Insets(15, 15, 15, 15);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
-		// Label Motivo di cessione
+		//SEZIONE MOTIVO DI CESSIONE
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.anchor = GridBagConstraints.WEST;
@@ -133,7 +137,7 @@ public class AnnuncioRegalo extends JFrame {
 		scrollPane.setPreferredSize(new Dimension(500, 150));
 		mainPanel.add(scrollPane, gbc);
 		
-		// Bottone Pubblica
+		// SEZIONE BOTTONE PUBBLICA 
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.weightx = 0;
@@ -157,18 +161,19 @@ public class AnnuncioRegalo extends JFrame {
 			}
 		});
 		
-		// Hover effect
-		ButtonPubblica.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		// Effetto hover sul bottone (cambia colore quando il mouse passa sopra)
+		ButtonPubblica.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				ButtonPubblica.setBackground(new Color(0, 70, 140));
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				ButtonPubblica.setBackground(new Color(0, 52, 102));
 			}
 		});
 	}
-
-	private void pubblicaAnnuncioRegalo() {
+	
+	//  Metodo privato che gestisce la pubblicazione dell'annuncio di regalo.
+	 private void pubblicaAnnuncioRegalo() {
 	    // Recupera il motivo di cessione dall'interfaccia
 	    String motivoCessione = textAreaMotivo.getText().trim();
 	    

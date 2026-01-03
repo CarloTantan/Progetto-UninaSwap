@@ -2,6 +2,7 @@ package boundary;
 
 
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -28,6 +29,15 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+/**
+ * Classe che rappresenta la finestra di Registrazione per nuovi utenti.
+ * Permette agli studenti di crearsi un account nell'applicazione UninaSwap
+ * inserendo i loro dati personali e le credenziali di accesso.
+ * Tutti i campi sono obbligatori e vengono validati dal controller.
+ */
 
 public class Registrazione extends JFrame {
 
@@ -42,9 +52,7 @@ public class Registrazione extends JFrame {
 	private JPasswordField textFieldConfermaPassword;
 	private MainController controller; 
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Registrazione(MainController controller) {
 		this.controller = controller;
 		
@@ -107,18 +115,18 @@ public class Registrazione extends JFrame {
 		    }
 		});
 		
-		btnIndietro.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnIndietro.addMouseListener(new MouseAdapter() {
+		    public void mouseEntered(MouseEvent evt) {
 		        btnIndietro.setBackground(new Color(66, 152, 211));
 		        btnIndietro.setContentAreaFilled(true);
 		    }
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    public void mouseExited(MouseEvent evt) {
 		        btnIndietro.setBackground(new Color(46, 132, 191));
 		        btnIndietro.setContentAreaFilled(false);
 		    }
 		});
 		
-		// Pannello centrale con GridBagLayout
+		// PANNELLO CENTRALE :Pannello contenente il form di registrazione
 		JPanel panelCentrale = new JPanel();
 		panelCentrale.setBackground(Color.WHITE);
 		panelCentrale.setLayout(new GridBagLayout());
@@ -265,16 +273,16 @@ public class Registrazione extends JFrame {
 			}
 		});
 		
-		btnRegistrati.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnRegistrati.addMouseListener(new MouseAdapter() {
+		    public void mouseEntered(MouseEvent evt) {
 		        btnRegistrati.setBackground(new Color(66, 152, 211));
 		    }
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    public void mouseExited(MouseEvent evt) {
 		        btnRegistrati.setBackground(new Color(46, 132, 191));
 		    }
 		});
 	}
-	
+	//Metodo che gestisce il processo di registrazione di un nuovo utente.
 	private void registrazioneUtente() {
 		String nome = textFieldNome.getText().trim();
 		String cognome = textFieldCognome.getText().trim();

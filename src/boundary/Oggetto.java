@@ -27,7 +27,15 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+/**
+ * Classe che rappresenta la finestra per l'inserimento di un nuovo oggetto.
+ * Permette agli utenti di specificare le informazioni base di un oggetto
+ * (nome, descrizione e categoria) prima di creare un annuncio.
+ * Questa è la prima fase del processo di creazione di un annuncio nell'applicazione.
+ */
 public class Oggetto extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -52,7 +60,7 @@ public class Oggetto extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
 		
-		// Header Panel
+		// HEADER PANEL :Pannello superiore con titolo e bottone indietro
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(45, 134, 192));
 		headerPanel.setPreferredSize(new Dimension(0, 80));
@@ -88,7 +96,7 @@ public class Oggetto extends JFrame {
 		centerHeaderPanel.add(lblTitolo);
 		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
 		
-		// Main Content Panel
+		// MAIN CONTENT PANEL: Pannello principale contenente il form per l'oggetto
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(245, 247, 250));
 		mainPanel.setBorder(new EmptyBorder(60, 100, 60, 100));
@@ -184,16 +192,16 @@ public class Oggetto extends JFrame {
 		mainPanel.add(btnContinua, gbc);
 		
 		// Hover effect
-		btnContinua.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnContinua.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				btnContinua.setBackground(new Color(0, 70, 140));
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				btnContinua.setBackground(new Color(0, 52, 102));
 			}
 		});
 	}
-	
+	 //Metodo che gestisce l'inserimento di un nuovo oggetto.
 	private void inserisciOggetto() {
 	    // Recupera i valori dai campi (responsabilità del Boundary)
 	    String nome = textFieldNomeOggetto.getText().trim();

@@ -26,7 +26,19 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+/**
+ * Classe che rappresenta la finestra dello Storico Offerte dell'utente.
+ * Permette di visualizzare tutte le offerte inviate dall'utente con la possibilità
+ * di filtrarle per stato (In Attesa, Accettata, Rifiutata) e tipologia (Vendita, Scambio, Regalo).
+ * Per ogni offerta in attesa, l'utente può modificarla o ritirarla.
+ * Le offerte vengono visualizzate come cards con informazioni dettagliate e badge colorati.
+ */
 
 public class StoricoOfferte extends JFrame {
 
@@ -55,6 +67,7 @@ public class StoricoOfferte extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		
 		// ---------------- HEADER -----------------
+
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(new Color(45, 134, 192));
 		header.setBorder(new EmptyBorder(10, 20, 10, 20));
@@ -67,21 +80,25 @@ public class StoricoOfferte extends JFrame {
 		JButton btnUndo = new JButton(new ImageIcon(
 				StoricoOfferte.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
-		btnUndo.addActionListener(e -> {
+		btnUndo.addActionListener(new ActionListener() {
+			
+			@Override
+	            public void actionPerformed(ActionEvent e) {
 			setVisible(false);
 			AreaUtente AreaUtenteFrame = new AreaUtente(controller);
 			AreaUtenteFrame.setVisible(true);
-		});
+			}
+			});
 		btnUndo.setBackground(new Color(45, 134, 192));
 		btnUndo.setBorderPainted(false);
 		btnUndo.setFocusPainted(false);
 		
-		btnUndo.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnUndo.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				btnUndo.setBackground(new Color(66, 152, 211));
 				btnUndo.setContentAreaFilled(true);
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				btnUndo.setBackground(new Color(45, 134, 192));
 				btnUndo.setContentAreaFilled(false);
 			}
@@ -121,13 +138,21 @@ public class StoricoOfferte extends JFrame {
 		btnFiltra.setPreferredSize(new Dimension(120, 35));
 		btnFiltra.setFocusPainted(false);
 		btnFiltra.setBorderPainted(false);
-		btnFiltra.addActionListener(e -> applicaFiltri());
 		
-		btnFiltra.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnFiltra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+            	applicaFiltri();
+            }
+            });
+		
+		
+		
+		btnFiltra.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				btnFiltra.setBackground(new Color(0, 70, 140));
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				btnFiltra.setBackground(new Color(0, 52, 101));
 			}
 		});
@@ -160,8 +185,9 @@ public class StoricoOfferte extends JFrame {
 		caricaOfferte();
 	}
 	
-	// ============ METODI PRIVATI - SOLO GESTIONE UI E CHIAMATE AL CONTROLLER ============
 	
+	//Carica tutte le offerte dell'utente senza applicare filtri.
+
 	private void caricaOfferte() {
 		// Carica tutte le offerte (mostra tutte senza filtri)
 		int numOfferte = controller.getNumeroOfferteUtente();
@@ -173,7 +199,7 @@ public class StoricoOfferte extends JFrame {
 		
 		mostraOfferte();
 	}
-	
+	// Applica i filtri selezionati dall'utente (stato e tipologia) e aggiorna
 	private void applicaFiltri() {
 		String statoSelezionato = (String) comboBoxStato.getSelectedItem();
 		String tipologiaSelezionata = (String) comboBoxTipologia.getSelectedItem();
@@ -198,6 +224,8 @@ public class StoricoOfferte extends JFrame {
 		mostraOfferte();
 	}
 	
+//	Aggiorna il pannello delle offerte mostrando solo quelle filtrate.
+
 	private void mostraOfferte() {
 		panelOfferte.removeAll();
 		
@@ -218,7 +246,8 @@ public class StoricoOfferte extends JFrame {
 		panelOfferte.revalidate();
 		panelOfferte.repaint();
 	}
-	
+	//Crea una card (pannello) che rappresenta visivamente un'offerta con tutti i suoi dettagli.
+
 	private JPanel creaCardOfferta(int indice) {
 		// Recupera i dati tramite controller
 		int idOfferta = controller.getIdOffertaByIndex(indice);
@@ -331,16 +360,22 @@ public class StoricoOfferte extends JFrame {
 		btnModifica.setFocusPainted(false);
 		btnModifica.setBorderPainted(false);
 		btnModifica.setEnabled(inAttesa);
-		btnModifica.addActionListener(e -> modificaOfferta(idOfferta, tipologia));
+		btnModifica.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+            	modificaOfferta(idOfferta, tipologia);
+        		
+            }
+            });
 		
 		if (!inAttesa) {
 			btnModifica.setBackground(Color.GRAY);
 		} else {
-			btnModifica.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseEntered(java.awt.event.MouseEvent evt) {
+			btnModifica.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent evt) {
 					btnModifica.setBackground(new Color(0, 70, 140));
 				}
-				public void mouseExited(java.awt.event.MouseEvent evt) {
+				public void mouseExited(MouseEvent evt) {
 					btnModifica.setBackground(new Color(0, 52, 101));
 				}
 			});
@@ -355,16 +390,21 @@ public class StoricoOfferte extends JFrame {
 		btnRitira.setFocusPainted(false);
 		btnRitira.setBorderPainted(false);
 		btnRitira.setEnabled(inAttesa);
-		btnRitira.addActionListener(e -> ritiraOfferta(idOfferta));
+		btnRitira.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	ritiraOfferta(idOfferta);
+            }
+        }); 
 		
 		if (!inAttesa) {
 			btnRitira.setBackground(Color.GRAY);
 		} else {
-			btnRitira.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseEntered(java.awt.event.MouseEvent evt) {
+			btnRitira.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent evt) {
 					btnRitira.setBackground(new Color(200, 35, 51));
 				}
-				public void mouseExited(java.awt.event.MouseEvent evt) {
+				public void mouseExited(MouseEvent evt) {
 					btnRitira.setBackground(new Color(220, 53, 69));
 				}
 			});
@@ -379,7 +419,8 @@ public class StoricoOfferte extends JFrame {
 		
 		return card;
 	}
-	
+	//Crea un pannello con le informazioni del venditore, incluso nome e rating (se disponibile).
+
 	private JPanel creaInfoVenditore(String matricolaVenditore) {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		panel.setBackground(Color.WHITE);
@@ -417,7 +458,7 @@ public class StoricoOfferte extends JFrame {
 		
 		return panel;
 	}
-	
+	// Apre la finestra di modifica dell'offerta selezionata in base alla sua tipologia.
 	private void modificaOfferta(int idOfferta, String tipologia) {
 		// Usa il controller
 		int idAnnuncio = controller.getIdAnnuncioDaOfferta(idOfferta);
@@ -447,7 +488,7 @@ public class StoricoOfferte extends JFrame {
 			this.setVisible(false);
 		}
 	}
-	
+	//Ritira un'offerta dopo aver chiesto conferma all'utente.
 	private void ritiraOfferta(int idOfferta) {
 	    int scelta = JOptionPane.showConfirmDialog(this, 
 	        "Vuoi davvero ritirare questa offerta?\nQuesta azione non può essere annullata.", 

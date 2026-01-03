@@ -2,6 +2,8 @@ package boundary;
 
 
 import javax.swing.JFrame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -26,7 +28,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.Toolkit;
-
+/**
+ * Classe che rappresenta l'interfaccia grafica per la creazione di un annuncio di tipo "Scambio".
+ * Questa schermata viene mostrata dopo che l'utente ha compilato i dati generali dell'annuncio
+ * e ha scelto di scambiare l'oggetto. Qui l'utente specifica quale tipo di oggetto desidera ricevere in cambio.
+ */
 public class AnnuncioScambio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -34,9 +40,6 @@ public class AnnuncioScambio extends JFrame {
 	private MainController controller;
 	private JTextArea textAreaOggettoRichiesto;
 	
-	/**
-	 * Create the frame.
-	 */
 	public AnnuncioScambio(MainController controller) {
 		this.controller = controller;
 		
@@ -52,7 +55,7 @@ public class AnnuncioScambio extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
 		
-		// Header Panel
+		// HEADER PANEL : Pannello superiore con sfondo blu	
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(45, 134, 192));
 		headerPanel.setPreferredSize(new Dimension(0, 80));
@@ -88,7 +91,7 @@ public class AnnuncioScambio extends JFrame {
 		centerHeaderPanel.add(lblTitolo);
 		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
 		
-		// Main Content Panel
+		//  MAIN CONTENT PANEL : Pannello centrale che contiene il form
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(245, 247, 250));
 		mainPanel.setBorder(new EmptyBorder(60, 100, 60, 100));
@@ -99,7 +102,7 @@ public class AnnuncioScambio extends JFrame {
 		gbc.insets = new Insets(15, 15, 15, 15);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
-		// Label Oggetto richiesto
+		//  SEZIONE OGGETTO RICHIESTO: Label per il campo "Oggetto richiesto"
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.anchor = GridBagConstraints.WEST;
@@ -122,7 +125,7 @@ public class AnnuncioScambio extends JFrame {
 		scrollPane.setPreferredSize(new Dimension(500, 150));
 		mainPanel.add(scrollPane, gbc);
 		
-		// Bottone Pubblica
+		// BOTTONE PUBBLICA
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.weightx = 0;
@@ -145,18 +148,18 @@ public class AnnuncioScambio extends JFrame {
 				pubblicaAnnuncioScambio();
 			}
 		});
-		
-		// Hover effect
-		ButtonPubblica.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
+		// Effetto hover sul bottone (cambia colore quando il mouse passa sopra)
+		ButtonPubblica.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
 				ButtonPubblica.setBackground(new Color(0, 70, 140));
 			}
-			public void mouseExited(java.awt.event.MouseEvent evt) {
+			public void mouseExited(MouseEvent evt) {
 				ButtonPubblica.setBackground(new Color(0, 52, 102));
 			}
 		});
 	}
 	
+	 // Metodo privato che gestisce la pubblicazione dell'annuncio di scambio.
 	private void pubblicaAnnuncioScambio() {
 	    // Recupera l'oggetto richiesto dall'interfaccia
 	    String oggettoRichiesto = textAreaOggettoRichiesto.getText().trim();

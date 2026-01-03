@@ -28,7 +28,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Toolkit;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+/**
+ * Classe che rappresenta la finestra di Login dell'applicazione UninaSwap.
+ * Permette agli utenti registrati di accedere al sistema inserendo
+ * matricola e password.
+ */
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -37,9 +43,7 @@ public class Login extends JFrame {
 	private JTextField textFieldMatricola;
 	private MainController controller; 
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public Login(MainController Controller) {
 		this.controller = Controller; 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
@@ -55,7 +59,7 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
 		
-		// Pannello laterale sinistro
+		// PANNELLO LATERALE SINISTRO :Pannello blu con logo dell'applicazione
 		JPanel panelLaterale = new JPanel();
 		panelLaterale.setBackground(new Color(46, 132, 191));
 		panelLaterale.setPreferredSize(new Dimension(350, 0));
@@ -102,18 +106,18 @@ public class Login extends JFrame {
 		    }
 		});
 		
-		btnIndietro.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnIndietro.addMouseListener(new MouseAdapter() {
+		    public void mouseEntered(MouseEvent evt) {
 		        btnIndietro.setBackground(new Color(66, 152, 211));
 		        btnIndietro.setContentAreaFilled(true);
 		    }
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    public void mouseExited(MouseEvent evt) {
 		        btnIndietro.setBackground(new Color(46, 132, 191));
 		        btnIndietro.setContentAreaFilled(false);
 		    }
 		});
 		
-		// Pannello centrale con GridBagLayout
+		// PANNELLO CENTRALE :Pannello con i campi di login (matricola e password)
 		JPanel panelCentrale = new JPanel();
 		panelCentrale.setBackground(Color.WHITE);
 		panelCentrale.setLayout(new GridBagLayout());
@@ -196,16 +200,16 @@ public class Login extends JFrame {
 			}
 		});
 		
-		btnAccedi.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		btnAccedi.addMouseListener(new MouseAdapter() {
+		    public void mouseEntered(MouseEvent evt) {
 		        btnAccedi.setBackground(new Color(0, 70, 140));
 		    }
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    public void mouseExited(MouseEvent evt) {
 		        btnAccedi.setBackground(new Color(0, 52, 101));
 		    }
 		});
 	}
-	
+	// Metodo che gestisce il processo di login
 	private void effettuaLogin() {
         // Recupera i valori dai campi
         String matricola = textFieldMatricola.getText().trim();
