@@ -315,7 +315,7 @@ public class Report extends JFrame {
     }
 
     private ChartPanel creaGraficoOfferteTotali() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
+        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         
         if (offerteRegalo > 0) {
             dataset.setValue("Regalo (" + offerteRegalo + ")", offerteRegalo);
@@ -335,7 +335,7 @@ public class Report extends JFrame {
             false
         );
         
-        PiePlot plot = (PiePlot) grafico.getPlot();
+        PiePlot<?> plot = (PiePlot<?>) grafico.getPlot();
         plot.setSectionPaint("Regalo (" + offerteRegalo + ")", new Color(209, 56, 56)); // Rosso
         plot.setSectionPaint("Scambio (" + offerteScambio + ")", new Color(108, 67, 232)); // Viola
         plot.setSectionPaint("Vendita (" + offerteVendita + ")", new Color(56, 209, 97)); // Verde        
@@ -345,7 +345,7 @@ public class Report extends JFrame {
     }
     
     private ChartPanel creaGraficoOfferteAccettate() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
+        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         
         int totaleAccettate = offerteRegaloAccettata + offertaScambioAccettata + offerteVenditaAccettata;
         

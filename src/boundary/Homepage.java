@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.JButton;
@@ -69,12 +70,20 @@ public class Homepage extends JFrame {
 		JPanel panelLaterale = new JPanel();
 		panelLaterale.setBackground(new Color(46, 132, 191));
 		panelLaterale.setPreferredSize(new Dimension(350, 0));
+		panelLaterale.setLayout(new GridBagLayout()); 
 		contentPane.add(panelLaterale, BorderLayout.WEST);
 		
 		// Logo centrato nel pannello laterale
+		GridBagConstraints gbcLogo = new GridBagConstraints();
+		gbcLogo.gridx = 0;
+		gbcLogo.gridy = 0;
+		gbcLogo.anchor = GridBagConstraints.CENTER;
+		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon(Homepage.class.getResource("/icons/iconaUninaSwapPiccola.jpg")));
-		panelLaterale.add(lblLogo);
+		ImageIcon iconaLogo = (new ImageIcon(Homepage.class.getResource("/icons/iconaUninaSwapGrande.png")));
+		Image Logo = iconaLogo.getImage().getScaledInstance(350, 325, Image.SCALE_SMOOTH);
+		lblLogo.setIcon(new ImageIcon(Logo));
+		panelLaterale.add(lblLogo, gbcLogo);
 		
 		// Pannello centrale 
 		JPanel panelCentrale = new JPanel();
