@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.Image;
@@ -15,7 +16,9 @@ import entity.*;
 import enumerations.*; 
 import boundary.*;
 
+
 public class MainController {
+	
     protected LoginDAO LoginDAO; 
     protected RegistrazioneDAO RegistrazioneDAO;
     protected InserimentoAnnunciDAO InsertAnnunciDAO;  
@@ -40,7 +43,8 @@ public class MainController {
     private ArrayList<Integer> idsOfferteCaricate;
     private ArrayList<Transazione_entity> transazioniCaricate;
     private String matricolaVenditoreCorrente;
-    
+    private ArrayList<Recensione_entity> recensioniInviateCache;
+    private ArrayList<Recensione_entity> recensioniRicevuteCache;
     private JFrame frameCorrente;
     
     public MainController() {
@@ -2241,6 +2245,382 @@ public class MainController {
             e.printStackTrace();
             return 0;
         }
+        
     }
+    
+ // ==================== METODI LISTA ANNUNCI - CORRETTI ====================
+
+    /**
+     * Restituisce il numero di annunci caricati per una data tipologia
+     */
+    public int getNumeroAnnunciCaricati(String tipologia) {
+        if (tipologia == null) {
+            return 0;
+        }
+        
+        switch (tipologia) {
+            case "Vendita":
+                return annunciVenditaCaricati != null ? annunciVenditaCaricati.size() : 0;
+            case "Scambio":
+                return annunciScambioCaricati != null ? annunciScambioCaricati.size() : 0;
+            case "Regalo":
+                return annunciRegaloCaricati != null ? annunciRegaloCaricati.size() : 0;
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * Restituisce l'ID di un annuncio dato tipologia e indice
+     */
+    public int getIdAnnuncioByIndex(String tipologia, int index) {
+        try {
+            switch (tipologia) {
+                case "Vendita":
+                    if (annunciVenditaCaricati != null && index >= 0 && index < annunciVenditaCaricati.size()) {
+                        return annunciVenditaCaricati.get(index).getIdAnnuncio();
+                    }
+                    break;
+                case "Scambio":
+                    if (annunciScambioCaricati != null && index >= 0 && index < annunciScambioCaricati.size()) {
+                        return annunciScambioCaricati.get(index).getIdAnnuncio();
+                    }
+                    break;
+                case "Regalo":
+                    if (annunciRegaloCaricati != null && index >= 0 && index < annunciRegaloCaricati.size()) {
+                        return annunciRegaloCaricati.get(index).getIdAnnuncio();
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel recupero ID annuncio: " + e.getMessage());
+        }
+        return -1;
+    }
+
+    /**
+     * Restituisce la matricola del venditore di un annuncio dato tipologia e indice
+     */
+    public String getMatricolaVenditoreAnnuncio(String tipologia, int index) {
+        try {
+            switch (tipologia) {
+                case "Vendita":
+                    if (annunciVenditaCaricati != null && index >= 0 && index < annunciVenditaCaricati.size()) {
+                        return annunciVenditaCaricati.get(index).getMatricolaVenditore();
+                    }
+                    break;
+                case "Scambio":
+                    if (annunciScambioCaricati != null && index >= 0 && index < annunciScambioCaricati.size()) {
+                        return annunciScambioCaricati.get(index).getMatricolaVenditore();
+                    }
+                    break;
+                case "Regalo":
+                    if (annunciRegaloCaricati != null && index >= 0 && index < annunciRegaloCaricati.size()) {
+                        return annunciRegaloCaricati.get(index).getMatricolaVenditore();
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel recupero matricola venditore: " + e.getMessage());
+        }
+        return "";
+    }
+
+    /**
+     * Restituisce il titolo di un annuncio dato tipologia e indice
+     */
+    public String getTitoloAnnuncio(String tipologia, int index) {
+        try {
+            switch (tipologia) {
+                case "Vendita":
+                    if (annunciVenditaCaricati != null && index >= 0 && index < annunciVenditaCaricati.size()) {
+                        return annunciVenditaCaricati.get(index).getTitolo();
+                    }
+                    break;
+                case "Scambio":
+                    if (annunciScambioCaricati != null && index >= 0 && index < annunciScambioCaricati.size()) {
+                        return annunciScambioCaricati.get(index).getTitolo();
+                    }
+                    break;
+                case "Regalo":
+                    if (annunciRegaloCaricati != null && index >= 0 && index < annunciRegaloCaricati.size()) {
+                        return annunciRegaloCaricati.get(index).getTitolo();
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel recupero titolo: " + e.getMessage());
+        }
+        return "";
+    }
+
+    /**
+     * Restituisce la descrizione di un annuncio dato tipologia e indice
+     */
+    public String getDescrizioneAnnuncio(String tipologia, int index) {
+        try {
+            switch (tipologia) {
+                case "Vendita":
+                    if (annunciVenditaCaricati != null && index >= 0 && index < annunciVenditaCaricati.size()) {
+                        return annunciVenditaCaricati.get(index).getDescrizione();
+                    }
+                    break;
+                case "Scambio":
+                    if (annunciScambioCaricati != null && index >= 0 && index < annunciScambioCaricati.size()) {
+                        return annunciScambioCaricati.get(index).getDescrizione();
+                    }
+                    break;
+                case "Regalo":
+                    if (annunciRegaloCaricati != null && index >= 0 && index < annunciRegaloCaricati.size()) {
+                        return annunciRegaloCaricati.get(index).getDescrizione();
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel recupero descrizione: " + e.getMessage());
+        }
+        return "";
+    }
+
+    /**
+     * Restituisce la categoria di un annuncio dato tipologia e indice
+     */
+    public String getCategoriaAnnuncio(String tipologia, int index) {
+        try {
+            switch (tipologia) {
+                case "Vendita":
+                    if (annunciVenditaCaricati != null && index >= 0 && index < annunciVenditaCaricati.size()) {
+                        return annunciVenditaCaricati.get(index).getTipologiaCategoria().toString();
+                    }
+                    break;
+                case "Scambio":
+                    if (annunciScambioCaricati != null && index >= 0 && index < annunciScambioCaricati.size()) {
+                        return annunciScambioCaricati.get(index).getTipologiaCategoria().toString();
+                    }
+                    break;
+                case "Regalo":
+                    if (annunciRegaloCaricati != null && index >= 0 && index < annunciRegaloCaricati.size()) {
+                        return annunciRegaloCaricati.get(index).getTipologiaCategoria().toString();
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel recupero categoria: " + e.getMessage());
+        }
+        return "";
+    }
+
+    /**
+     * Restituisce lo stato di un annuncio dato tipologia e indice (come stringa)
+     */
+    public String getStatoAnnuncioString(String tipologia, int index) {
+        try {
+            switch (tipologia) {
+                case "Vendita":
+                    if (annunciVenditaCaricati != null && index >= 0 && index < annunciVenditaCaricati.size()) {
+                        return annunciVenditaCaricati.get(index).getStatoAnnuncio().toString();
+                    }
+                    break;
+                case "Scambio":
+                    if (annunciScambioCaricati != null && index >= 0 && index < annunciScambioCaricati.size()) {
+                        return annunciScambioCaricati.get(index).getStatoAnnuncio().toString();
+                    }
+                    break;
+                case "Regalo":
+                    if (annunciRegaloCaricati != null && index >= 0 && index < annunciRegaloCaricati.size()) {
+                        return annunciRegaloCaricati.get(index).getStatoAnnuncio().toString();
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel recupero stato: " + e.getMessage());
+        }
+        return "Chiuso"; // Default safe
+    }
+
+    /**
+     * Restituisce l'informazione extra di un annuncio (prezzo, oggetto richiesto, motivo cessione)
+     * in base alla tipologia
+     */
+    public String getInfoExtraAnnuncio(String tipologia, int index) {
+        try {
+            switch (tipologia) {
+                case "Vendita":
+                    if (annunciVenditaCaricati != null && index >= 0 && index < annunciVenditaCaricati.size()) {
+                        float prezzo = annunciVenditaCaricati.get(index).getPrezzoVendita();
+                        return "€ " + String.format("%.2f", prezzo);
+                    }
+                    break;
+                case "Scambio":
+                    if (annunciScambioCaricati != null && index >= 0 && index < annunciScambioCaricati.size()) {
+                        return annunciScambioCaricati.get(index).getOggettoRichiesto();
+                    }
+                    break;
+                case "Regalo":
+                    if (annunciRegaloCaricati != null && index >= 0 && index < annunciRegaloCaricati.size()) {
+                        return annunciRegaloCaricati.get(index).getMotivoCessione();
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel recupero info extra: " + e.getMessage());
+        }
+        return "";
+    }
+
+    /**
+     * Verifica se un'offerta può essere fatta su un annuncio
+     * Restituisce null se ok, altrimenti il messaggio di errore
+     */
+    public String verificaOffertaPossibile(int idAnnuncio, String matricolaVenditore, String stato) {
+        try {
+            // Controlla se lo stato dell'annuncio è chiuso
+            if (stato.equalsIgnoreCase("Chiuso")) {
+                return "Annuncio chiuso, non è possibile fare un'offerta.";
+            }
+            
+            // Controlla se l'annuncio non sia uno dei propri
+            if (matricolaVenditore.equals(User.getMatricola())) {
+                return "Non puoi fare un'offerta sul tuo annuncio.";
+            }
+
+            return null; // Tutto ok
+
+        } catch (Exception e) {
+            return "Si è verificato un errore: " + e.getMessage();
+        }
+    }
+    
+    
+  //  ==================== METODI LISTA RECENSIONI - DA AGGIUNGERE/MODIFICARE A MainController ====================
+
+    		// NOTA: I metodi caricaRecensioniInviate() e caricaRecensioniRicevute() che restituiscono 
+    		// ArrayList<Recensione_entity> devono rimanere PRIVATI e usati solo internamente.
+    		// Aggiungiamo una cache per evitare chiamate multiple al DB.
+
+    		/**
+    		 * Carica le recensioni inviate dall'utente loggato
+    		 * Restituisce il numero di recensioni caricate
+    		 */
+    		public int getNumeroRecensioniInviate() {
+    		    recensioniInviateCache = caricaRecensioniInviate();
+    		    return recensioniInviateCache != null ? recensioniInviateCache.size() : 0;
+    		}
+
+    		/**
+    		 * Carica le recensioni ricevute dall'utente loggato
+    		 * Restituisce il numero di recensioni caricate
+    		 */
+    		public int getNumeroRecensioniRicevute() {
+    		    recensioniRicevuteCache = caricaRecensioniRicevute();
+    		    return recensioniRicevuteCache != null ? recensioniRicevuteCache.size() : 0;
+    		}
+
+    		/**
+    		 * Restituisce il punteggio di una recensione inviata dato l'indice
+    		 */
+    		public int getPunteggioRecensioneInviata(int index) {
+    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+    		        return recensioniInviateCache.get(index).getPunteggio();
+    		    }
+    		    return 0;
+    		}
+
+    		/**
+    		 * Restituisce la data di una recensione inviata dato l'indice
+    		 */
+    		public String getDataRecensioneInviata(int index) {
+    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+    		        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    		        return sdf.format(recensioniInviateCache.get(index).getData());
+    		    }
+    		    return "";
+    		}
+
+    		/**
+    		 * Restituisce il commento di una recensione inviata dato l'indice
+    		 */
+    		public String getCommentoRecensioneInviata(int index) {
+    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+    		        String commento = recensioniInviateCache.get(index).getCommento();
+    		        return commento != null ? commento : "Nessun commento";
+    		    }
+    		    return "";
+    		}
+
+    		/**
+    		 * Restituisce l'ID offerta di una recensione inviata dato l'indice
+    		 */
+    		public int getIdOffertaRecensioneInviata(int index) {
+    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+    		        return recensioniInviateCache.get(index).getIdOfferta();
+    		    }
+    		    return -1;
+    		}
+
+    		/**
+    		 * Restituisce la matricola del venditore di una recensione inviata dato l'indice
+    		 */
+    		public String getMatricolaVenditoreRecensioneInviata(int index) {
+    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+    		        return recensioniInviateCache.get(index).getMatricolaVenditore();
+    		    }
+    		    return "";
+    		}
+
+    		/**
+    		 * Restituisce il punteggio di una recensione ricevuta dato l'indice
+    		 */
+    		public int getPunteggioRecensioneRicevuta(int index) {
+    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+    		        return recensioniRicevuteCache.get(index).getPunteggio();
+    		    }
+    		    return 0;
+    		}
+
+    		/**
+    		 * Restituisce la data di una recensione ricevuta dato l'indice
+    		 */
+    		public String getDataRecensioneRicevuta(int index) {
+    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+    		        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    		        return sdf.format(recensioniRicevuteCache.get(index).getData());
+    		    }
+    		    return "";
+    		}
+
+    		/**
+    		 * Restituisce il commento di una recensione ricevuta dato l'indice
+    		 */
+    		public String getCommentoRecensioneRicevuta(int index) {
+    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+    		        String commento = recensioniRicevuteCache.get(index).getCommento();
+    		        return commento != null ? commento : "Nessun commento";
+    		    }
+    		    return "";
+    		}
+
+    		/**
+    		 * Restituisce l'ID offerta di una recensione ricevuta dato l'indice
+    		 */
+    		public int getIdOffertaRecensioneRicevuta(int index) {
+    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+    		        return recensioniRicevuteCache.get(index).getIdOfferta();
+    		    }
+    		    return -1;
+    		}
+
+    		/**
+    		 * Restituisce la matricola dell'acquirente di una recensione ricevuta dato l'indice
+    		 */
+    		public String getMatricolaAcquirenteRecensioneRicevuta(int index) {
+    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+    		        return recensioniRicevuteCache.get(index).getMatricolaAcquirente();
+    		    }
+    		    return "";
+    		}
+
+    		// NOTA: I metodi caricaRecensioniInviate() e caricaRecensioniRicevute() esistenti 
+    		// rimangono INVARIATI. Sono già presenti nel tuo MainController e restituiscono ArrayList<Recensione_entity>.
 
 }
