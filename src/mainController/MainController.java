@@ -15,7 +15,7 @@ import dao.*;
 import entity.*;
 import enumerations.*; 
 import boundary.*;
-
+import  java.text.SimpleDateFormat;
 
 public class MainController {
 	
@@ -2250,10 +2250,9 @@ public class MainController {
     
  // ==================== METODI LISTA ANNUNCI - CORRETTI ====================
 
-    /**
-     * Restituisce il numero di annunci caricati per una data tipologia
-     */
-    public int getNumeroAnnunciCaricati(String tipologia) {
+    
+     // Restituisce il numero di annunci caricati per una data tipologia
+         public int getNumeroAnnunciCaricati(String tipologia) {
         if (tipologia == null) {
             return 0;
         }
@@ -2270,9 +2269,9 @@ public class MainController {
         }
     }
 
-    /**
-     * Restituisce l'ID di un annuncio dato tipologia e indice
-     */
+    
+    //  Restituisce l'ID di un annuncio dato tipologia e indice
+     
     public int getIdAnnuncioByIndex(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2298,9 +2297,9 @@ public class MainController {
         return -1;
     }
 
-    /**
-     * Restituisce la matricola del venditore di un annuncio dato tipologia e indice
-     */
+    
+     // Restituisce la matricola del venditore di un annuncio dato tipologia e indice
+    
     public String getMatricolaVenditoreAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2326,9 +2325,9 @@ public class MainController {
         return "";
     }
 
-    /**
-     * Restituisce il titolo di un annuncio dato tipologia e indice
-     */
+    
+     // Restituisce il titolo di un annuncio dato tipologia e indice
+     
     public String getTitoloAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2354,9 +2353,9 @@ public class MainController {
         return "";
     }
 
-    /**
-     * Restituisce la descrizione di un annuncio dato tipologia e indice
-     */
+    
+     // Restituisce la descrizione di un annuncio dato tipologia e indice
+     
     public String getDescrizioneAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2382,9 +2381,9 @@ public class MainController {
         return "";
     }
 
-    /**
-     * Restituisce la categoria di un annuncio dato tipologia e indice
-     */
+    
+     // Restituisce la categoria di un annuncio dato tipologia e indice
+     
     public String getCategoriaAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2410,9 +2409,9 @@ public class MainController {
         return "";
     }
 
-    /**
-     * Restituisce lo stato di un annuncio dato tipologia e indice (come stringa)
-     */
+    
+     // Restituisce lo stato di un annuncio dato tipologia e indice (come stringa)
+     
     public String getStatoAnnuncioString(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2438,10 +2437,9 @@ public class MainController {
         return "Chiuso"; // Default safe
     }
 
-    /**
-     * Restituisce l'informazione extra di un annuncio (prezzo, oggetto richiesto, motivo cessione)
-     * in base alla tipologia
-     */
+         //Restituisce l'informazione extra di un annuncio (prezzo, oggetto richiesto, motivo cessione)
+     	//in base alla tipologia
+     
     public String getInfoExtraAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2468,10 +2466,10 @@ public class MainController {
         return "";
     }
 
-    /**
-     * Verifica se un'offerta può essere fatta su un annuncio
-     * Restituisce null se ok, altrimenti il messaggio di errore
-     */
+    
+    //  Verifica se un'offerta può essere fatta su un annuncio
+     // Restituisce null se ok, altrimenti il messaggio di errore
+    
     public String verificaOffertaPossibile(int idAnnuncio, String matricolaVenditore, String stato) {
         try {
             // Controlla se lo stato dell'annuncio è chiuso
@@ -2498,27 +2496,25 @@ public class MainController {
     		// ArrayList<Recensione_entity> devono rimanere PRIVATI e usati solo internamente.
     		// Aggiungiamo una cache per evitare chiamate multiple al DB.
 
-    		/**
-    		 * Carica le recensioni inviate dall'utente loggato
-    		 * Restituisce il numero di recensioni caricate
-    		 */
+    		
+    		 // Carica le recensioni inviate dall'utente loggato
+    		 //Restituisce il numero di recensioni caricate
     		public int getNumeroRecensioniInviate() {
     		    recensioniInviateCache = caricaRecensioniInviate();
     		    return recensioniInviateCache != null ? recensioniInviateCache.size() : 0;
     		}
 
-    		/**
-    		 * Carica le recensioni ricevute dall'utente loggato
-    		 * Restituisce il numero di recensioni caricate
-    		 */
+    		 // Carica le recensioni ricevute dall'utente loggato
+    		 //Restituisce il numero di recensioni caricate
+    		 
     		public int getNumeroRecensioniRicevute() {
     		    recensioniRicevuteCache = caricaRecensioniRicevute();
     		    return recensioniRicevuteCache != null ? recensioniRicevuteCache.size() : 0;
     		}
 
-    		/**
-    		 * Restituisce il punteggio di una recensione inviata dato l'indice
-    		 */
+    		
+    		 // Restituisce il punteggio di una recensione inviata dato l'indice
+    		 
     		public int getPunteggioRecensioneInviata(int index) {
     		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
     		        return recensioniInviateCache.get(index).getPunteggio();
@@ -2526,20 +2522,20 @@ public class MainController {
     		    return 0;
     		}
 
-    		/**
-    		 * Restituisce la data di una recensione inviata dato l'indice
-    		 */
+    		
+    		 //Restituisce la data di una recensione inviata dato l'indice
+    		 
     		public String getDataRecensioneInviata(int index) {
     		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
-    		        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    		        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     		        return sdf.format(recensioniInviateCache.get(index).getData());
     		    }
     		    return "";
     		}
 
-    		/**
-    		 * Restituisce il commento di una recensione inviata dato l'indice
-    		 */
+    		
+    		// Restituisce il commento di una recensione inviata dato l'indice
+    		
     		public String getCommentoRecensioneInviata(int index) {
     		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
     		        String commento = recensioniInviateCache.get(index).getCommento();
@@ -2548,9 +2544,9 @@ public class MainController {
     		    return "";
     		}
 
-    		/**
-    		 * Restituisce l'ID offerta di una recensione inviata dato l'indice
-    		 */
+    		
+    		 // Restituisce l'ID offerta di una recensione inviata dato l'indice
+    		 
     		public int getIdOffertaRecensioneInviata(int index) {
     		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
     		        return recensioniInviateCache.get(index).getIdOfferta();
@@ -2558,9 +2554,9 @@ public class MainController {
     		    return -1;
     		}
 
-    		/**
-    		 * Restituisce la matricola del venditore di una recensione inviata dato l'indice
-    		 */
+    		
+    		 // Restituisce la matricola del venditore di una recensione inviata dato l'indice
+    		 
     		public String getMatricolaVenditoreRecensioneInviata(int index) {
     		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
     		        return recensioniInviateCache.get(index).getMatricolaVenditore();
@@ -2568,9 +2564,9 @@ public class MainController {
     		    return "";
     		}
 
-    		/**
-    		 * Restituisce il punteggio di una recensione ricevuta dato l'indice
-    		 */
+    		
+    		 // Restituisce il punteggio di una recensione ricevuta dato l'indice
+    		 
     		public int getPunteggioRecensioneRicevuta(int index) {
     		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
     		        return recensioniRicevuteCache.get(index).getPunteggio();
@@ -2578,20 +2574,20 @@ public class MainController {
     		    return 0;
     		}
 
-    		/**
-    		 * Restituisce la data di una recensione ricevuta dato l'indice
-    		 */
+    		
+    		 //Restituisce la data di una recensione ricevuta dato l'indice
+    		 
     		public String getDataRecensioneRicevuta(int index) {
     		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
-    		        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    		        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     		        return sdf.format(recensioniRicevuteCache.get(index).getData());
     		    }
     		    return "";
     		}
 
-    		/**
-    		 * Restituisce il commento di una recensione ricevuta dato l'indice
-    		 */
+    		
+    		 // Restituisce il commento di una recensione ricevuta dato l'indice
+    		
     		public String getCommentoRecensioneRicevuta(int index) {
     		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
     		        String commento = recensioniRicevuteCache.get(index).getCommento();
@@ -2600,9 +2596,9 @@ public class MainController {
     		    return "";
     		}
 
-    		/**
-    		 * Restituisce l'ID offerta di una recensione ricevuta dato l'indice
-    		 */
+    		
+    		 //Restituisce l'ID offerta di una recensione ricevuta dato l'indice
+    		 
     		public int getIdOffertaRecensioneRicevuta(int index) {
     		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
     		        return recensioniRicevuteCache.get(index).getIdOfferta();
@@ -2610,9 +2606,9 @@ public class MainController {
     		    return -1;
     		}
 
-    		/**
-    		 * Restituisce la matricola dell'acquirente di una recensione ricevuta dato l'indice
-    		 */
+    		
+    		 //Restituisce la matricola dell'acquirente di una recensione ricevuta dato l'indice
+    		 
     		public String getMatricolaAcquirenteRecensioneRicevuta(int index) {
     		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
     		        return recensioniRicevuteCache.get(index).getMatricolaAcquirente();

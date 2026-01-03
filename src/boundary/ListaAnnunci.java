@@ -7,10 +7,7 @@ import javax.swing.border.*;
 import mainController.MainController;
 import java.util.ArrayList;
 
-/**
- * BOUNDARY - Interfaccia per visualizzare la lista degli annunci
- 
- */
+//BOUNDARY - Interfaccia per visualizzare la lista degli annunci
 public class ListaAnnunci extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -94,7 +91,7 @@ public class ListaAnnunci extends JFrame {
         
         return header;
     }
-
+   // Crea il pannello con i filtri di ricerca (tipologia, categoria, testo)
     private JPanel creaPannelloFiltri() {
         JPanel filtri = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 15));
         filtri.setBackground(Color.WHITE);
