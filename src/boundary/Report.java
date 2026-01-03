@@ -89,7 +89,7 @@ public class Report extends JFrame {
         JButton btnUndo = new JButton("");
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.apriAreaUtente();
+            	tornaAreaUtente();
             }
         });
         btnUndo.setIcon(new ImageIcon(Report.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
@@ -430,7 +430,9 @@ public class Report extends JFrame {
     	offertaScambioAccettata = controller.getOfferteScambioAccettate();
     	offerteVenditaAccettata = controller.getOfferteVenditaAccettate();
             
-    }  
+    }
+  
+    private void tornaAreaUtente() {
+        controller.apriAreaUtente();
+	}
 }
-
-

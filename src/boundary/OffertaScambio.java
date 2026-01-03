@@ -85,7 +85,7 @@ public class OffertaScambio extends JFrame {
         JButton btnUndo = new JButton("");
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.apriListaAnnunci();
+            	tornaListaAnnunci();
             }
         });
         btnUndo.setBackground(new Color(45, 134, 192));
@@ -243,4 +243,8 @@ public class OffertaScambio extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void tornaListaAnnunci() {
+		controller.apriListaAnnunci();
+	}
 }

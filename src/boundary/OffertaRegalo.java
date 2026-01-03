@@ -73,7 +73,7 @@ public class OffertaRegalo extends JFrame {
         JButton btnUndo = new JButton("");
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.apriListaAnnunci();
+            	tornaListaAnnunci();
             }
         });
         btnUndo.setBackground(new Color(45, 134, 192));
@@ -244,5 +244,9 @@ public class OffertaRegalo extends JFrame {
                 "Errore",
                 JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void tornaListaAnnunci() {
+    	controller.apriListaAnnunci();    	
     }
 }

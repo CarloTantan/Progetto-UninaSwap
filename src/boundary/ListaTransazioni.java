@@ -41,9 +41,7 @@ public class ListaTransazioni extends JFrame {
     private JPanel contentPane;
     private JPanel panelTransazioni;
     private MainController controller;
-    
 
-     
     public ListaTransazioni(MainController controller) {
         this.controller = controller;
         

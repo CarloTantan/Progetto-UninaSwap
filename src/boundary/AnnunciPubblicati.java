@@ -76,7 +76,7 @@ public class AnnunciPubblicati extends JFrame {
             AnnunciPubblicati.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
         btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
         btnUndo.addActionListener(e -> {
-        	controller.apriAreaUtente();
+        	tornaAreaUtente();
         });
         btnUndo.setBackground(new Color(45, 134, 192));
         btnUndo.setBorderPainted(false);
@@ -646,4 +646,8 @@ public class AnnunciPubblicati extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void tornaAreaUtente() {
+    	controller.apriAreaUtente();
+	}
 }

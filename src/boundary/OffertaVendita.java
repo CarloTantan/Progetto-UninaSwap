@@ -89,7 +89,7 @@ public class OffertaVendita extends JFrame {
         btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.apriListaAnnunci();
+            	tornaListaAnnunci();
             }
         });
         btnUndo.setBackground(new Color(45, 134, 192));
@@ -246,5 +246,9 @@ public class OffertaVendita extends JFrame {
                 "Errore",
                 JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void tornaListaAnnunci() {
+        controller.apriListaAnnunci();
     }
 }
