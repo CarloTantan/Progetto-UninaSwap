@@ -1,5 +1,4 @@
 package entity;
-//gestione fasciaoraira
 import java.util.Date;
 import enumerations.FasciaOraria;
 import enumerations.TipologiaCategoria;
