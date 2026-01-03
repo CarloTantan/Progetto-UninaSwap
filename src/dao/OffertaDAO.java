@@ -23,7 +23,7 @@ public class OffertaDAO {
         return DriverManager.getConnection(url, user, password);
     }
 	
-	// INserisce un'offerta di vendita nel database
+	// Inserisce un'offerta di vendita nel database
 	// ritorna true se l'inserimento va a buon fine
 	public boolean inserimentoOffertaVendita(float ImportoProposto, String MatricolaAcquirente, int IdAnnuncio) throws SQLException{
 		String query = "INSERT INTO Offerta (ImportoProposto, MatricolaAcquirente, IdAnnuncio) VALUES (?, ?, ?)";

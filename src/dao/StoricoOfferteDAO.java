@@ -49,7 +49,7 @@ public class StoricoOfferteDAO {
 	}
 	
 	// elimina un'offerta dal database
-	// ritorna true se l'eleiminazione va a buon fine, false altrimenti
+	// ritorna true se l'eliminazione va a buon fine, false altrimenti
 	public boolean DeleteOfferte(int IdOfferta) throws SQLException {
 		String query = "DELETE FROM Offerta WHERE IdOfferta = ?";
 		
@@ -164,8 +164,8 @@ public class StoricoOfferteDAO {
 	}
 	
 	
-	// Verifica se un'offerta è modificabile (solo se è "In Attesa")
-	// ritorna true se èuò essere modificata, altrimenti false
+	// Verifica se un'offerta è modificabile, ossia se è "In Attesa"
+	// ritorna true se lo è, altrimenti false
 	public boolean isOffertaModificabile(int IdOfferta) throws SQLException {
 		String query = "SELECT Stato FROM Offerta WHERE IdOfferta = ?";
 		

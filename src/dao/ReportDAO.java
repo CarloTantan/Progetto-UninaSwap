@@ -140,7 +140,7 @@ public class ReportDAO {
 	    return offerteVendita; 
 	}
 	
-	// Calcola e ritorna il numero di offerte di regalo accettate per un utente
+	// Calcola e ritorna il numero di offerte di regalo inviate ed accettate di un utente
 	public int VisualizzaOfferteRegaloAccettata(String matricola) throws SQLException {
 	    int offerteRegaloAccettata = 0; 
 	    String query = "SELECT COUNT(*) as OfferteRegaloAccettate " +
@@ -170,7 +170,7 @@ public class ReportDAO {
 	    return offerteRegaloAccettata; 
 	}
 	
-	// Calcola e ritorna il numero di offerte di scambio inviate da un utente
+	// Calcola e ritorna il numero di offerte di scambio inviate ed accettate di un utente
 	public int VisualizzaOfferteScambioAccettata(String matricola) throws SQLException {
 	    int offerteScambioAccettata = 0;
 	    String query = "SELECT COUNT(*) as OfferteScambioAccettate " +
@@ -200,7 +200,7 @@ public class ReportDAO {
 	    return offerteScambioAccettata; 
 	}
 	
-	// Calcola e ritorna il numero di offerte di vednita inviate da un utente
+	// Calcola e ritorna il numero di offerte di vendita inviate ed accettate di un utente
 	public int VisualizzaOfferteVenditaAccettata(String matricola) throws SQLException {
 	    int offerteVenditaAccettata = 0; 
 	    String query = "SELECT COUNT(*) as OfferteVenditaAccettate " +
