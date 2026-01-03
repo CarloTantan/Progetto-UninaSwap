@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import entity.Transazione_entity;
 
-
+// Classe DAO per la gestione delle transazioni completate (offerte accettate)
 public class TransazioniDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
 	String user= "postgres";
@@ -20,6 +20,7 @@ public class TransazioniDAO {
         return DriverManager.getConnection(url, user, password);
     }
 	
+	// recupera e restituisce la lista delle transazioni completate di un utente con le informazioni relative
 	public ArrayList<Transazione_entity> getTransazioni(String matricola) throws SQLException {
 		ArrayList<Transazione_entity> ListaTransazioni = new ArrayList<>();
 		String query = "SELECT A.Titolo, A.MatricolaVenditore, O.MatricolaAcquirente, " +
@@ -52,6 +53,3 @@ public class TransazioniDAO {
 	    return ListaTransazioni; 
 	}
 }
-	
-
-

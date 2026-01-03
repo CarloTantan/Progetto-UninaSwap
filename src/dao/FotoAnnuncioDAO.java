@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+// Classe DAO per la gestione delle foto associate agli annunci
+// permette di inserire, recuperare ed eliminare foto
 public class FotoAnnuncioDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
 	String user= "postgres";
@@ -16,7 +18,7 @@ public class FotoAnnuncioDAO {
         return DriverManager.getConnection(url, user, password);
 	}
 	
-	//inserisce una foto per un annuncio
+	// Inserisce una foto per un annuncio e ritorna l'id generato
     public int inserisciFoto(String url, int idAnnuncio) throws SQLException {
         String query = "INSERT INTO FotoAnnuncio (url, idAnnuncio) VALUES (?, ?)";
         
@@ -27,6 +29,7 @@ public class FotoAnnuncioDAO {
             pstmt.setInt(2, idAnnuncio);
             pstmt.executeUpdate();
             
+            // recupera l'id generato
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     return generatedKeys.getInt(1);
@@ -37,7 +40,7 @@ public class FotoAnnuncioDAO {
         }
     }
     
-    //recupera le foto associate ad un annuncio
+    // recupera le foto associate ad un annuncio e ritorna la lista dei percorsi delle foto
     public ArrayList<String> getFotoByAnnuncio(int idAnnuncio) throws SQLException {
         String query = "SELECT url FROM FotoAnnuncio WHERE idAnnuncio = ?";
         ArrayList<String> foto = new ArrayList<>();
@@ -57,7 +60,7 @@ public class FotoAnnuncioDAO {
         return foto;
     }
     
-    //elimina una foto
+    // elimina una foto dal database
     public void eliminaFoto(int idFoto) throws SQLException {
         String query = "DELETE FROM FotoAnnuncio WHERE idFoto = ?";
         
@@ -69,7 +72,7 @@ public class FotoAnnuncioDAO {
         }
     }
     
-    //elimina tutte le foto
+    // elimina le foto associate ad un annuncio
     public void eliminaFotoByAnnuncio(int idAnnuncio) throws SQLException {
         String query = "DELETE FROM FotoAnnuncio WHERE idAnnuncio = ?";
         

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// Classe DAO per l'inserimento e la gestione delle recensioni
+// ha metodi per aggiungere recensioni e verificarne l'esistenza
 public class InserimentoRecensioneDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
 	String user= "postgres";
@@ -14,6 +16,7 @@ public class InserimentoRecensioneDAO {
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/UninaSwapDefinitivo", "postgres", "Database");
     }
 
+    // Inserisce una nuova recensione nel database
     public void inserisciRecensione(String matricolaVenditore, String matricolaAcquirente, int punteggio, String commento, int idOfferta) throws SQLException {
         String query = "INSERT INTO Recensione (matricolaVenditore, matricolaAcquirente, "
         		+ "punteggio, commento, data, idOfferta) VALUES (?, ?, ?, ?, CURRENT_DATE, ?)";
@@ -31,6 +34,8 @@ public class InserimentoRecensioneDAO {
         }
     }
     
+    // verifica se esiste già una recensione per una specifica offerta
+    // ritorna true se esiste già una recensione, false altrimenti
     public boolean esisteRecensione(int idOfferta) throws SQLException {
         String query = "SELECT COUNT(*) FROM Recensione WHERE idOfferta = ?";
         
