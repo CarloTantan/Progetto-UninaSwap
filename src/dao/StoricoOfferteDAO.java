@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import entity.Offerta_entity;
 
+// Classe DAO per la gestione dello storico delle offerte di un utente
+// ha dei metodi per visualizzare, eliminare e recuperare dettagli delle offerte inviate
 public class StoricoOfferteDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
 	String user= "postgres";
@@ -18,6 +20,7 @@ public class StoricoOfferteDAO {
         return DriverManager.getConnection(url, user, password);
     }
 	
+	// ritorna la lista delle offerte inviate da un utente
 	public ArrayList<Offerta_entity> getOfferte(String matricola) throws SQLException {
 		ArrayList<Offerta_entity> ListaOfferte = new ArrayList<>();
 		String query = "SELECT * FROM Offerta WHERE MatricolaAcquirente = ? ORDER BY IdOfferta DESC";
@@ -43,6 +46,8 @@ public class StoricoOfferteDAO {
 		return ListaOfferte;
 	}
 	
+	// elimina un'offerta dal database
+	// ritorna true se l'eleiminazione va a buon fine, false altrimenti
 	public boolean DeleteOfferte(int IdOfferta) throws SQLException {
 		String query = "DELETE FROM Offerta WHERE IdOfferta = ?";
 		
@@ -54,6 +59,7 @@ public class StoricoOfferteDAO {
 		} 
 	}
 	
+	// recupera l'id dell'annuncio associato a un'offerta, -1 se non viene trovato
 	public int getIdAnnuncioFromOfferta(int IdOfferta) throws SQLException {
 		String query = "SELECT IdAnnuncio FROM Offerta WHERE IdOfferta = ?";
 		
@@ -72,8 +78,7 @@ public class StoricoOfferteDAO {
 	}
 	
 	
-	 //Recupera il titolo dell'annuncio associato all'offerta
-	 
+	// Recupera il titolo dell'annuncio associato all'offerta, null se non trovato 
 	public String getTitoloAnnuncio(int IdOfferta) throws SQLException {
 		String query = """
 			SELECT A.Titolo 
@@ -95,8 +100,7 @@ public class StoricoOfferteDAO {
 		return null;
 	}
 	
-	 //Recupera la matricola del venditore dall'annuncio associato all'offerta
-	 
+	// Recupera la matricola del venditore dall'annuncio associato all'offerta, null se non trovata 
 	public String getMatricolaVenditore(int IdOfferta) throws SQLException {
 		String query = """
 			SELECT A.MatricolaVenditore 
@@ -119,8 +123,7 @@ public class StoricoOfferteDAO {
 	}
 	
 	
-	 //Recupera il dettaglio dell'offerta basato sulla tipologia
-	
+	// Recupera il dettaglio dell'offerta in base alla tipologia
 	public String getDettaglioOfferta(int IdOfferta) throws SQLException {
 		String query = """
 			SELECT Tipologia, ImportoProposto, OggettoProposto, MessaggioMotivazionale
@@ -159,8 +162,8 @@ public class StoricoOfferteDAO {
 	}
 	
 	
-	 //Verifica se un'offerta è modificabile (solo se è "In Attesa")
-	 
+	// Verifica se un'offerta è modificabile (solo se è "In Attesa")
+	// ritorna true se èuò essere modificata, altrimenti false
 	public boolean isOffertaModificabile(int IdOfferta) throws SQLException {
 		String query = "SELECT Stato FROM Offerta WHERE IdOfferta = ?";
 		

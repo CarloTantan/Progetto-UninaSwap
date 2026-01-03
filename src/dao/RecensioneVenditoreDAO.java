@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// classe DAO per recuperare statistiche e informazioni sulle recensioni dei venditori
+// ha dei metodi per calcolare le valutazioni medie e informazioni correlate
 public class RecensioneVenditoreDAO {
     String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
     String user = "postgres";
@@ -15,8 +17,7 @@ public class RecensioneVenditoreDAO {
         return DriverManager.getConnection(url, user, password);
     }
     
-     //Calcola la valutazione media di un venditore
-     
+    // Calcola e ritorna la valutazione media di un venditore
     public double getValutazioneMedia(String matricolaVenditore) throws SQLException {
         String query = "SELECT AVG(Punteggio) as media " +
                        "FROM Recensione " +
@@ -39,8 +40,7 @@ public class RecensioneVenditoreDAO {
         }
     }
     
-     //Ottiene il numero totale di recensioni ricevute da un venditore
-
+    // RItorna il numero totale di recensioni ricevute da un venditore
     public int getNumeroRecensioni(String matricolaVenditore) throws SQLException {
         String query = "SELECT COUNT(*) as totale " +
                        "FROM Recensione " +
@@ -61,8 +61,7 @@ public class RecensioneVenditoreDAO {
     }
     
     
-    //Ottiene il nominativo di un utente dalla matricola
-
+    // Ritorna il nominativo di un utente dalla matricola
     public String getNominativoUtente(String matricola) throws SQLException {
         String query = "SELECT Nominativo FROM Utente WHERE Matricola = ?";
         
@@ -80,7 +79,7 @@ public class RecensioneVenditoreDAO {
         }
     }
     
-    // Ottiene il titolo dell'annuncio associato a un'offerta
+   // Ritorna il titolo dell'annuncio associato a un'offerta
    public String getTitoloAnnuncioDaOfferta(int idOfferta) throws SQLException {
        String query = "SELECT a.Titolo " +
                       "FROM Annuncio a " +
@@ -101,4 +100,3 @@ public class RecensioneVenditoreDAO {
        }
    }
 }
-

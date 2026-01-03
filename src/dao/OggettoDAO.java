@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// Classe DAO per la gestione degli oggetti
 public class OggettoDAO {
 	
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
@@ -16,6 +17,7 @@ public class OggettoDAO {
         return DriverManager.getConnection(url, user, password);
     }
 	
+	// inserisce un nuovo oggetto nel database e ritorna l'id generato
 	public int inserisciOggetto(String Nome, String Descrizione, int IdCategoria) throws SQLException {
 		String query = "INSERT INTO Oggetto (Nome, Descrizione, IdCategoria) VALUES (?, ?, ?) RETURNING IdOggetto";
 		
