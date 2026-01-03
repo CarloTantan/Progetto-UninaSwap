@@ -1,15 +1,15 @@
 package entity;
-
+import enumerations.*; 
 public class Offerta_entity {
 	protected int IdOfferta;
-	protected String StatoOfferta;
+	protected StatoOfferta StatoOfferta;
 	protected String MatricolaAcquirente;
 	protected String TipologiaOfferta ;
 	protected int IdAnnuncio;
 
 	
 	
-	public Offerta_entity(int IdOfferta, String StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta) {
+	public Offerta_entity(int IdOfferta, StatoOfferta StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta) {
 		this.IdOfferta = IdOfferta;
 		this.StatoOfferta = StatoOfferta;
 		this.MatricolaAcquirente = MatricolaAcquirente;
@@ -23,7 +23,7 @@ public class Offerta_entity {
 	}
 	
 	
-	public String getStatoOfferta() {
+	public StatoOfferta getStatoOfferta() {
 		return StatoOfferta;
 	}
 	public String getTipologiaOfferta() {
@@ -46,7 +46,7 @@ public class Offerta_entity {
 	public void setTipologiaOfferta(String TipologiaOfferta) {
 		this.TipologiaOfferta = TipologiaOfferta;
 	}
-	public void setStato(String StatoOfferta) {
+	public void setStato(StatoOfferta StatoOfferta) {
 		this.StatoOfferta = StatoOfferta;
 	}
 	
