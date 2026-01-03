@@ -7,8 +7,6 @@ public class Offerta_entity {
 	protected String TipologiaOfferta ;
 	protected int IdAnnuncio;
 
-	
-	
 	public Offerta_entity(int IdOfferta, StatoOfferta StatoOfferta, String MatricolaAcquirente, int IdAnnuncio,String TipologiaOfferta) {
 		this.IdOfferta = IdOfferta;
 		this.StatoOfferta = StatoOfferta;
