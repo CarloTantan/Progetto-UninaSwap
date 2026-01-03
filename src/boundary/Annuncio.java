@@ -99,10 +99,7 @@ public class Annuncio extends JFrame {
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Chiude questa finestra e riapre l'area utente
-				setVisible(false); 
-				AreaUtente utenteFrame = new AreaUtente(controller); 
-				utenteFrame.setVisible(true);
+				tornaAreaUtente();
 			}
 		});
 		
@@ -181,8 +178,7 @@ public class Annuncio extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        int selectedIndex = listFoto.getSelectedIndex();
 		        if (selectedIndex != -1) {
-		            controller.rimuoviImmagineAnnuncio(selectedIndex);
-		            aggiornaListaFoto();
+		        	rimozioneImmagineAnnuncio(selectedIndex);
 		        }
 		    }
 		});
@@ -310,7 +306,7 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (validaEImpostaDati()) {
-				    controller.apriAnnuncioScambio();
+				    aperturaAnnuncioScambio();
 				}
 			}
 		});
@@ -319,7 +315,7 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (validaEImpostaDati()) {
-				    controller.apriAnnuncioRegalo();
+					aperturaAnnuncioRegalo();
 				}
 			}
 		});
@@ -328,13 +324,26 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (validaEImpostaDati()) {
-				    controller.apriAnnuncioVendita();
+					aperturaAnnuncioVendita();
 				}
 			}
 		});
 	}
 	
-	 // Metodo privato che gestisce il caricamento delle immagini.
+	// Metodi privati per l'apertura delle interfacce per i vari tipi di annuncio.
+	private void aperturaAnnuncioScambio() {
+		controller.apriAnnuncioScambio();
+	}
+	
+	private void aperturaAnnuncioRegalo() {
+		controller.apriAnnuncioRegalo();
+	}
+	
+	private void aperturaAnnuncioVendita() {
+		controller.apriAnnuncioVendita();
+	}
+	
+	// Metodo privato che gestisce il caricamento delle immagini.
 	private void caricaImmagini() {
         JFileChooser scegliImg = new JFileChooser();
         scegliImg.setDialogTitle("Seleziona immagini");
@@ -352,6 +361,13 @@ public class Annuncio extends JFrame {
             aggiornaListaFoto();
         }
     }
+	
+	// Metodo privato che gestisce la rimozione di un'immagine dall'annuncio.
+	private void rimozioneImmagineAnnuncio(int selectedIndex) {
+        controller.rimuoviImmagineAnnuncio(selectedIndex);
+        aggiornaListaFoto();
+	}
+	
 	// Metodo privato che aggiorna la lista visuale delle foto caricate.
     private void aggiornaListaFoto() {
         // Crea un nuovo modello dalla lista del controller
@@ -361,11 +377,9 @@ public class Annuncio extends JFrame {
             model.addElement(controller.getNomeImmagineAnnuncio(i));
         }
         listFoto.setModel(model);
-    }
+    }	 
     
-	 
-    
- // Metodo privato che valida i dati inseriti dall'utente e li imposta nel controller.
+    // Metodo privato che valida i dati inseriti dall'utente e li imposta nel controller.
     private boolean validaEImpostaDati() {
         // Valida i campi
         if (textfieldTitolo.getText().trim().isEmpty() || 
@@ -400,5 +414,9 @@ public class Annuncio extends JFrame {
         );
         
         return true;
+    }
+    
+    private void tornaAreaUtente() {
+    	controller.apriAreaUtente();
     }
 }

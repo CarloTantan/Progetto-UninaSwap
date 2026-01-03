@@ -83,7 +83,7 @@ public class AnnuncioRegalo extends JFrame {
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.apriCreazioneAnnuncio();
+				tornaCreazioneAnnuncio();
 			}
 		}); 
 		
@@ -194,4 +194,8 @@ public class AnnuncioRegalo extends JFrame {
 	            JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+	 
+	 private void tornaCreazioneAnnuncio() {
+		 controller.apriCreazioneAnnuncio();
+	 }
 }

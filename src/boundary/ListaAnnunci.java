@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import entity.*;
 import enumerations.StatoAnnuncio;
 import mainController.MainController;
 
@@ -57,7 +56,7 @@ public class ListaAnnunci extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	controller.apriAreaUtente();
+            	tornaAreaUtente();
             }
         });
 
@@ -177,9 +176,7 @@ public class ListaAnnunci extends JFrame {
             mostraAnnunciRegalo(annunci);
         }
     }
-
-    
-    
+ 
      // Mostra gli annunci di vendita creando una card per ciascuno.
      private void mostraAnnunciVendita(ArrayList<AnnuncioVendita_entity> annunci) {
         panelCards.removeAll();  // Rimuove le card precedenti
@@ -490,18 +487,18 @@ public class ListaAnnunci extends JFrame {
 
     
      // Apre la finestra appropriata per fare un'offerta sull'annuncio.
-      private void apriOfferta(int idAnnuncio, String matricolaVenditore, StatoAnnuncio stato, String tipologia) {
-       
-    	String risultato = controller.verificaOfferta(idAnnuncio, matricolaVenditore, stato, tipologia);
+     private void apriOfferta(int idAnnuncio, String matricolaVenditore, StatoAnnuncio stato, String tipologia) {
+    	 
+    	 String risultato = controller.verificaOfferta(idAnnuncio, matricolaVenditore, stato, tipologia);
 
-        if (risultato != null) {
+    	 if (risultato != null) {
           
-        	JOptionPane.showMessageDialog(this, 
-                risultato, 
-                "Errore", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+    		 JOptionPane.showMessageDialog(this, 
+    				 risultato, 
+    				 "Errore", 
+    				 JOptionPane.WARNING_MESSAGE);
+    		 return;
+    	 }
 
         if (tipologia.equals("Scambio")) {
             controller.apriOffertaScambio(idAnnuncio);
@@ -510,5 +507,9 @@ public class ListaAnnunci extends JFrame {
         } else if (tipologia.equals("Regalo")) {
             controller.apriOffertaRegalo(idAnnuncio);
         }
+    }
+
+    private void tornaAreaUtente() {
+    	controller.apriAreaUtente();
     }
 }

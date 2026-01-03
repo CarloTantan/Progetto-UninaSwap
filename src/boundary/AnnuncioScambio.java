@@ -71,7 +71,7 @@ public class AnnuncioScambio extends JFrame {
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.apriCreazioneAnnuncio();
+				tornaCreazioneAnnuncio();
 			}
 		}); 
 		
@@ -181,4 +181,8 @@ public class AnnuncioScambio extends JFrame {
 	            JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+	
+	 private void tornaCreazioneAnnuncio() {
+		 controller.apriCreazioneAnnuncio();
+	 }
 }

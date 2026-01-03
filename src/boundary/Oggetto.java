@@ -71,7 +71,7 @@ public class Oggetto extends JFrame {
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		        controller.apriAreaUtente();
+				tornaAreaUtente();
 			}
 		});
 		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
@@ -229,5 +229,9 @@ public class Oggetto extends JFrame {
 	            "Errore", 
 	            JOptionPane.ERROR_MESSAGE);
 	    }
+	}
+	
+	private void tornaAreaUtente() {
+		controller.apriAreaUtente();
 	}
 }
