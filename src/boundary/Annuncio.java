@@ -310,9 +310,7 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (validaEImpostaDati()) {
-					setVisible(false);
-					AnnuncioScambio annuncioScambioFrame = new AnnuncioScambio(controller);
-					annuncioScambioFrame.setVisible(true);
+				    controller.apriAnnuncioScambio();
 				}
 			}
 		});
@@ -321,9 +319,7 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (validaEImpostaDati()) {
-					setVisible(false);
-					AnnuncioRegalo annuncioRegaloFrame = new AnnuncioRegalo(controller);
-					annuncioRegaloFrame.setVisible(true);
+				    controller.apriAnnuncioRegalo();
 				}
 			}
 		});
@@ -332,9 +328,7 @@ public class Annuncio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (validaEImpostaDati()) {
-					setVisible(false);
-					AnnuncioVendita annuncioVenditaFrame = new AnnuncioVendita(controller);
-					annuncioVenditaFrame.setVisible(true);
+				    controller.apriAnnuncioVendita();
 				}
 			}
 		});

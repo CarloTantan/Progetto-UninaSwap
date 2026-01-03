@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import java.awt.Image;
 import java.io.File;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import dao.*;
 import entity.*;
 import enumerations.*; 
+import boundary.*;
 
 public class MainController {
     protected LoginDAO LoginDAO; 
@@ -39,6 +41,8 @@ public class MainController {
     private ArrayList<Transazione_entity> transazioniCaricate;
     private String matricolaVenditoreCorrente;
     
+    private JFrame frameCorrente;
+    
     public MainController() {
         this.LoginDAO = new LoginDAO();           
         this.RegistrazioneDAO = new RegistrazioneDAO();
@@ -47,7 +51,221 @@ public class MainController {
         this.OffertaDAO = new OffertaDAO();
         this.InserimentoRecensioneDAO = new InserimentoRecensioneDAO();
     }
-
+    
+    // =============== METODI DI NAVIGAZIONE ================
+    
+    // chiude il frame corrente
+    
+    private void chiudiFrameCorrente() {
+        if (frameCorrente != null) {
+            frameCorrente.dispose();
+            frameCorrente = null;
+        }
+    }
+    
+    // apre la schermata iniziale
+    
+    public void apriHomepage() {
+        chiudiFrameCorrente();
+        frameCorrente = new Homepage(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di registrazione
+    
+    public void apriRegistrazione() {
+        chiudiFrameCorrente();
+        frameCorrente = new Registrazione(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di login
+    
+    public void apriLogin() {
+        chiudiFrameCorrente();
+        frameCorrente = new Login(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre l'area utente
+    
+    public void apriAreaUtente() {
+        chiudiFrameCorrente();
+        frameCorrente = new AreaUtente(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di inserimento oggetto
+    
+    public void apriInserimentoOggetto() {
+        chiudiFrameCorrente();
+        frameCorrente = new Oggetto(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di crezione annuncio
+    
+    public void apriCreazioneAnnuncio() {
+        chiudiFrameCorrente();
+        frameCorrente = new Annuncio(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di annuncio vendita
+    
+    public void apriAnnuncioVendita() {
+        chiudiFrameCorrente();
+        frameCorrente = new AnnuncioVendita(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre la schermata di annuncio scambio
+    public void apriAnnuncioScambio() {
+        chiudiFrameCorrente();
+        frameCorrente = new AnnuncioScambio(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+     // Apre la schermata di annuncio regalo
+    public void apriAnnuncioRegalo() {
+        chiudiFrameCorrente();
+        frameCorrente = new AnnuncioRegalo(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la lista degli annunci
+    public void apriListaAnnunci() {
+        chiudiFrameCorrente();
+        frameCorrente = new ListaAnnunci(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre una finestra secondaria per visualizzare le recensioni di un venditore
+    public void apriVisualizzaRecensioniVenditore(String matricolaVenditore) {
+        impostaVenditorePerVisualizzazione(matricolaVenditore);
+        
+        VisualizzaRecensioniVenditore frameRecensioni = new VisualizzaRecensioniVenditore(this);
+        frameRecensioni.setVisible(true);
+    }
+    
+    // Apre la schermata degli annunci pubblicati
+    public void apriAnnunciPubblicati() {
+        chiudiFrameCorrente();
+        frameCorrente = new AnnunciPubblicati(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre la schermata dello storico offerte
+    public void apriStoricoOfferte() {
+        chiudiFrameCorrente();
+        frameCorrente = new StoricoOfferte(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre la lista delle transazioni
+    public void apriListaTransazioni() {
+        chiudiFrameCorrente();
+        frameCorrente = new ListaTransazioni(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre la lista delle recensioni
+    public void apriListaRecensioni() {
+        chiudiFrameCorrente();
+        frameCorrente = new ListaRecensioni(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre la schermata di inserimento recensione
+    public void apriInserimentoRecensione(String matricolaAcquirente, String matricolaVenditore, int idOfferta) {
+        chiudiFrameCorrente();
+        frameCorrente = new InserimentoRecensione(matricolaAcquirente, matricolaVenditore, idOfferta, this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre il report statistiche
+    public void apriReport() {
+        chiudiFrameCorrente();
+        frameCorrente = new Report(this);
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+   
+    // Apre la schermata di offerta vendita
+    public void apriOffertaVendita(int idAnnuncio) {
+        chiudiFrameCorrente();
+        OffertaVendita frame = new OffertaVendita(this);
+        frame.setIdAnnuncio(idAnnuncio);
+        frameCorrente = frame;
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre la schermata di offerta scambio
+    public void apriOffertaScambio(int idAnnuncio) {
+        chiudiFrameCorrente();
+        OffertaScambio frame = new OffertaScambio(this);
+        frame.setIdAnnuncio(idAnnuncio);
+        frameCorrente = frame;
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // Apre la schermata di offerta regalo
+    public void apriOffertaRegalo(int idAnnuncio) {
+        chiudiFrameCorrente();
+        OffertaRegalo frame = new OffertaRegalo(this);
+        frame.setIdAnnuncio(idAnnuncio);
+        frameCorrente = frame;
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di offerta regalo in modalità modifica
+    public void apriOffertaRegaloPerModifica(int idOfferta) {
+        chiudiFrameCorrente();
+        OffertaRegalo frame = new OffertaRegalo(this);
+        frame.caricaOffertaPerModifica(idOfferta);
+        frameCorrente = frame;
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di offerta regalo in modalità modifica
+    public void apriOffertaScambioPerModifica(int idOfferta) {
+        chiudiFrameCorrente();
+        OffertaScambio frame = new OffertaScambio(this);
+        frame.caricaOffertaPerModifica(idOfferta);
+        frameCorrente = frame;
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
+    // apre la schermata di offerta regalo in modalità modifica
+    public void apriOffertaVenditaPerModifica(int idOfferta) {
+        chiudiFrameCorrente();
+        OffertaVendita frame = new OffertaVendita(this);
+        frame.caricaOffertaPerModifica(idOfferta);
+        frameCorrente = frame;
+        frameCorrente.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameCorrente.setVisible(true);
+    }
+    
     // ==================== METODI LOGIN ====================
     
     // Effettua il login dell'utente: valida le credenziali e carica i dati dell'utente se valide

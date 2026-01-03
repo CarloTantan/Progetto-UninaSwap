@@ -89,10 +89,7 @@ public class Report extends JFrame {
         JButton btnUndo = new JButton("");
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                AreaUtente areaUtenteFrame = new AreaUtente(controller);
-                areaUtenteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                areaUtenteFrame.setVisible(true);
+                controller.apriAreaUtente();
             }
         });
         btnUndo.setIcon(new ImageIcon(Report.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));

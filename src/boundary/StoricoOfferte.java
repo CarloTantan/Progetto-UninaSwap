@@ -84,11 +84,10 @@ public class StoricoOfferte extends JFrame {
 			
 			@Override
 	            public void actionPerformed(ActionEvent e) {
-			setVisible(false);
-			AreaUtente AreaUtenteFrame = new AreaUtente(controller);
-			AreaUtenteFrame.setVisible(true);
+		        controller.apriAreaUtente();
 			}
-			});
+		});
+		
 		btnUndo.setBackground(new Color(45, 134, 192));
 		btnUndo.setBorderPainted(false);
 		btnUndo.setFocusPainted(false);
@@ -472,20 +471,11 @@ public class StoricoOfferte extends JFrame {
 		}
 		
 		if (tipologia.equalsIgnoreCase("Regalo")) {
-			OffertaRegalo frame = new OffertaRegalo(controller);
-			frame.caricaOffertaPerModifica(idOfferta);
-			frame.setVisible(true);
-			this.setVisible(false);
+		    controller.apriOffertaRegaloPerModifica(idOfferta);
 		} else if (tipologia.equalsIgnoreCase("Scambio")) {
-			OffertaScambio frame = new OffertaScambio(controller);
-			frame.caricaOffertaPerModifica(idOfferta);
-			frame.setVisible(true);
-			this.setVisible(false);
+		    controller.apriOffertaScambioPerModifica(idOfferta);
 		} else if (tipologia.equalsIgnoreCase("Vendita")) {
-			OffertaVendita frame = new OffertaVendita(controller);
-			frame.caricaOffertaPerModifica(idOfferta);
-			frame.setVisible(true);
-			this.setVisible(false);
+		    controller.apriOffertaVenditaPerModifica(idOfferta);
 		}
 	}
 	//Ritira un'offerta dopo aver chiesto conferma all'utente.

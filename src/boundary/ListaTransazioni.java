@@ -127,7 +127,7 @@ public class ListaTransazioni extends JFrame {
         
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                tornaAreaUtente();
+            	controller.apriAreaUtente();
             }
         });
         
@@ -366,19 +366,7 @@ public class ListaTransazioni extends JFrame {
     
     private void apriInserimentoRecensione(String matricolaAcquirente, String matricolaVenditore,
                                           int idOfferta) {
-        this.dispose();
-        InserimentoRecensione recensioneFrame = new InserimentoRecensione(
-            matricolaAcquirente,
-            matricolaVenditore,
-            idOfferta,
-            controller
-        );
-        recensioneFrame.setVisible(true);
+    	controller.apriInserimentoRecensione(matricolaAcquirente, matricolaVenditore, idOfferta);
     }
     
-    private void tornaAreaUtente() {
-        this.dispose();
-        AreaUtente areaUtenteFrame = new AreaUtente(controller);
-        areaUtenteFrame.setVisible(true);
-    }
 }

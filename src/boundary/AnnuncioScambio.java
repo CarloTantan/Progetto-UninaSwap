@@ -71,9 +71,7 @@ public class AnnuncioScambio extends JFrame {
 		ButtonAnnulla.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false); 
-				Annuncio annuncioFrame = new Annuncio(controller); 
-				annuncioFrame.setVisible(true);
+				controller.apriCreazioneAnnuncio();
 			}
 		}); 
 		
@@ -169,14 +167,12 @@ public class AnnuncioScambio extends JFrame {
 	    
 	    // Gestisce il risultato
 	    if (risultato.equals("Annuncio pubblicato con successo")) {
-	        setVisible(false);
 	        JOptionPane.showMessageDialog(this,
 	            "Pubblicazione avvenuta con successo",
 	            "Annuncio pubblicato",
 	            JOptionPane.INFORMATION_MESSAGE);
 	        
-	        AreaUtente utenteFrame = new AreaUtente(controller);
-	        utenteFrame.setVisible(true);
+	        controller.apriAreaUtente();
 	    } else {
 	        // Mostra l'errore restituito dal controller
 	        JOptionPane.showMessageDialog(this,

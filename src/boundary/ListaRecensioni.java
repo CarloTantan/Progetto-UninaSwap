@@ -100,9 +100,7 @@ public class ListaRecensioni extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                AreaUtente AreaUtenteFrame = new AreaUtente(controller);
-                AreaUtenteFrame.setVisible(true);
+            	controller.apriAreaUtente();
             }
         });
 

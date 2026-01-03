@@ -110,7 +110,7 @@ public class InserimentoRecensione extends JFrame {
         btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tornaListaTransazioni();
+            	controller.apriListaTransazioni();
             }
         });
         
@@ -337,21 +337,12 @@ public class InserimentoRecensione extends JFrame {
                 risultato,
                 "Successo",
                 JOptionPane.INFORMATION_MESSAGE);
-            tornaListaTransazioni();
+            controller.apriListaTransazioni();
         } else {
             JOptionPane.showMessageDialog(this,
                 risultato,
                 "Errore",
                 JOptionPane.ERROR_MESSAGE);
         }
-    }
-    
-    
-    //  Chiude la finestra corrente e apre la finestra ListaTransazioni.
-     
-    private void tornaListaTransazioni() {
-        this.dispose();
-        ListaTransazioni listaTransazioniFrame = new ListaTransazioni(controller);
-        listaTransazioniFrame.setVisible(true);
     }
 }

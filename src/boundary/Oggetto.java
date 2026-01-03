@@ -71,9 +71,7 @@ public class Oggetto extends JFrame {
 		btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				AreaUtente AreaUtenteFrame = new AreaUtente(controller);
-				AreaUtenteFrame.setVisible(true);
+		        controller.apriAreaUtente();
 			}
 		});
 		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
@@ -222,9 +220,7 @@ public class Oggetto extends JFrame {
 	        controller.impostaOggettoPerAnnuncio(controller.getUltimoOggettoCreato());
 	       
 	        // Passa alla schermata successiva
-	        dispose();
-	        Annuncio AnnuncioFrame = new Annuncio(controller);
-	        AnnuncioFrame.setVisible(true);
+	        controller.apriCreazioneAnnuncio();
 	        
 	    } else {
 	        // Mostra l'errore restituito dal controller

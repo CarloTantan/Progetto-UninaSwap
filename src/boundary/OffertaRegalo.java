@@ -73,9 +73,7 @@ public class OffertaRegalo extends JFrame {
         JButton btnUndo = new JButton("");
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
-                ListaAnnunciFrame.setVisible(true);
+                controller.apriListaAnnunci();
             }
         });
         btnUndo.setBackground(new Color(45, 134, 192));
@@ -239,9 +237,7 @@ public class OffertaRegalo extends JFrame {
                 "Successo", 
                 JOptionPane.INFORMATION_MESSAGE);
             
-            setVisible(false);
-            ListaAnnunci listaAnnunciFrame = new ListaAnnunci(controller);
-            listaAnnunciFrame.setVisible(true);
+            controller.apriListaAnnunci();
         } else {
             JOptionPane.showMessageDialog(this,
                 risultato,

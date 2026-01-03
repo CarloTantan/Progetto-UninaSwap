@@ -57,9 +57,7 @@ public class ListaAnnunci extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                AreaUtente areaUtenteFrame = new AreaUtente(controller);
-                areaUtenteFrame.setVisible(true);
+            	controller.apriAreaUtente();
             }
         });
 
@@ -357,11 +355,7 @@ public class ListaAnnunci extends JFrame {
             
             @Override
             public void mouseClicked(MouseEvent e) {
-                controller.impostaVenditorePerVisualizzazione(matricolaVenditore);
-                
-                VisualizzaRecensioniVenditore frameRecensioni = 
-                    new VisualizzaRecensioniVenditore(controller);
-                frameRecensioni.setVisible(true);
+            	controller.apriVisualizzaRecensioniVenditore(matricolaVenditore);
             }
         });
         
@@ -498,7 +492,7 @@ public class ListaAnnunci extends JFrame {
      // Apre la finestra appropriata per fare un'offerta sull'annuncio.
       private void apriOfferta(int idAnnuncio, String matricolaVenditore, StatoAnnuncio stato, String tipologia) {
        
-    	  String risultato = controller.verificaOfferta(idAnnuncio, matricolaVenditore, stato, tipologia);
+    	String risultato = controller.verificaOfferta(idAnnuncio, matricolaVenditore, stato, tipologia);
 
         if (risultato != null) {
           
@@ -509,20 +503,12 @@ public class ListaAnnunci extends JFrame {
             return;
         }
 
-        setVisible(false);
-
         if (tipologia.equals("Scambio")) {
-            OffertaScambio offertaScambioFrame = new OffertaScambio(controller);
-            offertaScambioFrame.setIdAnnuncio(idAnnuncio);
-            offertaScambioFrame.setVisible(true);
+            controller.apriOffertaScambio(idAnnuncio);
         } else if (tipologia.equals("Vendita")) {
-            OffertaVendita offertaVenditaFrame = new OffertaVendita(controller);
-            offertaVenditaFrame.setIdAnnuncio(idAnnuncio);
-            offertaVenditaFrame.setVisible(true);
+            controller.apriOffertaVendita(idAnnuncio);
         } else if (tipologia.equals("Regalo")) {
-            OffertaRegalo offertaRegaloFrame = new OffertaRegalo(controller);
-            offertaRegaloFrame.setIdAnnuncio(idAnnuncio);
-            offertaRegaloFrame.setVisible(true);
+            controller.apriOffertaRegalo(idAnnuncio);
         }
     }
 }

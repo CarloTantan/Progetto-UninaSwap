@@ -108,10 +108,7 @@ public class Registrazione extends JFrame {
 		btnIndietro.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	dispose();
-		    	Homepage homepageFrame = new Homepage(controller);
-		    	homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		        homepageFrame.setVisible(true);
+		    	tornaIndietro();
 		    }
 		});
 		
@@ -297,10 +294,7 @@ public class Registrazione extends JFrame {
         if (registrazione.equals("Registrazione effettuata con successo")) {
             JOptionPane.showMessageDialog(this, registrazione, "Successo", JOptionPane.INFORMATION_MESSAGE);
             
-            this.dispose();
-            Homepage homepageFrame = new Homepage(controller);
-            homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            homepageFrame.setVisible(true);
+            controller.apriHomepage();
             
         } else {
             JOptionPane.showMessageDialog(this, registrazione,"Impossibile effettuare la Registrazione", JOptionPane.ERROR_MESSAGE);
@@ -308,6 +302,11 @@ public class Registrazione extends JFrame {
             textFieldPassword.setText("");
             textFieldConfermaPassword.setText("");
         }
-
+                
 	}
+	
+	// torna alla homepage
+	private void tornaIndietro() {
+	    controller.apriHomepage();
+    }
 }

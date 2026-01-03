@@ -275,70 +275,47 @@ public class AreaUtente extends JFrame {
   
 	 
 	private void tornaAlLogin(MainController controller) {
-		dispose();
-		Login LoginFrame = new Login(controller);
-		LoginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		LoginFrame.setVisible(true);
+		controller.apriLogin();
 	}
 	
 	//  Metodo che apre la schermata dei report statistici dell'utente.
 	 
 	
 	private void apriReport(MainController controller) {
-		dispose();
-		Report ReportFrame = new Report(controller);
-		ReportFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		ReportFrame.setVisible(true);
+		controller.apriReport();
 	}
 	
 	
 	 // Metodo che apre la schermata dello storico delle offerte effettuate.
 	 
 	 private void apriStoricoOfferte(MainController controller) {
-		dispose();
-		StoricoOfferte StoricoOfferteFrame = new StoricoOfferte(controller);
-		StoricoOfferteFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		StoricoOfferteFrame.setVisible(true);
+		 controller.apriStoricoOfferte();
 	}
 	 //Metodo che apre la schermata della lista delle transazioni completate.
 	 
 	private void apriListaTransazioni(MainController controller) {
-		dispose();
-		ListaTransazioni ListaTransazioniFrame = new ListaTransazioni(controller);
-		ListaTransazioniFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
-		ListaTransazioniFrame.setVisible(true);
+		controller.apriListaTransazioni();
 	}
 	
 	//  Metodo che apre la schermata degli annunci pubblicati dall'utente.
 	 
 	
 	private void apriAnnunciPubblicati(MainController controller) {
-		dispose();
-		AnnunciPubblicati AnnunciPubblicatiFrame = new AnnunciPubblicati(controller);
-		AnnunciPubblicatiFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
-		AnnunciPubblicatiFrame.setVisible(true);
+		controller.apriAnnunciPubblicati();
 	}
-//Metodo che apre la schermata di creazione di un nuovo oggetto.
+	
+	//Metodo che apre la schermata di creazione di un nuovo oggetto.
 	private void apriOggetto(MainController controller) {
-		dispose();
-		Oggetto OggettoFrame = new Oggetto(controller);
-		OggettoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
-		OggettoFrame.setVisible(true);
+		controller.apriInserimentoOggetto();
 	}
 	 // Metodo che apre la schermata delle recensioni ricevute.
 	 
 	private void apriListaRecensioni(MainController controller) {
-		dispose();
-		ListaRecensioni ListaRecensioniFrame = new ListaRecensioni(controller);
-		ListaRecensioniFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
-		ListaRecensioniFrame.setVisible(true);
+		controller.apriListaRecensioni();
 	}
 	
 	//  Metodo che apre la schermata della lista di tutti gli annunci disponibili.
 	 private void apriListaAnnunci(MainController controller) {
-		dispose();
-		ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
-		ListaAnnunciFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);		
-		ListaAnnunciFrame.setVisible(true);
+		 controller.apriListaAnnunci();
 	}
 }

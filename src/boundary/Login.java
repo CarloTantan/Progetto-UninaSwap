@@ -99,10 +99,7 @@ public class Login extends JFrame {
 		btnIndietro.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	dispose();
-		    	Homepage homepageFrame = new Homepage(controller);
-		    	homepageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		        homepageFrame.setVisible(true);
+		    	tornaIndietro();
 		    }
 		});
 		
@@ -227,9 +224,7 @@ public class Login extends JFrame {
                 
                 
                 // Apri l'interfaccia area utente
-                dispose(); // Chiudi la finestra di login
-                AreaUtente areaUtente = new AreaUtente(controller);
-                areaUtente.setVisible(true);
+                controller.apriAreaUtente();
                 
             } else {
                 JOptionPane.showMessageDialog(this, 
@@ -239,5 +234,10 @@ public class Login extends JFrame {
 
                 textFieldPassword.setText("");// Pulisci il campo password
             }   
+	}
+	
+	// torna alla hompage
+	private void tornaIndietro() {
+		controller.apriHomepage();
 	}
 }

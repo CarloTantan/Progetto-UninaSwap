@@ -89,9 +89,7 @@ public class OffertaVendita extends JFrame {
         btnUndo.setFont(new Font("Verdana", Font.BOLD, 16));
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                ListaAnnunci ListaAnnunciFrame = new ListaAnnunci(controller);
-                ListaAnnunciFrame.setVisible(true);
+                controller.apriListaAnnunci();
             }
         });
         btnUndo.setBackground(new Color(45, 134, 192));
@@ -241,9 +239,7 @@ public class OffertaVendita extends JFrame {
                 "Successo", 
                 JOptionPane.INFORMATION_MESSAGE);
             
-            setVisible(false);
-            ListaAnnunci listaAnnunciFrame = new ListaAnnunci(controller);
-            listaAnnunciFrame.setVisible(true);
+            controller.apriListaAnnunci();
         } else {
             JOptionPane.showMessageDialog(this,
                 risultato,

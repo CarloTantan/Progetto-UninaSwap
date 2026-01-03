@@ -51,10 +51,7 @@ public class Homepage extends JFrame {
 			public void run() {
 				try {
 					MainController controller = new MainController();
-					
-					Homepage frame = new Homepage(controller);
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-					frame.setVisible(true); 
+					controller.apriHomepage(); 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -201,15 +198,11 @@ public class Homepage extends JFrame {
 	 // Metodo che gestisce l'apertura della schermata di registrazione.
 	 
 	public void apriRegistrazione() {
-		dispose(); 
-		Registrazione registrazioneFrame = new Registrazione(controller);
-		registrazioneFrame.setVisible(true);
-		}
+		controller.apriRegistrazione();
+	}
 	
 	 // Metodo che gestisce l'apertura della schermata di login.
 	 public void apriLogin() {
-		dispose(); 
-		Login loginFrame = new Login(controller);
-		loginFrame.setVisible(true); 
-		}
+		 controller.apriLogin(); 
+	 }
 }
