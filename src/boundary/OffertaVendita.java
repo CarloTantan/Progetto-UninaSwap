@@ -70,7 +70,7 @@ public class OffertaVendita extends JFrame {
         header.setPreferredSize(new Dimension(0, 94));
         contentPane.add(header, BorderLayout.NORTH);
         
-        JLabel lblNewLabel = new JLabel("Offerta Vendita");
+        JLabel lblNewLabel = new JLabel("Offerta Vendita ");
         lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 24));
         lblNewLabel.setForeground(Color.WHITE);
         lblNewLabel.setBounds(0, 0, 300, 94);
