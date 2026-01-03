@@ -16,6 +16,10 @@ import enumerations.FasciaOraria;
 import enumerations.StatoAnnuncio;
 import enumerations.TipologiaCategoria;
 
+// Classe DAO per la gestione degli annunci e delle relative offerte
+// Permette di recuperare annunci di un venditore, visualizzare offerte ricevute
+// e gestire l'accettazione/rifiuto delle offerte
+
 public class Annunci_OfferteDAO {
 
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
@@ -25,6 +29,10 @@ public class Annunci_OfferteDAO {
 	private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);
 	}
+	
+	// Recupera tutti gli annunci pubblicati da un venditore specifico
+	// ritorna la lista di annunci con informazioni complete e
+	// include anche un flag per indicare se ci sono offerte in attesa	
 	
 	public ArrayList<Annuncio_entity> getAnnunci(String matricola) throws SQLException {
 	    ArrayList<Annuncio_entity> Annunci = new ArrayList<>();
@@ -70,6 +78,9 @@ public class Annunci_OfferteDAO {
 	    return Annunci;
 	}
 	
+	// Recupera tutte le offerte in attesa per un annuncio specifico
+	// ritorna la lista di offerte (Vendita, Scambio o Regalo) in base alla tipologia	
+	
 	public ArrayList<Offerta_entity> getOfferte(int IdAnnuncio) throws SQLException {
 	    ArrayList<Offerta_entity> Offerte = new ArrayList<>();
 	    String query = "SELECT * " +
@@ -89,6 +100,7 @@ public class Annunci_OfferteDAO {
 	            String tipologia = rs.getString("Tipologia");
 	            Offerta_entity offerta;
 	            
+	            // crea l'oggetto offerta in base alla tipologia
 	            if (tipologia.equalsIgnoreCase("Vendita")) {
 	                offerta = new OffertaVendita_entity(
 	                    rs.getInt("IdOfferta"),
@@ -107,7 +119,7 @@ public class Annunci_OfferteDAO {
 	                    rs.getString("OggettoProposto"),
 	                    tipologia
 	                );
-	            } else { // Regalo
+	            } else {
 	                offerta = new OffertaRegalo_entity(
 	                    rs.getInt("IdOfferta"),
 	                    rs.getString("Stato"),
@@ -129,6 +141,12 @@ public class Annunci_OfferteDAO {
 	    return Offerte;
 	}
 	
+	// Accetta un'offerta modificando il suo stato da "In Attesa" ad "Accettata"
+	// I trigger del database si occupano automaticamente di:
+	// Impostare tutte le altre offerte dello stesso annuncio come "Rifiutata"
+	// Aggiornare lo stato dell'annuncio a "Chiuso"
+	// Ritorna true se l'operazione ha avuto successo, false altrimenti	
+	
 	public boolean accettaOfferta(int idOfferta) throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -136,7 +154,7 @@ public class Annunci_OfferteDAO {
         try {
             conn = getConnection();
             
-            // Basta aggiornare lo stato dell'offerta, i trigger fanno il resto!
+            // aggiorna lo stato dell'offerta in "Accettata"
             String query = "UPDATE Offerta SET Stato = 'Accettata' WHERE IdOfferta = ? AND Stato = 'In Attesa'";
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, idOfferta);
@@ -149,6 +167,9 @@ public class Annunci_OfferteDAO {
             if (conn != null) conn.close();
         }
     }
+	
+	// Rifiuta un'offerta modificando il suo stato da "In Attesa" a "Rifiutata"
+	// Ritorna true se l'operazione ha avuto successo, false altrimenti	
 	
 	public boolean rifiutaOfferta(int idOfferta) throws SQLException {
         Connection conn = null;

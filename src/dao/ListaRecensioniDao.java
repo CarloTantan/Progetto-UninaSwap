@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import entity.Recensione_entity;
 
+// classe DAO per la visualizzazione delle recensioni 
+// fornisce metodi per recuperare le recensioni inviate e ricevute da un singolo utente
 public class ListaRecensioniDao {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
 	String user= "postgres";
@@ -15,12 +17,9 @@ public class ListaRecensioniDao {
 	
 	private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);
-        
-        
-        
 	}
 	
-	
+	// recupera e restituisce la lista delle recensioni inviate da un utente
 	public ArrayList<Recensione_entity> VisualizzaRecensioniInviate(String matricola)throws SQLException  {
 		  ArrayList<Recensione_entity> Recensioni = new ArrayList<>();
 	    String query = "SELECT * " +
@@ -58,10 +57,8 @@ public class ListaRecensioniDao {
 	    
 	    return Recensioni;
 	}
-	
-	
-	
 
+	// recupera e restituisce la lista delle recensioni ricevute da un utente
 	public ArrayList<Recensione_entity> VisualizzaRecensioniRicevute(String matricola)throws SQLException  {
 		  ArrayList<Recensione_entity> Recensioni = new ArrayList<>();
 	    String query = "SELECT * " +
@@ -98,17 +95,5 @@ public class ListaRecensioniDao {
 	    }
 	    
 	    return Recensioni;
-	}
-
-	
-	
-	
-
-	 }
-		
-	
-	
-	
-	
-	
-
+	}	
+}

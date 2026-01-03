@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+// CLasse DAO per la generazione di report e statistiche sulle offerte di un utente
+// ha dei metodi per calcolare il numero di offerte inviate e accettate per tipologia
+// e per calcolare i prezzi minimi, massimi e medi per le offerte di vendita
 public class ReportDAO {
 	String url = "jdbc:postgresql://localhost:5432/UninaSwapDefinitivo";
 	String user= "postgres";
@@ -16,7 +18,8 @@ public class ReportDAO {
 	private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);
 	}
-		
+	
+	// Calcola e ritorna il numero totale di offerte inviate da un utente
 	public int VisualizzaOfferteTotali(String matricola) throws SQLException {
 	    int offerteTotali = 0;  // Variabile per memorizzare il totale delle offerte
 	    String query = "SELECT COUNT(*) as OfferteInviateTOT " +
@@ -28,31 +31,27 @@ public class ReportDAO {
 	    Connection conn = null;
 
 	    try {
-	        // Ottieni la connessione
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, matricola);  // Imposta il parametro 'matricola'
+	        pstmt.setString(1, matricola); 
 
-	        // Esegui la query
 	        rs = pstmt.executeQuery();
 
-	        // Se il risultato è presente, leggi il conteggio
 	        if (rs.next()) {
 	            offerteTotali = rs.getInt("OfferteInviateTOT");
 	        }
 	    } finally {
-	        // Chiudi risorse
 	        if (rs != null) rs.close();
 	        if (pstmt != null) pstmt.close();
 	        if (conn != null) conn.close();
 	    }
 
-	    return offerteTotali;  // Restituisci il numero totale delle offerte
+	    return offerteTotali;
 	}
 	
-	
+	// Calcola e ritorna il numero di offerte di regalo inviate da un utente
 	public int VisualizzaOfferteRegalo(String matricola) throws SQLException {
-	    int offerteRegalo = 0;  // Variabile per memorizzare il totale delle offerte
+	    int offerteRegalo = 0; 
 	    String query = "SELECT COUNT(*) as OfferteInviateRegalo " +
 	                   "FROM Offerta " +
 	                   "WHERE MatricolaAcquirente = ? and Tipologia= 'Regalo'";
@@ -62,27 +61,25 @@ public class ReportDAO {
 	    Connection conn = null;
 
 	    try {
-	        // Ottieni la connessione
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, matricola);  // Imposta il parametro 'matricola'
+	        pstmt.setString(1, matricola);
 
-	        // Esegui la query
 	        rs = pstmt.executeQuery();
 
-	        // Se il risultato è presente, leggi il conteggio
 	        if (rs.next()) {
 	        	offerteRegalo = rs.getInt("OfferteInviateRegalo");
 	        }
 	    } finally {
-	        // Chiudi risorse
 	        if (rs != null) rs.close();
 	        if (pstmt != null) pstmt.close();
 	        if (conn != null) conn.close();
 	    }
 
-	    return offerteRegalo;  // Restituisci il numero totale delle offerte
+	    return offerteRegalo;
 	}
+	
+	// Calcola e ritorna il numero di offerte di scambio inviate da un utente
 	public int VisualizzaOfferteScambio(String matricola) throws SQLException {
 	    int offerteScambio = 0;  // Variabile per memorizzare il totale delle offerte
 	    String query = "SELECT COUNT(*) as OfferteInviateScambio " +
@@ -94,30 +91,27 @@ public class ReportDAO {
 	    Connection conn = null;
 
 	    try {
-	        // Ottieni la connessione
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, matricola);  // Imposta il parametro 'matricola'
+	        pstmt.setString(1, matricola);
 
-	        // Esegui la query
 	        rs = pstmt.executeQuery();
 
-	        // Se il risultato è presente, leggi il conteggio
 	        if (rs.next()) {
 	        	offerteScambio = rs.getInt("OfferteInviateScambio");
 	        }
 	    } finally {
-	        // Chiudi risorse
 	        if (rs != null) rs.close();
 	        if (pstmt != null) pstmt.close();
 	        if (conn != null) conn.close();
 	    }
 
-	    return offerteScambio;  // Restituisci il numero totale delle offerte
+	    return offerteScambio;
 	}
 	
+	// Calcola e ritorna il numero di offerte di vendita inviate da un utente
 	public int VisualizzaOfferteVendita(String matricola) throws SQLException {
-	    int offerteVendita = 0;  // Variabile per memorizzare il totale delle offerte
+	    int offerteVendita = 0; 
 	    String query = "SELECT COUNT(*) as OfferteInviateVendita " +
 	                   "FROM Offerta " +
 	                   "WHERE MatricolaAcquirente = ? and Tipologia= 'Vendita'";
@@ -127,29 +121,28 @@ public class ReportDAO {
 	    Connection conn = null;
 
 	    try {
-	        // Ottieni la connessione
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, matricola);  // Imposta il parametro 'matricola'
+	        pstmt.setString(1, matricola);
 
 	        // Esegui la query
 	        rs = pstmt.executeQuery();
 
-	        // Se il risultato è presente, leggi il conteggio
 	        if (rs.next()) {
 	        	offerteVendita = rs.getInt("OfferteInviateVendita");
 	        }
 	    } finally {
-	        // Chiudi risorse
 	        if (rs != null) rs.close();
 	        if (pstmt != null) pstmt.close();
 	        if (conn != null) conn.close();
 	    }
 
-	    return offerteVendita;  // Restituisci il numero totale delle offerte
+	    return offerteVendita; 
 	}
+	
+	// Calcola e ritorna il numero di offerte di regalo accettate per un utente
 	public int VisualizzaOfferteRegaloAccettata(String matricola) throws SQLException {
-	    int offerteRegaloAccettata = 0;  // Variabile per memorizzare il totale delle offerte
+	    int offerteRegaloAccettata = 0; 
 	    String query = "SELECT COUNT(*) as OfferteRegaloAccettate " +
 	                   "FROM Offerta " +
 	                   "WHERE MatricolaAcquirente = ? AND Tipologia= 'Regalo' AND Stato='Accettata'";
@@ -159,30 +152,27 @@ public class ReportDAO {
 	    Connection conn = null;
 
 	    try {
-	        // Ottieni la connessione
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, matricola);  // Imposta il parametro 'matricola'
+	        pstmt.setString(1, matricola); 
 
-	        // Esegui la query
 	        rs = pstmt.executeQuery();
 
-	        // Se il risultato è presente, leggi il conteggio
 	        if (rs.next()) {
 	        	offerteRegaloAccettata = rs.getInt("OfferteRegaloAccettate");
 	        }
 	    } finally {
-	        // Chiudi risorse
 	        if (rs != null) rs.close();
 	        if (pstmt != null) pstmt.close();
 	        if (conn != null) conn.close();
 	    }
 
-	    return offerteRegaloAccettata;  // Restituisci il numero totale delle offerte
+	    return offerteRegaloAccettata; 
 	}
 	
+	// Calcola e ritorna il numero di offerte di scambio inviate da un utente
 	public int VisualizzaOfferteScambioAccettata(String matricola) throws SQLException {
-	    int offerteScambioAccettata = 0;  // Variabile per memorizzare il totale delle offerte
+	    int offerteScambioAccettata = 0;
 	    String query = "SELECT COUNT(*) as OfferteScambioAccettate " +
 	                   "FROM Offerta " +
 	                   "WHERE MatricolaAcquirente = ? and Tipologia= 'Scambio' and Stato='Accettata'";
@@ -192,31 +182,27 @@ public class ReportDAO {
 	    Connection conn = null;
 
 	    try {
-	        // Ottieni la connessione
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, matricola);  // Imposta il parametro 'matricola'
+	        pstmt.setString(1, matricola);  
 
-	        // Esegui la query
 	        rs = pstmt.executeQuery();
 
-	        // Se il risultato è presente, leggi il conteggio
 	        if (rs.next()) {
 	        	offerteScambioAccettata = rs.getInt("OfferteScambioAccettate");
 	        }
 	    } finally {
-	        // Chiudi risorse
 	        if (rs != null) rs.close();
 	        if (pstmt != null) pstmt.close();
 	        if (conn != null) conn.close();
 	    }
 
-	    return offerteScambioAccettata;  // Restituisci il numero totale delle offerte
+	    return offerteScambioAccettata; 
 	}
 	
-	
+	// Calcola e ritorna il numero di offerte di vednita inviate da un utente
 	public int VisualizzaOfferteVenditaAccettata(String matricola) throws SQLException {
-	    int offerteVenditaAccettata = 0;  // Variabile per memorizzare il totale delle offerte
+	    int offerteVenditaAccettata = 0; 
 	    String query = "SELECT COUNT(*) as OfferteVenditaAccettate " +
 	                   "FROM Offerta " +
 	                   "WHERE MatricolaAcquirente = ? and Tipologia= 'Vendita' and Stato='Accettata'";
@@ -226,28 +212,26 @@ public class ReportDAO {
 	    Connection conn = null;
 
 	    try {
-	        // Ottieni la connessione
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, matricola);  // Imposta il parametro 'matricola'
+	        pstmt.setString(1, matricola);  
 
-	        // Esegui la query
 	        rs = pstmt.executeQuery();
 
-	        // Se il risultato è presente, leggi il conteggio
 	        if (rs.next()) {
 	        	offerteVenditaAccettata = rs.getInt("OfferteVenditaAccettate");
 	        }
 	    } finally {
-	        // Chiudi risorse
 	        if (rs != null) rs.close();
 	        if (pstmt != null) pstmt.close();
 	        if (conn != null) conn.close();
 	    }
 
-	    return offerteVenditaAccettata;  // Restituisci il numero totale delle offerte
+	    return offerteVenditaAccettata; 
 	}
 	
+	// Calcola le statistiche sui prezzi delle offerte accettate di un utente
+	// ritorna un array con i prezzi minimo, massimo e medio (formattati con €)
 	public String[] getPrezziAnnunci(String MatricolaUtente) throws SQLException {
 	    String query = "SELECT ROUND(MIN(ImportoProposto), 2) AS PrezzoMinimo, "
 	                 + "       ROUND(MAX(ImportoProposto), 2) AS PrezzoMassimo, "
@@ -270,12 +254,12 @@ public class ReportDAO {
 	            BigDecimal prezzoMassimo = rs.getBigDecimal("PrezzoMassimo");
 	            BigDecimal prezzoMedio = rs.getBigDecimal("PrezzoMedio");
 
-	            // Gestisci il caso in cui non ci sono risultati (tutti NULL)
+	            // Gestisce il caso in cui non ci sono risultati (tutti null)
 	            if (prezzoMinimo == null) {
 	                return new String[]{"NonEsistePrezzoMinimo", "NonEsistePrezzoMassimo", "NonEsistePrezzoMedio"};
 	            }
 
-	            // Formatta in Java con il simbolo €
+	            // Formatta con il simbolo €
 	            return new String[]{
 	                "€" + prezzoMinimo.toString(),
 	                "€" + prezzoMassimo.toString(),
@@ -291,6 +275,4 @@ public class ReportDAO {
 	        if (conn != null) conn.close();
 	    }
 	}
-	
-	
 }
