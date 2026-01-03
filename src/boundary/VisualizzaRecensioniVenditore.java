@@ -121,7 +121,7 @@ public class VisualizzaRecensioniVenditore extends JFrame {
 
 	    // Carica recensioni tramite controller (usando gli indici)
 	    if (numRecensioni == 0) {
-	        JLabel lblNoRecensioni = new JLabel("Questo venditore non ha ancora ricevuto recensioni.");
+	        JLabel lblNoRecensioni = new JLabel("Questo venditore non ha ancora ricevuto recensioni ");
 	        lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
 	        lblNoRecensioni.setForeground(Color.GRAY);
 	        lblNoRecensioni.setAlignmentX(Component.CENTER_ALIGNMENT);
