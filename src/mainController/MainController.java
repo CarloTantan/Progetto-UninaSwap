@@ -1005,7 +1005,7 @@ public class MainController {
     public String getStatoOffertaByIndex(int index) {
         ArrayList<Offerta_entity> offerte = caricaOfferteUtente();
         if (offerte != null && index >= 0 && index < offerte.size()) {
-            return offerte.get(index).getStatoOfferta();
+            return offerte.get(index).getStatoOfferta().toString();
         }
         return "";
     }

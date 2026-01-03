@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import entity.Offerta_entity;
 
+import enumerations.*;
+
 // Classe DAO per la gestione dello storico delle offerte di un utente
 // ha dei metodi per visualizzare, eliminare e recuperare dettagli delle offerte inviate
 public class StoricoOfferteDAO {
@@ -33,7 +35,7 @@ public class StoricoOfferteDAO {
 				while (rs.next()) {
 					Offerta_entity Offerte = new Offerta_entity(
 						rs.getInt("IdOfferta"),
-						rs.getString("Stato"),
+						StatoOfferta.fromLabel(rs.getString("Stato")),
 						rs.getString("MatricolaAcquirente"),
 						rs.getInt("IdAnnuncio"),
 						rs.getString("Tipologia")
