@@ -156,8 +156,6 @@ public class ListaAnnunci extends JFrame {
         
         contentPane.add(centerContainer, BorderLayout.CENTER);
         
-        // Carica gli annunci di default
-        applicaFiltri();
     }
 
     // Applica i filtri selezionati dall'utente e carica gli annunci
@@ -182,6 +180,12 @@ public class ListaAnnunci extends JFrame {
             );
             mostraAnnunciVuoti();
         } else {
+        	JOptionPane.showMessageDialog(this, 
+        			risultato,
+        			"Risultati ricerca",
+        			JOptionPane.INFORMATION_MESSAGE
+        			);
+        	;
             int numAnnunci = controller.getNumeroAnnunciCaricati(tipologiaCorrente);
             
             indiciAnnunciFiltrati = new ArrayList<>();

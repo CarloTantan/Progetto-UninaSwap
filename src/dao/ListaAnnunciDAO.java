@@ -202,13 +202,13 @@ public class ListaAnnunciDAO {
 	
 	// Filtra per categoria gli annunci di vendita
 	// ritorna la lista di annunci di vendita con la categoria specificata
-	public ArrayList<AnnuncioVendita_entity> getAnnunciVenditaCategoria(String categoria) throws SQLException {
+	public ArrayList<AnnuncioVendita_entity> getAnnunciVenditaCategoria(Integer idCategoria) throws SQLException {
 	    ArrayList<AnnuncioVendita_entity> Annunci = new ArrayList<>();
 	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
 	                   "FROM Annuncio AS A " +
 	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
 	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
-	                   "WHERE A.tipologia='Vendita' AND C.tipologia=?";
+	                   "WHERE A.tipologia='Vendita' AND C.idCategoria=?";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    Connection conn = null;
@@ -216,7 +216,7 @@ public class ListaAnnunciDAO {
 	    try {
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, categoria);
+	        pstmt.setInt(1, idCategoria);
 	        rs = pstmt.executeQuery();
 	        
 	        while (rs.next()) {
@@ -228,7 +228,7 @@ public class ListaAnnunciDAO {
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), 
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 		                rs.getFloat("PrezzoVendita"),
@@ -247,13 +247,13 @@ public class ListaAnnunciDAO {
 	
 	// Filtra per categoria gli annunci di scambio
 	// ritorna la lista di annunci di scambio con la categoria specificata
-	public ArrayList<AnnuncioScambio_entity> getAnnunciScambioCategoria(String categoria) throws SQLException {
+	public ArrayList<AnnuncioScambio_entity> getAnnunciScambioCategoria(Integer idCategoria) throws SQLException {
 	    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
 	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
 	                   "FROM Annuncio AS A " +
 	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
 	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
-	                   "WHERE A.tipologia='Scambio' AND C.tipologia=?";
+	                   "WHERE A.tipologia='Scambio' AND C.idCategoria=?";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    Connection conn = null;
@@ -261,7 +261,7 @@ public class ListaAnnunciDAO {
 	    try {
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, categoria);
+	        pstmt.setInt(1, idCategoria);
 	        rs = pstmt.executeQuery();
 	        
 	        while (rs.next()) {
@@ -273,7 +273,7 @@ public class ListaAnnunciDAO {
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), 
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 		                rs.getString("OggettoRichiesto"),
@@ -292,13 +292,13 @@ public class ListaAnnunciDAO {
 	
 	// Filtra per categoria gli annunci di regalo
 	// ritorna la lista di annunci di regalo con la categoria specificata
-	public ArrayList<AnnuncioRegalo_entity> getAnnunciRegaloCategoria(String categoria) throws SQLException {
+	public ArrayList<AnnuncioRegalo_entity> getAnnunciRegaloCategoria(Integer idCategoria) throws SQLException {
 	    ArrayList<AnnuncioRegalo_entity> Annunci = new ArrayList<>();
 	    String query = "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
 	                   "FROM Annuncio AS A " +
 	                   "JOIN oggetto AS O ON A.Idoggetto = O.idoggetto " +
 	                   "JOIN Categoria AS C ON C.idCategoria = O.idCategoria " +
-	                   "WHERE A.tipologia='Regalo' AND C.tipologia=?";
+	                   "WHERE A.tipologia='Regalo' AND C.idCategoria=?";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    Connection conn = null;
@@ -306,7 +306,7 @@ public class ListaAnnunciDAO {
 	    try {
 	        conn = getConnection();
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, categoria);
+	        pstmt.setInt(1, idCategoria);
 	        rs = pstmt.executeQuery();
 	        
 	        while (rs.next()) {
@@ -318,7 +318,7 @@ public class ListaAnnunciDAO {
 		                rs.getString("ModalitàConsegna"), 
 		                StatoAnnuncio.valueOf(rs.getString("StatoAnnuncio")), 
 		                rs.getString("idOggetto"),
-		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), // SOLO "Tipologia"!
+		                TipologiaCategoria.fromNome(rs.getString("TipologiaCategoria")), 
 		                rs.getDate("DataPubblicazione"),
 		                rs.getString("MatricolaVenditore"), 
 		                rs.getString("MotivoCessione"),
@@ -383,7 +383,7 @@ public class ListaAnnunciDAO {
 
 	// cerca annunci di vendita per testo e per categoria
 	// ritorna la lista di annunci di vendita che soddisfano i criteri di ricerca
-	public ArrayList<AnnuncioVendita_entity> cercaAnnunciVendita(String testoRicerca, String categoria) throws SQLException {
+	public ArrayList<AnnuncioVendita_entity> cercaAnnunciVendita(String testoRicerca, Integer idCategoria) throws SQLException {
 	    ArrayList<AnnuncioVendita_entity> Annunci = new ArrayList<>();
 	    StringBuilder query = new StringBuilder(
 	        "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
@@ -393,8 +393,8 @@ public class ListaAnnunciDAO {
 	        "WHERE A.tipologia='Vendita' AND (LOWER(A.Titolo) LIKE LOWER(?) OR LOWER(A.Descrizione) LIKE LOWER(?))");
 	    
 	    // aggiunge il filtro per categoria se specificata
-	    if (categoria != null && !categoria.equals("Seleziona una categoria")) {
-	        query.append(" AND C.tipologia=?");
+	    if (idCategoria != null) {  
+	        query.append(" AND C.idCategoria=?");  
 	    }
 	    
 	    PreparedStatement pstmt = null;
@@ -408,8 +408,8 @@ public class ListaAnnunciDAO {
 	        pstmt.setString(1, searchPattern);
 	        pstmt.setString(2, searchPattern);
 	        
-	        if (categoria != null && !categoria.equals("Seleziona una categoria")) {
-	            pstmt.setString(3, categoria);
+	        if (idCategoria != null) {
+	            pstmt.setInt(3, idCategoria); 
 	        }
 	        
 	        rs = pstmt.executeQuery();
@@ -442,7 +442,7 @@ public class ListaAnnunciDAO {
 
 	// cerca annunci di regalo per testo e per categoria
 	// ritorna la lista di annunci di regalo che soddisfano i criteri di ricerca
-	public ArrayList<AnnuncioRegalo_entity> cercaAnnunciRegalo(String testoRicerca, String categoria) throws SQLException {
+	public ArrayList<AnnuncioRegalo_entity> cercaAnnunciRegalo(String testoRicerca, Integer idCategoria) throws SQLException {
 	    ArrayList<AnnuncioRegalo_entity> Annunci = new ArrayList<>();
 	    StringBuilder query = new StringBuilder(
 	        "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
@@ -452,8 +452,8 @@ public class ListaAnnunciDAO {
 	        "WHERE A.tipologia='Regalo' AND (LOWER(A.Titolo) LIKE LOWER(?) OR LOWER(A.Descrizione) LIKE LOWER(?))");
 	    
 	    // aggiunge il filtro per categoria se specificata
-	    if (categoria != null && !categoria.equals("Seleziona una categoria")) {
-	        query.append(" AND C.tipologia=?");
+	    if (idCategoria != null) {  
+	        query.append(" AND C.idCategoria=?");  
 	    }
 	    
 	    PreparedStatement pstmt = null;
@@ -467,8 +467,8 @@ public class ListaAnnunciDAO {
 	        pstmt.setString(1, searchPattern);
 	        pstmt.setString(2, searchPattern);
 	        
-	        if (categoria != null && !categoria.equals("Seleziona una categoria")) {
-	            pstmt.setString(3, categoria);
+	        if (idCategoria != null) {
+	            pstmt.setInt(3, idCategoria);  
 	        }
 	        
 	        rs = pstmt.executeQuery();
@@ -501,7 +501,7 @@ public class ListaAnnunciDAO {
 
 	// cerca annunci di scambio per testo e per categoria
 	// ritorna la lista di annunci di regalo che soddisfano i criteri di ricerca
-	public ArrayList<AnnuncioScambio_entity> cercaAnnunciScambio(String testoRicerca, String categoria) throws SQLException {
+	public ArrayList<AnnuncioScambio_entity> cercaAnnunciScambio(String testoRicerca, Integer idCategoria) throws SQLException {
 	    ArrayList<AnnuncioScambio_entity> Annunci = new ArrayList<>();
 	    StringBuilder query = new StringBuilder(
 	        "SELECT A.*, C.Tipologia AS TipologiaCategoria " +
@@ -511,8 +511,8 @@ public class ListaAnnunciDAO {
 	        "WHERE A.tipologia='Scambio' AND (LOWER(A.Titolo) LIKE LOWER(?) OR LOWER(A.Descrizione) LIKE LOWER(?))");
 	    
 	    // aggiunge il filtro per categoria se specificata
-	    if (categoria != null && !categoria.equals("Seleziona una categoria")) {
-	        query.append(" AND C.tipologia=?");
+	    if (idCategoria != null) {  
+	        query.append(" AND C.idCategoria=?");  
 	    }
 	    
 	    PreparedStatement pstmt = null;
@@ -526,8 +526,8 @@ public class ListaAnnunciDAO {
 	        pstmt.setString(1, searchPattern);
 	        pstmt.setString(2, searchPattern);
 	        
-	        if (categoria != null && !categoria.equals("Seleziona una categoria")) {
-	            pstmt.setString(3, categoria);
+	        if (idCategoria != null) {
+	            pstmt.setInt(3, idCategoria);  // 
 	        }
 	        
 	        rs = pstmt.executeQuery();
