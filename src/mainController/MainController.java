@@ -59,7 +59,6 @@ public class MainController {
     // =============== METODI DI NAVIGAZIONE ================
     
     // chiude il frame corrente
-    
     private void chiudiFrameCorrente() {
         if (frameCorrente != null) {
             frameCorrente.dispose();
@@ -67,8 +66,7 @@ public class MainController {
         }
     }
     
-    // apre la schermata iniziale
-    
+    // apre la schermata iniziale, cioè l'Homepage
     public void apriHomepage() {
         chiudiFrameCorrente();
         frameCorrente = new Homepage(this);
@@ -86,7 +84,6 @@ public class MainController {
     }
     
     // apre la schermata di login
-    
     public void apriLogin() {
         chiudiFrameCorrente();
         frameCorrente = new Login(this);
@@ -95,7 +92,6 @@ public class MainController {
     }
     
     // apre l'area utente
-    
     public void apriAreaUtente() {
         chiudiFrameCorrente();
         frameCorrente = new AreaUtente(this);
@@ -961,7 +957,7 @@ public class MainController {
         
         try {
             OffertaDAO offertaDAO = new OffertaDAO();
-            OffertaRegalo_entity offerta = offertaDAO.caricaOfferta(idOfferta);
+            OffertaRegalo_entity offerta = offertaDAO.caricaOffertaRegalo(idOfferta);
             
             if (offerta == null) {
                 return "Offerta non trovata";

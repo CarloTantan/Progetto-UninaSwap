@@ -137,7 +137,7 @@ public class OffertaDAO {
 
 	// Carica i dati di un'offerta di regalo
 	// ritorna un oggetto OffertaRegalo_entity se l'offerta esiste, altrimenti null
-	public OffertaRegalo_entity caricaOfferta(int IdOfferta) throws SQLException {
+	public OffertaRegalo_entity caricaOffertaRegalo(int IdOfferta) throws SQLException {
 	    String query = "SELECT * FROM Offerta WHERE IdOfferta = ?";
 	    
 	    try (Connection conn = getConnection();
