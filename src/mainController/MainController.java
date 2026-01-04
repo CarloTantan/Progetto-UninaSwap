@@ -75,7 +75,6 @@ public class MainController {
     }
     
     // apre la schermata di registrazione
-    
     public void apriRegistrazione() {
         chiudiFrameCorrente();
         frameCorrente = new Registrazione(this);
@@ -100,7 +99,6 @@ public class MainController {
     }
     
     // apre la schermata di inserimento oggetto
-    
     public void apriInserimentoOggetto() {
         chiudiFrameCorrente();
         frameCorrente = new Oggetto(this);
@@ -109,7 +107,6 @@ public class MainController {
     }
     
     // apre la schermata di crezione annuncio
-    
     public void apriCreazioneAnnuncio() {
         chiudiFrameCorrente();
         frameCorrente = new Annuncio(this);
@@ -118,7 +115,6 @@ public class MainController {
     }
     
     // apre la schermata di annuncio vendita
-    
     public void apriAnnuncioVendita() {
         chiudiFrameCorrente();
         frameCorrente = new AnnuncioVendita(this);
@@ -134,7 +130,7 @@ public class MainController {
         frameCorrente.setVisible(true);
     }
     
-     // Apre la schermata di annuncio regalo
+    // Apre la schermata di annuncio regalo
     public void apriAnnuncioRegalo() {
         chiudiFrameCorrente();
         frameCorrente = new AnnuncioRegalo(this);
