@@ -1308,7 +1308,7 @@ public class MainController {
         }
     }
     
-    // verifica se un offerta può essere modificata
+    // verifica se un offerta può essere modificata, quindi se si trova nello stato di "In Attesa"
     public boolean isOffertaModificabile(int idOfferta) {
         if (idOfferta <= 0) {
             return false;
