@@ -1872,7 +1872,6 @@ public class MainController {
 
     // ==================== METODI LISTA RECENSIONI E INSERIMENTO RECENSIONE ====================
     
-
     // carica le recensioni inviate dall'utente loggato
     public ArrayList<Recensione_entity> caricaRecensioniInviate() {
         try {
@@ -1965,6 +1964,104 @@ public class MainController {
     		return "Errore durante l'inserimento della recensione: " + e.getMessage();
     	}
     }
+    
+	// Carica le recensioni inviate dall'utente loggato 
+	//restituisce il numero di recensioni caricate
+	public int getNumeroRecensioniInviate() {
+	    recensioniInviateCache = caricaRecensioniInviate();
+	    return recensioniInviateCache != null ? recensioniInviateCache.size() : 0;
+	}
+
+	// Carica le recensioni ricevute dall'utente loggato
+	//Restituisce il numero di recensioni caricate
+	public int getNumeroRecensioniRicevute() {
+	    recensioniRicevuteCache = caricaRecensioniRicevute();
+	    return recensioniRicevuteCache != null ? recensioniRicevuteCache.size() : 0;
+	}
+	
+	// Restituisce il punteggio di una recensione inviata dato l'indice
+	public int getPunteggioRecensioneInviata(int index) {
+	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+	        return recensioniInviateCache.get(index).getPunteggio();
+	    }
+	    return 0;
+	}
+	
+	//Restituisce la data di una recensione inviata dato l'indice	 
+	public String getDataRecensioneInviata(int index) {
+	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	        return sdf.format(recensioniInviateCache.get(index).getData());
+	    }
+	    return "";
+	}
+	
+	// Restituisce il commento di una recensione inviata dato l'indice
+	public String getCommentoRecensioneInviata(int index) {
+	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+	        String commento = recensioniInviateCache.get(index).getCommento();
+	        return commento != null ? commento : "Nessun commento";
+	    }
+	    return "";
+	}
+	
+	// Restituisce l'ID offerta di una recensione inviata dato l'indice
+	public int getIdOffertaRecensioneInviata(int index) {
+	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+	        return recensioniInviateCache.get(index).getIdOfferta();
+	    }
+	    return -1;
+	}
+	
+	// Restituisce la matricola del venditore di una recensione inviata dato l'indice
+	public String getMatricolaVenditoreRecensioneInviata(int index) {
+	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
+	        return recensioniInviateCache.get(index).getMatricolaVenditore();
+	    }
+	    return "";
+	}
+
+	 // Restituisce il punteggio di una recensione ricevuta dato l'indice 
+	public int getPunteggioRecensioneRicevuta(int index) {
+	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+	        return recensioniRicevuteCache.get(index).getPunteggio();
+	    }
+	    return 0;
+	}
+	
+	//Restituisce la data di una recensione ricevuta dato l'indice
+	public String getDataRecensioneRicevuta(int index) {
+	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	        return sdf.format(recensioniRicevuteCache.get(index).getData());
+	    }
+	    return "";
+	}
+
+	 // Restituisce il commento di una recensione ricevuta dato l'indice
+	public String getCommentoRecensioneRicevuta(int index) {
+	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+	        String commento = recensioniRicevuteCache.get(index).getCommento();
+	        return commento != null ? commento : "Nessun commento";
+	    }
+	    return "";
+	}
+
+	 //Restituisce l'ID offerta di una recensione ricevuta dato l'indice 
+	public int getIdOffertaRecensioneRicevuta(int index) {
+	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+	        return recensioniRicevuteCache.get(index).getIdOfferta();
+	    }
+	    return -1;
+	}
+	
+	//Restituisce la matricola dell'acquirente di una recensione ricevuta dato l'indice
+	public String getMatricolaAcquirenteRecensioneRicevuta(int index) {
+	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
+	        return recensioniRicevuteCache.get(index).getMatricolaAcquirente();
+	    }
+	    return "";
+	}
 
     // ==================== METODI VISUALIZZA RECENSIONI VENDITORE ====================    
 
@@ -2428,9 +2525,8 @@ public class MainController {
         return "Chiuso"; // Default safe
     }
 
-         //Restituisce l'informazione extra di un annuncio (prezzo, oggetto richiesto, motivo cessione)
-     	//in base alla tipologia
-     
+     //Restituisce l'informazione extra di un annuncio (prezzo, oggetto richiesto, motivo cessione)
+     //in base alla tipologia
     public String getInfoExtraAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2459,8 +2555,7 @@ public class MainController {
 
     
     //  Verifica se un'offerta può essere fatta su un annuncio
-     // Restituisce null se ok, altrimenti il messaggio di errore
-    
+    // Restituisce null se ok, altrimenti il messaggio di errore
     public String verificaOffertaPossibile(int idAnnuncio, String matricolaVenditore, String stato) {
         try {
             // Controlla se lo stato dell'annuncio è chiuso
@@ -2473,141 +2568,11 @@ public class MainController {
                 return "Non puoi fare un'offerta sul tuo annuncio.";
             }
 
-            return null; // Tutto ok
+            return null;
 
         } catch (Exception e) {
             return "Si è verificato un errore: " + e.getMessage();
         }
     }
     
-    
-  //  ==================== METODI LISTA RECENSIONI - DA AGGIUNGERE/MODIFICARE A MainController ====================
-
-    		// NOTA: I metodi caricaRecensioniInviate() e caricaRecensioniRicevute() che restituiscono 
-    		// ArrayList<Recensione_entity> devono rimanere PRIVATI e usati solo internamente.
-    		// Aggiungiamo una cache per evitare chiamate multiple al DB.
-
-    		
-    		 // Carica le recensioni inviate dall'utente loggato
-    		 //Restituisce il numero di recensioni caricate
-    		public int getNumeroRecensioniInviate() {
-    		    recensioniInviateCache = caricaRecensioniInviate();
-    		    return recensioniInviateCache != null ? recensioniInviateCache.size() : 0;
-    		}
-
-    		 // Carica le recensioni ricevute dall'utente loggato
-    		 //Restituisce il numero di recensioni caricate
-    		 
-    		public int getNumeroRecensioniRicevute() {
-    		    recensioniRicevuteCache = caricaRecensioniRicevute();
-    		    return recensioniRicevuteCache != null ? recensioniRicevuteCache.size() : 0;
-    		}
-
-    		
-    		 // Restituisce il punteggio di una recensione inviata dato l'indice
-    		 
-    		public int getPunteggioRecensioneInviata(int index) {
-    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
-    		        return recensioniInviateCache.get(index).getPunteggio();
-    		    }
-    		    return 0;
-    		}
-
-    		
-    		 //Restituisce la data di una recensione inviata dato l'indice
-    		 
-    		public String getDataRecensioneInviata(int index) {
-    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
-    		        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    		        return sdf.format(recensioniInviateCache.get(index).getData());
-    		    }
-    		    return "";
-    		}
-
-    		
-    		// Restituisce il commento di una recensione inviata dato l'indice
-    		
-    		public String getCommentoRecensioneInviata(int index) {
-    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
-    		        String commento = recensioniInviateCache.get(index).getCommento();
-    		        return commento != null ? commento : "Nessun commento";
-    		    }
-    		    return "";
-    		}
-
-    		
-    		 // Restituisce l'ID offerta di una recensione inviata dato l'indice
-    		 
-    		public int getIdOffertaRecensioneInviata(int index) {
-    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
-    		        return recensioniInviateCache.get(index).getIdOfferta();
-    		    }
-    		    return -1;
-    		}
-
-    		
-    		 // Restituisce la matricola del venditore di una recensione inviata dato l'indice
-    		 
-    		public String getMatricolaVenditoreRecensioneInviata(int index) {
-    		    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
-    		        return recensioniInviateCache.get(index).getMatricolaVenditore();
-    		    }
-    		    return "";
-    		}
-
-    		
-    		 // Restituisce il punteggio di una recensione ricevuta dato l'indice
-    		 
-    		public int getPunteggioRecensioneRicevuta(int index) {
-    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
-    		        return recensioniRicevuteCache.get(index).getPunteggio();
-    		    }
-    		    return 0;
-    		}
-
-    		
-    		 //Restituisce la data di una recensione ricevuta dato l'indice
-    		 
-    		public String getDataRecensioneRicevuta(int index) {
-    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
-    		        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    		        return sdf.format(recensioniRicevuteCache.get(index).getData());
-    		    }
-    		    return "";
-    		}
-
-    		
-    		 // Restituisce il commento di una recensione ricevuta dato l'indice
-    		
-    		public String getCommentoRecensioneRicevuta(int index) {
-    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
-    		        String commento = recensioniRicevuteCache.get(index).getCommento();
-    		        return commento != null ? commento : "Nessun commento";
-    		    }
-    		    return "";
-    		}
-
-    		
-    		 //Restituisce l'ID offerta di una recensione ricevuta dato l'indice
-    		 
-    		public int getIdOffertaRecensioneRicevuta(int index) {
-    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
-    		        return recensioniRicevuteCache.get(index).getIdOfferta();
-    		    }
-    		    return -1;
-    		}
-
-    		
-    		 //Restituisce la matricola dell'acquirente di una recensione ricevuta dato l'indice
-    		 
-    		public String getMatricolaAcquirenteRecensioneRicevuta(int index) {
-    		    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
-    		        return recensioniRicevuteCache.get(index).getMatricolaAcquirente();
-    		    }
-    		    return "";
-    		}
-
-    		// NOTA: I metodi caricaRecensioniInviate() e caricaRecensioniRicevute() esistenti 
-    		// rimangono INVARIATI. Sono già presenti nel tuo MainController e restituiscono ArrayList<Recensione_entity>.
-
 }
