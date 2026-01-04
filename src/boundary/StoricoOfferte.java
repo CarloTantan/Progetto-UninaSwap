@@ -144,8 +144,7 @@ public class StoricoOfferte extends JFrame {
             	applicaFiltri();
             }
             });
-		
-		
+				
 		btnFiltra.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				btnFiltra.setBackground(new Color(0, 70, 140));
