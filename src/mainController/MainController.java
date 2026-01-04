@@ -263,8 +263,7 @@ public class MainController {
     
     // ==================== METODI LOGIN ====================
     
-    // Effettua il login dell'utente: valida le credenziali e carica i dati dell'utente se valide
-    
+    // Verifica le credenziali e carica i dati dell'utente se sono valide
     public String EffettuaLogin(String matricola, String password) {
     
     	// validazione campi vuoti
@@ -285,8 +284,7 @@ public class MainController {
                 return "Credenziali non valide";
             }
             
-    
-            // carica i dati dell'utente loggato
+            // carica i dati dell'utente loggato, quindi se le credenziali sono valide
             Utente_entity Utente = LoginDAO.getUtente(matricola);
             this.User = Utente;
             
@@ -319,7 +317,6 @@ public class MainController {
             return "Formato email non valido";
         }
         
-        
         if (!telefono.matches("[0-9]{10}")) {
             return "Il numero di telefono deve contenere 10 cifre";
         }
@@ -333,7 +330,7 @@ public class MainController {
         	// effettua la registrazione tramite DAO
         	boolean registrazioneRiuscita = RegistrazioneDAO.effettuaRegistrazione(
         			nome, cognome, matricola, telefono, email, password
-        			);
+        	);
         
         	
         	if (!registrazioneRiuscita) {
@@ -527,6 +524,7 @@ public class MainController {
     // ==================== METODI ANNUNCIO SCAMBIO, ANNUNCIO VENDITA, ANNUNCIO REGALO =======================
 
     // pubblica l'annuncio specifico in base alla tipologia usando le informazioni generali memorizzate
+    //SCAMBIO
     public String PubblicaAnnuncioScambio(String oggettoRichiesto) {
         return InserimentoAnnuncioScambio(
             titoloAnnuncio,
@@ -540,6 +538,7 @@ public class MainController {
         );
     }
 
+    //VENDITA
     public String PubblicaAnnuncioVendita(String prezzoStr) {
     	
     	// validazione prezzo
@@ -565,7 +564,8 @@ public class MainController {
             percorsiImmaginiAnnuncio
         );
     }
-
+    
+    //REGALO
     public String PubblicaAnnuncioRegalo(String motivoCessione) {
         return InserimentoAnnuncioRegalo(
             titoloAnnuncio,
@@ -579,9 +579,9 @@ public class MainController {
         );
     }    
 
-    // metodi che inseriscono l'annuncio nel database e le relative foto:
-    // validano i campi obbligatori e inseriscono l'annuncio e le relative foto tramite le rispettive DAO
-    
+    // INSERIMENTO ANNUNCIO (in base alla tipologia) NEL DATABASE
+    // validano i campi obbligatori e inseriscono l'annuncio, con le relative foto, tramite le rispettive DAO
+    //SCAMBIO
     public String InserimentoAnnuncioScambio(String titolo, String descrizione, String modalitaConsegna, FasciaOraria fasciaOraria, String oggettoRichiesto, String matricolaVenditore, int idOggetto, List<String> percorsiImmagini) {
         if (titolo == null || titolo.trim().isEmpty() ||
             descrizione == null || descrizione.trim().isEmpty() ||
@@ -592,7 +592,6 @@ public class MainController {
 
             return "Tutti i campi sono obbligatori";
         }
-
 
         if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
             return "Devi inserire almeno una foto";
@@ -629,6 +628,7 @@ public class MainController {
         }
     }
 
+    //VENDITA
     public String InserimentoAnnuncioVendita(String titolo, String descrizione, String modalitaConsegna, FasciaOraria fasciaOraria, float prezzo, String matricolaVenditore, int idOggetto, List<String> percorsiImmagini) {
         if (titolo == null || titolo.trim().isEmpty() ||
             descrizione == null || descrizione.trim().isEmpty() ||
@@ -639,7 +639,6 @@ public class MainController {
 
             return "Tutti i campi sono obbligatori e il prezzo deve essere maggiore di zero";
         }
-
 
         if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
             return "Devi inserire almeno una foto";
@@ -676,6 +675,7 @@ public class MainController {
         }
     }
 
+    //REGALO
     public String InserimentoAnnuncioRegalo(String titolo, String descrizione, String modalitaConsegna, FasciaOraria fasciaOraria, String motivoCessione, String matricolaVenditore, int idOggetto, List<String> percorsiImmagini) {
         if (titolo == null || titolo.trim().isEmpty() ||
             descrizione == null || descrizione.trim().isEmpty() ||
@@ -686,7 +686,6 @@ public class MainController {
 
             return "Tutti i campi sono obbligatori";
         }
-
 
         if (percorsiImmagini == null || percorsiImmagini.isEmpty()) {
             return "Devi inserire almeno una foto";
@@ -722,8 +721,7 @@ public class MainController {
             return "Errore durante la pubblicazione: " + e.getMessage();
         }
     }
-    
-    
+ 
     // ==================== METODI LISTA ANNUNCI ====================
     
     // carica gli annunci dal database in base ai filtri selezionati (tipologia e categoria) e all'eventuale testo di ricerca
@@ -778,7 +776,6 @@ public class MainController {
         }
     }
 
-    
     //metodi per accedere agli annunci caricati
     public ArrayList<AnnuncioVendita_entity> getAnnunciVenditaCaricati() {
         return annunciVenditaCaricati != null ? annunciVenditaCaricati : new ArrayList<>();
@@ -839,7 +836,7 @@ public class MainController {
         }
     }
     
-    // metodi per informazioni sui venditori 
+    // Metodi getter per prendere le info del venditore
     public String getNominativoVenditore(String matricolaVenditore) {
         try {
             RecensioneVenditoreDAO dao = new RecensioneVenditoreDAO();
@@ -872,6 +869,7 @@ public class MainController {
     
     // ==================== METODI OFFERTE REGALO ====================
 
+    //invio offerta
     public String inviaOffertaRegalo(String messaggioMotivazionale, int idAnnuncio) {
         // Validazione input
         if (messaggioMotivazionale == null || messaggioMotivazionale.trim().isEmpty()) {
@@ -968,6 +966,7 @@ public class MainController {
 
     // ==================== METODI OFFERTE SCAMBIO ====================
 
+    //invio offerta
     public String inviaOffertaScambio(String oggettoProposto, int idAnnuncio) {
         // Validazione input
         if (oggettoProposto == null || oggettoProposto.trim().isEmpty()) {
@@ -1064,6 +1063,7 @@ public class MainController {
 
     // ==================== METODI OFFERTE VENDITA ====================
 
+    //invio offerta
     public String inviaOffertaVendita(String importoPropostoString, int idAnnuncio) {
         // Validazione input
         if (importoPropostoString == null || importoPropostoString.trim().isEmpty()) {
@@ -1381,7 +1381,7 @@ public class MainController {
         }
     }
 
-    // metodi per accedere ai dati degli annunci pubblicati tramite indice
+    // Accediamo ai dati degli annunci pubblicati
     public String getTitoloAnnuncioPubblicato(int index) {
         try {
             String matricola = getMatricolaUtenteLoggato();
@@ -1544,6 +1544,8 @@ public class MainController {
         }
     }
 
+    //verifica se l'annuncio ha ricevuto nuove offerte
+    // questo può esser possibile solo se l'annuncio si trova nello stato di "Aperto"
     public boolean hasNuoveOfferteAnnuncio(int index) {
         try {
             String matricola = getMatricolaUtenteLoggato();
@@ -1599,7 +1601,7 @@ public class MainController {
         }
     }
 
-    // metodi per accedere ai dati delle offerte ricevute tramite indice
+    
     public String getTipologiaOffertaRicevuta(int idAnnuncio, int index) {
         try {
             if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
@@ -1666,7 +1668,7 @@ public class MainController {
         }
     }
 
-    // metodi per recuperare i dettagli delle offerte
+    // Prendiamo i dati delle offerte di vendita
     public String getDettaglioOffertaVendita(int idAnnuncio, int index) {
         try {
             if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
@@ -1693,6 +1695,7 @@ public class MainController {
         }
     }
 
+    // Prendiamo i dati delle offerte di scambio
     public String getDettaglioOffertaScambio(int idAnnuncio, int index) {
         try {
             if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
@@ -1720,6 +1723,7 @@ public class MainController {
         }
     }
 
+    // Prendiamo i dati delle offerte di regalo
     public String getDettaglioOffertaRegalo(int idAnnuncio, int index) {
         try {
             if (idAnnuncio <= 0 || idsOfferteCaricate == null || 
@@ -1747,7 +1751,7 @@ public class MainController {
         }
     }
 
-    // accetta un'offerta ricevuta, chiude l'annuncio e rifiuta tutte le altre
+    // accetta un'offerta ricevuta e chiude l'annuncio, rifiutando tutte le altre
     public String accettaOffertaRicevuta(int idOfferta) {
         if (idOfferta <= 0) {
             return "ID offerta non valido";
@@ -1795,7 +1799,7 @@ public class MainController {
     
     // ==================== METODI LISTA TRANSAZIONI ====================
     
-    // carica le transazioni completate dall'utente (offerte accettate)
+    // carica le transazioni completate dall'utente (transazione completata <=> offerta accettata)
     public ArrayList<Transazione_entity> caricaTransazioni() {
         try {
             String matricola = getMatricolaUtenteLoggato();
@@ -1813,7 +1817,7 @@ public class MainController {
         }
     }
     
-    // carica le transazioni e restituisce il conteggio
+    // carica le transazioni e restituisce il conteggio, così da avere il numero di offerte accettate
     public int getNumeroTransazioni() {
         try {
             String matricola = getMatricolaUtenteLoggato();
@@ -1832,7 +1836,7 @@ public class MainController {
         }
     }
 
-    // metpoi per accedere ai dati delle transazioni tramite indice
+    // Prendiamo i dati delle transazioni
     public String getTitoloAnnuncioTransazione(int index) {
         if (transazioniCaricate != null && index >= 0 && index < transazioniCaricate.size()) {
             return transazioniCaricate.get(index).getTitoloAnnuncio();
@@ -1965,21 +1969,19 @@ public class MainController {
     	}
     }
     
-	// Carica le recensioni inviate dall'utente loggato 
-	//restituisce il numero di recensioni caricate
+	// Carica le recensioni inviate dall'utente loggato e restituisce il numero di recensioni caricate
 	public int getNumeroRecensioniInviate() {
 	    recensioniInviateCache = caricaRecensioniInviate();
 	    return recensioniInviateCache != null ? recensioniInviateCache.size() : 0;
 	}
 
-	// Carica le recensioni ricevute dall'utente loggato
-	//Restituisce il numero di recensioni caricate
+	// Carica le recensioni ricevute dall'utente loggato e restituisce il numero di recensioni caricate
 	public int getNumeroRecensioniRicevute() {
 	    recensioniRicevuteCache = caricaRecensioniRicevute();
 	    return recensioniRicevuteCache != null ? recensioniRicevuteCache.size() : 0;
 	}
 	
-	// Restituisce il punteggio di una recensione inviata dato l'indice
+	// Restituisce il punteggio di una recensione inviata
 	public int getPunteggioRecensioneInviata(int index) {
 	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
 	        return recensioniInviateCache.get(index).getPunteggio();
@@ -1987,7 +1989,7 @@ public class MainController {
 	    return 0;
 	}
 	
-	//Restituisce la data di una recensione inviata dato l'indice	 
+	//Restituisce la data di una recensione inviata  
 	public String getDataRecensioneInviata(int index) {
 	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
 	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1996,7 +1998,7 @@ public class MainController {
 	    return "";
 	}
 	
-	// Restituisce il commento di una recensione inviata dato l'indice
+	// Restituisce il commento di una recensione inviata 
 	public String getCommentoRecensioneInviata(int index) {
 	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
 	        String commento = recensioniInviateCache.get(index).getCommento();
@@ -2005,7 +2007,7 @@ public class MainController {
 	    return "";
 	}
 	
-	// Restituisce l'ID offerta di una recensione inviata dato l'indice
+	// Restituisce l'ID offerta di una recensione inviata
 	public int getIdOffertaRecensioneInviata(int index) {
 	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
 	        return recensioniInviateCache.get(index).getIdOfferta();
@@ -2013,7 +2015,7 @@ public class MainController {
 	    return -1;
 	}
 	
-	// Restituisce la matricola del venditore di una recensione inviata dato l'indice
+	// Restituisce la matricola del venditore di una recensione inviata 
 	public String getMatricolaVenditoreRecensioneInviata(int index) {
 	    if (recensioniInviateCache != null && index >= 0 && index < recensioniInviateCache.size()) {
 	        return recensioniInviateCache.get(index).getMatricolaVenditore();
@@ -2021,7 +2023,7 @@ public class MainController {
 	    return "";
 	}
 
-	 // Restituisce il punteggio di una recensione ricevuta dato l'indice 
+	// Restituisce il punteggio di una recensione ricevuta 
 	public int getPunteggioRecensioneRicevuta(int index) {
 	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
 	        return recensioniRicevuteCache.get(index).getPunteggio();
@@ -2029,7 +2031,7 @@ public class MainController {
 	    return 0;
 	}
 	
-	//Restituisce la data di una recensione ricevuta dato l'indice
+	//Restituisce la data di una recensione ricevuta 
 	public String getDataRecensioneRicevuta(int index) {
 	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
 	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -2038,7 +2040,7 @@ public class MainController {
 	    return "";
 	}
 
-	 // Restituisce il commento di una recensione ricevuta dato l'indice
+	 // Restituisce il commento di una recensione ricevuta
 	public String getCommentoRecensioneRicevuta(int index) {
 	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
 	        String commento = recensioniRicevuteCache.get(index).getCommento();
@@ -2047,7 +2049,7 @@ public class MainController {
 	    return "";
 	}
 
-	 //Restituisce l'ID offerta di una recensione ricevuta dato l'indice 
+	 //Restituisce l'ID offerta di una recensione ricevuta
 	public int getIdOffertaRecensioneRicevuta(int index) {
 	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
 	        return recensioniRicevuteCache.get(index).getIdOfferta();
@@ -2055,7 +2057,7 @@ public class MainController {
 	    return -1;
 	}
 	
-	//Restituisce la matricola dell'acquirente di una recensione ricevuta dato l'indice
+	//Restituisce la matricola dell'acquirente di una recensione ricevuta 
 	public String getMatricolaAcquirenteRecensioneRicevuta(int index) {
 	    if (recensioniRicevuteCache != null && index >= 0 && index < recensioniRicevuteCache.size()) {
 	        return recensioniRicevuteCache.get(index).getMatricolaAcquirente();
@@ -2091,7 +2093,7 @@ public class MainController {
         }
     }
     
-    // Metodi per accedere ai dati delle recensioni tramite indice
+    // Prendiamo i dati delle recensioni
     public int getIdRecensioneVenditore(String matricolaVenditore, int index) {
         ArrayList<Recensione_entity> recensioni = caricaRecensioniVenditore(matricolaVenditore);
         if (recensioni != null && index >= 0 && index < recensioni.size()) {
@@ -2141,7 +2143,7 @@ public class MainController {
         return -1;
     }
     
-    // Metodi per accedere ai dati delle recensioni del venditore corrente tramite indice
+    // Prendiamo i dati delle recensioni relative al venditore corrente (quello selezionato)
     public int getPunteggioRecensioneVenditoreCorrente(int index) {
         if (matricolaVenditoreCorrente == null) return 0;
         return getPunteggioRecensioneVenditore(matricolaVenditoreCorrente, index);
@@ -2208,7 +2210,8 @@ public class MainController {
         }
     }
 
-    // metodi per le statistiche delle offerte per i grafici
+    // Prendiamo i dati delle offerte da inserire nei grafici
+    //Offerte totali
     public int getOfferteTotali() {
         String matricola = getMatricolaUtenteLoggato();
         
@@ -2227,6 +2230,7 @@ public class MainController {
         }
     }
 
+    //REGALO
     public int getOfferteRegalo() {
         String matricola = getMatricolaUtenteLoggato();
         
@@ -2245,6 +2249,7 @@ public class MainController {
         }
     }
 
+    //SCAMBIO
     public int getOfferteScambio() {
         String matricola = getMatricolaUtenteLoggato();
         
@@ -2263,6 +2268,7 @@ public class MainController {
         }
     }
 
+    //VENDITA
     public int getOfferteVendita() {
         String matricola = getMatricolaUtenteLoggato();
         
@@ -2281,6 +2287,7 @@ public class MainController {
         }
     }
 
+    //Offerte di regalo accettate
     public int getOfferteRegaloAccettate() {
         String matricola = getMatricolaUtenteLoggato();
         
@@ -2299,6 +2306,7 @@ public class MainController {
         }
     }
 
+    //Offerte di scambio accettate
     public int getOfferteScambioAccettate() {
         String matricola = getMatricolaUtenteLoggato();
         
@@ -2317,6 +2325,7 @@ public class MainController {
         }
     }
 
+    //Offerte di vendita accettate
     public int getOfferteVenditaAccettate() {
         String matricola = getMatricolaUtenteLoggato();
         
@@ -2336,11 +2345,10 @@ public class MainController {
         
     }
     
- // ==================== METODI LISTA ANNUNCI - CORRETTI ====================
+ // ==================== METODI LISTA ANNUNCI ====================
 
-    
-     // Restituisce il numero di annunci caricati per una data tipologia
-         public int getNumeroAnnunciCaricati(String tipologia) {
+    // Prendiamo il numero di annunci caricati per una data tipologia
+    public int getNumeroAnnunciCaricati(String tipologia) {
         if (tipologia == null) {
             return 0;
         }
@@ -2358,8 +2366,7 @@ public class MainController {
     }
 
     
-    //  Restituisce l'ID di un annuncio dato tipologia e indice
-     
+    // Restituisce l'ID di un annuncio data la tipologia e l'indice
     public int getIdAnnuncioByIndex(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2384,10 +2391,8 @@ public class MainController {
         }
         return -1;
     }
-
     
-     // Restituisce la matricola del venditore di un annuncio dato tipologia e indice
-    
+    // Restituisce la matricola del venditore di un annuncio data la tipologia e l'indice
     public String getMatricolaVenditoreAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2412,10 +2417,8 @@ public class MainController {
         }
         return "";
     }
-
     
-     // Restituisce il titolo di un annuncio dato tipologia e indice
-     
+    // Restituisce il titolo di un annuncio data la tipologia e l'indice
     public String getTitoloAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2440,10 +2443,8 @@ public class MainController {
         }
         return "";
     }
-
     
-     // Restituisce la descrizione di un annuncio dato tipologia e indice
-     
+     // Restituisce la descrizione di un annuncio data la tipologia e l'indice
     public String getDescrizioneAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2469,9 +2470,7 @@ public class MainController {
         return "";
     }
 
-    
-     // Restituisce la categoria di un annuncio dato tipologia e indice
-     
+    // Restituisce la categoria di un annuncio data la tipologia e l'indice
     public String getCategoriaAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2497,9 +2496,7 @@ public class MainController {
         return "";
     }
 
-    
-     // Restituisce lo stato di un annuncio dato tipologia e indice (come stringa)
-     
+    // Restituisce lo stato di un annuncio data la tipologia e l'indice
     public String getStatoAnnuncioString(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2525,8 +2522,8 @@ public class MainController {
         return "Chiuso"; // Default safe
     }
 
-     //Restituisce l'informazione extra di un annuncio (prezzo, oggetto richiesto, motivo cessione)
-     //in base alla tipologia
+    //Restituisce l'informazione extra di un annuncio (prezzo, oggetto richiesto, motivo cessione)
+    //che và in base alla tipologia
     public String getInfoExtraAnnuncio(String tipologia, int index) {
         try {
             switch (tipologia) {
@@ -2554,8 +2551,8 @@ public class MainController {
     }
 
     
-    //  Verifica se un'offerta può essere fatta su un annuncio
-    // Restituisce null se ok, altrimenti il messaggio di errore
+    // Verifica se un'offerta può essere fatta su un annuncio, quindi solo se l'annuncio è aperto
+    // Restituisce null se può esser inviata, altrimenti il messaggio di errore
     public String verificaOffertaPossibile(int idAnnuncio, String matricolaVenditore, String stato) {
         try {
             // Controlla se lo stato dell'annuncio è chiuso
