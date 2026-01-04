@@ -84,7 +84,7 @@ public class StoricoOfferte extends JFrame {
 			
 			@Override
 	            public void actionPerformed(ActionEvent e) {
-		        controller.apriAreaUtente();
+				tornaAreaUtente();
 			}
 		});
 		
@@ -144,7 +144,6 @@ public class StoricoOfferte extends JFrame {
             	applicaFiltri();
             }
             });
-		
 		
 		
 		btnFiltra.addMouseListener(new MouseAdapter() {
@@ -504,5 +503,9 @@ public class StoricoOfferte extends JFrame {
 	                JOptionPane.ERROR_MESSAGE);
 	        }
 	    }
+	}
+	
+	private void tornaAreaUtente() {
+        controller.apriAreaUtente();
 	}
 }

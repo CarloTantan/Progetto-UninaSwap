@@ -42,7 +42,6 @@ public class ListaRecensioni extends JFrame {
     private JLabel lblContatore;             
     private MainController controller;
     private ArrayList<Integer> indiciRecensioniCaricate;
-    private boolean modalitaInviate;
     
     public ListaRecensioni(MainController controller) {
         this.controller = controller;
@@ -237,7 +236,6 @@ public class ListaRecensioni extends JFrame {
      * Carica e visualizza le recensioni inviate dall'utente
      */
     private void caricaRecensioniInviate() {
-        modalitaInviate = true;
         panelRecensioni.removeAll();
         
         int numRecensioni = controller.getNumeroRecensioniInviate();
@@ -264,7 +262,6 @@ public class ListaRecensioni extends JFrame {
      * Carica e visualizza le recensioni ricevute dall'utente
      */
     private void caricaRecensioniRicevute() {
-        modalitaInviate = false;
         panelRecensioni.removeAll();
         
         int numRecensioni = controller.getNumeroRecensioniRicevute();
