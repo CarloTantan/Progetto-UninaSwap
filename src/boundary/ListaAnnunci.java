@@ -7,7 +7,7 @@ import javax.swing.border.*;
 import mainController.MainController;
 import java.util.ArrayList;
 
-//BOUNDARY - Interfaccia per visualizzare la lista degli annunci
+// Interfaccia per visualizzare la lista degli annunci
 public class ListaAnnunci extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -270,7 +270,6 @@ public class ListaAnnunci extends JFrame {
         String matricolaVenditore = controller.getMatricolaVenditoreAnnuncio(tipologiaCorrente, indice);
         String titolo = controller.getTitoloAnnuncio(tipologiaCorrente, indice);
         String descrizione = controller.getDescrizioneAnnuncio(tipologiaCorrente, indice);
-        String categoria = controller.getCategoriaAnnuncio(tipologiaCorrente, indice);
         String stato = controller.getStatoAnnuncioString(tipologiaCorrente, indice);
         String extraInfo = controller.getInfoExtraAnnuncio(tipologiaCorrente, indice);
         
