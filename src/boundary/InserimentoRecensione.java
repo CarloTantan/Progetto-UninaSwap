@@ -110,7 +110,7 @@ public class InserimentoRecensione extends JFrame {
         btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	controller.apriListaTransazioni();
+            	tornaListaTransazioni();
             }
         });
         
@@ -345,4 +345,8 @@ public class InserimentoRecensione extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void tornaListaTransazioni() {
+		controller.apriListaTransazioni();
+	}
 }

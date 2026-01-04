@@ -29,15 +29,12 @@ import mainController.MainController;
 import java.util.ArrayList;
 
 /**
- * BOUNDARY - Interfaccia per visualizzare le recensioni
- * Responsabilità: SOLO visualizzazione e raccolta input utente
- * NO import entity.* - tutti i dati passano attraverso il controller
+ * Interfaccia per visualizzare le recensioni inviate e ricevute dall'utente
  */
 public class ListaRecensioni extends JFrame {
 
     private static final long serialVersionUID = 1L;
     
-    private JPanel contentPane;              
     private JPanel panelRecensioni;          
     private JLabel lblContatore;             
     private MainController controller;
@@ -52,32 +49,20 @@ public class ListaRecensioni extends JFrame {
         setTitle("Le tue recensioni");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
-        setMinimumSize(new Dimension(1250, 700)); 
+        setMinimumSize(new Dimension(1250, 700));
         
-        inizializzaUI();
-    }
-
-    private void inizializzaUI() {
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setBackground(new Color(245, 247, 250));
         contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        // Header
-        contentPane.add(creaHeader(), BorderLayout.NORTH);
-        
-        // Container principale
-        contentPane.add(creaMainContainer(), BorderLayout.CENTER);
-    }
-
-    private JPanel creaHeader() {
+        // ---------------- HEADER -----------------
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(50, 132, 188));
         headerPanel.setPreferredSize(new Dimension(0, 100));
         headerPanel.setLayout(new BorderLayout(10, 0));
 
-        // Pannello sinistro con pulsante back
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(50, 132, 188));
         leftPanel.setPreferredSize(new Dimension(100, 100));
@@ -109,14 +94,13 @@ public class ListaRecensioni extends JFrame {
         btnUndo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.apriAreaUtente();
+                tornaAreaUtente();
             }
         });
 
         leftPanel.add(btnUndo);
         headerPanel.add(leftPanel, BorderLayout.WEST);
 
-        // Pannello centrale con titolo e contatore
         JPanel centerPanel = new JPanel();
         centerPanel.setBackground(new Color(50, 132, 188));
         centerPanel.setBorder(new EmptyBorder(20, 0, 0, 0));
@@ -138,33 +122,15 @@ public class ListaRecensioni extends JFrame {
 
         headerPanel.add(centerPanel, BorderLayout.CENTER);
 
-        return headerPanel;
-    }
+        contentPane.add(headerPanel, BorderLayout.NORTH);
 
-    private JPanel creaMainContainer() {
+        // ---------------- CONTAINER PRINCIPALE -----------------
         JPanel mainContainer = new JPanel();
         mainContainer.setBackground(new Color(245, 247, 250));
         mainContainer.setBorder(new EmptyBorder(30, 50, 30, 50));
         mainContainer.setLayout(new BorderLayout(0, 20));
 
         // Pannello pulsanti
-        mainContainer.add(creaPannelloBottoni(), BorderLayout.NORTH);
-        
-        // Pannello recensioni
-        panelRecensioni = new JPanel();
-        panelRecensioni.setLayout(new BoxLayout(panelRecensioni, BoxLayout.Y_AXIS));
-        panelRecensioni.setBackground(Color.WHITE);
-        panelRecensioni.setBorder(new EmptyBorder(20, 20, 20, 20));
-
-        JScrollPane scrollPane = new JScrollPane(panelRecensioni);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        scrollPane.setBorder(null);
-        mainContainer.add(scrollPane, BorderLayout.CENTER);
-
-        return mainContainer;
-    }
-
-    private JPanel creaPannelloBottoni() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(245, 247, 250));
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
@@ -227,14 +193,23 @@ public class ListaRecensioni extends JFrame {
 
         buttonPanel.add(btnRecensioniRicevute);
 
-        return buttonPanel;
+        mainContainer.add(buttonPanel, BorderLayout.NORTH);
+        
+        // Pannello recensioni
+        panelRecensioni = new JPanel();
+        panelRecensioni.setLayout(new BoxLayout(panelRecensioni, BoxLayout.Y_AXIS));
+        panelRecensioni.setBackground(Color.WHITE);
+        panelRecensioni.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        JScrollPane scrollPane = new JScrollPane(panelRecensioni);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBorder(null);
+        mainContainer.add(scrollPane, BorderLayout.CENTER);
+
+        contentPane.add(mainContainer, BorderLayout.CENTER);
     }
 
-    // ==================== CARICAMENTO RECENSIONI ====================
-
-    /**
-     * Carica e visualizza le recensioni inviate dall'utente
-     */
+    // Carica e visualizza le recensioni inviate dall'utente
     private void caricaRecensioniInviate() {
         panelRecensioni.removeAll();
         
@@ -245,7 +220,6 @@ public class ListaRecensioni extends JFrame {
         if (numRecensioni == 0) {
             mostraMessaggioVuoto("Non hai ancora inviato recensioni");
         } else {
-            // Crea lista degli indici
             indiciRecensioniCaricate.clear();
             for (int i = 0; i < numRecensioni; i++) {
                 indiciRecensioniCaricate.add(i);
@@ -258,9 +232,7 @@ public class ListaRecensioni extends JFrame {
         panelRecensioni.repaint();
     }
 
-    /**
-     * Carica e visualizza le recensioni ricevute dall'utente
-     */
+    // Carica e visualizza le recensioni ricevute dall'utente
     private void caricaRecensioniRicevute() {
         panelRecensioni.removeAll();
         
@@ -274,7 +246,6 @@ public class ListaRecensioni extends JFrame {
         if (numRecensioni == 0) {
             mostraMessaggioVuoto("Non hai ancora ricevuto recensioni");
         } else {
-            // Crea lista degli indici
             indiciRecensioniCaricate.clear();
             for (int i = 0; i < numRecensioni; i++) {
                 indiciRecensioniCaricate.add(i);
@@ -287,9 +258,7 @@ public class ListaRecensioni extends JFrame {
         panelRecensioni.repaint();
     }
 
-    /**
-     * Mostra un messaggio quando non ci sono recensioni
-     */
+    // Mostra un messaggio quando non ci sono recensioni
     private void mostraMessaggioVuoto(String messaggio) {
         JLabel lblNoRecensioni = new JLabel(messaggio);
         lblNoRecensioni.setFont(new Font("Verdana", Font.ITALIC, 14));
@@ -299,13 +268,8 @@ public class ListaRecensioni extends JFrame {
         panelRecensioni.add(lblNoRecensioni);
     }
 
-    // ==================== CREAZIONE CARD ====================
-
-    /**
-     * Crea una card per una recensione inviata
-     */
+    // Crea una card per una recensione inviata
     private JPanel creaCardRecensioneInviata(int index) {
-        // Recupera dati dal controller
         int punteggio = controller.getPunteggioRecensioneInviata(index);
         String data = controller.getDataRecensioneInviata(index);
         String commento = controller.getCommentoRecensioneInviata(index);
@@ -315,11 +279,8 @@ public class ListaRecensioni extends JFrame {
         return creaCard(punteggio, data, commento, idOfferta, matricolaVenditore, true);
     }
 
-    /**
-     * Crea una card per una recensione ricevuta
-     */
+    // Crea una card per una recensione ricevuta
     private JPanel creaCardRecensioneRicevuta(int index) {
-        // Recupera dati dal controller
         int punteggio = controller.getPunteggioRecensioneRicevuta(index);
         String data = controller.getDataRecensioneRicevuta(index);
         String commento = controller.getCommentoRecensioneRicevuta(index);
@@ -329,11 +290,9 @@ public class ListaRecensioni extends JFrame {
         return creaCard(punteggio, data, commento, idOfferta, matricolaAcquirente, false);
     }
 
-    /**
-     * Crea la card vera e propria con i dati forniti
-     */
+    // Crea la card vera e propria con i dati forniti
     private JPanel creaCard(int punteggio, String data, String commento, 
-                           int idOfferta, String matricolaAltraPersona, boolean isInviata) {
+                           int idOfferta, String matricolaUtente, boolean isInviata) {
         JPanel card = new JPanel();
         card.setLayout(new BorderLayout(10, 10));
         card.setBackground(Color.WHITE);
@@ -360,7 +319,6 @@ public class ListaRecensioni extends JFrame {
         centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
         centralPanel.setBackground(Color.WHITE);
 
-        // Titolo annuncio
         String titoloAnnuncio = controller.getTitoloAnnuncioDaOfferta(idOfferta);
         if (titoloAnnuncio != null) {
             JLabel lblTitoloAnnuncio = new JLabel("Annuncio: " + titoloAnnuncio);
@@ -370,7 +328,6 @@ public class ListaRecensioni extends JFrame {
             centralPanel.add(lblTitoloAnnuncio);
         }
 
-        // Commento
         JTextArea txtCommento = new JTextArea(commento);
         txtCommento.setFont(new Font("Verdana", Font.PLAIN, 13));
         txtCommento.setForeground(Color.DARK_GRAY);
@@ -385,20 +342,19 @@ public class ListaRecensioni extends JFrame {
         JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
         footerPanel.setBackground(Color.WHITE);
 
-        String nomeAltraPersona = controller.getNominativoUtente(matricolaAltraPersona);
+        String nomeUtente = controller.getNominativoUtente(matricolaUtente);
         String label = isInviata ? "Recensione a: " : "Recensione da: ";
         
-        JLabel lblUtente = new JLabel(label + (nomeAltraPersona != null ? nomeAltraPersona : "Utente"));
+        JLabel lblUtente = new JLabel(label + (nomeUtente != null ? nomeUtente : "Utente"));
         lblUtente.setFont(new Font("Verdana", Font.ITALIC, 12));
         lblUtente.setForeground(new Color(100, 100, 100));
         footerPanel.add(lblUtente);
 
-        JLabel lblMatricola = new JLabel("(" + matricolaAltraPersona + ")");
+        JLabel lblMatricola = new JLabel("(" + matricolaUtente + ")");
         lblMatricola.setFont(new Font("Verdana", Font.PLAIN, 11));
         lblMatricola.setForeground(new Color(120, 120, 120));
         footerPanel.add(lblMatricola);
 
-        // Assembla card
         card.add(headerPanel, BorderLayout.NORTH);
         card.add(centralPanel, BorderLayout.CENTER);
         card.add(footerPanel, BorderLayout.SOUTH);
@@ -406,9 +362,7 @@ public class ListaRecensioni extends JFrame {
         return card;
     }
 
-    /**
-     * Crea un pannello con 5 stelle per visualizzare il punteggio
-     */
+    // Crea un pannello con 5 stelle per visualizzare il punteggio
     private JPanel creaPannelloStelle(int punteggio) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
         panel.setBackground(Color.WHITE);
@@ -437,5 +391,9 @@ public class ListaRecensioni extends JFrame {
         }
 
         return panel;
+    }
+
+    private void tornaAreaUtente() {
+        controller.apriAreaUtente();
     }
 }

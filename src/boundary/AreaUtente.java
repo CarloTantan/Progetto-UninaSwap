@@ -37,9 +37,11 @@ public class AreaUtente extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnCreaAnnuncio;
+	private MainController controller;
 	
 	
 	public AreaUtente(MainController controller) {
+		this.controller = controller;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AreaUtente.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
 		setTitle("AreaUtente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +69,7 @@ public class AreaUtente extends JFrame {
 		JButton btnUndo = new JButton("");
 		btnUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tornaAlLogin(controller);
+				tornaAlLogin();
 			}
 		});
 		btnUndo.setIcon(new ImageIcon(AreaUtente.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
@@ -121,7 +123,7 @@ public class AreaUtente extends JFrame {
 		
 		btnReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriReport(controller);
+				apriReport();
 			}
 		});
 		
@@ -175,7 +177,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaStoricoOfferte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriStoricoOfferte(controller);
+				apriStoricoOfferte();
 				
 			}
 		});
@@ -186,7 +188,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-aggiungi-48.png");
 		btnInserisciRecensione.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriListaTransazioni(controller);
+				apriListaTransazioni();
 				
 			}
 		});
@@ -199,7 +201,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaOfferteRicevute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriAnnunciPubblicati(controller);
+				apriAnnunciPubblicati();
 				
 			}
 		});
@@ -209,7 +211,7 @@ public class AreaUtente extends JFrame {
 		btnCreaAnnuncio = createStyledButton("Crea Annuncio", "/icons/icons8-aggiungi-48.png");
 		btnCreaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriOggetto(controller);
+				apriOggetto();
 				
 			}
 		});
@@ -222,7 +224,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaRecensioni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriListaRecensioni(controller);
+				apriListaRecensioni();
 				
 			}
 		});
@@ -233,7 +235,7 @@ public class AreaUtente extends JFrame {
 			"/icons/icons8-lista-48.png");
 		btnVisualizzaAnnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apriListaAnnunci(controller);
+				apriListaAnnunci();
 				
 			}
 		});
@@ -274,48 +276,48 @@ public class AreaUtente extends JFrame {
 //	  Metodo che gestisce il ritorno alla schermata di login (logout).
   
 	 
-	private void tornaAlLogin(MainController controller) {
+	private void tornaAlLogin() {
 		controller.apriLogin();
 	}
 	
 	//  Metodo che apre la schermata dei report statistici dell'utente.
 	 
 	
-	private void apriReport(MainController controller) {
+	private void apriReport() {
 		controller.apriReport();
 	}
 	
 	
 	 // Metodo che apre la schermata dello storico delle offerte effettuate.
 	 
-	 private void apriStoricoOfferte(MainController controller) {
+	 private void apriStoricoOfferte() {
 		 controller.apriStoricoOfferte();
 	}
 	 //Metodo che apre la schermata della lista delle transazioni completate.
 	 
-	private void apriListaTransazioni(MainController controller) {
+	private void apriListaTransazioni() {
 		controller.apriListaTransazioni();
 	}
 	
 	//  Metodo che apre la schermata degli annunci pubblicati dall'utente.
 	 
 	
-	private void apriAnnunciPubblicati(MainController controller) {
+	private void apriAnnunciPubblicati() {
 		controller.apriAnnunciPubblicati();
 	}
 	
 	//Metodo che apre la schermata di creazione di un nuovo oggetto.
-	private void apriOggetto(MainController controller) {
+	private void apriOggetto() {
 		controller.apriInserimentoOggetto();
 	}
 	 // Metodo che apre la schermata delle recensioni ricevute.
 	 
-	private void apriListaRecensioni(MainController controller) {
+	private void apriListaRecensioni() {
 		controller.apriListaRecensioni();
 	}
 	
 	//  Metodo che apre la schermata della lista di tutti gli annunci disponibili.
-	 private void apriListaAnnunci(MainController controller) {
+	 private void apriListaAnnunci() {
 		 controller.apriListaAnnunci();
 	}
 }

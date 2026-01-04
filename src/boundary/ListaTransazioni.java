@@ -45,36 +45,20 @@ public class ListaTransazioni extends JFrame {
     public ListaTransazioni(MainController controller) {
         this.controller = controller;
         
-        inizializzaFrame();
-        costruisciInterfaccia();
-        caricaTransazioni();
-    }
-    // Inizializza le proprietà base della finestra (titolo, icona, dimensioni).
-    
-    private void inizializzaFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(
             ListaTransazioni.class.getResource("/icons/iconaUninaSwapPiccolissima.jpg")));
         setTitle("Lista Transazioni");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1100, 600));
-    }
-    
-    //Costruisce l'interfaccia grafica principale con header e container delle transazioni.
-    
-    private void costruisciInterfaccia() {
+        
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
         contentPane.setBackground(new Color(245, 247, 250));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        contentPane.add(creaHeader(), BorderLayout.NORTH);
-        contentPane.add(creaMainContainer(), BorderLayout.CENTER);
-    }
-    
-    //Crea il pannello header blu con titolo e pulsante indietro.
-    private JPanel creaHeader() {
+        // ---------------- HEADER -----------------
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(50, 132, 188));
         headerPanel.setPreferredSize(new Dimension(0, 100));
@@ -85,24 +69,6 @@ public class ListaTransazioni extends JFrame {
         leftPanel.setPreferredSize(new Dimension(100, 100));
         leftPanel.setBorder(new EmptyBorder(25, 15, 0, 0));
         
-        JButton btnUndo = creaPulsanteBack();
-        leftPanel.add(btnUndo);
-        headerPanel.add(leftPanel, BorderLayout.WEST);
-
-        JPanel centerPanel = new JPanel();
-        centerPanel.setBackground(new Color(50, 132, 188));
-        centerPanel.setBorder(new EmptyBorder(30, 0, 0, 0));
-        JLabel lblTitolo = new JLabel("Transazioni Completate");
-        lblTitolo.setForeground(Color.WHITE);
-        lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
-        lblTitolo.setHorizontalAlignment(SwingConstants.CENTER);
-        centerPanel.add(lblTitolo);
-        headerPanel.add(centerPanel, BorderLayout.CENTER);
-
-        return headerPanel;
-    }
-    //Crea il pulsante "Indietro" con icona e effetto hover.
-    private JButton creaPulsanteBack() {
         JButton btnUndo = new JButton("");
         btnUndo.setIcon(new ImageIcon(
             ListaTransazioni.class.getResource("/icons/icons8-annulla-3d-fluency-32.png")));
@@ -125,14 +91,26 @@ public class ListaTransazioni extends JFrame {
         
         btnUndo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	controller.apriAreaUtente();
+                tornaAreaUtente();
             }
         });
         
-        return btnUndo;
-    }
-    //Crea il container principale che conterrà la lista scrollabile delle transazioni.
-    private JPanel creaMainContainer() {
+        leftPanel.add(btnUndo);
+        headerPanel.add(leftPanel, BorderLayout.WEST);
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setBackground(new Color(50, 132, 188));
+        centerPanel.setBorder(new EmptyBorder(30, 0, 0, 0));
+        JLabel lblTitolo = new JLabel("Transazioni Completate");
+        lblTitolo.setForeground(Color.WHITE);
+        lblTitolo.setFont(new Font("Verdana", Font.BOLD, 24));
+        lblTitolo.setHorizontalAlignment(SwingConstants.CENTER);
+        centerPanel.add(lblTitolo);
+        headerPanel.add(centerPanel, BorderLayout.CENTER);
+
+        contentPane.add(headerPanel, BorderLayout.NORTH);
+        
+        // ---------------- MAIN CONTAINER -----------------
         JPanel mainContainer = new JPanel();
         mainContainer.setBackground(new Color(245, 247, 250));
         mainContainer.setBorder(new EmptyBorder(30, 50, 30, 50));
@@ -148,13 +126,14 @@ public class ListaTransazioni extends JFrame {
         scrollPane.setBorder(null);
         mainContainer.add(scrollPane, BorderLayout.CENTER);
         
-        return mainContainer;
+        contentPane.add(mainContainer, BorderLayout.CENTER);
+        
+        caricaTransazioni();
     }
     
-    // Carica le transazioni dal controller e le visualizza.
+    // Carica le transazioni dal controller e le visualizza
     private void caricaTransazioni() {
         try {
-            // Chiedi al controller quante transazioni ci sono
             int numeroTransazioni = controller.getNumeroTransazioni();
 
             if (numeroTransazioni == 0) {
@@ -175,7 +154,7 @@ public class ListaTransazioni extends JFrame {
         }
     }
     
-    //Mostra un messaggio quando non ci sono transazioni da visualizzare.
+    // Mostra un messaggio quando non ci sono transazioni da visualizzare
     private void mostraMessaggioNessunaTransazione() {
         JLabel lblNoTransazioni = new JLabel("Non hai ancora completato transazioni");
         lblNoTransazioni.setFont(new Font("Verdana", Font.ITALIC, 16));
@@ -184,14 +163,16 @@ public class ListaTransazioni extends JFrame {
         panelTransazioni.add(Box.createVerticalStrut(100));
         panelTransazioni.add(lblNoTransazioni);
     }
-    //Crea e visualizza le card per tutte le transazioni.
+    
+    // Crea e visualizza le card per tutte le transazioni
     private void mostraTransazioni(int numeroTransazioni) {
         for (int i = 0; i < numeroTransazioni; i++) {
             panelTransazioni.add(creaCardTransazione(i));
             panelTransazioni.add(Box.createVerticalStrut(15));
         }
     }
-    //Crea una singola card per una transazione.
+    
+    // Crea una singola card per una transazione
     private JPanel creaCardTransazione(int index) {
         JPanel card = new JPanel(new BorderLayout(15, 15));
         card.setBackground(Color.WHITE);
@@ -201,29 +182,17 @@ public class ListaTransazioni extends JFrame {
         ));
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 180));
 
-        // Ottieni i dati tramite il controller usando l'indice
         String titoloAnnuncio = controller.getTitoloAnnuncioTransazione(index);
         String matricolaVenditore = controller.getMatricolaVenditoreTransazione(index);
         String matricolaAcquirente = controller.getMatricolaAcquirenteTransazione(index);
         int idOfferta = controller.getIdOffertaTransazione(index);
         boolean hasRecensione = controller.hasRecensioneTransazione(index);
 
-        JPanel leftPanel = creaInfoTransazione(titoloAnnuncio, matricolaVenditore);
-        JPanel rightPanel = creaPannelloRecensione(hasRecensione, matricolaAcquirente, 
-                                                    matricolaVenditore, idOfferta);
-
-        card.add(leftPanel, BorderLayout.CENTER);
-        card.add(rightPanel, BorderLayout.EAST);
-
-        return card;
-    }
-    //Crea il pannello con le informazioni della transazione.
-    private JPanel creaInfoTransazione(String titoloAnnuncio, String matricolaVenditore) {
+        // ---------------- PANNELLO SINISTRO (Info Transazione) -----------------
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         leftPanel.setBackground(Color.WHITE);
 
-        // Titolo annuncio
         JLabel lblTitolo = new JLabel(titoloAnnuncio);
         lblTitolo.setFont(new Font("Verdana", Font.BOLD, 16));
         lblTitolo.setForeground(new Color(0, 52, 104));
@@ -231,13 +200,11 @@ public class ListaTransazioni extends JFrame {
         leftPanel.add(lblTitolo);
         leftPanel.add(Box.createVerticalStrut(10));
 
-        // Info venditore con rating
         JPanel venditorePanel = creaInfoVenditore(matricolaVenditore);
         venditorePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftPanel.add(venditorePanel);
         leftPanel.add(Box.createVerticalStrut(8));
 
-        // Matricola venditore
         JLabel lblMatricola = new JLabel(
             "<html><b>Matricola Venditore:</b> " + matricolaVenditore + "</html>");
         lblMatricola.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -245,9 +212,58 @@ public class ListaTransazioni extends JFrame {
         lblMatricola.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftPanel.add(lblMatricola);
         
-        return leftPanel;
+        // ---------------- PANNELLO DESTRO (Recensione) -----------------
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.setBackground(Color.WHITE);
+        rightPanel.setBorder(new EmptyBorder(0, 20, 0, 0));
+        
+        rightPanel.add(Box.createVerticalGlue());
+
+        JButton btnRecensione = new JButton(
+            hasRecensione ? "Recensione inserita" : "Inserisci Recensione");
+        btnRecensione.setFont(new Font("Verdana", Font.BOLD, 13));
+        btnRecensione.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnRecensione.setMaximumSize(new Dimension(200, 45));
+        btnRecensione.setFocusPainted(false);
+        btnRecensione.setBorderPainted(false);
+        
+        if (hasRecensione) {
+            btnRecensione.setBackground(new Color(32, 105, 61));
+            btnRecensione.setForeground(Color.WHITE);
+            btnRecensione.setEnabled(false);
+        } else {
+            btnRecensione.setBackground(new Color(0, 52, 104));
+            btnRecensione.setForeground(Color.WHITE);
+            btnRecensione.setEnabled(true);
+            
+            btnRecensione.addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent evt) {
+                    btnRecensione.setBackground(new Color(0, 70, 140));
+                }
+                public void mouseExited(MouseEvent evt) {
+                    btnRecensione.setBackground(new Color(0, 52, 104));
+                }
+            });
+            
+            btnRecensione.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    apriInserimentoRecensione(matricolaAcquirente, matricolaVenditore, idOfferta);
+                }
+            });
+        }
+        
+        rightPanel.add(btnRecensione);
+        rightPanel.add(Box.createVerticalGlue());
+
+        card.add(leftPanel, BorderLayout.CENTER);
+        card.add(rightPanel, BorderLayout.EAST);
+
+        return card;
     }
-//Crea il pannello con le informazioni del venditore.
+    
+    // Crea il pannello con le informazioni del venditore
     private JPanel creaInfoVenditore(String matricolaVenditore) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         panel.setBackground(Color.WHITE);
@@ -275,7 +291,8 @@ public class ListaTransazioni extends JFrame {
         
         return panel;
     }
-    // Aggiunge la visualizzazione del rating con stellina, media e numero recensioni.
+    
+    // Aggiunge la visualizzazione del rating con stellina, media e numero recensioni
     private void aggiungiRatingVisuale(JPanel panel, double media, int numRecensioni) {
         ImageIcon iconaStella = new ImageIcon(
             ListaTransazioni.class.getResource("/icons/icons8-stella-32.png"));
@@ -293,78 +310,12 @@ public class ListaTransazioni extends JFrame {
         lblNumRecensioni.setForeground(new Color(120, 120, 120));
         panel.add(lblNumRecensioni);
     }
-    //Crea il pannello destro della card con il pulsante per la recensione.
-    private JPanel creaPannelloRecensione(boolean hasRecensione, String matricolaAcquirente,
-                                          String matricolaVenditore, int idOfferta) {
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.setBackground(Color.WHITE);
-        rightPanel.setBorder(new EmptyBorder(0, 20, 0, 0));
-        
-        rightPanel.add(Box.createVerticalGlue());
-
-        JButton btnRecensione = creaPulsanteRecensione(hasRecensione, matricolaAcquirente,
-                                                       matricolaVenditore, idOfferta);
-        rightPanel.add(btnRecensione);
-        rightPanel.add(Box.createVerticalGlue());
-        
-        return rightPanel;
+    
+    private void tornaAreaUtente() {
+        controller.apriAreaUtente();
     }
     
-    private JButton creaPulsanteRecensione(boolean hasRecensione, String matricolaAcquirente,
-                                           String matricolaVenditore, int idOfferta) {
-        JButton btnRecensione = new JButton(
-            hasRecensione ? "Recensione inserita" : "Inserisci Recensione");
-        btnRecensione.setFont(new Font("Verdana", Font.BOLD, 13));
-        btnRecensione.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnRecensione.setMaximumSize(new Dimension(200, 45));
-        btnRecensione.setFocusPainted(false);
-        btnRecensione.setBorderPainted(false);
-        
-        if (hasRecensione) {
-            configuraPulsanteRecensioneInserita(btnRecensione);
-        } else {
-            configuraPulsanteInserisciRecensione(btnRecensione, matricolaAcquirente,
-                                                matricolaVenditore, idOfferta);
-        }
-        
-        return btnRecensione;
+    private void apriInserimentoRecensione(String matricolaAcquirente, String matricolaVenditore, int idOfferta) {
+        controller.apriInserimentoRecensione(matricolaAcquirente, matricolaVenditore, idOfferta);
     }
-    //Crea il pulsante per inserire o visualizzare lo stato della recensione
-    private void configuraPulsanteRecensioneInserita(JButton btnRecensione) {
-        btnRecensione.setBackground(new Color(32, 105, 61));
-        btnRecensione.setForeground(Color.WHITE);
-        btnRecensione.setEnabled(false);
-    }
-    //Configura il pulsante quando la recensione è già stata inserita.
-    private void configuraPulsanteInserisciRecensione(JButton btnRecensione, String matricolaAcquirente,
-                                                     String matricolaVenditore, int idOfferta) {
-        btnRecensione.setBackground(new Color(0, 52, 104));
-        btnRecensione.setForeground(Color.WHITE);
-        btnRecensione.setEnabled(true);
-        
-        btnRecensione.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                btnRecensione.setBackground(new Color(0, 70, 140));
-            }
-            public void mouseExited(MouseEvent evt) {
-                btnRecensione.setBackground(new Color(0, 52, 104));
-            }
-        });
-        
-        btnRecensione.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	apriInserimentoRecensione(matricolaAcquirente,  matricolaVenditore, idOfferta);    
-            }
-        });
-        		
-        		
-    }
-    
-    private void apriInserimentoRecensione(String matricolaAcquirente, String matricolaVenditore,
-                                          int idOfferta) {
-    	controller.apriInserimentoRecensione(matricolaAcquirente, matricolaVenditore, idOfferta);
-    }
-    
 }
