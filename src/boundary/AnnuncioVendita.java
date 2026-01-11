@@ -163,9 +163,9 @@ public class AnnuncioVendita extends JFrame {
 			}
 		});
 	}
-	/**
-	 * Metodo privato che gestisce la pubblicazione dell'annuncio di vendita.
-	 */
+	
+	
+	// Metodo privato che gestisce la pubblicazione dell'annuncio di vendita.
 	private void pubblicaAnnuncioVendita() {
 	    // Recupera il prezzo come stringa
 	    String prezzoStr = textFieldPrezzo.getText().trim();
