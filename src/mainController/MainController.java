@@ -731,42 +731,52 @@ public class MainController {
             int count = 0;
             boolean ricercaAttiva = !testoRicerca.isEmpty();
 
+            // Converte la categoria da nome a ID
+            Integer idCategoria = null;
+            if (!categoria.equals("Seleziona una categoria")) {
+                try {
+                    idCategoria = TipologiaCategoria.fromNome(categoria).getId();
+                } catch (IllegalArgumentException e) {
+                    return "ERRORE: Categoria non valida";
+                }
+            }
+
             if (tipologia.equals("Vendita")) {
                 if (ricercaAttiva) {
-                    annunciVenditaCaricati = dao.cercaAnnunciVendita(testoRicerca, categoria);
+                    annunciVenditaCaricati = dao.cercaAnnunciVendita(testoRicerca, idCategoria);  
                 } else {
-                    annunciVenditaCaricati = categoria.equals("Seleziona una categoria") 
-                        ? dao.getAnnunciVendita() 
-                        : dao.getAnnunciVenditaCategoria(categoria);
+                    annunciVenditaCaricati = idCategoria == null  
+                        ? dao.getAnnunciVendita()
+                        : dao.getAnnunciVenditaCategoria(idCategoria);  
                 }
                 count = annunciVenditaCaricati.size();
-                
+
             } else if (tipologia.equals("Scambio")) {
                 if (ricercaAttiva) {
-                    annunciScambioCaricati = dao.cercaAnnunciScambio(testoRicerca, categoria);
+                    annunciScambioCaricati = dao.cercaAnnunciScambio(testoRicerca, idCategoria);  
                 } else {
-                    annunciScambioCaricati = categoria.equals("Seleziona una categoria") 
-                        ? dao.getAnnunciScambio() 
-                        : dao.getAnnunciScambioCategoria(categoria);
+                    annunciScambioCaricati = idCategoria == null  
+                        ? dao.getAnnunciScambio()
+                        : dao.getAnnunciScambioCategoria(idCategoria);  
                 }
                 count = annunciScambioCaricati.size();
-                
+
             } else if (tipologia.equals("Regalo")) {
                 if (ricercaAttiva) {
-                    annunciRegaloCaricati = dao.cercaAnnunciRegalo(testoRicerca, categoria);
+                    annunciRegaloCaricati = dao.cercaAnnunciRegalo(testoRicerca, idCategoria);  
                 } else {
-                    annunciRegaloCaricati = categoria.equals("Seleziona una categoria") 
-                        ? dao.getAnnunciRegalo() 
-                        : dao.getAnnunciRegaloCategoria(categoria);
+                    annunciRegaloCaricati = idCategoria == null  
+                        ? dao.getAnnunciRegalo()
+                        : dao.getAnnunciRegaloCategoria(idCategoria);  
                 }
                 count = annunciRegaloCaricati.size();
             }
-            
-            // gestione messaggio di riepilogo 
-            String messaggio = ricercaAttiva 
+
+            // gestione messaggio di riepilogo
+            String messaggio = ricercaAttiva
                 ? "Trovati " + count + " Annunci per \"" + testoRicerca + "\""
                 : "Caricati " + count + " Annunci";
-                
+
             return messaggio;
 
         } catch (SQLException e) {
