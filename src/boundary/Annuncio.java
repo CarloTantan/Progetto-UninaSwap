@@ -259,7 +259,7 @@ public class Annuncio extends JFrame {
 		textAreaModConsegna.setPreferredSize(new Dimension(300, 35));
 		mainPanel.add(textAreaModConsegna, gbc);
 		
-		// PANEL BOTTONI : Pannello che contiene i tre bottoni per il tipo di annuncio
+		// PANEL BOTTONI: contiene i tre bottoni per il tipo di annuncio
 		gbc.gridx = 0;
 		gbc.gridy = 7;
 		gbc.gridwidth = 2;
@@ -299,9 +299,9 @@ public class Annuncio extends JFrame {
 		buttonPanel.add(JRegalo);
 		buttonPanel.add(JVendita);
 		mainPanel.add(buttonPanel, gbc);
-		//  ACTION LISTENERS  bottone Scambio  bottone Regalo  bottone Vendita
 		
 		
+		//ACTION LISTENERS per bottone Scambio, bottone Regalo e bottone Vendita
 		JScambio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -330,7 +330,7 @@ public class Annuncio extends JFrame {
 		});
 	}
 	
-	// Metodi privati per l'apertura delle interfacce per i vari tipi di annuncio.
+	// Metodi private per l'apertura delle interfacce per i vari tipi di annuncio.
 	private void aperturaAnnuncioScambio() {
 		controller.apriAnnuncioScambio();
 	}
@@ -343,7 +343,7 @@ public class Annuncio extends JFrame {
 		controller.apriAnnuncioVendita();
 	}
 	
-	// Metodo privato che gestisce il caricamento delle immagini.
+	// Metodo private che gestisce il caricamento delle immagini.
 	private void caricaImmagini() {
         JFileChooser scegliImg = new JFileChooser();
         scegliImg.setDialogTitle("Seleziona immagini");

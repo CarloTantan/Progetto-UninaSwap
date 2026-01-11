@@ -102,7 +102,7 @@ public class AnnuncioVendita extends JFrame {
 		centerHeaderPanel.add(lblTitolo);
 		headerPanel.add(centerHeaderPanel, BorderLayout.CENTER);
 		
-	//  MAIN CONTENT PANEL : Pannello centrale che contiene il form
+		//  MAIN CONTENT PANEL : Pannello centrale che contiene il form
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(245, 247, 250));
 		mainPanel.setBorder(new EmptyBorder(60, 100, 60, 100));
