@@ -34,6 +34,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.Toolkit;
 import javax.swing.DefaultListModel;
+import java.io.File;
 
 /**
  * La classe rappresenta l'interfaccia grafica per la creazione di un annuncio.
@@ -351,8 +352,8 @@ public class Annuncio extends JFrame {
         scegliImg.setMultiSelectionEnabled(true);
 
         if (scegliImg.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            java.io.File[] files = scegliImg.getSelectedFiles();
-            for (java.io.File file : files) {
+            File[] files = scegliImg.getSelectedFiles();
+            for (File file : files) {
                 String percorso = file.getAbsolutePath();
                 // Aggiungi tramite controller
                 controller.aggiungiImmagineAnnuncio(percorso);

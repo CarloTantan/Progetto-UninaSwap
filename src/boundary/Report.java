@@ -321,17 +321,7 @@ public class Report extends JFrame {
     }
     //Crea un grafico a torta che rappresenta la distribuzione delle offerte inviate per tipologia.
     private ChartPanel creaGraficoOfferteTotali() {
-        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
-        
-        if (offerteRegalo > 0) {
-            dataset.setValue("Regalo (" + offerteRegalo + ")", offerteRegalo);
-        }
-        if (offerteScambio > 0) {
-            dataset.setValue("Scambio (" + offerteScambio + ")", offerteScambio);
-        }
-        if (offerteVendita > 0) {
-            dataset.setValue("Vendita (" + offerteVendita + ")", offerteVendita);
-        }
+        DefaultPieDataset<String> dataset = controller.getDatasetOfferteInviate();
         
         JFreeChart grafico = ChartFactory.createPieChart(
             "Totali: " + offerteTotali,
@@ -342,28 +332,24 @@ public class Report extends JFrame {
         );
         
         PiePlot<?> plot = (PiePlot<?>) grafico.getPlot();
-        plot.setSectionPaint("Regalo (" + offerteRegalo + ")", new Color(209, 56, 56)); // Rosso
-        plot.setSectionPaint("Scambio (" + offerteScambio + ")", new Color(108, 67, 232)); // Viola
-        plot.setSectionPaint("Vendita (" + offerteVendita + ")", new Color(56, 209, 97)); // Verde        
         
-        ChartPanel chartPanel = new ChartPanel(grafico);
-        return chartPanel;
+        if (offerteRegalo > 0) {
+            plot.setSectionPaint("Regalo (" + offerteRegalo + ")", new Color(209, 56, 56)); // Rosso
+        }
+        if (offerteScambio > 0) {
+            plot.setSectionPaint("Scambio (" + offerteScambio + ")", new Color(108, 67, 232)); // Viola
+        }
+        if (offerteVendita > 0) {
+            plot.setSectionPaint("Vendita (" + offerteVendita + ")", new Color(56, 209, 97)); // Verde
+        }       
+        
+        return new ChartPanel(grafico);
     }
     // Crea un grafico a torta che rappresenta la distribuzione delle offerte accettate per tipologia
     private ChartPanel creaGraficoOfferteAccettate() {
-        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
+        DefaultPieDataset<String> dataset = controller.getDatasetOfferteAccettate();
         
-        int totaleAccettate = offerteRegaloAccettata + offertaScambioAccettata + offerteVenditaAccettata;
-        
-        if (offerteRegaloAccettata > 0) {
-            dataset.setValue("Regalo (" + offerteRegaloAccettata + ")", offerteRegaloAccettata);
-        }
-        if (offertaScambioAccettata > 0) {
-            dataset.setValue("Scambio (" + offertaScambioAccettata + ")", offertaScambioAccettata);
-        }
-        if (offerteVenditaAccettata > 0) {
-            dataset.setValue("Vendita (" + offerteVenditaAccettata + ")", offerteVenditaAccettata);
-        }
+        int totaleAccettate = controller.getTotaleOfferteAccettate();
         
         JFreeChart grafico = ChartFactory.createPieChart(
             "Accettate: " + totaleAccettate,
@@ -373,28 +359,23 @@ public class Report extends JFrame {
             false
         );
         
-        ChartPanel chartPanel = new ChartPanel(grafico);
-        return chartPanel;
+        PiePlot<?> plot = (PiePlot<?>) grafico.getPlot();
+        
+        if (offerteRegaloAccettata > 0) {
+            plot.setSectionPaint("Regalo (" + offerteRegaloAccettata + ")", new Color(209, 56, 56)); // Rosso
+        }
+        if (offertaScambioAccettata > 0) {
+            plot.setSectionPaint("Scambio (" + offertaScambioAccettata + ")", new Color(108, 67, 232)); // Viola
+        }
+        if (offerteVenditaAccettata > 0) {
+            plot.setSectionPaint("Vendita (" + offerteVenditaAccettata + ")", new Color(56, 209, 97)); // Verde
+        }
+        
+        return new ChartPanel(grafico);
     }
    // Crea un grafico a barre che rappresenta l'analisi dei prezzi degli annunci di vendita.
     private ChartPanel creaGraficoPrezzi() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        
-        if (prezzi != null && !prezzi[0].contains("Non")) {
-            try {
-                double min = Double.parseDouble(prezzi[0].replace("€", ""));
-                double max = Double.parseDouble(prezzi[1].replace("€", ""));
-                double medio = Double.parseDouble(prezzi[2].replace("€", ""));
-                
-                dataset.addValue(min, "Prezzi", "Minimo");
-                dataset.addValue(medio, "Prezzi", "Medio");
-                dataset.addValue(max, "Prezzi", "Massimo");
-            } catch (NumberFormatException e) {
-                dataset.addValue(0, "Prezzi", "Nessun Dato");
-            }
-        } else {
-            dataset.addValue(0, "Prezzi", "Nessun Dato");
-        }
+        DefaultCategoryDataset dataset = controller.getDatasetPrezzi();
         
         JFreeChart grafico = ChartFactory.createBarChart(
             "Offerte Vendita",
@@ -412,15 +393,14 @@ public class Report extends JFrame {
         
         renderer.setSeriesPaint(0, new Color(50, 132, 188)); // Blu
         
-        ChartPanel chartPanel = new ChartPanel(grafico);
-        return chartPanel;
+        return new ChartPanel(grafico);
     }
     //Carica le statistiche sui prezzi degli annunci dal controller
     private void caricaPrezzi() {
     	prezzi = controller.caricaPrezziAnnunci();
     }
     
- //  Carica le statistiche sulle offerte dal controller.
+    //Carica le statistiche sulle offerte dal controller.
     private void caricaOfferte() {
     	offerteTotali = controller.getOfferteTotali();
     	offerteRegalo = controller.getOfferteRegalo();

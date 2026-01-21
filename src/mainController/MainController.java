@@ -15,6 +15,8 @@ import entity.*;
 import enumerations.*; 
 import boundary.*;
 import  java.text.SimpleDateFormat;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 public class MainController {
 	
@@ -2225,9 +2227,6 @@ public class MainController {
     public int getOfferteTotali() {
         String matricola = getMatricolaUtenteLoggato();
         
-        if (matricola == null) {
-            return 0;
-        }
         
         try {
             ReportDAO reportDAO = new ReportDAO();
@@ -2244,10 +2243,6 @@ public class MainController {
     public int getOfferteRegalo() {
         String matricola = getMatricolaUtenteLoggato();
         
-        if (matricola == null) {
-            return 0;
-        }
-        
         try {
             ReportDAO reportDAO = new ReportDAO();
             return reportDAO.VisualizzaOfferteRegalo(matricola);
@@ -2262,10 +2257,6 @@ public class MainController {
     //SCAMBIO
     public int getOfferteScambio() {
         String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
         
         try {
             ReportDAO reportDAO = new ReportDAO();
@@ -2282,10 +2273,6 @@ public class MainController {
     public int getOfferteVendita() {
         String matricola = getMatricolaUtenteLoggato();
         
-        if (matricola == null) {
-            return 0;
-        }
-        
         try {
             ReportDAO reportDAO = new ReportDAO();
             return reportDAO.VisualizzaOfferteVendita(matricola);
@@ -2300,10 +2287,6 @@ public class MainController {
     //Offerte di regalo accettate
     public int getOfferteRegaloAccettate() {
         String matricola = getMatricolaUtenteLoggato();
-        
-        if (matricola == null) {
-            return 0;
-        }
         
         try {
             ReportDAO reportDAO = new ReportDAO();
@@ -2320,10 +2303,6 @@ public class MainController {
     public int getOfferteScambioAccettate() {
         String matricola = getMatricolaUtenteLoggato();
         
-        if (matricola == null) {
-            return 0;
-        }
-        
         try {
             ReportDAO reportDAO = new ReportDAO();
             return reportDAO.VisualizzaOfferteScambioAccettata(matricola);
@@ -2339,10 +2318,6 @@ public class MainController {
     public int getOfferteVenditaAccettate() {
         String matricola = getMatricolaUtenteLoggato();
         
-        if (matricola == null) {
-            return 0;
-        }
-        
         try {
             ReportDAO reportDAO = new ReportDAO();
             return reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
@@ -2354,6 +2329,140 @@ public class MainController {
         }
         
     }
+    
+    public int getTotaleOfferteAccettate() {
+        String matricola = getMatricolaUtenteLoggato();
+        if (matricola == null) {
+            return 0;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            int regalo = reportDAO.VisualizzaOfferteRegaloAccettata(matricola);
+            int scambio = reportDAO.VisualizzaOfferteScambioAccettata(matricola);
+            int vendita = reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
+            
+            return regalo + scambio + vendita;
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il calcolo totale offerte accettate: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    // Metodo che prepara il dataset per il grafico delle offerte inviate
+    public DefaultPieDataset<String> getDatasetOfferteInviate() {
+        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
+        
+        String matricola = getMatricolaUtenteLoggato();
+        if (matricola == null) {
+            return dataset; // dataset vuoto
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            
+            int regalo = reportDAO.VisualizzaOfferteRegalo(matricola);
+            int scambio = reportDAO.VisualizzaOfferteScambio(matricola);
+            int vendita = reportDAO.VisualizzaOfferteVendita(matricola);
+            
+            // aggiunge solo le tipologie con valori > 0
+            if (regalo > 0) {
+                dataset.setValue("Regalo (" + regalo + ")", regalo);
+            }
+            if (scambio > 0) {
+                dataset.setValue("Scambio (" + scambio + ")", scambio);
+            }
+            if (vendita > 0) {
+                dataset.setValue("Vendita (" + vendita + ")", vendita);
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento dataset offerte inviate: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return dataset;
+    }
+    
+    // metodo che prepara il dataset per il grafico delle offerte accettate
+    public DefaultPieDataset<String> getDatasetOfferteAccettate() {
+        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
+        
+        String matricola = getMatricolaUtenteLoggato();
+        if (matricola == null) {
+            return dataset;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            
+            int regaloAccettata = reportDAO.VisualizzaOfferteRegaloAccettata(matricola);
+            int scambioAccettata = reportDAO.VisualizzaOfferteScambioAccettata(matricola);
+            int venditaAccettata = reportDAO.VisualizzaOfferteVenditaAccettata(matricola);
+            
+            // aggiunge le tipologie con valori > 0
+            if (regaloAccettata > 0) {
+                dataset.setValue("Regalo (" + regaloAccettata + ")", regaloAccettata);
+            }
+            if (scambioAccettata > 0) {
+                dataset.setValue("Scambio (" + scambioAccettata + ")", scambioAccettata);
+            }
+            if (venditaAccettata > 0) {
+                dataset.setValue("Vendita (" + venditaAccettata + ")", venditaAccettata);
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento dataset offerte accettate: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return dataset;
+    }
+    
+    // metodo che prepara il dataset per il grafico dei prezzi degli annunci
+    public DefaultCategoryDataset getDatasetPrezzi() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        String matricola = getMatricolaUtenteLoggato();
+        if (matricola == null) {
+            dataset.addValue(0, "Prezzi", "Nessun Dato");
+            return dataset;
+        }
+        
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            String[] prezzi = reportDAO.getPrezziAnnunci(matricola);
+            
+            // validazione dei dati
+            if (prezzi != null && !prezzi[0].contains("Non")) {
+                try {
+                    // Rimuovi il simbolo € e converti in double
+                    double min = Double.parseDouble(prezzi[0].replace("€", "").trim());
+                    double max = Double.parseDouble(prezzi[1].replace("€", "").trim());
+                    double medio = Double.parseDouble(prezzi[2].replace("€", "").trim());
+                    
+                    dataset.addValue(min, "Prezzi", "Minimo");
+                    dataset.addValue(medio, "Prezzi", "Medio");
+                    dataset.addValue(max, "Prezzi", "Massimo");
+                    
+                } catch (NumberFormatException e) {
+                    dataset.addValue(0, "Prezzi", "Nessun Dato");
+                }
+            } else {
+                dataset.addValue(0, "Prezzi", "Nessun Dato");
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Errore durante il caricamento dataset prezzi: " + e.getMessage());
+            e.printStackTrace();
+            dataset.addValue(0, "Prezzi", "Nessun Dato");
+        }
+        
+        return dataset;
+    }
+    
+    
     
  // ==================== METODI LISTA ANNUNCI ====================
 
